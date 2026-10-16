@@ -1,4 +1,7 @@
-// Code shared by the client and server: API types now, FSRS scheduling later.
+// Code shared by the client, server, and data pipeline.
+
+export * from './content.js';
+export * from './pinyin.js';
 
 export interface HealthResponse {
   status: 'ok';

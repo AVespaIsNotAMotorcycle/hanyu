@@ -7,7 +7,8 @@
   "workspaces": [
     "shared",
     "server",
-    "client"
+    "client",
+    "data"
   ],
   "engines": {
     "node": "24.x"
@@ -22,7 +23,10 @@
     "format:check": "prettier --check .",
     "db:up": "docker compose up -d mongo",
     "db:down": "docker compose down",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "db:seed": "npm run build -w shared && npm run seed:dev -w server",
+    "data:fetch": "npm run fetch -w data",
+    "data:build": "npm run build -w shared && npm run build:seed -w data"
   },
   "devDependencies": {
     "concurrently": "^10.0.6",

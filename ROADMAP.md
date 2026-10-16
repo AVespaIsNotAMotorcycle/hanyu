@@ -25,6 +25,8 @@ Reviews are recorded as an append-only stream of review-log events. Clients sync
 
 HSK 3.0 (nine levels in three stages) replaced HSK 2.0 worldwide in July 2026. Source the word lists from the official syllabus released in November 2025, not from third-party copies, which disagree on some per-level counts.
 
+The official PDF has copying disabled, so the pipeline uses transcriptions of that exact PDF (matched by SHA-256) that have the official per-level totals, and spot-checks them against rendered pages. See `data/README.md`.
+
 ### Store Traditional Forms From Day One
 
 Every word record carries both simplified and traditional forms, even while only simplified is displayed. Adding traditional characters later then becomes a display toggle and a new card type rather than a migration.
@@ -58,20 +60,20 @@ This way, 学 is drawn once as its own card rather than separately inside 学生
 
 Estimated time: 1–2 weeks
 
-- [ ] Import HSK 3.0 word lists, tagged by level
-- [ ] Import HSK 3.0 grammar points, tagged by level
-- [ ] Import a word-frequency list (e.g., SUBTLEX-CH, after checking its license) to order new cards
-- [ ] Import CC-CEDICT for pinyin, English definitions, and traditional forms
-- [ ] Import Make Me a Hanzi for stroke paths, stroke-order medians, and character decomposition
-- [ ] Set up a word segmenter (e.g., jieba) for later use in the reading module
-- [ ] Generate word notes and character notes from the merged data
-- [ ] Output a versioned JSON seed dataset committed to the repository
-- [ ] Define Mongoose schemas for users, words, characters, cards, append-only review logs, and grammar points
-- [ ] Write an idempotent seed script that loads the dataset into MongoDB Atlas
+- [x] Import HSK 3.0 word lists, tagged by level
+- [x] Import HSK 3.0 grammar points, tagged by level
+- [x] Import a word-frequency list (e.g., SUBTLEX-CH, after checking its license) to order new cards (wordfreq, CC BY-SA 4.0, which includes SUBTLEX-CH; SUBTLEX-CH alone is licensed for research only)
+- [x] Import CC-CEDICT for pinyin, English definitions, and traditional forms
+- [x] Import Make Me a Hanzi for stroke paths, stroke-order medians, and character decomposition
+- [x] Set up a word segmenter (e.g., jieba) for later use in the reading module
+- [x] Generate word notes and character notes from the merged data
+- [x] Output a versioned JSON seed dataset committed to the repository
+- [x] Define Mongoose schemas for users, words, characters, cards, append-only review logs, and grammar points
+- [x] Write an idempotent seed script that loads the dataset into MongoDB Atlas
 
 ## Phase 1: SRS Core With Pinyin Input (MVP)
 
-- [ ] Scaffold the Express API and React client in one repository
+- [x] Scaffold the Express API and React client in one repository
 - [ ] Add sign-up, sign-in, and authentication middleware on every API route
 - [ ] Deploy to Heroku early: one dyno where Express serves both the API and the React production build
 - [ ] Implement scheduling with FSRS (`ts-fsrs` for TypeScript)
@@ -154,16 +156,19 @@ HSK does not cover Classical Chinese, so this phase requires its own curriculum.
 
 Licenses apply whether or not the app charges money.
 
-| Source                              | License                                               | Obligation                                                                                                |
-| ----------------------------------- | ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| CC-CEDICT                           | CC BY-SA                                              | Credit CC-CEDICT; any redistributed dictionary data derived from it must be shared under the same license |
-| Make Me a Hanzi / hanzi-writer data | Arphic Public License (stroke data from Arphic fonts) | Include the license text; modified stroke data stays under the same license                               |
-| hanzi-writer code                   | MIT                                                   | Keep the copyright notice                                                                                 |
-| HSK 3.0 syllabus                    | Published by the Chinese government                   | Use the word and grammar lists as reference data; don't republish the syllabus document                   |
-| ctext.org                           | Site terms restrict systematic downloading            | Source Classical texts from Wikisource or other public-domain copies, not bulk downloads from ctext       |
+| Source                                             | License                                               | Obligation                                                                                                                                       |
+| -------------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| CC-CEDICT                                          | CC BY-SA                                              | Credit CC-CEDICT; any redistributed dictionary data derived from it must be shared under the same license                                        |
+| Make Me a Hanzi `graphics.txt` / hanzi-writer data | Arphic Public License (stroke data from Arphic fonts) | Include the license text; modified stroke data stays under the same license                                                                      |
+| Make Me a Hanzi `dictionary.txt`                   | LGPL-3.0-or-later (derived from Unihan and CJKlib)    | Include the license text; modified decomposition and etymology data stays under the same license                                                 |
+| wordfreq data                                      | CC BY-SA 4.0 (includes SUBTLEX-CH)                    | Credit wordfreq and the SUBTLEX-CH authors, and make clear SUBTLEX is freely available data; share derived frequency data under the same license |
+| jieba dictionary and `@node-rs/jieba`              | MIT                                                   | Keep the copyright notice                                                                                                                        |
+| hanzi-writer code                                  | MIT                                                   | Keep the copyright notice                                                                                                                        |
+| HSK 3.0 syllabus                                   | Published by the Chinese government                   | Use the word and grammar lists as reference data; don't republish the syllabus document                                                          |
+| ctext.org                                          | Site terms restrict systematic downloading            | Source Classical texts from Wikisource or other public-domain copies, not bulk downloads from ctext                                              |
 
 - [ ] Add a credits page listing every data source and its license
-- [ ] Confirm the exact license version in each downloaded file's header
+- [x] Confirm the exact license version in each downloaded file's header (see `data/seed/README.md` and `data/seed/LICENSES/`)
 
 ## Open Decisions
 

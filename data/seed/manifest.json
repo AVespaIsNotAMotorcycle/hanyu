@@ -1,0 +1,170 @@
+{
+  "version": "0.1.0",
+  "contentHash": "286d0ed1b2cb07d20e1f378640e285c2361c2bf6e69456d8ee1ac8a7d6d37244",
+  "cedictDate": "2026-10-14T21:50:50Z",
+  "sources": [
+    {
+      "id": "hsk-syllabus-pdf",
+      "url": "https://hsk.cn-bj.ufileos.com/3.0/%E6%96%B0%E7%89%88HSK%E8%80%83%E8%AF%95%E5%A4%A7%E7%BA%B21219.pdf",
+      "sha256": "ec74ce0439e837bbb15154be13e747ae798903b2fd3a331629df6c3b45504941",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-words",
+      "url": "https://raw.githubusercontent.com/uranbekanarbaev/hsk-3.0-vocabulary-dataset/6859875bf3ba3b7209dee3b23171f893f7493776/data/hsk-3.0-all.csv",
+      "sha256": "b0e8b07ca76cd0c42be632b4720ae736c0e1b8398d51347a3283c2ab7b4cce6f",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-grammar-1",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Grammar/json/HSK%201.json",
+      "sha256": "5b4809b3ed2b8a3fc34751b436b2345f28c5a4907a6e960879f518d96dd6cf7a",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-grammar-2",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Grammar/json/HSK%202.json",
+      "sha256": "f7444e74b09e6d1c1be3ead9322460f4a6402711ef3b4a6b1208a9d26d35769c",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-grammar-3",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Grammar/json/HSK%203.json",
+      "sha256": "932f18386da53d3bfae6686708babd1180d8fdb83769a7eadc02a8b8c5ae9cda",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-grammar-4",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Grammar/json/HSK%204.json",
+      "sha256": "44f92d6b3acbb30a30ccaf4c6509f457d2f99c06ac11075b7274229376e0110c",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-grammar-5",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Grammar/json/HSK%205.json",
+      "sha256": "5ee2411aeb4a398210ad8c98e6ede9c1d23c7a279f56d817aff6c2f00a4cfde7",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-grammar-6",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Grammar/json/HSK%206.json",
+      "sha256": "877b4b509a32198f5c9c560fa376999df42cbb3715eab225327b571736f39268",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-grammar-7-9",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Grammar/json/HSK%207-9.json",
+      "sha256": "71a74ba053bb9a0e4edd0e10d53ae9dac8b4e7809ed169c0f286203e3fb66c81",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-hanzi-1",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Hanzi/HSK_Level_1_hanzi.txt",
+      "sha256": "ced676f85a85d026b45acc7508cc7a717c32a5f1a51d6d45fbf4fcc2a27baa47",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-hanzi-2",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Hanzi/HSK_Level_2_hanzi.txt",
+      "sha256": "14890e2a1a08bf4da45bbd9bd49989b280c8e67c7f60aaa44fce77b0bf3cf30c",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-hanzi-3",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Hanzi/HSK_Level_3_hanzi.txt",
+      "sha256": "ccb8bf9730d863571339276f58bc13507490c90308042b12de364960a252dcb1",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-hanzi-4",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Hanzi/HSK_Level_4_hanzi.txt",
+      "sha256": "a01fa0be84ef7f3eca73eb6748ed4d47ae55169c7b7d0f6a871f3e09819998cc",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-hanzi-5",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Hanzi/HSK_Level_5_hanzi.txt",
+      "sha256": "ffe11b27379d57c9f4d1e0382eae01bdcd17194e23e2c4363322109dd15132e7",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-hanzi-6",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Hanzi/HSK_Level_6_hanzi.txt",
+      "sha256": "ae118eaa9cda177af90570eee7afd7a18a360d2df31de1d54bea27d0e9c06a60",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-hanzi-7-9",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Hanzi/HSK_Level_7-9_hanzi.txt",
+      "sha256": "74783ee2d65922ed478e08753e5cd1ef20d3d8ccea1189b40ac6ed2243044571",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-handwritten-1-2",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Handwritten/HSK_Level_1-2_handwritten.txt",
+      "sha256": "66ac49b7a98682c09199543672562fb0fcdf1c93954d3851205c2ecdd00c9523",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-handwritten-3",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Handwritten/HSK_Level_3_handwritten.txt",
+      "sha256": "be53cdaf941fb9bb9c999693cecd119818551af80bd30820e28c881941c6f0b2",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-handwritten-4",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Handwritten/HSK_Level_4_handwritten.txt",
+      "sha256": "119f17b31ccf98f458f52b78e03bb02cfd551c8115bc410e2deab64c3f097524",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-handwritten-5",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Handwritten/HSK_Level_5_handwritten.txt",
+      "sha256": "8a77ebedb0a356499e6354c0eda2ec138e38847f047b8ad69b2e80607fe547a4",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-handwritten-6",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Handwritten/HSK_Level_6_handwritten.txt",
+      "sha256": "9a6d7c82759460521467003a57d497aabd740469847d5525746e90baf4b87436",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "hsk-handwritten-7-9",
+      "url": "https://raw.githubusercontent.com/krmanik/HSK-3.0/182692ce5a11bc30bdc771835d2f0f27491c25de/New%20HSK%20(2025)/HSK%20Handwritten/HSK_Level_7-9_handwritten.txt",
+      "sha256": "75a867769641f3249a01413403699ee52475be585eaf0e656fb44ba8ee5fa4e8",
+      "license": "HSK 3.0 syllabus (新版HSK考试大纲, CLEC/CTI, Nov 2025); reference data, not republished"
+    },
+    {
+      "id": "cc-cedict",
+      "url": "https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.txt.gz",
+      "sha256": "7870df51f14efee6c180bd69e97c672ab83eacf2eea330f5e9696c1426fb05aa",
+      "license": "CC BY-SA 4.0"
+    },
+    {
+      "id": "mmah-dictionary",
+      "url": "https://raw.githubusercontent.com/skishore/makemeahanzi/bddc96d41bef78427ed0e034e9f7e31d71fd1b92/dictionary.txt",
+      "sha256": "744bb05d5b0742e9ee35c37791f94d56a173349b3367569e7ca11e510364d203",
+      "license": "LGPL-3.0-or-later"
+    },
+    {
+      "id": "mmah-graphics",
+      "url": "https://raw.githubusercontent.com/skishore/makemeahanzi/bddc96d41bef78427ed0e034e9f7e31d71fd1b92/graphics.txt",
+      "sha256": "a28c478b5178e98f67f510b2d52fde08a69dc664654ef43498253b9b764d46ee",
+      "license": "Arphic Public License"
+    },
+    {
+      "id": "wordfreq-zh",
+      "url": "https://raw.githubusercontent.com/rspeer/wordfreq/912caf64b657478d1dff1138efdc078947d54bb1/wordfreq/data/large_zh.msgpack.gz",
+      "sha256": "e079d7aaff1cfb92874850cb3ffbc7b611af939d9d671c1cbda932d968467cdd",
+      "license": "CC BY-SA 4.0 (includes SUBTLEX-CH, credit its authors)"
+    }
+  ],
+  "counts": {
+    "words.json": 11000,
+    "characters.json": 3088,
+    "character-details.json": 3088,
+    "strokes.json": 3088,
+    "grammar.json": 593
+  }
+}

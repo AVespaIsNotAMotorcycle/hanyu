@@ -1,6 +1,6 @@
 services:
   mongo:
-    image: mongo:8
+    image: mongo:8.2 # the current mongo:8 image refuses to start on Linux 6.19+ (SERVER-121912)
     ports:
       - '27017:27017'
     volumes:
