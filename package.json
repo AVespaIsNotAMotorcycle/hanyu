@@ -1,0 +1,32 @@
+{
+  "name": "hanyu",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A personal app for learning to read Chinese",
+  "type": "module",
+  "workspaces": [
+    "shared",
+    "server",
+    "client"
+  ],
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "npm run build -w shared && concurrently -n shared,server,client -c magenta,blue,green \"npm run dev -w shared\" \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w shared && npm run build -w server && npm run build -w client",
+    "start": "npm run start -w server",
+    "test": "npm run build -w shared && npm run test --workspaces --if-present",
+    "typecheck": "npm run build -w shared && npm run typecheck --workspaces --if-present",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "db:up": "docker compose up -d mongo",
+    "db:down": "docker compose down",
+    "heroku-postbuild": "npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6",
+    "prettier": "^3.9.10",
+    "typescript": "^7.0.2"
+  }
+}
