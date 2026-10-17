@@ -15,6 +15,7 @@
   "dependencies": {
     "@hanyu/shared": "^0.1.0",
     "express": "^5.3.0",
+    "express-rate-limit": "^8.7.1",
     "mongoose": "^9.11.2"
   },
   "devDependencies": {

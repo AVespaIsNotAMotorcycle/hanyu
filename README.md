@@ -37,7 +37,7 @@ npm run dev            # shared (watch) + server (:5000) + client (:5173)
 
 The seed dataset in `data/seed` is committed, so seeding needs no downloads. To rebuild it from the original sources, see [data/README.md](data/README.md).
 
-Open http://localhost:5173. The page shows whether the API and database are reachable.
+Open http://localhost:5173 and create an account. Once signed in, the page shows whether the API and database are reachable.
 
 ## Scripts
 
@@ -62,10 +62,24 @@ Environment variables, read from `.env` locally (see `.env.example`) or Heroku c
 
 | Variable           | Default                           | Purpose                                                                       |
 | ------------------ | --------------------------------- | ----------------------------------------------------------------------------- |
-| `NODE_ENV`         | `development`                     | `production` makes Express serve the client                                   |
+| `NODE_ENV`         | `development`                     | `production` serves the client, uses `Secure` cookies, trusts Heroku's proxy  |
 | `PORT`             | `5000`                            | API port (Heroku sets this)                                                   |
 | `MONGODB_URI`      | `mongodb://localhost:27017/hanyu` | MongoDB connection string                                                     |
 | `MONGODB_TEST_URI` | (unset)                           | MongoDB server for the database integration tests; they're skipped when unset |
+
+## Authentication
+
+Accounts use an email and password. Passwords are hashed with scrypt (`node:crypto`). Signing in creates a session: the browser gets a random token in an `HttpOnly`, `SameSite=Strict` cookie, and MongoDB stores only the token's SHA-256 (the `sessions` collection, with a TTL index). Sessions last 30 days from their last use.
+
+Every API route requires a session except these:
+
+| Route                     | Purpose                                              |
+| ------------------------- | ---------------------------------------------------- |
+| `POST /api/auth/sign-up`  | `{ email, password, displayName? }` → 201 `{ user }` |
+| `POST /api/auth/sign-in`  | `{ email, password }` → `{ user }`                   |
+| `POST /api/auth/sign-out` | Ends the current session, if any → 204               |
+
+`GET /api/auth/me` returns the signed-in user. Failed sign-ins (10 per 15 minutes) and failed sign-ups (10 per hour) are rate-limited per IP, in memory, which is enough for one dyno. There is no password reset yet.
 
 ## Deploying to Heroku
 

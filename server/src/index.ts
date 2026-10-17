@@ -4,7 +4,10 @@ import { connectDb } from './db.js';
 
 await connectDb(config.mongodbUri);
 
-const app = createApp({ serveClient: config.isProduction });
+const app = createApp({
+  serveClient: config.isProduction,
+  trustProxy: config.isProduction,
+});
 
 app.listen(config.port, () => {
   console.log(`Server listening on http://localhost:${config.port}`);

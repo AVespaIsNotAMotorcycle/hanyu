@@ -17,6 +17,8 @@ These should be settled before writing code, because they shape the data model.
 
 The app is built around one learner's needs but is open to anyone. Every route except sign-in requires authentication, which also keeps the LLM endpoints from being used by strangers. Every card, review log, and grading record carries a `userId`.
 
+Accounts use an email and password, with server-side sessions in an `HttpOnly` cookie (decided October 2026; OAuth can be added later).
+
 ### Sync Review Logs, Not Card State
 
 Reviews are recorded as an append-only stream of review-log events. Clients sync logs, not card state, and FSRS state is recomputed from the logs. Merging offline reviews from multiple devices is then a union of events, with no conflict resolution.
@@ -74,7 +76,7 @@ Estimated time: 1–2 weeks
 ## Phase 1: SRS Core With Pinyin Input (MVP)
 
 - [x] Scaffold the Express API and React client in one repository
-- [ ] Add sign-up, sign-in, and authentication middleware on every API route
+- [x] Add sign-up, sign-in, and authentication middleware on every API route
 - [ ] Deploy to Heroku early: one dyno where Express serves both the API and the React production build
 - [ ] Implement scheduling with FSRS (`ts-fsrs` for TypeScript)
 - [ ] Build a pinyin answer field that:
@@ -174,7 +176,6 @@ Licenses apply whether or not the app charges money.
 
 - LLM provider and model for passage generation and grading
 - Monthly LLM budget, and per-user rate limits on grading
-- Authentication method (email and password, OAuth, or both)
 
 ## Technical Stack
 
