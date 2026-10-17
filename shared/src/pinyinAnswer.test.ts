@@ -3,6 +3,7 @@ import {
   convertToneNumbers,
   displayPinyin,
   gradePinyin,
+  ratingForPinyin,
   type PinyinGrade,
 } from './pinyinAnswer.js';
 
@@ -143,5 +144,27 @@ describe('gradePinyin', () => {
   it('handles syllabic nasals', () => {
     expect(gradePinyin('ǹg', ['ng4']).verdict).toBe('correct');
     expect(gradePinyin('ng4', ['ng4']).verdict).toBe('correct');
+  });
+});
+
+describe('ratingForPinyin', () => {
+  const rate = (answer: string, readings: string[], hanzi?: string) =>
+    ratingForPinyin(gradePinyin(answer, readings, hanzi));
+
+  it('rates a fully correct answer Good', () => {
+    expect(rate('xue2sheng', ['xue2 sheng5'])).toBe(3);
+    expect(rate('shuí', ['shei2', 'shui2'])).toBe(3);
+  });
+
+  it('rates tone errors alone Hard, sandhi included', () => {
+    expect(rate('xuesheng', ['xue2 sheng5'])).toBe(2);
+    expect(rate('lao3shi3', ['lao3 shi1'])).toBe(2);
+    expect(rate('ni2hao3', ['ni3 hao3'], '你好')).toBe(2);
+  });
+
+  it('rates wrong syllables Again, even with the tones right', () => {
+    expect(rate('xue2shen', ['xue2 sheng5'])).toBe(1);
+    expect(rate('na3', ['na3 r5'], '哪儿')).toBe(1);
+    expect(rate('', ['xue2 sheng5'])).toBe(1);
   });
 });

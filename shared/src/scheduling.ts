@@ -100,6 +100,13 @@ function toFsrs(schedule: CardSchedule): FsrsCard {
   };
 }
 
+export const RATING_LABELS: Record<Rating, string> = {
+  1: 'Again',
+  2: 'Hard',
+  3: 'Good',
+  4: 'Easy',
+};
+
 export function isRating(value: unknown): value is Rating {
   return value === 1 || value === 2 || value === 3 || value === 4;
 }

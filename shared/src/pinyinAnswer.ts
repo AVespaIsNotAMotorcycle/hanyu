@@ -1,6 +1,7 @@
 // Typed pinyin answers: live tone-number conversion for the answer field, and
 // grading against a word's citation reading.
 
+import type { Rating } from './content.js';
 import { normalizeUmlaut, numberedToMarked } from './pinyin.js';
 
 // Every toneless Mandarin syllable that CC-CEDICT uses, plus the syllabic
@@ -306,4 +307,19 @@ export function gradePinyin(
         ? 1 + g.syllables.filter((s) => !s.correct).length / 100
         : 2;
   return grades.reduce((best, g) => (rank(g) < rank(best) ? g : best));
+}
+
+const VERDICT_RATINGS: Record<PinyinVerdict, Rating> = {
+  correct: 3, // Good
+  tone: 2, // Hard: the word was recalled, its tones weren't
+  wrong: 1, // Again
+};
+
+/**
+ * The FSRS rating for a graded pinyin answer, so the learner never rates
+ * themselves: fully correct → Good, tone errors only (sandhi included) →
+ * Hard, wrong syllables → Again. Easy is never assigned automatically.
+ */
+export function ratingForPinyin(grade: Pick<PinyinGrade, 'verdict'>): Rating {
+  return VERDICT_RATINGS[grade.verdict];
 }

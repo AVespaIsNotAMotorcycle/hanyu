@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import {
   displayPinyin,
   gradePinyin,
+  RATING_LABELS,
+  ratingForPinyin,
   type PinyinGrade,
   type WordNote,
   type WordSampleResponse,
@@ -102,6 +104,9 @@ function Feedback({ grade }: { grade: PinyinGrade }) {
   return (
     <div className={`feedback ${grade.verdict}`} role="status">
       <strong>{VERDICTS[grade.verdict]}</strong>{' '}
+      <span className="rating">
+        (would rate {RATING_LABELS[ratingForPinyin(grade)]})
+      </span>{' '}
       <span lang="zh-Latn-pinyin">
         {grade.verdict === 'wrong'
           ? displayPinyin(grade.reading)

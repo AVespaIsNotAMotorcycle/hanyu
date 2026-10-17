@@ -83,7 +83,7 @@ Estimated time: 1–2 weeks
   - Accepts tone numbers (`xue2sheng5`) and renders them as diacritics
   - Is lenient about spacing and the neutral tone
   - Grades against citation tones, not tone sandhi
-- [ ] Map typed answers to FSRS grades automatically:
+- [x] Map typed answers to FSRS grades automatically:
   - Fully correct → Good
   - Tone error only → Hard
   - Wrong syllable → Again

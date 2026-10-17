@@ -129,3 +129,8 @@ button.link {
 .feedback .hint {
   margin: 0.25rem 0 0;
 }
+
+.feedback .rating {
+  opacity: 0.7;
+  font-size: 0.875rem;
+}
