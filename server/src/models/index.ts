@@ -8,3 +8,4 @@ export { SessionModel } from './session.js';
 export { UserModel } from './user.js';
 export { WordModel } from './word.js';
 export { TranslationGradingModel } from './translationGrading.js';
+export { AudioClipModel } from './audioClip.js';

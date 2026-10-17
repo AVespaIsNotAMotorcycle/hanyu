@@ -16,7 +16,10 @@
     "passages:coverage": "tsx src/passages/cli.ts coverage",
     "grader:learner-set": "tsx --env-file-if-exists=../.env src/grader/cli.ts learner-set",
     "grader:eval": "tsx --env-file-if-exists=../.env src/grader/cli.ts eval",
-    "grader:consistency": "tsx --env-file-if-exists=../.env src/grader/cli.ts consistency"
+    "grader:consistency": "tsx --env-file-if-exists=../.env src/grader/cli.ts consistency",
+    "audio:generate": "tsx --env-file-if-exists=../.env src/audio/cli.ts generate",
+    "audio:sample": "tsx --env-file-if-exists=../.env src/audio/cli.ts sample",
+    "audio:status": "tsx src/audio/cli.ts status"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",

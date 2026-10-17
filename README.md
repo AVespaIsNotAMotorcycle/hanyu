@@ -63,6 +63,9 @@ Run from the repository root:
 | `npm run grader:learner-set` | Build the grader's learner-style eval set from passages                |
 | `npm run grader:eval`        | Run the grader eval set (whenever the grading prompt or model changes) |
 | `npm run grader:consistency` | Re-grade a fixed sample and compare with the eval run                  |
+| `npm run audio:generate`     | Record passages and HSK words with Azure text-to-speech                |
+| `npm run audio:sample`       | Record one phrase to `data/audio/sample.mp3`, to try a voice           |
+| `npm run audio:status`       | How many clips are recorded and how many are missing                   |
 
 ## Configuration
 
@@ -77,6 +80,8 @@ Environment variables, read from `.env` locally (see `.env.example`) or Heroku c
 | `ANTHROPIC_API_KEY`          | (unset)                           | Translation grading (off without it) and the offline passage and eval scripts |
 | `GRADING_DAILY_LIMIT`        | `20`                              | Gradings per user in any 24 hours                                             |
 | `GRADING_MONTHLY_BUDGET_USD` | `10`                              | Grading spend across all users per calendar month (UTC)                       |
+| `AZURE_SPEECH_KEY`           | (unset)                           | Recording audio offline (`audio:generate`); not needed on Heroku              |
+| `AZURE_SPEECH_REGION`        | (unset)                           | The Azure Speech resource's region, e.g. `eastus`                             |
 
 ## Authentication
 
@@ -95,6 +100,8 @@ Every API route requires a session except these:
 ## Offline and Installing
 
 The client is a PWA: install it from the browser (Add to Home Screen on iPad and Android). After one visit online it starts without a connection. Reviews are saved on the device first (IndexedDB) and sync when the connection returns.
+
+Read-aloud (🔊 buttons on passages, questions, word lookups, and answered pinyin cards) plays recordings made offline with an Azure neural voice (`npm run audio:generate`; see [data/README.md](data/README.md)), kept on the device once played. Text without a recording is read by the device's own Mandarin voice through the Web Speech API. The voice and speed are chosen per device under "Read aloud" on the decks page. Recordings give each reading of words like 行 (xíng, háng) correctly; the device voice can't, so it doesn't read those.
 
 ## Deploying to Heroku
 

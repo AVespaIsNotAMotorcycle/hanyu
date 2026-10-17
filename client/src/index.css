@@ -240,7 +240,8 @@ button.link {
   gap: 1.5rem;
 }
 
-.handwriting-settings {
+.handwriting-settings,
+.speech-settings {
   display: grid;
   gap: 0.5rem;
   margin: 1rem 0;
@@ -255,11 +256,13 @@ button.link {
   padding: 0.125rem 0.25rem;
 }
 
-.handwriting-settings select {
+.handwriting-settings select,
+.speech-settings select {
   font: inherit;
 }
 
-.handwriting-settings .hint {
+.handwriting-settings .hint,
+.speech-settings .hint {
   margin: 0;
   font-size: 0.875rem;
 }
@@ -362,6 +365,35 @@ button.link {
 
 .passage-text .token[aria-pressed='true'] {
   background: color-mix(in srgb, #d97706 25%, transparent);
+}
+
+/* Read-aloud buttons: small and quiet beside the text they read. */
+button.speak {
+  font-size: 1rem;
+  line-height: 1;
+  vertical-align: middle;
+  padding: 0.25rem 0.375rem;
+  margin: 0 0.375rem 0 0;
+  background: none;
+  border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  border-radius: 0.375rem;
+  color: inherit;
+  cursor: pointer;
+}
+
+button.speak[aria-pressed='true'] {
+  background: color-mix(in srgb, #d97706 20%, transparent);
+}
+
+.card-word button.speak {
+  margin: 0 0 0 0.5rem;
+}
+
+.speak-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 /* The lookup card stays in view at the bottom while reading. */

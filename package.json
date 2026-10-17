@@ -34,7 +34,10 @@
     "passages:coverage": "npm run build -w shared && npm run passages:coverage -w data --",
     "grader:learner-set": "npm run build -w shared && npm run grader:learner-set -w data --",
     "grader:eval": "npm run build -w shared && npm run grader:eval -w data --",
-    "grader:consistency": "npm run build -w shared && npm run grader:consistency -w data --"
+    "grader:consistency": "npm run build -w shared && npm run grader:consistency -w data --",
+    "audio:generate": "npm run build -w shared && npm run audio:generate -w data --",
+    "audio:sample": "npm run build -w shared && npm run audio:sample -w data --",
+    "audio:status": "npm run build -w shared && npm run audio:status -w data --"
   },
   "devDependencies": {
     "concurrently": "^10.0.6",

@@ -14,6 +14,7 @@ import {
 } from '@hanyu/shared';
 import { putJson, timeZone } from './api';
 import { useStudyData } from './local/LocalData';
+import { SpeechSettings } from './Speak';
 
 /** Per-level decks: which introduce new cards, progress, and the daily limit. */
 export function Decks({
@@ -209,6 +210,7 @@ export function Decks({
           </>
         )}
       </fieldset>
+      <SpeechSettings />
       {saveError && (
         <p className="error" role="alert">
           Couldn’t save: {saveError}

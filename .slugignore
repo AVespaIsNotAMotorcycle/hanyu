@@ -1,0 +1,3 @@
+# Not needed to build or run the app: db:seed loads recorded audio into
+# MongoDB from a checkout.
+data/audio

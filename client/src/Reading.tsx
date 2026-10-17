@@ -1,9 +1,11 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import {
+  audioKeys,
   cardKey,
   checkClozeAnswer,
   CLOZE_BLANK,
   displayPinyin,
+  filledCloze,
   HSK_LEVEL_LABELS,
   HSK_LEVELS,
   isHanziToken,
@@ -32,6 +34,7 @@ import { HandwritingQuiz } from './HandwritingQuiz';
 import { loadCharacters } from './local/content';
 import { useLocalData, useStudyData } from './local/LocalData';
 import type { LocalStore } from './local/store';
+import { SpeakButton, SpeakSlowlyToggle } from './Speak';
 import { TranslationExercises } from './Translation';
 
 // Passages opened on this device. Only recommendations use it, so it isn't
@@ -240,10 +243,32 @@ function PassageView({
       </p>
       <h2 lang="zh-Hans">{passage.title}</h2>
       <p className="hint">{passage.titleEnglish}</p>
+      <p className="speak-bar">
+        <SpeakButton
+          parts={[
+            {
+              text: passage.title,
+              clip: audioKeys.passageTitle(passage._id),
+            },
+            ...paragraphs(passage.text).map((text, i) => ({
+              text,
+              clip: audioKeys.paragraph(passage._id, i),
+            })),
+          ]}
+          label="Listen to the passage"
+          showLabel
+        />{' '}
+        <SpeakSlowlyToggle />
+      </p>
       <div className="passage-text" lang="zh-Hans">
         {passage.tokens?.length
           ? passage.tokens.map((tokens, i) => (
               <p key={i}>
+                <SpeakButton
+                  text={tokens.join('')}
+                  clip={audioKeys.paragraph(passage._id, i)}
+                  label={`Listen to paragraph ${i + 1}`}
+                />
                 {tokens.map((token, j) =>
                   isHanziToken(token) ? (
                     <button
@@ -267,7 +292,16 @@ function PassageView({
                 )}
               </p>
             ))
-          : paragraphs(passage.text).map((p, i) => <p key={i}>{p}</p>)}
+          : paragraphs(passage.text).map((p, i) => (
+              <p key={i}>
+                <SpeakButton
+                  text={p}
+                  clip={audioKeys.paragraph(passage._id, i)}
+                  label={`Listen to paragraph ${i + 1}`}
+                />
+                {p}
+              </p>
+            ))}
       </div>
       {passage.tokens?.length ? (
         <p className="hint">Tap a word to look it up.</p>
@@ -317,9 +351,9 @@ function PassageView({
         {passage.questions.map((q) => (
           <li key={q.id}>
             {q.type === 'choice' ? (
-              <Choice question={q} english={english} />
+              <Choice passageId={passage._id} question={q} english={english} />
             ) : (
-              <Cloze question={q} user={user} />
+              <Cloze passageId={passage._id} question={q} user={user} />
             )}
           </li>
         ))}
@@ -357,6 +391,9 @@ function WordLookup({
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const pending = pendingAddedWords(user.settings, summaries);
+  // The device voice can't tell which reading of 行 (xíng, háng) is meant;
+  // recordings can.
+  const oneReading = new Set(entries.map((w) => w.citationPinyin)).size === 1;
 
   async function change(wordId: string, add: boolean) {
     setBusy(wordId);
@@ -431,6 +468,7 @@ function WordLookup({
           <span lang="zh-Hans" className="lookup-word">
             {token}
           </span>{' '}
+          <SpeakButton text={token} label={`Listen to ${token}`} />{' '}
           <span className="hint">
             {isName ? 'A name.' : 'Not in the HSK word lists.'}
           </span>
@@ -451,6 +489,12 @@ function WordLookup({
               <span lang="zh-Latn-pinyin">
                 {displayPinyin(word.citationPinyin)}
               </span>{' '}
+              <SpeakButton
+                text={word.simplified}
+                clip={audioKeys.word(word._id)}
+                device={oneReading}
+                label={`Listen to ${word.simplified}`}
+              />{' '}
               <span className="hint">HSK {HSK_LEVEL_LABELS[word.level]}</span>
             </p>
             {word.definitions.length > 0 && (
@@ -470,16 +514,25 @@ function WordLookup({
 }
 
 function Choice({
+  passageId,
   question,
   english,
 }: {
+  passageId: string;
   question: ChoiceQuestion;
   english: boolean;
 }) {
   const [picked, setPicked] = useState<number | null>(null);
   return (
     <div className="question">
-      <p lang="zh-Hans">{question.prompt}</p>
+      <p lang="zh-Hans">
+        <SpeakButton
+          text={question.prompt}
+          clip={audioKeys.prompt(passageId, question.id)}
+          label="Listen to the question"
+        />
+        {question.prompt}
+      </p>
       {english && <p className="hint">{question.promptEnglish}</p>}
       <div className="options">
         {question.options.map((option, i) => (
@@ -536,9 +589,11 @@ function savedMode(): Mode {
  * choice becomes the default for the next.
  */
 function Cloze({
+  passageId,
   question,
   user,
 }: {
+  passageId: string;
   question: ClozeQuestion;
   user: AuthUser;
 }) {
@@ -572,6 +627,13 @@ function Cloze({
         </span>
         {after}
       </p>
+      {result && (
+        <SpeakButton
+          text={filledCloze(question.sentence, question.answer)}
+          clip={audioKeys.cloze(passageId, question.id)}
+          label="Listen to the sentence"
+        />
+      )}
       <p className="hint">Hint: {question.hint}</p>
       {!result && (
         <div className="mode-switch" role="group" aria-label="Answer by">

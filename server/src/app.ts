@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import compression from 'compression';
 import express, { type ErrorRequestHandler } from 'express';
 import { requireAuth } from './auth/requireAuth.js';
+import { audioRouter } from './routes/audio.js';
 import { createAuthRouter } from './routes/auth.js';
 import { healthRouter } from './routes/health.js';
 import { reviewsRouter } from './routes/reviews.js';
@@ -54,6 +55,7 @@ export function createApp({
   api.use('/settings', settingsRouter);
   api.use(contentRouter);
   api.use('/passages', passagesRouter);
+  api.use('/audio', audioRouter);
   api.use('/translations', createTranslationsRouter(grading));
   api.use((_req, res) => {
     res.status(404).json({ error: 'Not found' });

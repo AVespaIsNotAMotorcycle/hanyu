@@ -11,3 +11,6 @@ atlas-credentials.env
 
 # Downloaded pipeline sources (npm run fetch -w data). Never commit: includes the HSK syllabus PDF.
 data/raw/
+
+# Voice trials from npm run audio:sample (the recorded clips themselves are committed).
+data/audio/sample.mp3

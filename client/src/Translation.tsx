@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import {
+  audioKeys,
   CRITERIA,
   CRITERION_LABELS,
   MAX_TRANSLATION_LENGTH,
@@ -15,6 +16,7 @@ import {
   type WordNote,
 } from '@hanyu/shared';
 import { getJson, postJson } from './api';
+import { SpeakButton } from './Speak';
 
 /**
  * Chinese → English translation exercises, one per paragraph, graded by the
@@ -129,6 +131,11 @@ function Exercise({
   return (
     <div className="exercise">
       <p lang="zh-Hans" className="source">
+        <SpeakButton
+          text={source}
+          clip={audioKeys.paragraph(passageId, paragraph)}
+          label="Listen to the paragraph"
+        />
         {latest && !editing ? (
           <Highlighted
             text={source}

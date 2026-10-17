@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import {
+  audioKeys,
   applyReview,
   buildQueue,
   displayPinyin,
@@ -26,6 +27,7 @@ import { formatInterval } from './format';
 import { HandwritingQuiz } from './HandwritingQuiz';
 import { useLocalData, useStudyData } from './local/LocalData';
 import { PinyinInput } from './PinyinInput';
+import { SpeakButton } from './Speak';
 
 interface Answered {
   rating: Rating;
@@ -219,6 +221,16 @@ export function StudySession({
             <>
               <p className="card-word" lang="zh-Hans">
                 {current.word.simplified}
+                {/* After answering, so it doesn't give the reading away. The
+                    device voice may misread homographs; recordings don't. */}
+                {answered && (
+                  <SpeakButton
+                    text={current.word.simplified}
+                    clip={audioKeys.word(current.word._id)}
+                    device={current.word.homograph === null}
+                    label={`Listen to ${current.word.simplified}`}
+                  />
+                )}
               </p>
               <p className="hint">{current.word.definitions[0]}</p>
               <PinyinInput
