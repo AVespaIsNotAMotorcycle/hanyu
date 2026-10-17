@@ -18,6 +18,7 @@ import {
   newCardAllowance,
   parseCardKey,
   parseSchedule,
+  pendingAddedWords,
   serializeSchedule,
   studyDayStart,
   summarizeCards,
@@ -276,6 +277,33 @@ describe('buildQueue and buildDecks', () => {
       newCount: 1,
       introducedToday: 1,
     });
+  });
+
+  it('introduces added words first, from any level, within the allowance', () => {
+    const queue = build([log('w1', new Date(now.getTime() - MINUTE))], {
+      settings: {
+        ...settings,
+        dailyNewCards: 3,
+        // w1 is started, w9 doesn't exist: both are skipped.
+        addedWords: ['w5', 'w1', 'w9', 'w2'],
+      },
+    });
+    expect(
+      queue.cards.map((c) => [c.word._id, c.schedule?.phase ?? 'new']),
+    ).toEqual([
+      ['w1', 'learning'],
+      ['w5', 'new'],
+      ['w2', 'new'],
+    ]);
+    expect(queue.newCount).toBe(2);
+  });
+
+  it('lists added words that are still waiting', () => {
+    const summaries = summarizeCards([log('w1', now)]);
+    expect(pendingAddedWords({ addedWords: ['w5', 'w1'] }, summaries)).toEqual([
+      'w5',
+    ]);
+    expect(pendingAddedWords({}, summaries)).toEqual([]);
   });
 
   it('keeps reviewing started cards from disabled levels', () => {

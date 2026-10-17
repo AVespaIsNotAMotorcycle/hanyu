@@ -56,7 +56,9 @@ Run from the repository root:
 | `npm run data:fetch`        | Download pipeline sources into `data/raw` and verify their hashes      |
 | `npm run data:build`        | Rebuild `data/seed` from `data/raw`                                    |
 | `npm run passages:generate` | Generate reading passages with Claude (see `data/README.md`)           |
-| `npm run passages:coverage` | Passages and grammar coverage per level                                |
+| `npm run passages:check`    | Segment passages and run the answer-key check where it's missing       |
+| `npm run passages:review`   | Spot-check a random sample of passages by hand                         |
+| `npm run passages:coverage` | Passages, check and review status, and grammar coverage per level      |
 
 ## Configuration
 

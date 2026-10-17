@@ -2,7 +2,8 @@ import { model, Schema } from 'mongoose';
 
 // Loaded from data/passages (generated offline, reviewed in git). _id is the
 // passage ID (p1-0001). Questions are a union of choice and cloze shapes,
-// validated by the generator, so they're stored as given.
+// validated by the generator, so they're stored as given, as are the
+// answer-key check and the hand review.
 const passageSchema = new Schema(
   {
     _id: { type: String, required: true },
@@ -19,12 +20,15 @@ const passageSchema = new Schema(
       },
     ],
     questions: { type: [Schema.Types.Mixed], required: true },
+    tokens: { type: [[String]], required: true },
     verification: {
       tokens: Number,
       atOrBelowLevel: Number,
       share: Number,
       offLevel: [String],
     },
+    answerKeyCheck: { type: Schema.Types.Mixed, required: true },
+    review: { type: Schema.Types.Mixed, default: null },
     generation: {
       model: String,
       promptVersion: String,

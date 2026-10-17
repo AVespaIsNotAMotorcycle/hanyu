@@ -15,11 +15,20 @@ import {
   type Llm,
 } from '../src/passages/generate.js';
 import {
+  CHECK_PROMPT_VERSION,
+  evaluateCheck,
+  needsCheck,
+} from '../src/passages/answerKey.js';
+import {
+  deletePassage,
   grammarCoverage,
+  libraryStatus,
   nextPassageId,
+  pickSample,
   readPassages,
   writePassage,
 } from '../src/passages/library.js';
+import { formatForReview } from '../src/passages/review.js';
 import { createSegmenter } from '../src/segmenter.js';
 
 const content = loadSeedContent();
@@ -90,21 +99,48 @@ const usage = {
   cache_read_input_tokens: 3000,
 };
 
+/** The answer-key checker agreeing with goodDraft's key. */
+const agreeingCheck = () => ({
+  choiceAnswers: ['c1', 'c2', 'c3'].map((questionId) => ({
+    questionId,
+    answer: 0,
+    alsoDefensible: [] as number[],
+  })),
+  clozeAnswers: [
+    { questionId: 'z1', answer: '书', alsoFits: [] },
+    { questionId: 'z2', answer: '前边', alsoFits: [] },
+    { questionId: 'z3', answer: '回家', alsoFits: ['回去'] },
+  ],
+  issues: [{ severity: 'minor', description: 'A little plain.' }],
+});
+
+const isCheckCall = (
+  params: Anthropic.Messages.MessageCreateParamsNonStreaming,
+) => typeof params.system === 'string';
+
 /**
- * A fake client that answers each call with the next draft as JSON text, the
- * way structured outputs replies. A string draft is sent as is (for
- * truncated replies).
+ * A fake client that answers each generation call with the next draft as
+ * JSON text, the way structured outputs replies, and each answer-key check
+ * with the next check reply (agreeing with the key once they run out). A
+ * string draft is sent as is (for truncated replies).
  */
-function fakeLlm(drafts: unknown[]) {
+function fakeLlm(drafts: unknown[], checks: unknown[] = []) {
   const calls: Anthropic.Messages.MessageCreateParamsNonStreaming[] = [];
+  const checkCalls: Anthropic.Messages.MessageCreateParamsNonStreaming[] = [];
   const llm: Llm = {
     async create(params) {
       // The API rejects forced tool use for this model.
       expect(params).not.toHaveProperty('tool_choice');
       expect(params).not.toHaveProperty('tools');
-      calls.push(structuredClone(params));
-      const draft = drafts[calls.length - 1];
-      const text = typeof draft === 'string' ? draft : JSON.stringify(draft);
+      let reply: unknown;
+      if (isCheckCall(params)) {
+        checkCalls.push(structuredClone(params));
+        reply = checks[checkCalls.length - 1] ?? agreeingCheck();
+      } else {
+        calls.push(structuredClone(params));
+        reply = drafts[calls.length - 1];
+      }
+      const text = typeof reply === 'string' ? reply : JSON.stringify(reply);
       return {
         content: [
           {
@@ -114,11 +150,11 @@ function fakeLlm(drafts: unknown[]) {
           } as Anthropic.Messages.TextBlock,
         ],
         usage: usage as Anthropic.Messages.Usage,
-        stop_reason: typeof draft === 'string' ? 'max_tokens' : 'end_turn',
+        stop_reason: typeof reply === 'string' ? 'max_tokens' : 'end_turn',
       };
     },
   };
-  return { llm, calls };
+  return { llm, calls, checkCalls };
 }
 
 /** Every object in a JSON schema, depth first. */
@@ -133,6 +169,20 @@ function objects(schema: Record<string, unknown>): Record<string, unknown>[] {
     found.push(...objects(schema.items as Record<string, unknown>));
   return found;
 }
+
+/** A passage generated from goodDraft, checked by agreeingCheck. */
+const generated = (
+  await generatePassage({
+    id: 'p1-0001',
+    level: 1,
+    targets,
+    content,
+    segmenter,
+    llm: fakeLlm([goodDraft()]).llm,
+    budgetUsd: 5,
+  })
+).passage!;
+const passageFixture = (): Passage => structuredClone(generated);
 
 const check = (draft: ReturnType<typeof goodDraft>) =>
   draftProblems(draft, { level: 1, targets, content, segmenter }).problems;
@@ -204,7 +254,7 @@ describe('generatePassage', () => {
     });
 
   it('returns a verified passage with its questions and provenance', async () => {
-    const { llm, calls } = fakeLlm([goodDraft()]);
+    const { llm, calls, checkCalls } = fakeLlm([goodDraft()]);
     const result = await run(llm);
 
     expect(result.attempts).toBe(1);
@@ -240,6 +290,70 @@ describe('generatePassage', () => {
     expect(schemaObjects.length).toBe(4); // passage, grammar use, two question kinds
     for (const o of schemaObjects) expect(o.additionalProperties).toBe(false);
     expect(calls[0]!.messages[0]!.content).toMatch(/g1-001.*\n.*g1-002/);
+
+    // Checked by an independent call that doesn't see the key.
+    expect(checkCalls).toHaveLength(1);
+    const exercise = String(checkCalls[0]!.messages[0]!.content);
+    expect(exercise).toContain('小明买了一本＿＿。');
+    expect(exercise).not.toContain('explanation');
+    expect(exercise).not.toContain('The first sentence says');
+    expect(passage.answerKeyCheck).toMatchObject({
+      passed: true,
+      promptVersion: CHECK_PROMPT_VERSION,
+      issues: [{ severity: 'minor' }],
+    });
+    expect(passage.answerKeyCheck!.answers[0]).toEqual({
+      questionId: 'c1',
+      given: '大学生',
+      agrees: true,
+      alternatives: [],
+    });
+    expect(passage.answerKeyCheck!.answers[5]).toMatchObject({
+      given: '回家',
+      alternatives: ['回去'],
+    });
+    expect(result.costUsd).toBeCloseTo(2 * costOf(usage));
+    expect(passage.generation.costUsd).toBeCloseTo(2 * costOf(usage), 3);
+    expect(passage.review).toBeNull();
+
+    // Segmented for tap-to-look-up, one token list per paragraph.
+    expect(passage.tokens).toHaveLength(2);
+    expect(passage.tokens.map((p) => p.join(''))).toEqual(
+      passage.text.split('\n\n'),
+    );
+    expect(passage.tokens[0]).toEqual(
+      expect.arrayContaining(['小明', '大学生', '朋友']),
+    );
+  });
+
+  it('sends answer-key disagreements back for revision', async () => {
+    const disagree = agreeingCheck();
+    disagree.choiceAnswers[1]!.answer = 1;
+    disagree.choiceAnswers[2]!.alsoDefensible = [1];
+    disagree.clozeAnswers[0]!.answer = '本子';
+    disagree.issues.push({
+      severity: 'major',
+      description: 'The second paragraph contradicts the first.',
+    });
+    const { llm, calls, checkCalls } = fakeLlm(
+      [goodDraft(), goodDraft()],
+      [disagree],
+    );
+    const result = await run(llm);
+
+    expect(result.attempts).toBe(2);
+    expect(checkCalls).toHaveLength(2);
+    expect(result.passage!.answerKeyCheck!.passed).toBe(true);
+    const feedback = String(calls[1]!.messages[2]!.content);
+    expect(feedback).toMatch(
+      /Multiple-choice question 2: .* chose "学校", not the keyed answer "商店"/,
+    );
+    expect(feedback).toMatch(
+      /Multiple-choice question 3: .*"水果" also defensible/,
+    );
+    expect(feedback).toMatch(/Cloze question 1: .* filled in "本子", not "书"/);
+    expect(feedback).toContain('contradicts the first');
+    expect(feedback).not.toContain('A little plain');
   });
 
   it('sends problems back and accepts the revision', async () => {
@@ -256,7 +370,8 @@ describe('generatePassage', () => {
     expect(String(feedback!.content)).toMatch(
       /fix these problems[\s\S]*Cloze question 1/,
     );
-    expect(result.costUsd).toBeCloseTo(2 * costOf(usage));
+    // Two drafts and one answer-key check.
+    expect(result.costUsd).toBeCloseTo(3 * costOf(usage));
   });
 
   it('asks again when a reply is cut off', async () => {
@@ -284,6 +399,30 @@ describe('generatePassage', () => {
     const result = await run(llm, 0.01);
     expect(calls).toHaveLength(0);
     expect(result).toMatchObject({ passage: null, outOfBudget: true });
+  });
+});
+
+describe('evaluateCheck', () => {
+  it('fails questions the checker skipped', () => {
+    const passage = passageFixture();
+    const { answers, problems } = evaluateCheck(passage, {
+      choiceAnswers: [],
+      clozeAnswers: [],
+      issues: [],
+    });
+    expect(answers.every((a) => !a.agrees)).toBe(true);
+    expect(problems).toHaveLength(6);
+  });
+});
+
+describe('formatForReview', () => {
+  it('shows the text, the key, and what the checker answered', () => {
+    const text = formatForReview(passageFixture());
+    expect(text).toContain('p1-0001 · HSK 1 · 买东西 (Shopping)');
+    expect(text).toContain('→ A. 大学生');
+    expect(text).toContain('小明买了一本［书］。');
+    expect(text).toContain('Checker: 回家 ✓ (also: 回去)');
+    expect(text).toContain('[minor] A little plain.');
   });
 });
 
@@ -330,6 +469,61 @@ describe('library', () => {
     expect(nextPassageId(stored, 1)).toBe('p1-0008');
     expect(nextPassageId([], 2)).toBe('p2-0001');
     expect(readPassages(3, root)).toEqual([]);
+
+    deletePassage(passage!, root);
+    expect(readPassages(1, root)).toEqual([]);
+  });
+
+  it('fills fields older files lack, in a fixed order', () => {
+    const {
+      tokens: _,
+      answerKeyCheck: __,
+      review: ___,
+      ...old
+    } = passageFixture();
+    writePassage(old as Passage, root);
+    const [stored] = readPassages(1, root);
+    // Missing tokens stay missing until `passages:check` segments the text.
+    expect(Object.keys(stored!)).toEqual(
+      Object.keys(passageFixture()).filter((key) => key !== 'tokens'),
+    );
+    expect(stored).toMatchObject({ answerKeyCheck: null, review: null });
+    expect(needsCheck(stored!)).toBe(true);
+    deletePassage(stored!, root);
+  });
+
+  it('samples unreviewed passages that passed the check', () => {
+    const passed = (id: string, extra: Partial<Passage> = {}) =>
+      ({
+        ...passageFixture(),
+        _id: id,
+        ...extra,
+      }) as Passage;
+    const passages = [
+      passed('p1-0001'),
+      passed('p1-0002', {
+        review: { verdict: 'approved', reviewedAt: '', note: '' },
+      }),
+      passed('p1-0003', { answerKeyCheck: null }),
+      passed('p1-0004', {
+        answerKeyCheck: { ...passageFixture().answerKeyCheck!, passed: false },
+      }),
+      passed('p1-0005'),
+      passed('p1-0006'),
+    ];
+    const ids = (n: number, random?: () => number) =>
+      pickSample(passages, n, random)
+        .map((p) => p._id)
+        .sort();
+    expect(ids(10)).toEqual(['p1-0001', 'p1-0005', 'p1-0006']);
+    expect(ids(2, () => 0)).toEqual(['p1-0001', 'p1-0005']);
+    expect(ids(1, () => 0.99)).toEqual(['p1-0006']);
+    expect(libraryStatus(passages)).toEqual({
+      passages: 6,
+      checked: 4,
+      failed: 1,
+      reviewed: 1,
+    });
   });
 
   it('orders grammar points least covered first', () => {

@@ -290,14 +290,19 @@ export interface StudySettings {
   dailyNewCards: number;
   levels: readonly HskLevel[];
   handwriting: Pick<HandwritingSettings, 'enabled'>;
+  /**
+   * Words added from reading ("add to SRS"), oldest first. Unstarted ones
+   * are the first new cards, from any level.
+   */
+  addedWords?: readonly string[];
 }
 
 export interface QueueInput {
   /** The user's cards, from summarizeCards. */
   summaries: ReadonlyMap<string, CardSummary>;
   /**
-   * Words by ID: at least every started card's word and every word in the
-   * enabled levels. Cards whose word is missing are skipped.
+   * Words by ID: at least every started card's word, every added word, and
+   * every word in the enabled levels. Cards whose word is missing are skipped.
    */
   words: ReadonlyMap<string, WordNote>;
   /** Characters by ID: at least those of started words. */
@@ -392,11 +397,23 @@ export function buildQueue({
 
   const due = dueCards(studied, now).flatMap(item);
 
-  // New pinyin cards: unstarted words from enabled levels, most frequent first.
+  // New pinyin cards: added words, then unstarted words from enabled levels,
+  // most frequent first.
   const startedIds = new Set(started.map((w) => w._id));
-  const newWords = [...words.values()]
-    .filter((w) => settings.levels.includes(w.level) && !startedIds.has(w._id))
-    .sort((a, b) => a.level - b.level || a.levelOrder - b.levelOrder)
+  const added = [...new Set(settings.addedWords ?? [])].flatMap((id) => {
+    const word = words.get(id);
+    return word && !startedIds.has(id) ? [word] : [];
+  });
+  const addedIds = new Set(added.map((w) => w._id));
+  const levelWords = [...words.values()]
+    .filter(
+      (w) =>
+        settings.levels.includes(w.level) &&
+        !startedIds.has(w._id) &&
+        !addedIds.has(w._id),
+    )
+    .sort((a, b) => a.level - b.level || a.levelOrder - b.levelOrder);
+  const newWords = [...added, ...levelWords]
     .slice(
       0,
       newCardAllowance(settings.dailyNewCards, introducedTodayOf('pinyin')),
@@ -503,6 +520,24 @@ export function buildDecks({
     if (summary.leech) deck.flagged++;
   }
   return decks;
+}
+
+/** Most unstarted added words a user can have waiting. */
+export const MAX_ADDED_WORDS = 500;
+
+/** POST /api/settings/added-words. Returns AuthResponse. */
+export interface AddWordRequest {
+  wordId: string;
+}
+
+/** Added words that haven't been started yet, oldest first. */
+export function pendingAddedWords(
+  settings: Pick<StudySettings, 'addedWords'>,
+  summaries: ReadonlyMap<string, CardSummary>,
+): string[] {
+  return (settings.addedWords ?? []).filter(
+    (id) => !summaries.has(cardKey('word', id, 'pinyin')),
+  );
 }
 
 /** PUT /api/settings. Returns AuthResponse. Fields left out are unchanged. */

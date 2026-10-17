@@ -37,7 +37,7 @@ async function readAll(
 /**
  * Loads generated passages into MongoDB, replacing each by _id. Skips the
  * work when the files haven't changed since the last load. Passages that
- * fail the level check are refused (they shouldn't have been written).
+ * fail the level check or haven't passed the answer-key check are refused.
  */
 export async function seedPassages({
   dir,
@@ -67,6 +67,16 @@ export async function seedPassages({
     if (!(passage.verification?.share >= MIN_LEVEL_SHARE)) {
       throw new Error(
         `${files[i]} fails the level check; regenerate or delete it`,
+      );
+    }
+    if (!passage.tokens || !passage.answerKeyCheck) {
+      throw new Error(
+        `${files[i]} hasn't been checked; run npm run passages:check`,
+      );
+    }
+    if (!passage.answerKeyCheck.passed) {
+      throw new Error(
+        `${files[i]} failed the answer-key check; regenerate or delete it`,
       );
     }
   }

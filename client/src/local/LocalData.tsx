@@ -123,6 +123,8 @@ export function useStudyData(settings: AuthUser['settings']): {
   const [data, setData] = useState<StudyData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const levels = settings.levels.join(',');
+  // Users cached before added words existed have none.
+  const added = (settings.addedWords ?? []).join(',');
   const handwriting = settings.handwriting.enabled;
   const datasetChecked = useRef(false);
 
@@ -134,9 +136,11 @@ export function useStudyData(settings: AuthUser['settings']): {
         return kind && ACTIVE_CARD_KINDS.includes(kind);
       });
       const summaries = summarizeCards(logs);
-      const wordIds = [...summaries.keys()].map(
-        (key) => parseCardKey(key)!.noteId,
-      );
+      // Started cards' words, and added words (the next new cards).
+      const wordIds = [
+        ...[...summaries.keys()].map((key) => parseCardKey(key)!.noteId),
+        ...(added ? added.split(',') : []),
+      ];
       const content = await loadContent(
         store,
         levels ? (levels.split(',').map(Number) as HskLevel[]) : [],
@@ -165,7 +169,7 @@ export function useStudyData(settings: AuthUser['settings']): {
     return () => {
       cancelled = true;
     };
-  }, [store, revision, levels, handwriting]);
+  }, [store, revision, levels, added, handwriting]);
 
   return { data, error };
 }

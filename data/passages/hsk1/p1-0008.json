@@ -103,6 +103,103 @@
       "hint": "to see, catch sight of"
     }
   ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期天",
+      "，",
+      "天气",
+      "很",
+      "好",
+      "。",
+      "我",
+      "和",
+      "小明",
+      "去",
+      "商店",
+      "。",
+      "商店",
+      "里",
+      "的",
+      "东西",
+      "非常",
+      "多",
+      "，",
+      "衣服",
+      "都",
+      "很",
+      "好看",
+      "。",
+      "我",
+      "看见",
+      "一",
+      "件",
+      "新",
+      "衣服",
+      "，",
+      "真",
+      "漂亮",
+      "！",
+      "我",
+      "问",
+      "小明",
+      "：",
+      "“",
+      "多少",
+      "钱",
+      "？",
+      "”",
+      "小明",
+      "看",
+      "一下",
+      "，",
+      "说",
+      "：",
+      "“",
+      "三",
+      "百",
+      "块",
+      "，",
+      "太",
+      "贵",
+      "了",
+      "！",
+      "”",
+      "我",
+      "有点儿",
+      "不",
+      "高兴",
+      "。",
+      "小明",
+      "说",
+      "：",
+      "“",
+      "我们",
+      "去",
+      "超市",
+      "吧",
+      "。",
+      "”",
+      "超市",
+      "的",
+      "水果",
+      "很",
+      "便宜",
+      "。",
+      "我们",
+      "买",
+      "了",
+      "苹果",
+      "和",
+      "面包",
+      "，",
+      "都",
+      "很",
+      "好吃",
+      "。"
+    ]
+  ],
   "verification": {
     "tokens": 102,
     "atOrBelowLevel": 100,
@@ -112,6 +209,62 @@
       "先"
     ]
   },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-17T16:01:40.880Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "商店",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "太贵了",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "苹果和面包",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "星期天",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "去",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "看见",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The passage title 贵的新衣服 is slightly unnatural; 贵衣服 or 一件贵的新衣服 would be more idiomatic."
+      },
+      {
+        "severity": "minor",
+        "description": "The passage says 我有点儿不高兴 but gives no reason, and the shopping outcome (whether the speaker buys the clothes) is not stated. The story is slightly abrupt but not misleading."
+      }
+    ],
+    "costUsd": 0.0062
+  },
+  "review": null,
   "generation": {
     "model": "claude-sonnet-5-5",
     "promptVersion": "1",

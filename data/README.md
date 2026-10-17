@@ -43,19 +43,28 @@ To spot-check another page: `pdftoppm -f N -l N -r 90 -png data/raw/hsk-syllabus
 `src/passages/` generates graded reading passages with Claude (`claude-sonnet-5-5`), offline. Nothing in the web app ever calls an LLM.
 
 ```sh
-npm run passages:coverage                       # passages and grammar coverage per level
+npm run passages:coverage                       # passages, checks, reviews, and grammar coverage per level
 npm run passages:coverage -- --level 1          # every level-1 grammar point and its count
 npm run passages:generate -- --level 1 --count 5 --max-cost 5
 npm run passages:generate -- --level 1 --grammar g1-008,g1-020
 npm run passages:generate -- --level 1 --dry-run   # print the prompts; no API call
+npm run passages:check                          # segment, and run missing answer-key checks (--max-cost 1)
+npm run passages:review -- --sample 3           # spot-check a random sample by hand
 npm run db:seed                                 # load data/passages into MongoDB
 ```
 
-Generation needs `ANTHROPIC_API_KEY` in `.env`. Each passage:
+Generation and checking need `ANTHROPIC_API_KEY` in `.env`. Each passage:
 
 1. **Targets grammar points.** By default, the two least-covered points at the level (`--grammar` picks them). Coverage counts the points each stored passage quotes.
-2. **Is written with the level's vocabulary.** The system prompt holds the rules and every HSK word at or below the level (prompt-cached per level). The model answers through a `submit_passage` tool, so the output is structured.
-3. **Is checked, and sent back with the problems until it passes** (at most 3 attempts): length; every target grammar point quoted exactly from the text; 3 multiple-choice questions with 4 distinct options; 3 cloze questions whose sentences match the text once filled in, with answers made of level vocabulary (at most 4 characters) and stroke data, so they can be handwritten; and the **level check**: at least 95% of hanzi tokens (passage, questions, and options) are HSK words at or below the level, compounds of them, or declared names (up to 3).
-4. **Is written to `data/passages/hsk<level>/<id>.json`** with its verification numbers and provenance (model, prompt version, attempts, cost). Review passages in git before loading them; delete a file to drop a passage.
+2. **Is written with the level's vocabulary.** The system prompt holds the rules and every HSK word at or below the level (prompt-cached per level). The model answers through structured outputs (a JSON schema), so the reply has a fixed shape.
+3. **Is checked, and sent back with the problems until it passes** (at most 3 attempts):
+   - **Shape and level**: length; every target grammar point quoted exactly from the text; 3 multiple-choice questions with 4 distinct options; 3 cloze questions whose sentences match the text once filled in, with answers made of level vocabulary (at most 4 characters) and stroke data, so they can be handwritten; and the **level check**: at least 95% of hanzi tokens (passage, questions, and options) are HSK words at or below the level, compounds of them, or declared names (up to 3).
+   - **Answer key** ([`src/passages/answerKey.ts`](src/passages/answerKey.ts)): a separate call sees the passage and questions without the key, answers each one, and reports problems. The check fails if it picks a different option, finds a second option defensible, fills a blank with a word the question doesn't accept, or reports a major issue. Minor issues are recorded but don't fail it.
+4. **Is segmented for tap-to-look-up** (`tokens`: jieba, with compounds split into HSK words and names kept whole; see `tokenize` in `src/passages/level.ts`).
+5. **Is written to `data/passages/hsk<level>/<id>.json`** with its level check, answer-key check, and provenance (model, prompt version, attempts, cost). Delete a file to drop a passage.
 
-Costs come from the API's reported usage at Sonnet 5.5 prices (`PRICING` in `generate.ts`). A run stops before any call that could pass `--max-cost` (default $5). Bump `PROMPT_VERSION` when the prompt or schema changes.
+`db:seed` refuses passages under the level threshold and passages that haven't passed the answer-key check. `passages:check` brings older files up to date: it always redoes the segmentation (free), and runs the answer-key check where it's missing or was made with an older `CHECK_PROMPT_VERSION` (`--force` reruns it everywhere). A failed check is recorded in the file; regenerate or delete that passage.
+
+**Spot-checks by hand.** The automated checks come first; `passages:review` then shows a random sample of passages that passed them and haven't been reviewed (text, key, the checker's answers and issues) and asks to approve (recorded in the file's `review`, with an optional note), delete, or skip. `passages:coverage` shows how many passages at each level have been reviewed.
+
+Costs come from the API's reported usage at Sonnet 5.5 prices (`PRICING` in `src/passages/llm.ts`). A run stops before any call that could pass `--max-cost` (default $5 for generation, $1 for checks). Answer-key checks cost under a cent each. Bump `PROMPT_VERSION` when the generation prompt or schema changes, and `CHECK_PROMPT_VERSION` when the check's does.

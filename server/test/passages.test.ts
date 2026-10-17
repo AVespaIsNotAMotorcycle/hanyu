@@ -1,12 +1,16 @@
 import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import type { Passage } from '@hanyu/shared';
+import type { Passage, WordNote } from '@hanyu/shared';
 import mongoose from 'mongoose';
 import request from 'supertest';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { createApp } from '../src/app.js';
-import { GrammarPointModel, PassageModel } from '../src/models/index.js';
+import {
+  GrammarPointModel,
+  PassageModel,
+  WordModel,
+} from '../src/models/index.js';
 import { seedPassages } from '../src/passages.js';
 
 describe('passage routes without a session', () => {
@@ -48,7 +52,24 @@ const passage = (id: string, overrides: Partial<Passage> = {}): Passage => ({
       hint: 'book',
     },
   ],
+  tokens: [
+    ['小明', '是', '大学生', '。'],
+    ['他', '买', '了', '一', '本', '书', '。'],
+  ],
   verification: { tokens: 10, atOrBelowLevel: 10, share: 1, offLevel: [] },
+  answerKeyCheck: {
+    model: 'claude-sonnet-5-5',
+    promptVersion: '1',
+    checkedAt: '2026-10-17T00:00:00.000Z',
+    passed: true,
+    answers: [
+      { questionId: 'c1', given: '大学生', agrees: true, alternatives: [] },
+      { questionId: 'z1', given: '书', agrees: true, alternatives: [] },
+    ],
+    issues: [],
+    costUsd: 0.01,
+  },
+  review: null,
   generation: {
     model: 'claude-sonnet-5-5',
     promptVersion: '1',
@@ -128,6 +149,20 @@ describe.skipIf(!uri)('passages', () => {
     expect(await PassageModel.countDocuments()).toBe(0);
   });
 
+  it('refuses passages that failed or skipped the answer-key check', async () => {
+    const failed = passage('p1-0001');
+    failed.answerKeyCheck!.passed = false;
+    await write(failed);
+    await expect(seedPassages({ dir, log: quiet })).rejects.toThrow(
+      /failed the answer-key check/,
+    );
+    await write(passage('p1-0001', { answerKeyCheck: null }));
+    await expect(seedPassages({ dir, log: quiet })).rejects.toThrow(
+      /hasn't been checked; run npm run passages:check/,
+    );
+    expect(await PassageModel.countDocuments()).toBe(0);
+  });
+
   it('works with no passages directory yet', async () => {
     expect(
       await seedPassages({ dir: path.join(dir, 'missing'), log: quiet }),
@@ -148,6 +183,27 @@ describe.skipIf(!uri)('passages', () => {
       item: '',
       content: '小—、第—',
     });
+    const word = (id: string, simplified: string, level: 1 | 2) =>
+      ({
+        _id: id,
+        hskId: Number(id.slice(-5)),
+        level,
+        levelLabel: String(level),
+        simplified,
+        traditional: simplified,
+        pinyin: 'x',
+        citationPinyin: 'x1',
+        zipf: 5,
+        levelOrder: 1,
+        cedictMatch: 'exact',
+      }) as WordNote;
+    await WordModel.insertMany([
+      word('hsk30-00002', '本', 1),
+      word('hsk30-00001', '本', 1),
+      word('hsk30-00003', '书', 1),
+      word('hsk30-00004', '大学生', 2),
+      word('hsk30-00005', '咖啡', 2),
+    ]);
 
     const list = await agent.get('/api/passages').query({ level: 1 });
     expect(list.status).toBe(200);
@@ -160,14 +216,38 @@ describe.skipIf(!uri)('passages', () => {
         length: 14,
         grammarIds: ['g1-001'],
         questionCount: 2,
+        // Names left out; homographs list every word with the form.
+        vocabulary: [
+          { text: '是', wordIds: [], count: 1 },
+          { text: '大学生', wordIds: ['hsk30-00004'], count: 1 },
+          { text: '他', wordIds: [], count: 1 },
+          { text: '买', wordIds: [], count: 1 },
+          { text: '了', wordIds: [], count: 1 },
+          { text: '一', wordIds: [], count: 1 },
+          { text: '本', wordIds: ['hsk30-00001', 'hsk30-00002'], count: 1 },
+          { text: '书', wordIds: ['hsk30-00003'], count: 1 },
+        ],
       },
       expect.objectContaining({ _id: 'p1-0002', title: '我的家' }),
+    ]);
+    const all = await agent.get('/api/passages');
+    expect(all.body.passages.map((p: Passage) => p._id)).toEqual([
+      'p1-0001',
+      'p1-0002',
+      'p2-0001',
     ]);
 
     const one = await agent.get('/api/passages/p1-0001');
     expect(one.body.passage).toEqual(passage('p1-0001'));
     expect(one.body.grammarPoints).toEqual([
       expect.objectContaining({ _id: 'g1-001', name: '前缀' }),
+    ]);
+    // Every word a token could be, for tap-to-look-up.
+    expect(one.body.words.map((w: WordNote) => w._id)).toEqual([
+      'hsk30-00001',
+      'hsk30-00002',
+      'hsk30-00003',
+      'hsk30-00004',
     ]);
 
     expect((await agent.get('/api/passages/p9-0001')).status).toBe(404);

@@ -1,7 +1,8 @@
 // Generates one graded reading passage with Claude: a passage at an HSK
 // level that exercises chosen grammar points, with multiple-choice and cloze
-// questions. Drafts are checked (structure, level share, cloze answers) and
-// sent back with the problems until they pass or attempts run out.
+// questions. Drafts are checked (structure, level share, cloze answers),
+// then answered by an independent call (answerKey.ts), and sent back with
+// the problems until they pass or attempts run out.
 
 import type Anthropic from '@anthropic-ai/sdk';
 import {
@@ -13,50 +14,15 @@ import {
   type PassageQuestion,
 } from '@hanyu/shared';
 import type { Segmenter } from '../segmenter.js';
+import { checkAnswerKey } from './answerKey.js';
 import type { SeedContent } from './content.js';
-import { checkLevel } from './level.js';
+import { checkLevel, tokenize } from './level.js';
+import { closeObjects, costOf, MODEL, type Llm } from './llm.js';
 
-export const MODEL = 'claude-sonnet-5-5';
+export { costOf, MODEL, PRICING, type Llm } from './llm.js';
+
 /** Bump when the prompt or schema changes; stored with each passage. */
 export const PROMPT_VERSION = '1';
-
-/**
- * USD per million tokens for claude-sonnet-5-5 (October 2026,
- * https://platform.claude.com/docs/en/about-claude/pricing).
- */
-export const PRICING = {
-  input: 2,
-  output: 10,
-  cacheWrite: 2.5,
-  cacheRead: 0.1,
-};
-
-type Usage = Pick<
-  Anthropic.Messages.Usage,
-  | 'input_tokens'
-  | 'output_tokens'
-  | 'cache_creation_input_tokens'
-  | 'cache_read_input_tokens'
->;
-
-export function costOf(usage: Usage): number {
-  return (
-    (usage.input_tokens * PRICING.input +
-      usage.output_tokens * PRICING.output +
-      (usage.cache_creation_input_tokens ?? 0) * PRICING.cacheWrite +
-      (usage.cache_read_input_tokens ?? 0) * PRICING.cacheRead) /
-    1_000_000
-  );
-}
-
-/** The part of the Anthropic client the generator uses (fake in tests). */
-export interface Llm {
-  create(
-    params: Anthropic.Messages.MessageCreateParamsNonStreaming,
-  ): Promise<
-    Pick<Anthropic.Messages.Message, 'content' | 'usage' | 'stop_reason'>
-  >;
-}
 
 /** Target length in characters, by level. */
 export const LENGTHS: Record<HskLevel, [number, number]> = {
@@ -71,23 +37,6 @@ export const LENGTHS: Record<HskLevel, [number, number]> = {
 const CHOICE_QUESTIONS = 3;
 const CLOZE_QUESTIONS = 3;
 const MAX_NAMES = 3;
-
-type JsonSchema = { [key: string]: unknown };
-
-/** Structured outputs requires additionalProperties: false on every object. */
-function closeObjects(schema: JsonSchema): JsonSchema {
-  const out: JsonSchema = { ...schema };
-  if (out.type === 'object') out.additionalProperties = false;
-  if (out.properties) {
-    out.properties = Object.fromEntries(
-      Object.entries(out.properties as Record<string, JsonSchema>).map(
-        ([key, value]) => [key, closeObjects(value)],
-      ),
-    );
-  }
-  if (out.items) out.items = closeObjects(out.items as JsonSchema);
-  return out;
-}
 
 /**
  * The reply's JSON schema, enforced with structured outputs
@@ -429,19 +378,19 @@ export async function generatePassage({
   ];
   let costUsd = 0;
   let lastCost = 0;
+  let checkCost = 0;
   let problems: string[] = [];
+  const outOfBudget = (attempts: number): GenerateResult => ({
+    passage: null,
+    costUsd,
+    attempts,
+    problems,
+    outOfBudget: true,
+  });
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     // A revision costs about what the last call did, plus the longer history.
     const estimate = lastCost ? lastCost * 1.5 : 0.05;
-    if (costUsd + estimate > budgetUsd) {
-      return {
-        passage: null,
-        costUsd,
-        attempts: attempt - 1,
-        problems,
-        outOfBudget: true,
-      };
-    }
+    if (costUsd + estimate > budgetUsd) return outOfBudget(attempt - 1);
     const response = await llm.create({
       model: MODEL,
       max_tokens: 8000,
@@ -469,24 +418,40 @@ export async function generatePassage({
     const result = draftProblems(draft, { level, targets, content, segmenter });
     problems = result.problems;
     if (problems.length === 0 && result.check) {
-      return {
-        passage: toPassage(draft, {
-          id,
-          level,
-          check: result.check,
-          generation: {
-            model: MODEL,
-            promptVersion: PROMPT_VERSION,
-            generatedAt: now().toISOString(),
-            attempts: attempt,
-            costUsd: Math.round(costUsd * 10000) / 10000,
-          },
+      const passage = toPassage(draft, {
+        id,
+        level,
+        check: result.check,
+        tokens: tokenize(draft.text, {
+          segmenter,
+          wordLevels: content.wordLevels,
+          names: draft.names ?? [],
         }),
-        costUsd,
-        attempts: attempt,
-        problems: [],
-        outOfBudget: false,
-      };
+        generation: {
+          model: MODEL,
+          promptVersion: PROMPT_VERSION,
+          generatedAt: now().toISOString(),
+          attempts: attempt,
+          costUsd: 0,
+        },
+      });
+      if (costUsd + (checkCost || 0.02) > budgetUsd)
+        return outOfBudget(attempt);
+      const keyCheck = await checkAnswerKey(passage, { llm, now });
+      checkCost = keyCheck.costUsd;
+      costUsd += checkCost;
+      problems = keyCheck.problems;
+      if (problems.length === 0) {
+        passage.answerKeyCheck = keyCheck.check;
+        passage.generation.costUsd = Math.round(costUsd * 10000) / 10000;
+        return {
+          passage,
+          costUsd,
+          attempts: attempt,
+          problems: [],
+          outOfBudget: false,
+        };
+      }
     }
     messages.push(
       {
@@ -514,11 +479,13 @@ function toPassage(
     id,
     level,
     check,
+    tokens,
     generation,
   }: {
     id: string;
     level: HskLevel;
     check: Passage['verification'];
+    tokens: Passage['tokens'];
     generation: Passage['generation'];
   },
 ): Passage {
@@ -550,7 +517,10 @@ function toPassage(
     names: draft.names ?? [],
     grammar: draft.grammar,
     questions,
+    tokens,
     verification: check,
+    answerKeyCheck: null,
+    review: null,
     generation,
   };
 }

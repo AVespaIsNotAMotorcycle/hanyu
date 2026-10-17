@@ -1,7 +1,13 @@
 // The passage library on disk: data/passages/hsk<level>/<id>.json, one file
 // per passage so each can be reviewed (and rejected) in git.
 
-import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import {
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import path from 'node:path';
 import type { GrammarPoint, HskLevel, Passage } from '@hanyu/shared';
 import { dataDir } from '../paths.js';
@@ -41,12 +47,79 @@ export function nextPassageId(existing: readonly Passage[], level: HskLevel) {
   return `p${level}-${String(n).padStart(4, '0')}`;
 }
 
+export const passageFile = (passage: Passage, root: string = passagesDir) =>
+  path.join(levelDir(root, passage.level), `${passage._id}.json`);
+
+/**
+ * Fields in a fixed order, so files written by different commands diff
+ * cleanly. Fields older files lack are filled in as null.
+ */
+function canonical(passage: Passage): Passage {
+  return {
+    _id: passage._id,
+    level: passage.level,
+    title: passage.title,
+    titleEnglish: passage.titleEnglish,
+    text: passage.text,
+    names: passage.names,
+    grammar: passage.grammar,
+    questions: passage.questions,
+    tokens: passage.tokens,
+    verification: passage.verification,
+    answerKeyCheck: passage.answerKeyCheck ?? null,
+    review: passage.review ?? null,
+    generation: passage.generation,
+  };
+}
+
 export function writePassage(passage: Passage, root: string = passagesDir) {
-  const dir = levelDir(root, passage.level);
-  mkdirSync(dir, { recursive: true });
-  const file = path.join(dir, `${passage._id}.json`);
-  writeFileSync(file, `${JSON.stringify(passage, null, 2)}\n`);
+  const file = passageFile(passage, root);
+  mkdirSync(path.dirname(file), { recursive: true });
+  writeFileSync(file, `${JSON.stringify(canonical(passage), null, 2)}\n`);
   return file;
+}
+
+export function deletePassage(passage: Passage, root: string = passagesDir) {
+  const file = passageFile(passage, root);
+  rmSync(file);
+  return file;
+}
+
+/**
+ * Up to `n` passages to spot-check by hand: chosen at random among those
+ * that passed the answer-key check and haven't been reviewed.
+ */
+export function pickSample(
+  passages: readonly Passage[],
+  n: number,
+  random: () => number = Math.random,
+): Passage[] {
+  const pool = passages.filter((p) => p.answerKeyCheck?.passed && !p.review);
+  // Fisher–Yates, stopping once n are drawn.
+  for (let i = 0; i < Math.min(n, pool.length); i++) {
+    const j = i + Math.floor(random() * (pool.length - i));
+    [pool[i], pool[j]] = [pool[j]!, pool[i]!];
+  }
+  return pool.slice(0, n);
+}
+
+export interface LibraryStatus {
+  passages: number;
+  /** Passed the answer-key check (current prompt version or not). */
+  checked: number;
+  /** Failed it: regenerate or delete these. */
+  failed: number;
+  /** Spot-checked by hand. */
+  reviewed: number;
+}
+
+export function libraryStatus(passages: readonly Passage[]): LibraryStatus {
+  return {
+    passages: passages.length,
+    checked: passages.filter((p) => p.answerKeyCheck?.passed).length,
+    failed: passages.filter((p) => p.answerKeyCheck?.passed === false).length,
+    reviewed: passages.filter((p) => p.review).length,
+  };
 }
 
 export interface Coverage {

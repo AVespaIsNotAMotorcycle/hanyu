@@ -10,6 +10,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "passages:generate": "tsx --env-file-if-exists=../.env src/passages/cli.ts generate",
+    "passages:check": "tsx --env-file-if-exists=../.env src/passages/cli.ts check",
+    "passages:review": "tsx src/passages/cli.ts review",
     "passages:coverage": "tsx src/passages/cli.ts coverage"
   },
   "devDependencies": {

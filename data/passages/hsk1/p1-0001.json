@@ -95,12 +95,139 @@
       "hint": "Sunday"
     }
   ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期日",
+      "，",
+      "天气",
+      "很",
+      "好",
+      "，",
+      "不",
+      "冷",
+      "也",
+      "不",
+      "热",
+      "。",
+      "我",
+      "和",
+      "朋友",
+      "们",
+      "去",
+      "大学",
+      "玩",
+      "。",
+      "第",
+      "一",
+      "，",
+      "我们",
+      "在",
+      "大学",
+      "里",
+      "看",
+      "书",
+      "。",
+      "第",
+      "二",
+      "，",
+      "我们",
+      "去",
+      "那边",
+      "喝",
+      "茶",
+      "。",
+      "外边",
+      "有",
+      "很",
+      "多",
+      "小朋友",
+      "，",
+      "他们",
+      "在",
+      "玩",
+      "。",
+      "我们",
+      "看见",
+      "一",
+      "只",
+      "小",
+      "狗",
+      "，",
+      "它",
+      "很",
+      "漂亮",
+      "。",
+      "我们",
+      "都",
+      "很",
+      "高兴",
+      "。"
+    ]
+  ],
   "verification": {
     "tokens": 74,
     "atOrBelowLevel": 74,
     "share": 1,
     "offLevel": []
   },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-17T16:01:11.408Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "看书",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "小朋友",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "不冷也不热",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "喝",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "漂亮",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "星期日",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "Question c1 asks what they did at the university, but the passage lists two activities (reading and drinking tea). Only reading happens 'in the university' (在大学里看书), so option 0 is correct, but the question could be read as allowing for tea drinking, which is not among the options anyway."
+      },
+      {
+        "severity": "minor",
+        "description": "The passage says 我们去那边喝茶 ('over there') without specifying where, and 去大学玩 followed by 外边 is slightly vague. Also 第一/第二 used to sequence activities is a bit unnatural (先...然后 would be more natural)."
+      }
+    ],
+    "costUsd": 0.0067
+  },
+  "review": null,
   "generation": {
     "model": "claude-sonnet-5-5",
     "promptVersion": "1",

@@ -86,12 +86,158 @@
       "hint": "to cook a meal"
     }
   ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期日",
+      "，",
+      "我",
+      "和",
+      "妈妈",
+      "去",
+      "商店",
+      "。",
+      "这",
+      "家",
+      "商店",
+      "很",
+      "大",
+      "，",
+      "东西",
+      "不",
+      "贵",
+      "。",
+      "我",
+      "买",
+      "了",
+      "一",
+      "件",
+      "新",
+      "衣服",
+      "，",
+      "八",
+      "十",
+      "块",
+      "。",
+      "妈妈",
+      "买",
+      "了",
+      "两",
+      "本",
+      "书",
+      "，",
+      "一",
+      "百",
+      "元",
+      "。",
+      "她",
+      "很",
+      "高兴",
+      "。",
+      "我",
+      "家",
+      "有",
+      "四",
+      "口",
+      "人",
+      "，",
+      "还",
+      "有",
+      "一",
+      "只",
+      "猫",
+      "和",
+      "一",
+      "只",
+      "狗",
+      "。",
+      "我们",
+      "回",
+      "家",
+      "了",
+      "。",
+      "爸爸",
+      "正在",
+      "做饭",
+      "，",
+      "有",
+      "饺子",
+      "，",
+      "也",
+      "有",
+      "鸡蛋",
+      "。"
+    ]
+  ],
   "verification": {
     "tokens": 82,
     "atOrBelowLevel": 82,
     "share": 1,
     "offLevel": []
   },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-17T16:01:32.484Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "两本书",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "四口人",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "八十块",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "商店",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "人",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "做饭",
+        "agrees": true,
+        "alternatives": [
+          "煮饭"
+        ]
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The passage mixes the currency words 块 and 元 (八十块 vs 一百元), which is a stylistic inconsistency, though both are correct."
+      },
+      {
+        "severity": "minor",
+        "description": "The passage lacks cohesion: 'She is very happy' follows the price without a clear link, and the family-size sentence (有四口人，还有一只猫和一只狗) interrupts the shopping narrative. Also 爸爸正在做饭 and 有饺子 is slightly odd since the meal is described as already there while he is still cooking."
+      },
+      {
+        "severity": "minor",
+        "description": "Question z3: the blank is 做饭 (two characters) but a single ＿＿ is used; the hint 'to cook a meal' fits, though 煮饭 or 做饭 could both be used. Minor ambiguity."
+      }
+    ],
+    "costUsd": 0.0075
+  },
+  "review": null,
   "generation": {
     "model": "claude-sonnet-5-5",
     "promptVersion": "1",

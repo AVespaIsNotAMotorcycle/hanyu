@@ -330,6 +330,77 @@ button.link {
   font-size: 1.25rem;
 }
 
+.passage-list .read {
+  font-size: 1rem;
+  color: #2e7d32;
+}
+
+.reading h2 {
+  font-size: 1.125rem;
+  margin: 1.5rem 0 0;
+}
+
+.reading h2 select {
+  font: inherit;
+}
+
+/* Tappable words that read as plain text until tapped. */
+.passage-text .token {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 0.125rem;
+}
+
+.passage-text .token:hover {
+  background: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.passage-text .token[aria-pressed='true'] {
+  background: color-mix(in srgb, #d97706 25%, transparent);
+}
+
+/* The lookup card stays in view at the bottom while reading. */
+.lookup {
+  position: sticky;
+  bottom: 0.5rem;
+  z-index: 1;
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+  border-radius: 0.5rem;
+  background: Canvas;
+  box-shadow: 0 0.25rem 1rem color-mix(in srgb, CanvasText 15%, transparent);
+}
+
+.lookup p {
+  margin: 0;
+}
+
+.lookup .close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+}
+
+.lookup-word {
+  font-size: 1.5rem;
+}
+
+.lookup-status {
+  font-size: 0.875rem;
+}
+
+.lookup-status button:not(.link) {
+  font: inherit;
+  padding: 0.125rem 0.75rem;
+}
+
 .passage h2 {
   margin: 0;
 }

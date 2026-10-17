@@ -4,6 +4,7 @@ import {
   buildQueue,
   MAX_ALLOWED_MISSES,
   MAX_DAILY_NEW_CARDS,
+  pendingAddedWords,
   studyDayStart,
   type AuthResponse,
   type AuthUser,
@@ -72,6 +73,7 @@ export function Decks({
     dayStart: studyDayStart(now, timeZone),
   });
   const flagged = decks.reduce((n, d) => n + d.flagged, 0);
+  const added = pendingAddedWords(settings, data.summaries).length;
   const toggle = (level: HskLevel) =>
     save({
       levels: settings.levels.includes(level)
@@ -214,9 +216,11 @@ export function Decks({
       )}
       <p className="hint">
         {queue.introducedToday} new today. New cards come from checked levels,
-        most frequent words first; started cards stay in review either way.
-        Cards you keep missing are flagged until you get them right three times
-        in a row.
+        most frequent words first
+        {added > 0 &&
+          `, after the ${added} ${added === 1 ? 'word' : 'words'} you added while reading`}
+        ; started cards stay in review either way. Cards you keep missing are
+        flagged until you get them right three times in a row.
       </p>
     </section>
   );

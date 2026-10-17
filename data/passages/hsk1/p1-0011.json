@@ -89,6 +89,116 @@
       "hint": "cinema"
     }
   ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期天",
+      "，",
+      "天气",
+      "很",
+      "好",
+      "。",
+      "小明",
+      "在",
+      "家",
+      "，",
+      "他",
+      "想",
+      "找",
+      "朋友",
+      "玩儿",
+      "。",
+      "他",
+      "给",
+      "朋友",
+      "打电话",
+      "：",
+      "“",
+      "喂",
+      "，",
+      "你",
+      "在",
+      "哪儿",
+      "？",
+      "”",
+      "朋友",
+      "说",
+      "：",
+      "“",
+      "我",
+      "在",
+      "学校",
+      "。",
+      "”",
+      "小明",
+      "说",
+      "：",
+      "“",
+      "你",
+      "下午",
+      "有",
+      "时间",
+      "吗",
+      "？",
+      "我",
+      "想",
+      "和",
+      "你",
+      "去",
+      "看",
+      "电影",
+      "。",
+      "”",
+      "朋友",
+      "说",
+      "：",
+      "“",
+      "好",
+      "！",
+      "我们",
+      "下午",
+      "三",
+      "点",
+      "在",
+      "电影院",
+      "见",
+      "。",
+      "”",
+      "下午",
+      "，",
+      "小明",
+      "先",
+      "到",
+      "了",
+      "。",
+      "朋友",
+      "来",
+      "了",
+      "，",
+      "他",
+      "对",
+      "小明",
+      "说",
+      "：",
+      "“",
+      "对不起",
+      "，",
+      "我",
+      "来",
+      "晚",
+      "了",
+      "。",
+      "”",
+      "小明",
+      "说",
+      "：",
+      "“",
+      "没关系",
+      "。",
+      "”"
+    ]
+  ],
   "verification": {
     "tokens": 104,
     "atOrBelowLevel": 99,
@@ -99,6 +209,64 @@
       "先"
     ]
   },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-17T16:01:52.248Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "和朋友去看电影",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "在学校",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "电影院",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "家",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "时间",
+        "agrees": true,
+        "alternatives": [
+          "空"
+        ]
+      },
+      {
+        "questionId": "z3",
+        "given": "电影院",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "Question c2 「朋友现在在哪儿？」 is ambiguous about time: 'now' could mean during the phone call (at school) or at the end of the story (at the cinema). The passage only supports 在学校 as the friend's location when the call is made, so the question should say 打电话的时候 (when he answers the phone)."
+      },
+      {
+        "severity": "minor",
+        "description": "In the passage, 「朋友来了，他对小明说」 is slightly awkward because the friend's gender is never specified, and 他 is used for the friend. This is acceptable but may mildly confuse learners."
+      }
+    ],
+    "costUsd": 0.0067
+  },
+  "review": null,
   "generation": {
     "model": "claude-sonnet-5-5",
     "promptVersion": "1",

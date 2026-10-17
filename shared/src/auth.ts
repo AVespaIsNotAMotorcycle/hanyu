@@ -18,6 +18,8 @@ export interface AuthUser {
     /** HSK levels whose decks introduce new cards. */
     levels: HskLevel[];
     handwriting: HandwritingSettings;
+    /** Words added from reading, oldest first; the first new cards. */
+    addedWords: string[];
   };
 }
 

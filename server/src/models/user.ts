@@ -52,6 +52,8 @@ const userSchema = new Schema(
           default: DEFAULT_HANDWRITING.allowedMisses,
         },
       },
+      /** Word IDs added from reading, oldest first. */
+      addedWords: { type: [String], default: () => [] },
     },
   },
   { timestamps: true },
@@ -79,6 +81,7 @@ export function toAuthUser(user: UserDocument): AuthUser {
           user.settings?.handwriting?.allowedMisses ??
           DEFAULT_HANDWRITING.allowedMisses,
       },
+      addedWords: [...(user.settings?.addedWords ?? [])],
     },
   };
 }

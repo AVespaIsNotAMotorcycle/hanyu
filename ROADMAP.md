@@ -111,10 +111,10 @@ Estimated time: 1–2 weeks
 - [x] Verify each passage's level with the segmenter: compute the share of tokens at or below the target level and reject passages under ~95%
 - [x] Generate multiple-choice and cloze questions alongside each passage
 - [x] Let the user answer cloze questions by keyboard or by handwriting, switchable per question
-- [ ] Review and store passages and questions; never generate at request time
-- [ ] Use automated checks first (level verification, an LLM answer-key check), and spot-check a sample by hand
-- [ ] Add tap-to-look-up on any word, with an "add to SRS" action
-- [ ] Recommend passages based on SRS state, favoring passages made mostly of known vocabulary
+- [x] Review and store passages and questions; never generate at request time
+- [ ] Use automated checks first (level verification, an LLM answer-key check), and spot-check a sample by hand (checks and `passages:review` built; first hand spot-check still to do)
+- [x] Add tap-to-look-up on any word, with an "add to SRS" action
+- [x] Recommend passages based on SRS state, favoring passages made mostly of known vocabulary
 
 **Milestone:** a library of verified passages for HSK 1–3.
 

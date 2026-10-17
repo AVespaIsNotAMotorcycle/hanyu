@@ -147,7 +147,7 @@ function Home({
         </nav>
       )}
       {tab === 'read' && !studying ? (
-        <Reading user={user} />
+        <Reading user={user} onUserChange={onUserChange} />
       ) : studying ? (
         <StudySession
           user={user}

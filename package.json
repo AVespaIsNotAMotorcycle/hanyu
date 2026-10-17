@@ -28,6 +28,8 @@
     "data:fetch": "npm run fetch -w data",
     "data:build": "npm run build -w shared && npm run build:seed -w data",
     "passages:generate": "npm run build -w shared && npm run passages:generate -w data --",
+    "passages:check": "npm run build -w shared && npm run passages:check -w data --",
+    "passages:review": "npm run build -w shared && npm run passages:review -w data --",
     "passages:coverage": "npm run build -w shared && npm run passages:coverage -w data --"
   },
   "devDependencies": {

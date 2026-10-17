@@ -4,11 +4,13 @@ import { dict } from '@node-rs/jieba/dict.js';
 export interface Segmenter {
   /** Splits text into words, dropping whitespace. */
   segment(text: string): string[];
+  /** Splits text into tokens that join back into the text, whitespace included. */
+  cut(text: string): string[];
+  /** Whether jieba's dictionary (plus the extra words) has a word. */
+  has(word: string): boolean;
 }
 
-const HANZI = /\p{Script=Han}/u;
-
-export const isHanziToken = (token: string) => HANZI.test(token);
+export { isHanziToken } from '@hanyu/shared';
 
 /**
  * Creates a jieba segmenter. Extra words (e.g. the HSK vocabulary) that are
@@ -28,7 +30,10 @@ export function createSegmenter(extraWords: Iterable<string> = []): Segmenter {
     // jieba's suggested frequency for user-dictionary words.
     jieba.loadDict(Buffer.from(missing.map((w) => `${w} 3`).join('\n')));
   }
+  for (const word of missing) known.add(word);
   return {
     segment: (text) => jieba.cut(text, true).filter((t) => t.trim() !== ''),
+    cut: (text) => jieba.cut(text, true),
+    has: (word) => known.has(word),
   };
 }

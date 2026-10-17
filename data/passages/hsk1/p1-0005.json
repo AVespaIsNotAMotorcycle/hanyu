@@ -83,6 +83,86 @@
       "hint": "to go"
     }
   ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期天",
+      "，",
+      "我",
+      "和",
+      "妈妈",
+      "去",
+      "商店",
+      "。",
+      "商店",
+      "里",
+      "有",
+      "很",
+      "多",
+      "东西",
+      "。",
+      "这些",
+      "衣服",
+      "很",
+      "好看",
+      "，",
+      "那些",
+      "衣服",
+      "有点儿",
+      "贵",
+      "。",
+      "妈妈",
+      "问",
+      "我",
+      "：",
+      "“",
+      "你",
+      "喜欢",
+      "哪个",
+      "？",
+      "”",
+      "我",
+      "说",
+      "：",
+      "“",
+      "我",
+      "喜欢",
+      "这个",
+      "。",
+      "”",
+      "妈妈",
+      "说",
+      "：",
+      "“",
+      "好",
+      "，",
+      "我们",
+      "买",
+      "这个",
+      "吧",
+      "。",
+      "”",
+      "有",
+      "的",
+      "人",
+      "在",
+      "那儿",
+      "看",
+      "，",
+      "有些",
+      "人",
+      "在",
+      "这儿",
+      "买",
+      "。",
+      "大家",
+      "都",
+      "很",
+      "高兴",
+      "。"
+    ]
+  ],
   "verification": {
     "tokens": 89,
     "atOrBelowLevel": 88,
@@ -91,6 +171,62 @@
       "最"
     ]
   },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-17T16:01:28.284Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "商店",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "那些衣服",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "很高兴",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "东西",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "贵",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "去",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The sentence 有的人在那儿看，有些人在这儿买 is a little unnatural: 有的 and 有些 are used in parallel, and it would be more natural to say 有的人在那儿看，有的人在这儿买. It does not affect comprehension."
+      },
+      {
+        "severity": "minor",
+        "description": "Question c3 asks about the situation 最后 (at the end), but the passage only says 大家都很高兴 as a general closing statement. This is acceptable but slightly loose."
+      }
+    ],
+    "costUsd": 0.0064
+  },
+  "review": null,
   "generation": {
     "model": "claude-sonnet-5-5",
     "promptVersion": "1",

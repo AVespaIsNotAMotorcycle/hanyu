@@ -87,6 +87,122 @@
       "hint": "to make / cook"
     }
   ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期",
+      "二",
+      "。",
+      "小明",
+      "的",
+      "妈妈",
+      "生病",
+      "了",
+      "，",
+      "没有",
+      "去",
+      "上班",
+      "。"
+    ],
+    [
+      "小明",
+      "问",
+      "：",
+      "“",
+      "妈妈",
+      "，",
+      "你",
+      "怎么样",
+      "？",
+      "”",
+      "\n",
+      "妈妈",
+      "说",
+      "：",
+      "“",
+      "我",
+      "有点儿",
+      "不",
+      "好",
+      "，",
+      "想",
+      "去",
+      "医院",
+      "看病",
+      "。",
+      "”",
+      "\n",
+      "小明",
+      "说",
+      "：",
+      "“",
+      "医院",
+      "在",
+      "哪儿",
+      "？",
+      "我",
+      "和",
+      "你",
+      "去",
+      "吧",
+      "。",
+      "”",
+      "\n",
+      "妈妈",
+      "说",
+      "：",
+      "“",
+      "不要",
+      "去",
+      "，",
+      "你",
+      "去",
+      "上课",
+      "吧",
+      "。",
+      "你",
+      "几",
+      "点",
+      "下课",
+      "？",
+      "”",
+      "\n",
+      "小明",
+      "说",
+      "：",
+      "“",
+      "下午",
+      "四",
+      "点",
+      "。",
+      "下课",
+      "后",
+      "我",
+      "做饭",
+      "。",
+      "你",
+      "想",
+      "吃",
+      "什么",
+      "？",
+      "”",
+      "\n",
+      "妈妈",
+      "说",
+      "：",
+      "“",
+      "面条儿",
+      "。",
+      "现在",
+      "我",
+      "要",
+      "睡觉",
+      "了",
+      "。",
+      "”"
+    ]
+  ],
   "verification": {
     "tokens": 101,
     "atOrBelowLevel": 98,
@@ -96,6 +212,60 @@
       "没"
     ]
   },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-17T16:01:24.291Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "她生病了",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "下午四点",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "面条儿",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "医院",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "哪儿",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "做",
+        "agrees": true,
+        "alternatives": [
+          "煮"
+        ]
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "Dialogue is slightly inconsistent: the mother says she wants to go to the hospital, yet then tells Xiaoming \"不要去\" (ambiguous whether she means don't go with her or don't go anywhere); also \"我有点儿不好\" is unnatural, \"我有点儿不舒服\" would be more idiomatic. \"我和你去\" is also unnatural; \"我和你一起去\" or \"我陪你去\" is better."
+      }
+    ],
+    "costUsd": 0.0065
+  },
+  "review": null,
   "generation": {
     "model": "claude-sonnet-5-5",
     "promptVersion": "1",

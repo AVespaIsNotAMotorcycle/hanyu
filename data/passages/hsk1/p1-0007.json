@@ -83,6 +83,110 @@
       "hint": "attend class"
     }
   ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "三",
+      "月",
+      "八",
+      "号",
+      "，",
+      "星期日",
+      "。",
+      "我",
+      "今年",
+      "十",
+      "九",
+      "岁",
+      "。",
+      "早上",
+      "七",
+      "点",
+      "半",
+      "，",
+      "我",
+      "起床",
+      "了",
+      "。",
+      "我",
+      "喝",
+      "了",
+      "一杯",
+      "牛奶",
+      "，",
+      "吃",
+      "了",
+      "两",
+      "个",
+      "鸡蛋",
+      "。"
+    ],
+    [
+      "九",
+      "点",
+      "，",
+      "我",
+      "去",
+      "学校",
+      "上课",
+      "。",
+      "中午",
+      "十",
+      "二",
+      "点",
+      "二",
+      "十分",
+      "，",
+      "我",
+      "和",
+      "同学",
+      "去",
+      "饭店",
+      "吃",
+      "饭",
+      "。",
+      "我",
+      "喝",
+      "了",
+      "茶",
+      "，",
+      "他",
+      "喝",
+      "了",
+      "水",
+      "。",
+      "他",
+      "说",
+      "：",
+      "“",
+      "我",
+      "来",
+      "中国",
+      "一",
+      "年",
+      "了",
+      "。",
+      "我",
+      "很",
+      "想",
+      "家",
+      "。",
+      "”",
+      "我",
+      "说",
+      "：",
+      "“",
+      "没关系",
+      "，",
+      "我们",
+      "是",
+      "好",
+      "朋友",
+      "。",
+      "”"
+    ]
+  ],
   "verification": {
     "tokens": 86,
     "atOrBelowLevel": 85,
@@ -91,6 +195,62 @@
       "杯"
     ]
   },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-17T16:01:35.555Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "三月八号",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "十九岁",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "水",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "岁",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "起床",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "上课",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The passage is titled 我的一天 but only covers morning to noon, so it is not a full day. This is a small mismatch."
+      },
+      {
+        "severity": "minor",
+        "description": "The line 我来中国一年了 sits oddly with a 'school' setting. Also, 我喝了茶，他喝了水 is clear, but 他 refers back to 同学 only implicitly, which is fine for learners."
+      }
+    ],
+    "costUsd": 0.0061
+  },
+  "review": null,
   "generation": {
     "model": "claude-sonnet-5-5",
     "promptVersion": "1",

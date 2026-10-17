@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { checkLevel } from '../src/passages/level.js';
+import { checkLevel, tokenize } from '../src/passages/level.js';
 import { loadSeedContent } from '../src/passages/content.js';
 import { createSegmenter } from '../src/segmenter.js';
 
@@ -39,5 +39,30 @@ describe('checkLevel (with the real HSK lists and jieba)', () => {
     const result = check('小明有3本书。', 1, ['小明']);
     expect(result.offLevel).toEqual([]);
     expect(check('欧阳有书。', 1).offLevel).toContain('欧阳');
+  });
+});
+
+describe('tokenize', () => {
+  const tokens = (text: string, names: string[] = []) =>
+    tokenize(text, { segmenter, wordLevels: content.wordLevels, names });
+
+  it('splits paragraphs into words that join back into the text', () => {
+    const text = '小明喝咖啡。他有3本书。\n\n我们去 学校。';
+    const result = tokens(text, ['小明']);
+    expect(result.map((p) => p.join(''))).toEqual([
+      '小明喝咖啡。他有3本书。',
+      '我们去 学校。',
+    ]);
+    // jieba's 喝咖啡 and 本书 are split into HSK words; the name stays whole.
+    expect(result[0]).toEqual(
+      expect.arrayContaining(['小明', '喝', '咖啡', '本', '书']),
+    );
+    expect(result[0]).not.toContain('喝咖啡');
+  });
+
+  it('keeps unknown runs as tokens of their own', () => {
+    expect(tokens('欧阳去学校。')[0]!.join('|')).toMatch(
+      /欧阳.*\|去\|学校\|。/,
+    );
   });
 });

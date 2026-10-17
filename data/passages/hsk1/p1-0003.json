@@ -94,6 +94,108 @@
       "hint": "weather"
     }
   ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期天",
+      "，",
+      "天气",
+      "很",
+      "好",
+      "。",
+      "我",
+      "和",
+      "朋友",
+      "小明",
+      "去",
+      "商店",
+      "。",
+      "我",
+      "想",
+      "买",
+      "一",
+      "件",
+      "新",
+      "衣服",
+      "。",
+      "小明",
+      "想",
+      "买",
+      "苹果",
+      "。"
+    ],
+    [
+      "我",
+      "问",
+      "：",
+      "“",
+      "请问",
+      "，",
+      "我",
+      "可以",
+      "穿",
+      "一下",
+      "这",
+      "件",
+      "衣服",
+      "吗",
+      "？",
+      "”"
+    ],
+    [
+      "商店",
+      "的",
+      "人",
+      "说",
+      "：",
+      "“",
+      "可以",
+      "。",
+      "”"
+    ],
+    [
+      "这",
+      "件",
+      "衣服",
+      "很",
+      "好看",
+      "，",
+      "也",
+      "不",
+      "贵",
+      "。",
+      "我",
+      "说",
+      "：",
+      "“",
+      "我",
+      "要",
+      "这",
+      "件",
+      "。",
+      "”"
+    ],
+    [
+      "小明",
+      "说",
+      "：",
+      "“",
+      "我",
+      "也",
+      "要",
+      "一些",
+      "苹果",
+      "。",
+      "我们",
+      "回",
+      "家",
+      "吃",
+      "吧",
+      "。",
+      "”"
+    ]
+  ],
   "verification": {
     "tokens": 87,
     "atOrBelowLevel": 86,
@@ -102,6 +204,68 @@
       "明"
     ]
   },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-17T16:01:20.927Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "一件新衣服",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "苹果",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "很好",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "买",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "穿",
+        "agrees": true,
+        "alternatives": [
+          "试"
+        ]
+      },
+      {
+        "questionId": "z3",
+        "given": "天气",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The passage says 我可以穿一下这件衣服吗, which is natural, but 试穿 would be more idiomatic for trying on clothing. Learners might be confused whether 穿 means 'wear' or 'try on'."
+      },
+      {
+        "severity": "minor",
+        "description": "Option c1-2 '一个电脑' uses the wrong measure word; it should be 一台电脑. This is an unnatural distractor, though it does not affect the correct answer."
+      },
+      {
+        "severity": "minor",
+        "description": "The passage says the clothing 'also not expensive' and then 小明说 '我也要一些苹果', but it never states that 小明 actually bought apples or that they left the shop; the logic is simple and fine, though 我们回家吃吧 is slightly abrupt."
+      }
+    ],
+    "costUsd": 0.0072
+  },
+  "review": null,
   "generation": {
     "model": "claude-sonnet-5-5",
     "promptVersion": "1",
