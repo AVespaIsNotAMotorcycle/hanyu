@@ -131,7 +131,7 @@ button.link {
   gap: 0.75rem;
 }
 
-.card .badge {
+.badge {
   justify-self: center;
   font-size: 0.75rem;
   padding: 0 0.5rem;
@@ -175,4 +175,28 @@ button.link {
   margin: 0.25rem 0 0;
   opacity: 0.7;
   font-size: 0.875rem;
+}
+
+.study-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.badges {
+  display: flex;
+  gap: 0.25rem;
+  justify-content: center;
+  min-height: 1.25rem;
+}
+
+.badge.flagged {
+  background: color-mix(in srgb, #c62828 20%, transparent);
+}
+
+.sync.offline,
+.sync.error {
+  opacity: 1;
+  color: #b26a00;
 }

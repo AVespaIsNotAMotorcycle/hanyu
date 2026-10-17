@@ -9,8 +9,11 @@ import {
   MAX_REVIEWS_PER_REQUEST,
   parseCardKey,
   serializeSchedule,
+  MAX_REVIEWS_PER_PULL,
+  type GetReviewsResponse,
   type PostReviewsResponse,
   type Rating,
+  type StoredReview,
 } from '@hanyu/shared';
 import { mongo, type Types } from 'mongoose';
 import { ReviewLogModel, WordModel } from '../models/index.js';
@@ -166,6 +169,54 @@ reviewsRouter.post('/', async (req, res) => {
     cards: Object.fromEntries(
       [...summaries].map(([key, s]) => [key, serializeSchedule(s.schedule)]),
     ),
+  };
+  res.json(body);
+});
+
+// Sync pull: the user's logs in the order they were stored, a page at a time.
+// Query: since (ISO, inclusive), after (log ID, for ties at `since`).
+reviewsRouter.get('/', async (req, res) => {
+  const user = req.user!;
+  const { since, after } = req.query;
+  const from = since === undefined ? new Date(0) : new Date(String(since));
+  if (Number.isNaN(from.getTime()))
+    throw badRequest('since must be an ISO time');
+  if (after !== undefined && (since === undefined || !isUuid(after))) {
+    throw badRequest('after must be a review ID, together with since');
+  }
+
+  const logs = await ReviewLogModel.find({
+    userId: user._id,
+    ...(after
+      ? {
+          $or: [
+            { createdAt: { $gt: from } },
+            { createdAt: from, _id: { $gt: after } },
+          ],
+        }
+      : { createdAt: { $gte: from } }),
+  })
+    .sort({ createdAt: 1, _id: 1 })
+    .limit(MAX_REVIEWS_PER_PULL + 1)
+    .lean();
+
+  const page = logs.slice(0, MAX_REVIEWS_PER_PULL);
+  const last = page.at(-1);
+  const body: GetReviewsResponse = {
+    reviews: page.map((log): StoredReview => ({
+      _id: log._id,
+      cardKey: log.cardKey,
+      rating: log.rating as Rating,
+      reviewedAt: log.reviewedAt.toISOString(),
+      ...(log.answer != null && { answer: log.answer }),
+      ...(log.durationMs != null && { durationMs: log.durationMs }),
+      ...(log.deviceId != null && { deviceId: log.deviceId }),
+      storedAt: log.createdAt!.toISOString(),
+    })),
+    next:
+      logs.length > MAX_REVIEWS_PER_PULL && last
+        ? { since: last.createdAt!.toISOString(), after: last._id }
+        : null,
   };
   res.json(body);
 });

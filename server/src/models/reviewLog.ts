@@ -26,6 +26,8 @@ const reviewLogSchema = new Schema(
 
 reviewLogSchema.index({ userId: 1, reviewedAt: 1 });
 reviewLogSchema.index({ userId: 1, cardKey: 1, reviewedAt: 1 });
+// Sync pulls page through a user's logs in the order the server stored them.
+reviewLogSchema.index({ userId: 1, createdAt: 1, _id: 1 });
 
 function rejectChange(): never {
   throw new Error('Review logs are append-only and cannot be modified');

@@ -1,7 +1,17 @@
 import { describe, expect, it } from 'vitest';
-import { cardKey, type Rating } from './content.js';
 import {
+  cardKey,
+  type HskLevel,
+  type Rating,
+  type WordNote,
+} from './content.js';
+import {
+  buildDecks,
+  buildQueue,
   countIntroducedSince,
+  LEECH_CLEAR_STREAK,
+  LEECH_LAPSES,
+  type CardSummary,
   dueCards,
   LEARN_AHEAD_MS,
   newCardAllowance,
@@ -11,7 +21,7 @@ import {
   studyDayStart,
   summarizeCards,
 } from './queue.js';
-import { replayReviews } from './scheduling.js';
+import { replayReviews, type ReviewEvent } from './scheduling.js';
 
 const MINUTE = 60 * 1000;
 const DAY = 24 * 60 * MINUTE;
@@ -139,5 +149,195 @@ describe('cards from logs', () => {
     const schedule = summaries.get('A')!.schedule;
     const json = JSON.parse(JSON.stringify(serializeSchedule(schedule)));
     expect(parseSchedule(json)).toEqual(schedule);
+  });
+});
+
+describe('leeches', () => {
+  const start = new Date('2026-09-01T09:00:00Z');
+  let id = 0;
+  /** Replays ratings, each reviewed when the card is next due. */
+  function history(ratings: Rating[]) {
+    const logs: (ReviewEvent & { cardKey: string })[] = [];
+    let at = start;
+    for (const rating of ratings) {
+      const log = { _id: `l${id++}`, cardKey: 'K', rating, reviewedAt: at };
+      logs.push(log);
+      at = new Date(
+        Math.max(replayReviews(logs).due.getTime(), at.getTime() + MINUTE),
+      );
+    }
+    return logs;
+  }
+  // Graduate (Good, Good), then lapse and relearn (Again, Good) n times.
+  const lapses = (n: number): Rating[] => [
+    3,
+    3,
+    ...Array.from({ length: n }, (): Rating[] => [1, 3]).flat(),
+  ];
+
+  it(`flags a card after ${LEECH_LAPSES} lapses`, () => {
+    const below = summarizeCards(history(lapses(LEECH_LAPSES - 1))).get('K')!;
+    expect(below.schedule.lapses).toBe(LEECH_LAPSES - 1);
+    expect(below.leech).toBe(false);
+    const at = summarizeCards(history(lapses(LEECH_LAPSES))).get('K')!;
+    expect(at.schedule.lapses).toBe(LEECH_LAPSES);
+    expect(at.leech).toBe(true);
+  });
+
+  it(`clears the flag after ${LEECH_CLEAR_STREAK} correct answers in a row`, () => {
+    const ratings = lapses(LEECH_LAPSES);
+    // The final Good of the last relearning counts toward the streak.
+    const almost: Rating[] = [
+      ...ratings,
+      ...Array<Rating>(LEECH_CLEAR_STREAK - 2).fill(3),
+    ];
+    expect(summarizeCards(history(almost)).get('K')!.leech).toBe(true);
+    expect(summarizeCards(history([...almost, 4])).get('K')!.leech).toBe(false);
+    // Hard breaks the streak.
+    expect(summarizeCards(history([...almost, 2])).get('K')!.leech).toBe(true);
+  });
+});
+
+describe('buildQueue and buildDecks', () => {
+  const now = new Date('2026-10-16T12:00:00Z');
+  const dayStart = studyDayStart(now, 'UTC');
+  const word = (n: number, level: HskLevel, levelOrder: number) =>
+    ({
+      _id: `w${n}`,
+      level,
+      levelOrder,
+      simplified: `词${n}`,
+    }) as WordNote;
+  const words = new Map(
+    [
+      word(1, 1, 2),
+      word(2, 1, 3),
+      word(3, 1, 1),
+      word(4, 2, 1),
+      word(5, 2, 2),
+    ].map((w) => [w._id, w]),
+  );
+  let id = 0;
+  const log = (noteId: string, at: Date, rating: Rating = 3) => ({
+    _id: `q${id++}`,
+    cardKey: cardKey('word', noteId, 'pinyin'),
+    rating,
+    reviewedAt: at,
+  });
+  const settings = { dailyNewCards: 10, levels: [1] as HskLevel[] };
+  const build = (
+    logs: ReturnType<typeof log>[],
+    overrides: Partial<Parameters<typeof buildQueue>[0]> = {},
+  ) =>
+    buildQueue({
+      summaries: summarizeCards(logs),
+      words,
+      settings,
+      now,
+      dayStart,
+      ...overrides,
+    });
+
+  it('introduces new cards from enabled levels in frequency order', () => {
+    const queue = build([]);
+    expect(queue.cards.map((c) => c.word._id)).toEqual(['w3', 'w1', 'w2']);
+    expect(queue.cards[0]).toMatchObject({
+      key: 'word:w3:pinyin',
+      schedule: null,
+      leech: false,
+    });
+    expect(queue).toMatchObject({
+      dueCount: 0,
+      newCount: 3,
+      introducedToday: 0,
+    });
+  });
+
+  it('puts due cards first and limits new cards per day', () => {
+    const queue = build([log('w3', new Date(now.getTime() - MINUTE))], {
+      settings: { dailyNewCards: 2, levels: [1] },
+    });
+    expect(
+      queue.cards.map((c) => [c.word._id, c.schedule?.phase ?? 'new']),
+    ).toEqual([
+      ['w3', 'learning'],
+      ['w1', 'new'],
+    ]);
+    expect(queue).toMatchObject({
+      dueCount: 1,
+      newCount: 1,
+      introducedToday: 1,
+    });
+  });
+
+  it('keeps reviewing started cards from disabled levels', () => {
+    const queue = build([log('w4', new Date(now.getTime() - MINUTE))], {
+      settings: { dailyNewCards: 10, levels: [] },
+    });
+    expect(queue.cards.map((c) => c.word._id)).toEqual(['w4']);
+  });
+
+  it('skips cards whose word is not available', () => {
+    const queue = build([log('gone', new Date(now.getTime() - MINUTE))]);
+    expect(queue.cards.map((c) => c.word._id)).toEqual(['w3', 'w1', 'w2']);
+  });
+
+  it('studies only leeches in flagged mode, due or not', () => {
+    const leech: CardSummary = {
+      ...summarizeCards([log('w2', now)]).get('word:w2:pinyin')!,
+      leech: true,
+    };
+    leech.schedule = { ...leech.schedule, due: new Date(now.getTime() + DAY) };
+    const summaries = new Map([
+      ...summarizeCards([log('w1', new Date(now.getTime() - MINUTE))]),
+      [leech.key, leech],
+    ]);
+    const queue = buildQueue({
+      summaries,
+      words,
+      settings,
+      now,
+      dayStart,
+      mode: 'flagged',
+    });
+    expect(queue.cards.map((c) => [c.word._id, c.leech])).toEqual([
+      ['w2', true],
+    ]);
+    expect(queue.newCount).toBe(0);
+  });
+
+  it('reports per-level progress', () => {
+    const summaries = summarizeCards([
+      log('w3', new Date(now.getTime() - MINUTE)),
+      log('w4', new Date(now.getTime() - 40 * DAY)),
+    ]);
+    const decks = buildDecks({
+      summaries,
+      words,
+      settings,
+      now,
+      levelCounts: { 1: 3, 2: 2, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 },
+    });
+    expect(decks.slice(0, 2)).toEqual([
+      {
+        level: 1,
+        label: '1',
+        enabled: true,
+        total: 3,
+        started: 1,
+        due: 1,
+        flagged: 0,
+      },
+      {
+        level: 2,
+        label: '2',
+        enabled: false,
+        total: 2,
+        started: 1,
+        due: 1,
+        flagged: 0,
+      },
+    ]);
+    expect(decks.at(-1)!.label).toBe('7–9');
   });
 });

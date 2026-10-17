@@ -89,8 +89,8 @@ Estimated time: 1–2 weeks
   - Wrong syllable → Again
 - [x] Add per-level decks, daily new-card limits, and a review queue
 - [x] Record each review as an immutable log entry, and recompute card state from the logs
-- [ ] Sync logs between IndexedDB and MongoDB
-- [ ] Flag leeches and add a flagged-cards-only study mode
+- [x] Sync logs between IndexedDB and MongoDB
+- [x] Flag leeches and add a flagged-cards-only study mode
 - [ ] Begin daily use and log UX friction
 
 **Milestone:** usable daily for HSK 1 vocabulary review.

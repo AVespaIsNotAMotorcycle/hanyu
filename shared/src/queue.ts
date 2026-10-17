@@ -2,7 +2,13 @@
 // and when "today" starts. Pure functions over review logs, so the server
 // (and later the offline client) build the same queue.
 
-import type { CardKind, HskLevel, NoteType, WordNote } from './content.js';
+import {
+  cardKey,
+  type CardKind,
+  type HskLevel,
+  type NoteType,
+  type WordNote,
+} from './content.js';
 import {
   compareReviews,
   replayReviews,
@@ -122,11 +128,36 @@ export function studyDayStart(
 
 // --- Cards from logs ----------------------------------------------------------
 
+/** A card is a leech once it has lapsed this many times… */
+export const LEECH_LAPSES = 4;
+/** …until it is answered correctly (Good or Easy) this many times in a row. */
+export const LEECH_CLEAR_STREAK = 3;
+
 export interface CardSummary {
   key: string;
   schedule: CardSchedule;
   /** When the card was first reviewed, i.e. introduced. */
   introducedAt: Date;
+  /** Failed repeatedly; see LEECH_LAPSES. Derived from logs like the schedule. */
+  leech: boolean;
+}
+
+/**
+ * Whether a card with these reviews (sorted) is a leech: it has lapsed
+ * LEECH_LAPSES times and hasn't since been answered correctly
+ * LEECH_CLEAR_STREAK times in a row.
+ */
+export function isLeech(
+  schedule: CardSchedule,
+  sortedReviews: readonly Pick<ReviewEvent, 'rating'>[],
+): boolean {
+  if (schedule.lapses < LEECH_LAPSES) return false;
+  let streak = 0;
+  for (let i = sortedReviews.length - 1; i >= 0; i--) {
+    if (sortedReviews[i]!.rating < 3) break;
+    streak++;
+  }
+  return streak < LEECH_CLEAR_STREAK;
 }
 
 /** Replays a user's logs into one summary per card key. */
@@ -141,11 +172,13 @@ export function summarizeCards(
   }
   const summaries = new Map<string, CardSummary>();
   for (const [key, list] of byCard) {
-    const first = [...list].sort(compareReviews)[0]!;
+    const sorted = [...list].sort(compareReviews);
+    const schedule = replayReviews(sorted);
     summaries.set(key, {
       key,
-      schedule: replayReviews(list),
-      introducedAt: new Date(first.reviewedAt),
+      schedule,
+      introducedAt: new Date(sorted[0]!.reviewedAt),
+      leech: isLeech(schedule, sorted),
     });
   }
   return summaries;
@@ -221,24 +254,108 @@ export function parseSchedule(json: SerializedSchedule): CardSchedule {
   };
 }
 
-export interface QueueCard {
+// --- Building the queue and decks -------------------------------------------
+
+/** `regular`: due cards, then today's new cards. `flagged`: leeches only. */
+export type StudyMode = 'regular' | 'flagged';
+
+export interface QueueItem {
   key: string;
   kind: CardKind;
   /** Null for a new card. */
-  schedule: SerializedSchedule | null;
+  schedule: CardSchedule | null;
+  leech: boolean;
   word: WordNote;
 }
 
-/** GET /api/queue?tz=… */
-export interface QueueResponse {
+export interface StudyQueue {
   /** Due cards first ((re)learning, then review), then today's new cards. */
-  cards: QueueCard[];
+  cards: QueueItem[];
   dueCount: number;
   newCount: number;
   introducedToday: number;
+}
+
+export interface StudySettings {
   dailyNewCards: number;
-  /** Start of the current study day (ISO). */
-  dayStart: string;
+  levels: readonly HskLevel[];
+}
+
+export interface QueueInput {
+  /** The user's cards, from summarizeCards. */
+  summaries: ReadonlyMap<string, CardSummary>;
+  /**
+   * Words by ID: at least every started card's word and every word in the
+   * enabled levels. Cards whose word is missing are skipped.
+   */
+  words: ReadonlyMap<string, WordNote>;
+  settings: StudySettings;
+  now: Date;
+  /** Start of the study day (studyDayStart). */
+  dayStart: Date;
+  mode?: StudyMode;
+}
+
+// Phase 1 studies word pinyin cards only.
+const KIND: CardKind = 'pinyin';
+
+/** Builds what to study now. Pure, so every device builds the same queue. */
+export function buildQueue({
+  summaries,
+  words,
+  settings,
+  now,
+  dayStart,
+  mode = 'regular',
+}: QueueInput): StudyQueue {
+  const introducedToday = countIntroducedSince(summaries.values(), dayStart);
+  const item = (summary: CardSummary): QueueItem[] => {
+    const word = words.get(parseCardKey(summary.key)?.noteId ?? '');
+    return word
+      ? [
+          {
+            key: summary.key,
+            kind: KIND,
+            schedule: summary.schedule,
+            leech: summary.leech,
+            word,
+          },
+        ]
+      : [];
+  };
+
+  if (mode === 'flagged') {
+    // Every leech, most overdue first, whether or not it's due.
+    const cards = [...summaries.values()]
+      .filter((s) => s.leech)
+      .sort((a, b) => a.schedule.due.getTime() - b.schedule.due.getTime())
+      .flatMap(item);
+    return { cards, dueCount: cards.length, newCount: 0, introducedToday };
+  }
+
+  const due = dueCards(summaries.values(), now).flatMap(item);
+  const started = new Set(
+    [...summaries.keys()].map((key) => parseCardKey(key)?.noteId),
+  );
+  const newWords = [...words.values()]
+    .filter((w) => settings.levels.includes(w.level) && !started.has(w._id))
+    .sort((a, b) => a.level - b.level || a.levelOrder - b.levelOrder)
+    .slice(0, newCardAllowance(settings.dailyNewCards, introducedToday));
+  return {
+    cards: [
+      ...due,
+      ...newWords.map((word): QueueItem => ({
+        key: cardKey('word', word._id, KIND),
+        kind: KIND,
+        schedule: null,
+        leech: false,
+        word,
+      })),
+    ],
+    dueCount: due.length,
+    newCount: newWords.length,
+    introducedToday,
+  };
 }
 
 export interface Deck {
@@ -252,13 +369,39 @@ export interface Deck {
   started: number;
   /** Cards due now. */
   due: number;
+  /** Leeches. */
+  flagged: number;
 }
 
-/** GET /api/decks?tz=… */
-export interface DecksResponse {
-  decks: Deck[];
-  introducedToday: number;
-  dailyNewCards: number;
+/** Per-level progress. `levelCounts` gives each level's size. */
+export function buildDecks({
+  summaries,
+  words,
+  settings,
+  levelCounts,
+  now,
+}: Omit<QueueInput, 'dayStart' | 'mode'> & {
+  levelCounts: Readonly<Record<HskLevel, number>>;
+}): Deck[] {
+  const decks = HSK_LEVELS.map((level): Deck => ({
+    level,
+    label: HSK_LEVEL_LABELS[level],
+    enabled: settings.levels.includes(level),
+    total: levelCounts[level] ?? 0,
+    started: 0,
+    due: 0,
+    flagged: 0,
+  }));
+  const due = new Set(dueCards(summaries.values(), now).map((c) => c.key));
+  for (const summary of summaries.values()) {
+    const word = words.get(parseCardKey(summary.key)?.noteId ?? '');
+    const deck = word && decks[word.level - 1];
+    if (!deck) continue;
+    deck.started++;
+    if (due.has(summary.key)) deck.due++;
+    if (summary.leech) deck.flagged++;
+  }
+  return decks;
 }
 
 /** PUT /api/settings. Returns AuthResponse. */

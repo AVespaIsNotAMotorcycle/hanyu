@@ -1,12 +1,13 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import compression from 'compression';
 import express, { type ErrorRequestHandler } from 'express';
 import { requireAuth } from './auth/requireAuth.js';
 import { createAuthRouter } from './routes/auth.js';
 import { healthRouter } from './routes/health.js';
 import { reviewsRouter } from './routes/reviews.js';
 import { settingsRouter } from './routes/settings.js';
-import { studyRouter } from './routes/study.js';
+import { contentRouter } from './routes/content.js';
 
 const clientDist = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -30,6 +31,8 @@ export function createApp({
   const app = express();
 
   app.disable('x-powered-by');
+  // Word lists for the offline cache compress about 6×.
+  app.use(compression());
   if (trustProxy) app.set('trust proxy', 1);
   app.use(express.json());
 
@@ -40,7 +43,7 @@ export function createApp({
   api.use('/health', healthRouter);
   api.use('/reviews', reviewsRouter);
   api.use('/settings', settingsRouter);
-  api.use(studyRouter);
+  api.use(contentRouter);
   api.use((_req, res) => {
     res.status(404).json({ error: 'Not found' });
   });

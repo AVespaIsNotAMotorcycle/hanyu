@@ -1,8 +1,9 @@
 import {
   replayReviews,
   type PostReviewsResponse,
-  type QueueResponse,
+  type GetReviewsResponse,
   type ReviewInput,
+  type StoredReview,
   type WordNote,
 } from '@hanyu/shared';
 import mongoose from 'mongoose';
@@ -158,15 +159,48 @@ describe.skipIf(!uri)('POST /api/reviews', () => {
     expect(await ReviewLogModel.countDocuments()).toBe(1);
   });
 
-  it('feeds the queue: a reviewed new card counts as introduced', async () => {
-    await post([review({ rating: 1 })]);
+  it('pulls logs in stored order, page by page, for this user only', async () => {
+    const [a, b, c] = [review(), review(), review()];
+    await post([a]);
+    await post([b, c]);
+    const other = await signUp('other@example.com');
+    await post([review()], other);
 
-    const queue = (await agent.get('/api/queue')).body as QueueResponse;
-    expect(queue.introducedToday).toBe(1);
-    expect(queue.cards[0]).toMatchObject({
-      key: KEY,
-      schedule: { phase: 'learning' },
+    const all = (await agent.get('/api/reviews')).body as GetReviewsResponse;
+    expect(all.next).toBeNull();
+    expect(all.reviews.map((r) => r._id)).toEqual([
+      a._id,
+      ...[b._id, c._id].sort(),
+    ]);
+    expect(all.reviews[0]).toEqual({
+      ...a,
+      storedAt: expect.any(String),
     });
+
+    // Resume after the first log: `since` is inclusive, `after` breaks ties.
+    const first = all.reviews[0]!;
+    const rest = await agent
+      .get('/api/reviews')
+      .query({ since: first.storedAt, after: first._id });
+    expect(rest.body.reviews.map((r: StoredReview) => r._id)).toEqual(
+      all.reviews.slice(1).map((r) => r._id),
+    );
+
+    const later = await agent
+      .get('/api/reviews')
+      .query({ since: new Date(Date.now() + 60_000).toISOString() });
+    expect(later.body).toEqual({ reviews: [], next: null });
+  });
+
+  it('rejects bad pull queries', async () => {
+    for (const query of [
+      { since: 'soon' },
+      { after: crypto.randomUUID() },
+      { since: new Date().toISOString(), after: 'x' },
+    ]) {
+      const res = await agent.get('/api/reviews').query(query);
+      expect(res.status, JSON.stringify(query)).toBe(400);
+    }
   });
 
   it.each([

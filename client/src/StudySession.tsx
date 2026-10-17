@@ -1,33 +1,27 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import {
   applyReview,
+  buildQueue,
   displayPinyin,
   gradePinyin,
   LEARN_AHEAD_MS,
   MAX_ANSWER_LENGTH,
-  MAX_REVIEWS_PER_REQUEST,
   newCardSchedule,
-  parseSchedule,
   RATING_LABELS,
   ratingForPinyin,
+  studyDayStart,
+  type AuthUser,
   type CardSchedule,
   type PinyinGrade,
-  type PostReviewsResponse,
-  type QueueCard,
-  type QueueResponse,
+  type QueueItem,
   type Rating,
-  type ReviewInput,
+  type StudyMode,
 } from '@hanyu/shared';
-import { getJson, postJson, timeZone } from './api';
+import { timeZone } from './api';
 import { deviceId } from './device';
 import { formatInterval } from './format';
+import { useLocalData, useStudyData } from './local/LocalData';
 import { PinyinInput } from './PinyinInput';
-
-interface SessionCard {
-  card: QueueCard;
-  /** Null until the first review of a new card. */
-  schedule: CardSchedule | null;
-}
 
 interface Answered {
   grade: PinyinGrade;
@@ -42,42 +36,57 @@ const VERDICTS: Record<PinyinGrade['verdict'], string> = {
 };
 
 /**
- * Works through the review queue. (Re)learning cards come back within the
- * session once their step is due, or early if nothing else is left.
+ * Works through the review queue, built on this device from its logs.
+ * (Re)learning cards come back within the session once their step is due,
+ * or early if nothing else is left. Reviews are written to IndexedDB first,
+ * so they survive going offline or closing the tab, then synced.
  */
-export function StudySession({ onExit }: { onExit: () => void }) {
-  const [queue, setQueue] = useState<SessionCard[] | null>(null);
+export function StudySession({
+  user,
+  mode,
+  onExit,
+}: {
+  user: AuthUser;
+  mode: StudyMode;
+  onExit: () => void;
+}) {
+  const { store, recorded } = useLocalData();
+  const { data, error: loadError } = useStudyData(user.settings);
+  const [queue, setQueue] = useState<QueueItem[] | null>(null);
   // Cards in a learning step, waiting to come back this session.
-  const [waiting, setWaiting] = useState<SessionCard[]>([]);
-  const [current, setCurrent] = useState<SessionCard | null>(null);
+  const [waiting, setWaiting] = useState<QueueItem[]>([]);
+  const [current, setCurrent] = useState<QueueItem | null>(null);
   const [answer, setAnswer] = useState('');
   const [answered, setAnswered] = useState<Answered | null>(null);
   const [done, setDone] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const shownAt = useRef(Date.now());
-  const unsaved = useSaver();
 
+  // Build the queue once, from the first snapshot; the session then runs on
+  // its own state, so syncs mid-session don't reshuffle it.
   useEffect(() => {
-    getJson<QueueResponse>(`/queue?tz=${encodeURIComponent(timeZone)}`)
-      .then(({ cards }) => {
-        const items = cards.map((card) => ({
-          card,
-          schedule: card.schedule && parseSchedule(card.schedule),
-        }));
-        setCurrent(items[0] ?? null);
-        setQueue(items.slice(1));
-      })
-      .catch((err: unknown) => setError(String(err)));
-  }, []);
+    if (!data || queue) return;
+    const now = new Date();
+    const { cards } = buildQueue({
+      ...data,
+      settings: user.settings,
+      now,
+      dayStart: studyDayStart(now, timeZone),
+      mode,
+    });
+    setCurrent(cards[0] ?? null);
+    setQueue(cards.slice(1));
+    shownAt.current = Date.now();
+  }, [data, queue, user.settings, mode]);
 
   /** Learning cards that are due first, then the queue, then learning cards early. */
-  function advance(nextWaiting: SessionCard[]) {
+  function advance(nextWaiting: QueueItem[]) {
     const now = Date.now();
     const byDue = [...nextWaiting].sort(
       (a, b) => a.schedule!.due.getTime() - b.schedule!.due.getTime(),
     );
     const ready = byDue[0] && byDue[0].schedule!.due.getTime() <= now;
-    let next: SessionCard | undefined;
+    let next: QueueItem | undefined;
     if (ready || queue!.length === 0) {
       next = byDue.shift();
     } else {
@@ -91,20 +100,21 @@ export function StudySession({ onExit }: { onExit: () => void }) {
     shownAt.current = Date.now();
   }
 
-  function submit(event: FormEvent) {
+  async function submit(event: FormEvent) {
     event.preventDefault();
     if (!current) return;
     if (answered) {
-      const next: SessionCard = { ...current, schedule: answered.next };
+      const next: QueueItem = { ...current, schedule: answered.next };
       const learning =
         next.schedule!.phase === 'learning' ||
         next.schedule!.phase === 'relearning';
       const soon = next.schedule!.due.getTime() - Date.now() <= LEARN_AHEAD_MS;
+      // Flagged mode drills each card until it leaves learning.
       advance(learning && soon ? [...waiting, next] : waiting);
       return;
     }
     if (!answer.trim()) return;
-    const { word } = current.card;
+    const { word } = current;
     const grade = gradePinyin(
       answer,
       [word.citationPinyin, ...word.alternatePinyin],
@@ -112,72 +122,68 @@ export function StudySession({ onExit }: { onExit: () => void }) {
     );
     const rating = ratingForPinyin(grade);
     const now = new Date();
-    // The server replays the same logs into the same state; computing it
-    // here keeps the session moving while the save is in flight.
     const next = applyReview(current.schedule ?? newCardSchedule(now), {
       rating,
       reviewedAt: now,
     });
-    unsaved.record({
-      _id: crypto.randomUUID(),
-      cardKey: current.card.key,
-      rating,
-      reviewedAt: now.toISOString(),
-      answer: answer.slice(0, MAX_ANSWER_LENGTH),
-      durationMs: now.getTime() - shownAt.current,
-      deviceId,
-    });
+    try {
+      await store.addLog({
+        _id: crypto.randomUUID(),
+        cardKey: current.key,
+        rating,
+        reviewedAt: now.toISOString(),
+        answer: answer.slice(0, MAX_ANSWER_LENGTH),
+        durationMs: now.getTime() - shownAt.current,
+        deviceId,
+      });
+    } catch (err) {
+      setError(`Couldn’t save this review on this device: ${String(err)}`);
+      return;
+    }
+    recorded();
     setAnswered({ grade, rating, next });
     setDone((n) => n + 1);
   }
 
-  async function leave() {
-    if (
-      (await unsaved.flush()) === 0 ||
-      window.confirm(
-        `${unsaved.count} reviews couldn’t be saved and will be lost. Leave anyway?`,
-      )
-    ) {
-      onExit();
-    }
-  }
-
-  if (error) return <p className="error">{error}</p>;
+  if (loadError) return <p className="error">{loadError}</p>;
   if (!queue) return <p className="status">Loading reviews…</p>;
 
   const remaining = queue.length + waiting.length + (current ? 1 : 0);
   return (
     <section className="session">
       <p className="session-bar">
-        <button type="button" className="link" onClick={() => void leave()}>
+        <button type="button" className="link" onClick={onExit}>
           ← Decks
         </button>
         <span>
+          {mode === 'flagged' && 'Flagged · '}
           {done} reviewed · {remaining} left
         </span>
       </p>
-      {unsaved.error && (
-        <p className="notice" role="alert">
-          {unsaved.count} {unsaved.count === 1 ? 'review' : 'reviews'} not saved
-          yet ({unsaved.error}).{' '}
-          <button
-            type="button"
-            className="link"
-            onClick={() => void unsaved.flush()}
-          >
-            Retry
-          </button>
+      {error && (
+        <p className="error" role="alert">
+          {error}
         </p>
       )}
       {current ? (
-        <form className="card" onSubmit={submit}>
-          {current.schedule === null && <span className="badge">New</span>}
+        <form className="card" onSubmit={(event) => void submit(event)}>
+          <span className="badges">
+            {current.schedule === null && <span className="badge">New</span>}
+            {current.leech && (
+              <span
+                className="badge flagged"
+                title="You’ve missed this one often"
+              >
+                Flagged
+              </span>
+            )}
+          </span>
           <p className="card-word" lang="zh-Hans">
-            {current.card.word.simplified}
+            {current.word.simplified}
           </p>
-          <p className="hint">{current.card.word.definitions[0]}</p>
+          <p className="hint">{current.word.definitions[0]}</p>
           <PinyinInput
-            key={`${current.card.key}-${done}`}
+            key={`${current.key}-${done}`}
             value={answer}
             onChange={setAnswer}
             readOnly={answered !== null}
@@ -190,8 +196,12 @@ export function StudySession({ onExit }: { onExit: () => void }) {
         </form>
       ) : (
         <div className="card">
-          <p>Done for now. {done} reviewed.</p>
-          <button type="button" onClick={() => void leave()}>
+          <p>
+            {done === 0 && mode === 'flagged'
+              ? 'No flagged cards right now.'
+              : `Done for now. ${done} reviewed.`}
+          </p>
+          <button type="button" onClick={onExit}>
             Back to decks
           </button>
         </div>
@@ -229,62 +239,4 @@ function Feedback({
       )}
     </div>
   );
-}
-
-/**
- * Saves review logs, batching whatever is waiting. Logs that fail to save
- * stay queued and go out with the next save (or a retry); the server ignores
- * any it already has, so re-sending is safe.
- */
-function useSaver() {
-  const pending = useRef<ReviewInput[]>([]);
-  const inFlight = useRef<Promise<number> | null>(null);
-  const [count, setCount] = useState(0);
-  const [error, setError] = useState<string | null>(null);
-
-  // Warn before closing the tab with unsaved reviews.
-  useEffect(() => {
-    const warn = (event: BeforeUnloadEvent) => {
-      if (pending.current.length > 0) event.preventDefault();
-    };
-    window.addEventListener('beforeunload', warn);
-    return () => window.removeEventListener('beforeunload', warn);
-  }, []);
-
-  /** Sends everything pending; resolves to how many are still unsaved. */
-  function flush(): Promise<number> {
-    if (inFlight.current) {
-      // Wait for the current save, then send anything recorded meanwhile.
-      return inFlight.current.then(() =>
-        pending.current.length ? flush() : 0,
-      );
-    }
-    const batch = pending.current.slice(0, MAX_REVIEWS_PER_REQUEST);
-    if (batch.length === 0) return Promise.resolve(0);
-    inFlight.current = postJson<PostReviewsResponse>('/reviews', {
-      reviews: batch,
-    })
-      .then(({ accepted, duplicates }) => {
-        const saved = new Set([...accepted, ...duplicates]);
-        pending.current = pending.current.filter((r) => !saved.has(r._id));
-        setError(null);
-      })
-      .catch((err: unknown) => {
-        setError(err instanceof Error ? err.message : String(err));
-      })
-      .then(() => {
-        inFlight.current = null;
-        setCount(pending.current.length);
-        return pending.current.length;
-      });
-    return inFlight.current;
-  }
-
-  function record(review: ReviewInput) {
-    pending.current.push(review);
-    setCount(pending.current.length);
-    void flush();
-  }
-
-  return { record, flush, count, error };
 }

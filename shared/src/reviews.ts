@@ -46,3 +46,31 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 export function isUuid(value: unknown): value is string {
   return typeof value === 'string' && UUID.test(value);
 }
+
+// --- Pulling logs (sync) --------------------------------------------------------
+
+/** Most logs returned by one GET /api/reviews page. */
+export const MAX_REVIEWS_PER_PULL = 1000;
+/**
+ * Clients start each pull this far before the newest `storedAt` they have
+ * seen. Logs written concurrently can commit slightly out of `storedAt`
+ * order; re-reading a minute covers them, and duplicates merge by `_id`.
+ */
+export const PULL_OVERLAP_MS = 60 * 1000;
+
+/** A log as stored: the client's fields plus when the server stored it. */
+export interface StoredReview extends ReviewInput {
+  /** ISO time the server stored the log; pulls page by it. */
+  storedAt: string;
+}
+
+/**
+ * GET /api/reviews?since=ISO&after=ID: the user's logs stored at or after
+ * `since` (and after log `after` among those stored at exactly `since`),
+ * oldest first.
+ */
+export interface GetReviewsResponse {
+  reviews: StoredReview[];
+  /** Query for the next page, or null when this was the last. */
+  next: { since: string; after: string } | null;
+}

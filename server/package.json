@@ -14,11 +14,13 @@
   },
   "dependencies": {
     "@hanyu/shared": "^0.1.0",
+    "compression": "^1.8.2",
     "express": "^5.3.0",
     "express-rate-limit": "^8.7.1",
     "mongoose": "^9.11.2"
   },
   "devDependencies": {
+    "@types/compression": "^1.8.1",
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.5",
     "@types/supertest": "^7.2.1",

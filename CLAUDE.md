@@ -12,7 +12,7 @@ npm workspaces, all TypeScript and ESM:
 
 - `shared/` (`@hanyu/shared`): types and logic used by every workspace: seed/document shapes (`content.ts`), pinyin helpers (`pinyin.ts`), typed-answer conversion and grading (`pinyinAnswer.ts`), FSRS scheduling (`scheduling.ts`, wrapping `ts-fsrs`), the review queue (`queue.ts`: study days, due order, new-card allowance), API types. Compiled to `shared/dist`, which client and server import. After changing it, rebuild (`npm run build -w shared`) or keep `npm run dev` running.
 - `server/` (`@hanyu/server`): Express 5 + Mongoose. `src/app.ts` builds the app (`createApp()`, no side effects, used by tests); `src/index.ts` connects to MongoDB and listens. Routes live in `src/routes/` and mount under `/api`. Authentication is in `src/auth/` (scrypt passwords, cookie sessions stored hashed in the `sessions` collection, `requireAuth` middleware).
-- `client/` (`@hanyu/client`): React 19 + Vite. Calls the API through relative `/api/...` paths (Vite proxies to :5000 in dev; same origin in production).
+- `client/` (`@hanyu/client`): React 19 + Vite. Calls the API through relative `/api/...` paths (Vite proxies to :5000 in dev; same origin in production). Local-first: `src/local/` keeps each user's review logs and cached word content in IndexedDB (`store.ts`), syncs logs both ways (`sync.ts`), and builds the queue and decks on the device with `buildQueue`/`buildDecks` from `@hanyu/shared`. Tests use `fake-indexeddb`.
 - `data/` (`@hanyu/data`): offline pipeline (run with tsx, never deployed as code) that builds `data/seed` from pinned sources in `data/raw`. Read `data/README.md` before changing it.
 
 Models live in `server/src/models/`. Content collections (words, characters, grammar points) use stable string `_id`s from the dataset (`hsk30-00001`, `学`, `g1-001`) so user data can reference them across reseeds. `server/src/seed.ts` loads `data/seed` idempotently.
@@ -21,7 +21,7 @@ Models live in `server/src/models/`. Content collections (words, characters, gra
 
 ```sh
 npm run dev         # everything in watch mode (needs MongoDB: npm run db:up)
-npm test            # vitest + supertest (server/test)
+npm test            # vitest everywhere (supertest in server/test, fake-indexeddb in client)
 npm run typecheck   # tsc across workspaces
 npm run build       # shared → server → client
 npm run format      # prettier
@@ -50,6 +50,8 @@ Before finishing a change, run `npm run typecheck` and `npm test`. Database inte
 - Word records store both simplified and traditional forms. Readings belong to words, not characters. Grade pinyin with `gradePinyin(answer, [citationPinyin, ...alternatePinyin], simplified)` (citation tones; 一/不 sandhi already undone). Its verdicts are `correct`, `tone`, and `wrong`; neutral-tone syllables accept any tone. `ratingForPinyin` turns a verdict into the FSRS rating (Good, Hard, Again); learners don't rate pinyin cards themselves. Answer fields use the client's `PinyinInput`, which converts tone numbers as you type.
 - Seed data is generated: change the pipeline in `data/` and rebuild, never hand-edit `data/seed`. Keep each seed file under one license (see `data/seed/README.md`).
 - Never commit `data/raw` (it holds the HSK syllabus PDF) and never parse the PDF's text; it has copying disabled.
+- The client builds the queue from its own logs, so the server has no queue route: it stores and serves logs (`GET`/`POST /api/reviews`) and word content (`/api/dataset`, `/api/words`). Pulls page by the server's `createdAt` and clients re-read `PULL_OVERLAP_MS` each time, since concurrent writes can commit out of order.
+- Leeches (`isLeech`): a card that has lapsed `LEECH_LAPSES` times, until it's answered Good/Easy `LEECH_CLEAR_STREAK` times in a row. Derived from logs like the schedule; never stored.
 - Decks are HSK levels. New cards come only from the user's enabled levels (`settings.levels`), most frequent first (`levelOrder`), up to `settings.dailyNewCards` per study day; disabling a level never removes started cards from review. A study day starts at 4 a.m. in the time zone the client sends as `?tz=`. Only `ACTIVE_CARD_KINDS` (pinyin, for now) are queued.
 - LLM calls go through the Express API only; keys live in env vars, never in the client bundle.
 - Never generate passages at request time. Content generation runs as offline scripts or one-off dynos.
