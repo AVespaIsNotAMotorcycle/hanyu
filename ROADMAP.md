@@ -106,11 +106,11 @@ Estimated time: 1–2 weeks
 
 ## Phase 3: Reading Passages
 
-- [ ] Generate passages offline with an LLM, targeting a specific HSK level and specific grammar points from that level
-- [ ] Tag each passage with the grammar points it exercises, and track coverage per level
-- [ ] Verify each passage's level with the segmenter: compute the share of tokens at or below the target level and reject passages under ~95%
-- [ ] Generate multiple-choice and cloze questions alongside each passage
-- [ ] Let the user answer cloze questions by keyboard or by handwriting, switchable per question
+- [x] Generate passages offline with an LLM, targeting a specific HSK level and specific grammar points from that level
+- [x] Tag each passage with the grammar points it exercises, and track coverage per level
+- [x] Verify each passage's level with the segmenter: compute the share of tokens at or below the target level and reject passages under ~95%
+- [x] Generate multiple-choice and cloze questions alongside each passage
+- [x] Let the user answer cloze questions by keyboard or by handwriting, switchable per question
 - [ ] Review and store passages and questions; never generate at request time
 - [ ] Use automated checks first (level verification, an LLM answer-key check), and spot-check a sample by hand
 - [ ] Add tap-to-look-up on any word, with an "add to SRS" action
@@ -174,8 +174,8 @@ Licenses apply whether or not the app charges money.
 
 ## Open Decisions
 
-- LLM provider and model for passage generation and grading
-- Monthly LLM budget, and per-user rate limits on grading
+- LLM provider and model for grading (passage generation uses Claude Sonnet 5.5, decided October 2026)
+- Monthly LLM budget, and per-user rate limits on grading (generation runs have a per-run cost cap)
 
 ## Technical Stack
 

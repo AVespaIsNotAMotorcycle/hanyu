@@ -26,7 +26,9 @@
     "heroku-postbuild": "npm run build",
     "db:seed": "npm run build -w shared && npm run seed:dev -w server",
     "data:fetch": "npm run fetch -w data",
-    "data:build": "npm run build -w shared && npm run build:seed -w data"
+    "data:build": "npm run build -w shared && npm run build:seed -w data",
+    "passages:generate": "npm run build -w shared && npm run passages:generate -w data --",
+    "passages:coverage": "npm run build -w shared && npm run passages:coverage -w data --"
   },
   "devDependencies": {
     "concurrently": "^10.0.6",

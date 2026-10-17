@@ -43,18 +43,20 @@ Open http://localhost:5173 and create an account. Once signed in, the page shows
 
 Run from the repository root:
 
-| Script                 | What it does                                                           |
-| ---------------------- | ---------------------------------------------------------------------- |
-| `npm run dev`          | Run shared, server, and client in watch mode                           |
-| `npm run build`        | Build shared, then server, then client                                 |
-| `npm start`            | Run the built server (set `NODE_ENV=production` to serve UI)           |
-| `npm test`             | Run all workspace tests                                                |
-| `npm run typecheck`    | Type-check all workspaces                                              |
-| `npm run format`       | Format with Prettier                                                   |
-| `npm run db:up`/`down` | Start or stop the local MongoDB container                              |
-| `npm run db:seed`      | Load `data/seed` into MongoDB (idempotent; `-- --force`, `-- --prune`) |
-| `npm run data:fetch`   | Download pipeline sources into `data/raw` and verify their hashes      |
-| `npm run data:build`   | Rebuild `data/seed` from `data/raw`                                    |
+| Script                      | What it does                                                           |
+| --------------------------- | ---------------------------------------------------------------------- |
+| `npm run dev`               | Run shared, server, and client in watch mode                           |
+| `npm run build`             | Build shared, then server, then client                                 |
+| `npm start`                 | Run the built server (set `NODE_ENV=production` to serve UI)           |
+| `npm test`                  | Run all workspace tests                                                |
+| `npm run typecheck`         | Type-check all workspaces                                              |
+| `npm run format`            | Format with Prettier                                                   |
+| `npm run db:up`/`down`      | Start or stop the local MongoDB container                              |
+| `npm run db:seed`           | Load `data/seed` into MongoDB (idempotent; `-- --force`, `-- --prune`) |
+| `npm run data:fetch`        | Download pipeline sources into `data/raw` and verify their hashes      |
+| `npm run data:build`        | Rebuild `data/seed` from `data/raw`                                    |
+| `npm run passages:generate` | Generate reading passages with Claude (see `data/README.md`)           |
+| `npm run passages:coverage` | Passages and grammar coverage per level                                |
 
 ## Configuration
 

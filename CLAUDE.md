@@ -13,7 +13,7 @@ npm workspaces, all TypeScript and ESM:
 - `shared/` (`@hanyu/shared`): types and logic used by every workspace: seed/document shapes (`content.ts`), pinyin helpers (`pinyin.ts`), typed-answer conversion and grading (`pinyinAnswer.ts`), FSRS scheduling (`scheduling.ts`, wrapping `ts-fsrs`), the review queue (`queue.ts`: study days, due order, new-card allowance), API types. Compiled to `shared/dist`, which client and server import. After changing it, rebuild (`npm run build -w shared`) or keep `npm run dev` running.
 - `server/` (`@hanyu/server`): Express 5 + Mongoose. `src/app.ts` builds the app (`createApp()`, no side effects, used by tests); `src/index.ts` connects to MongoDB and listens. Routes live in `src/routes/` and mount under `/api`. Authentication is in `src/auth/` (scrypt passwords, cookie sessions stored hashed in the `sessions` collection, `requireAuth` middleware).
 - `client/` (`@hanyu/client`): React 19 + Vite. Calls the API through relative `/api/...` paths (Vite proxies to :5000 in dev; same origin in production). Installable PWA (`vite-plugin-pwa`): the service worker precaches the app shell, never `/api`. Local-first: `src/local/` keeps each user's review logs and cached word content in IndexedDB (`store.ts`), syncs logs both ways (`sync.ts`), and builds the queue and decks on the device with `buildQueue`/`buildDecks` from `@hanyu/shared`. Tests use `fake-indexeddb`.
-- `data/` (`@hanyu/data`): offline pipeline (run with tsx, never deployed as code) that builds `data/seed` from pinned sources in `data/raw`. Read `data/README.md` before changing it.
+- `data/` (`@hanyu/data`): offline pipeline (run with tsx, never deployed as code) that builds `data/seed` from pinned sources in `data/raw`, and generates reading passages into `data/passages` (`src/passages/`, Claude Sonnet 5.5, with level verification). Read `data/README.md` before changing it.
 
 Models live in `server/src/models/`. Content collections (words, characters, grammar points) use stable string `_id`s from the dataset (`hsk30-00001`, `学`, `g1-001`) so user data can reference them across reseeds. `server/src/seed.ts` loads `data/seed` idempotently.
 
@@ -58,7 +58,8 @@ Before finishing a change, run `npm run typecheck` and `npm test`. Database inte
 - LLM calls go through the Express API only; keys live in env vars, never in the client bundle.
 - Never generate passages at request time. Content generation runs as offline scripts or one-off dynos.
 - Keep persistent data in MongoDB, not on disk (Heroku's filesystem is ephemeral).
-- Open decisions (LLM provider, budget) are the user's call. Ask before choosing.
+- Reading passages are generated only by `npm run passages:generate` (offline, `ANTHROPIC_API_KEY` in `.env`), reviewed as files in `data/passages`, and loaded by `npm run db:seed`, which refuses any under `MIN_LEVEL_SHARE`. Don't hand-edit passage files to fix content; regenerate or delete them.
+- Open decisions (the grading LLM, budget) are the user's call. Ask before choosing.
 
 ## Deployment
 

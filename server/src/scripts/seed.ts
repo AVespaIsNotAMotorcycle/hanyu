@@ -1,4 +1,4 @@
-// Loads data/seed into MongoDB.
+// Loads data/seed and data/passages into MongoDB.
 // Usage: npm run seed -w server [-- --force] [-- --prune]
 
 import path from 'node:path';
@@ -6,21 +6,22 @@ import { fileURLToPath } from 'node:url';
 import mongoose from 'mongoose';
 import { config } from '../config.js';
 import { connectDb } from '../db.js';
+import { seedPassages } from '../passages.js';
 import { seedDatabase } from '../seed.js';
 
-// Same relative path from src/scripts and dist/scripts.
-const seedDir = path.resolve(
+// Same relative paths from src/scripts and dist/scripts.
+const dataDir = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
-  '../../../data/seed',
+  '../../../data',
 );
+const seedDir = path.join(dataDir, 'seed');
 
 await connectDb(config.mongodbUri);
 try {
-  await seedDatabase({
-    seedDir,
-    force: process.argv.includes('--force'),
-    prune: process.argv.includes('--prune'),
-  });
+  const force = process.argv.includes('--force');
+  const prune = process.argv.includes('--prune');
+  await seedDatabase({ seedDir, force, prune });
+  await seedPassages({ dir: path.join(dataDir, 'passages'), force, prune });
 } finally {
   await mongoose.disconnect();
 }

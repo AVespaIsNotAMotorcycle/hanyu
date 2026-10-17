@@ -36,4 +36,26 @@ To spot-check another page: `pdftoppm -f N -l N -r 90 -png data/raw/hsk-syllabus
 
 ## Segmenter
 
-[`src/segmenter.ts`](src/segmenter.ts) wraps jieba (`@node-rs/jieba`) for the reading module's level checks. Pass the HSK vocabulary to `createSegmenter()` so syllabus words jieba doesn't know (正能量) stay whole. jieba may still group HSK words into larger known compounds (吹口哨), so level checks should look up unknown tokens' parts.
+[`src/segmenter.ts`](src/segmenter.ts) wraps jieba (`@node-rs/jieba`) for the reading module's level checks. Pass the HSK vocabulary to `createSegmenter()` so syllabus words jieba doesn't know (正能量) stay whole. jieba may still group HSK words into larger known compounds (喝咖啡), so level checks split unknown tokens into known words (`src/passages/level.ts`).
+
+## Reading Passages
+
+`src/passages/` generates graded reading passages with Claude (`claude-sonnet-5-5`), offline. Nothing in the web app ever calls an LLM.
+
+```sh
+npm run passages:coverage                       # passages and grammar coverage per level
+npm run passages:coverage -- --level 1          # every level-1 grammar point and its count
+npm run passages:generate -- --level 1 --count 5 --max-cost 5
+npm run passages:generate -- --level 1 --grammar g1-008,g1-020
+npm run passages:generate -- --level 1 --dry-run   # print the prompts; no API call
+npm run db:seed                                 # load data/passages into MongoDB
+```
+
+Generation needs `ANTHROPIC_API_KEY` in `.env`. Each passage:
+
+1. **Targets grammar points.** By default, the two least-covered points at the level (`--grammar` picks them). Coverage counts the points each stored passage quotes.
+2. **Is written with the level's vocabulary.** The system prompt holds the rules and every HSK word at or below the level (prompt-cached per level). The model answers through a `submit_passage` tool, so the output is structured.
+3. **Is checked, and sent back with the problems until it passes** (at most 3 attempts): length; every target grammar point quoted exactly from the text; 3 multiple-choice questions with 4 distinct options; 3 cloze questions whose sentences match the text once filled in, with answers made of level vocabulary (at most 4 characters) and stroke data, so they can be handwritten; and the **level check**: at least 95% of hanzi tokens (passage, questions, and options) are HSK words at or below the level, compounds of them, or declared names (up to 3).
+4. **Is written to `data/passages/hsk<level>/<id>.json`** with its verification numbers and provenance (model, prompt version, attempts, cost). Review passages in git before loading them; delete a file to drop a passage.
+
+Costs come from the API's reported usage at Sonnet 5.5 prices (`PRICING` in `generate.ts`). A run stops before any call that could pass `--max-cost` (default $5). Bump `PROMPT_VERSION` when the prompt or schema changes.

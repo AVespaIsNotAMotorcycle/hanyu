@@ -8,6 +8,7 @@ import { healthRouter } from './routes/health.js';
 import { reviewsRouter } from './routes/reviews.js';
 import { settingsRouter } from './routes/settings.js';
 import { contentRouter } from './routes/content.js';
+import { passagesRouter } from './routes/passages.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const clientDist = path.resolve(here, '../../client/dist');
@@ -45,6 +46,7 @@ export function createApp({
   api.use('/reviews', reviewsRouter);
   api.use('/settings', settingsRouter);
   api.use(contentRouter);
+  api.use('/passages', passagesRouter);
   api.use((_req, res) => {
     res.status(404).json({ error: 'Not found' });
   });

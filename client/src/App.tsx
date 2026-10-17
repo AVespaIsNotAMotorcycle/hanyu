@@ -5,6 +5,7 @@ import { AuthForm } from './AuthForm';
 import { Decks } from './Decks';
 import { LocalDataProvider, useLocalData } from './local/LocalData';
 import { LocalStore } from './local/store';
+import { Reading } from './Reading';
 import { StudySession } from './StudySession';
 import { SyncIndicator } from './SyncIndicator';
 
@@ -88,6 +89,7 @@ function Home({
 }) {
   const { sync, status } = useLocalData();
   const [studying, setStudying] = useState<StudyMode | null>(null);
+  const [tab, setTab] = useState<'review' | 'read'>('review');
 
   // The server session ended (expired, or signed out elsewhere). Ask for a
   // sign-in, keeping this device's reviews: the same account picks them up.
@@ -126,7 +128,27 @@ function Home({
           Sign out
         </button>
       </p>
-      {studying ? (
+      {!studying && (
+        <nav className="tabs" aria-label="Sections">
+          <button
+            type="button"
+            aria-pressed={tab === 'review'}
+            onClick={() => setTab('review')}
+          >
+            Review
+          </button>
+          <button
+            type="button"
+            aria-pressed={tab === 'read'}
+            onClick={() => setTab('read')}
+          >
+            Read
+          </button>
+        </nav>
+      )}
+      {tab === 'read' && !studying ? (
+        <Reading user={user} />
+      ) : studying ? (
         <StudySession
           user={user}
           mode={studying}
