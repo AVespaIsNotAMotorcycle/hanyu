@@ -97,10 +97,10 @@ Estimated time: 1–2 weeks
 
 ## Phase 2: Handwriting Cards
 
-- [ ] Integrate hanzi-writer quiz mode, which checks each stroke against Make Me a Hanzi data and enforces stroke order
-- [ ] Define strictness settings (stroke-order enforcement, number of allowed misses)
-- [ ] Map missed strokes and hint usage to FSRS grades
-- [ ] Ship as a PWA and test on a tablet with a stylus
+- [x] Integrate hanzi-writer quiz mode, which checks each stroke against Make Me a Hanzi data and enforces stroke order
+- [x] Define strictness settings (stroke-order enforcement, number of allowed misses)
+- [x] Map missed strokes and hint usage to FSRS grades
+- [ ] Ship as a PWA and test on a tablet with a stylus (PWA shipped; tablet test still to do)
 
 **Milestone:** handwriting reviews feel natural enough to do every day.
 

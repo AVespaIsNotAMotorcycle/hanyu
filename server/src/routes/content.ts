@@ -2,13 +2,20 @@ import { Router } from 'express';
 import {
   HSK_LEVELS,
   isHskLevel,
+  MAX_CHARACTER_LOOKUP,
   MAX_WORD_LOOKUP,
+  type CharacterContent,
+  type CharactersResponse,
   type DatasetResponse,
   type HskLevel,
   type WordNote,
   type WordsResponse,
 } from '@hanyu/shared';
-import { DatasetMetaModel, WordModel } from '../models/index.js';
+import {
+  CharacterModel,
+  DatasetMetaModel,
+  WordModel,
+} from '../models/index.js';
 
 // Read-only word content, which clients cache in IndexedDB so they can build
 // the review queue locally (and offline).
@@ -21,12 +28,22 @@ function badRequest(error: string) {
 const WORD_FIELDS = { __v: 0 } as const;
 
 contentRouter.get('/dataset', async (_req, res) => {
-  const [meta, counts] = await Promise.all([
+  const [meta, counts, characterCounts] = await Promise.all([
     DatasetMetaModel.findById('seed').lean(),
     WordModel.aggregate<{ _id: HskLevel; count: number }>([
       { $group: { _id: '$level', count: { $sum: 1 } } },
     ]),
+    CharacterModel.aggregate<{ _id: HskLevel; count: number }>([
+      { $group: { _id: '$introLevel', count: { $sum: 1 } } },
+    ]),
   ]);
+  const byLevel = (rows: { _id: HskLevel; count: number }[]) =>
+    Object.fromEntries(
+      HSK_LEVELS.map((level) => [
+        level,
+        rows.find((r) => r._id === level)?.count ?? 0,
+      ]),
+    ) as Record<HskLevel, number>;
   if (!meta) {
     res.status(503).json({ error: 'The word dataset has not been loaded' });
     return;
@@ -34,12 +51,8 @@ contentRouter.get('/dataset', async (_req, res) => {
   const body: DatasetResponse = {
     version: meta.version,
     contentHash: meta.contentHash,
-    levelCounts: Object.fromEntries(
-      HSK_LEVELS.map((level) => [
-        level,
-        counts.find((c) => c._id === level)?.count ?? 0,
-      ]),
-    ) as Record<HskLevel, number>,
+    levelCounts: byLevel(counts),
+    characterLevelCounts: byLevel(characterCounts),
   };
   res.json(body);
 });
@@ -69,5 +82,32 @@ contentRouter.post('/words/lookup', async (req, res) => {
     WordNote[]
   >();
   const body: WordsResponse = { words };
+  res.json(body);
+});
+
+// What handwriting cards need: readings, gloss, stroke paths and medians.
+contentRouter.post('/characters/lookup', async (req, res) => {
+  const ids: unknown = req.body?.ids;
+  if (
+    !Array.isArray(ids) ||
+    ids.length > MAX_CHARACTER_LOOKUP ||
+    !ids.every((id) => typeof id === 'string')
+  ) {
+    throw badRequest(
+      `ids must be a list of at most ${MAX_CHARACTER_LOOKUP} characters`,
+    );
+  }
+  const characters = await CharacterModel.find(
+    { _id: { $in: ids } },
+    {
+      traditional: 1,
+      readings: 1,
+      introLevel: 1,
+      definition: 1,
+      strokes: 1,
+      medians: 1,
+    },
+  ).lean<CharacterContent[]>();
+  const body: CharactersResponse = { characters };
   res.json(body);
 });

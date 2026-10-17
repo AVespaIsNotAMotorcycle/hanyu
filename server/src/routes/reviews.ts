@@ -16,7 +16,7 @@ import {
   type StoredReview,
 } from '@hanyu/shared';
 import { mongo, type Types } from 'mongoose';
-import { ReviewLogModel, WordModel } from '../models/index.js';
+import { CharacterModel, ReviewLogModel, WordModel } from '../models/index.js';
 import { loadCardSummaries } from '../scheduling.js';
 
 export const reviewsRouter = Router();
@@ -28,9 +28,16 @@ function badRequest(error: string) {
   return Object.assign(new Error(error), { status: 400, expose: true });
 }
 
+/** The cards that exist: a pinyin card per word, a handwriting card per character. */
+const CARD_TYPES: Record<string, string> = {
+  pinyin: 'word',
+  handwriting: 'character',
+};
+
 interface ValidReview {
   _id: string;
   cardKey: string;
+  noteType: 'word' | 'character';
   noteId: string;
   rating: Rating;
   reviewedAt: Date;
@@ -48,11 +55,11 @@ function validate(input: unknown, index: number, now: number): ValidReview {
   const key = typeof r.cardKey === 'string' ? parseCardKey(r.cardKey) : null;
   if (
     !key ||
-    key.noteType !== 'word' ||
-    !ACTIVE_CARD_KINDS.includes(key.kind)
+    !ACTIVE_CARD_KINDS.includes(key.kind) ||
+    CARD_TYPES[key.kind] !== key.noteType
   ) {
     throw fail(
-      `cardKey must be a word card of kind ${ACTIVE_CARD_KINDS.join(', ')}`,
+      'cardKey must be a word pinyin card or a character handwriting card',
     );
   }
   if (!isRating(r.rating)) throw fail('rating must be 1, 2, 3, or 4');
@@ -87,6 +94,7 @@ function validate(input: unknown, index: number, now: number): ValidReview {
   return {
     _id: r._id,
     cardKey: r.cardKey as string,
+    noteType: key.noteType,
     noteId: key.noteId,
     rating: r.rating,
     reviewedAt: reviewedAt!,
@@ -133,15 +141,27 @@ reviewsRouter.post('/', async (req, res) => {
   if (new Set(ids).size !== ids.length)
     throw badRequest('Duplicate review IDs');
 
-  const noteIds = [...new Set(reviews.map((r) => r.noteId))];
-  const known = await WordModel.countDocuments({ _id: { $in: noteIds } });
-  if (known !== noteIds.length) throw badRequest('Unknown word in cardKey');
+  const noteIdsOf = (type: ValidReview['noteType']) => [
+    ...new Set(reviews.filter((r) => r.noteType === type).map((r) => r.noteId)),
+  ];
+  const [wordIds, characterIds] = [noteIdsOf('word'), noteIdsOf('character')];
+  const [words, characters] = await Promise.all([
+    WordModel.countDocuments({ _id: { $in: wordIds } }),
+    CharacterModel.countDocuments({ _id: { $in: characterIds } }),
+  ]);
+  if (words !== wordIds.length) throw badRequest('Unknown word in cardKey');
+  if (characters !== characterIds.length) {
+    throw badRequest('Unknown character in cardKey');
+  }
 
   const already = new Set(await existingIds(ids, user._id));
   const fresh = reviews.filter((r) => !already.has(r._id));
   try {
     await ReviewLogModel.insertMany(
-      fresh.map(({ noteId: _, ...log }) => ({ ...log, userId: user._id })),
+      fresh.map(({ noteId: _, noteType: __, ...log }) => ({
+        ...log,
+        userId: user._id,
+      })),
       { ordered: false },
     );
   } catch (err) {

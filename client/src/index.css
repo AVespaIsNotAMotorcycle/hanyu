@@ -200,3 +200,76 @@ button.link {
   opacity: 1;
   color: #b26a00;
 }
+
+.prompt .blank {
+  color: #d97706;
+}
+
+.handwriting {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+}
+
+/* A 田字格 practice grid: border plus dashed center lines. */
+.writing-grid {
+  border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+  background:
+    linear-gradient(
+      to right,
+      transparent calc(50% - 0.5px),
+      color-mix(in srgb, currentColor 15%, transparent) calc(50% - 0.5px),
+      color-mix(in srgb, currentColor 15%, transparent) calc(50% + 0.5px),
+      transparent calc(50% + 0.5px)
+    ),
+    linear-gradient(
+      to bottom,
+      transparent calc(50% - 0.5px),
+      color-mix(in srgb, currentColor 15%, transparent) calc(50% - 0.5px),
+      color-mix(in srgb, currentColor 15%, transparent) calc(50% + 0.5px),
+      transparent calc(50% + 0.5px)
+    );
+  /* Drawing must not scroll or zoom the page (touch and stylus). */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.handwriting-actions {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.handwriting-settings {
+  display: grid;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  text-align: left;
+  border: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+  border-radius: 0.25rem;
+}
+
+.handwriting-settings input[type='number'] {
+  font: inherit;
+  width: 3.5rem;
+  padding: 0.125rem 0.25rem;
+}
+
+.handwriting-settings select {
+  font: inherit;
+}
+
+.handwriting-settings .hint {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.credit {
+  margin: 0;
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+.credit a {
+  color: inherit;
+}

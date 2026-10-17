@@ -1,6 +1,7 @@
 // Request and response shapes for /api/auth.
 
 import type { HskLevel } from './content.js';
+import type { HandwritingSettings } from './handwriting.js';
 
 export const PASSWORD_MIN_LENGTH = 8;
 /** Long passphrases are fine; this only bounds the work done per request. */
@@ -16,6 +17,7 @@ export interface AuthUser {
     dailyNewCards: number;
     /** HSK levels whose decks introduce new cards. */
     levels: HskLevel[];
+    handwriting: HandwritingSettings;
   };
 }
 

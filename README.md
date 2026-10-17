@@ -81,6 +81,10 @@ Every API route requires a session except these:
 
 `GET /api/auth/me` returns the signed-in user. Failed sign-ins (10 per 15 minutes) and failed sign-ups (10 per hour) are rate-limited per IP, in memory, which is enough for one dyno. There is no password reset yet.
 
+## Offline and Installing
+
+The client is a PWA: install it from the browser (Add to Home Screen on iPad and Android). After one visit online it starts without a connection. Reviews are saved on the device first (IndexedDB) and sync when the connection returns.
+
 ## Deploying to Heroku
 
 ```sh

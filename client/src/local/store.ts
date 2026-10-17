@@ -2,14 +2,20 @@
 // of truth for card state, synced with the server) and cached word content.
 // One database per user, so accounts on a shared browser stay separate.
 
-import type { ReviewInput, StoredReview, WordNote } from '@hanyu/shared';
+import type {
+  CharacterContent,
+  ReviewInput,
+  StoredReview,
+  WordNote,
+} from '@hanyu/shared';
 
 /** A log as kept locally. `synced` is 0/1 because IndexedDB can't index booleans. */
 export interface LocalLog extends ReviewInput {
   synced: 0 | 1;
 }
 
-const VERSION = 1;
+// 1: logs, words, meta. 2: characters.
+const VERSION = 2;
 
 function promisify<T>(request: IDBRequest<T>): Promise<T> {
   return new Promise((resolve, reject) => {
@@ -33,13 +39,18 @@ export class LocalStore {
 
   static async open(userId: string): Promise<LocalStore> {
     const request = indexedDB.open(databaseName(userId), VERSION);
-    request.onupgradeneeded = () => {
+    request.onupgradeneeded = (event) => {
       const db = request.result;
-      const logs = db.createObjectStore('logs', { keyPath: '_id' });
-      logs.createIndex('synced', 'synced');
-      const words = db.createObjectStore('words', { keyPath: '_id' });
-      words.createIndex('level', 'level');
-      db.createObjectStore('meta');
+      if (event.oldVersion < 1) {
+        const logs = db.createObjectStore('logs', { keyPath: '_id' });
+        logs.createIndex('synced', 'synced');
+        const words = db.createObjectStore('words', { keyPath: '_id' });
+        words.createIndex('level', 'level');
+        db.createObjectStore('meta');
+      }
+      if (event.oldVersion < 2) {
+        db.createObjectStore('characters', { keyPath: '_id' });
+      }
     };
     return new LocalStore(await promisify(request));
   }
@@ -128,9 +139,27 @@ export class LocalStore {
     return new Map(words.map((w) => [w._id, w]));
   }
 
-  async clearWords(): Promise<void> {
-    const tx = this.db.transaction('words', 'readwrite');
+  // --- Characters (stroke data for handwriting cards) ------------------------
+
+  async putCharacters(characters: readonly CharacterContent[]): Promise<void> {
+    const tx = this.db.transaction('characters', 'readwrite');
+    const store = tx.objectStore('characters');
+    for (const character of characters) store.put(character);
+    await done(tx);
+  }
+
+  async allCharacters(): Promise<Map<string, CharacterContent>> {
+    const characters = (await promisify(
+      this.db.transaction('characters').objectStore('characters').getAll(),
+    )) as CharacterContent[];
+    return new Map(characters.map((c) => [c._id, c]));
+  }
+
+  /** Drops cached words and characters (the dataset changed). */
+  async clearContent(): Promise<void> {
+    const tx = this.db.transaction(['words', 'characters'], 'readwrite');
     tx.objectStore('words').clear();
+    tx.objectStore('characters').clear();
     await done(tx);
   }
 

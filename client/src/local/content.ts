@@ -3,7 +3,10 @@
 // whatever is already cached.
 
 import {
+  MAX_CHARACTER_LOOKUP,
   MAX_WORD_LOOKUP,
+  type CharacterContent,
+  type CharactersResponse,
   type DatasetResponse,
   type HskLevel,
   type WordNote,
@@ -51,7 +54,7 @@ export async function loadContent(
     if (checkDataset || !dataset) {
       const current = await api.get<DatasetResponse>('/dataset');
       if (current.contentHash !== dataset?.contentHash) {
-        await store.clearWords();
+        await store.clearContent();
         await store.setMeta(CACHED_LEVELS, []);
         words = new Map();
       }
@@ -85,4 +88,30 @@ export async function loadContent(
     // Offline: study with whatever is cached.
     return { words, dataset, offline: true };
   }
+}
+
+/**
+ * Makes sure the given characters' stroke data is cached, downloading what's
+ * missing. Offline, returns whatever is cached.
+ */
+export async function loadCharacters(
+  store: LocalStore,
+  ids: Iterable<string>,
+  api: ContentApi = { get: getJson, post: postJson },
+): Promise<Map<string, CharacterContent>> {
+  const characters = await store.allCharacters();
+  const missing = [...new Set(ids)].filter((id) => !characters.has(id));
+  try {
+    for (let i = 0; i < missing.length; i += MAX_CHARACTER_LOOKUP) {
+      const page = await api.post<CharactersResponse>('/characters/lookup', {
+        ids: missing.slice(i, i + MAX_CHARACTER_LOOKUP),
+      });
+      await store.putCharacters(page.characters);
+      for (const c of page.characters) characters.set(c._id, c);
+    }
+  } catch (err) {
+    if (err instanceof ApiError) throw err;
+    // Offline: study with whatever is cached.
+  }
+  return characters;
 }

@@ -11,6 +11,7 @@ import request from 'supertest';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { createApp } from '../src/app.js';
 import {
+  CharacterModel,
   ReviewLogModel,
   SessionModel,
   UserModel,
@@ -60,6 +61,14 @@ describe.skipIf(!uri)('POST /api/reviews', () => {
       dbName: `hanyu-test-reviews-${process.pid}`,
     });
     await WordModel.create(word);
+    await CharacterModel.create({
+      _id: '爱',
+      traditional: ['愛'],
+      readings: ['ai4'],
+      introLevel: 1,
+      introducedBy: 'hsk30-00001',
+      introOrder: 1,
+    });
   });
 
   afterAll(async () => {
@@ -159,6 +168,17 @@ describe.skipIf(!uri)('POST /api/reviews', () => {
     expect(await ReviewLogModel.countDocuments()).toBe(1);
   });
 
+  it('records handwriting reviews for characters', async () => {
+    const log = review({
+      cardKey: 'character:爱:handwriting',
+      answer: '{"strokes":10,"misses":1}',
+    });
+    const res = await post([log]);
+    expect(res.status).toBe(200);
+    expect(res.body.accepted).toEqual([log._id]);
+    expect(res.body.cards['character:爱:handwriting'].phase).toBe('learning');
+  });
+
   it('pulls logs in stored order, page by page, for this user only', async () => {
     const [a, b, c] = [review(), review(), review()];
     await post([a]);
@@ -207,7 +227,10 @@ describe.skipIf(!uri)('POST /api/reviews', () => {
     [[], /non-empty/],
     [[{ ...review(), _id: 'not-a-uuid' }], /UUID/],
     [[{ ...review(), _id: crypto.randomUUID().toUpperCase() }], /UUID/],
-    [[review({ cardKey: 'word:hsk30-00001:meaning' })], /kind/],
+    [[review({ cardKey: 'word:hsk30-00001:meaning' })], /pinyin card/],
+    [[review({ cardKey: 'word:hsk30-00001:handwriting' })], /pinyin card/],
+    [[review({ cardKey: 'character:爱:pinyin' })], /pinyin card/],
+    [[review({ cardKey: 'character:鬱:handwriting' })], /Unknown character/],
     [[review({ cardKey: 'word:hsk30-99999:pinyin' })], /Unknown word/],
     [[review({ rating: 0 as never })], /rating/],
     [[review({ reviewedAt: 'yesterday' })], /reviewedAt/],

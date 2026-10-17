@@ -1,5 +1,6 @@
 import 'fake-indexeddb/auto';
 import type {
+  CharacterContent,
   GetReviewsResponse,
   PostReviewsResponse,
   ReviewInput,
@@ -8,7 +9,7 @@ import type {
 } from '@hanyu/shared';
 import { afterEach, describe, expect, it } from 'vitest';
 import { ApiError } from '../api';
-import { loadContent } from './content';
+import { loadCharacters, loadContent } from './content';
 import { LocalStore } from './store';
 import { Sync, type SyncApi } from './sync';
 
@@ -301,5 +302,80 @@ describe('loadContent', () => {
     const server = api('h2');
     await loadContent(store, [1], [], { api: server });
     expect(server.calls).toEqual(['/dataset', '/words?level=1']);
+  });
+});
+
+describe('upgrading the local database', () => {
+  it('keeps version 1 logs and adds the characters store', async () => {
+    const user = crypto.randomUUID();
+    const log = review();
+    // A database as the version 1 client left it.
+    await new Promise<void>((resolve, reject) => {
+      const request = indexedDB.open(`hanyu-${user}`, 1);
+      request.onupgradeneeded = () => {
+        const db = request.result;
+        db.createObjectStore('logs', { keyPath: '_id' }).createIndex(
+          'synced',
+          'synced',
+        );
+        db.createObjectStore('words', { keyPath: '_id' }).createIndex(
+          'level',
+          'level',
+        );
+        db.createObjectStore('meta');
+      };
+      request.onsuccess = () => {
+        const db = request.result;
+        const tx = db.transaction('logs', 'readwrite');
+        tx.objectStore('logs').add({ ...log, synced: 0 });
+        tx.oncomplete = () => {
+          db.close();
+          resolve();
+        };
+      };
+      request.onerror = () => reject(request.error);
+    });
+
+    const store = await LocalStore.open(user);
+    opened.push(store);
+    expect(await store.allLogs()).toEqual([{ ...log, synced: 0 }]);
+    await store.putCharacters([
+      { _id: '十', strokes: [], medians: [] } as unknown as CharacterContent,
+    ]);
+    expect([...(await store.allCharacters()).keys()]).toEqual(['十']);
+  });
+});
+
+describe('loadCharacters', () => {
+  it('downloads missing characters once and works offline', async () => {
+    const store = await device();
+    const requested: string[][] = [];
+    let offline = false;
+    const api = {
+      get: async () => {
+        throw new Error('unused');
+      },
+      async post<T>(_path: string, body: unknown): Promise<T> {
+        if (offline) throw new TypeError('Failed to fetch');
+        const { ids } = body as { ids: string[] };
+        requested.push(ids);
+        return {
+          characters: ids
+            .filter((id) => id !== '鬱')
+            .map((id) => ({ _id: id, strokes: [], medians: [] })),
+        } as T;
+      },
+    };
+
+    const first = await loadCharacters(store, ['十', '口', '十', '鬱'], api);
+    expect([...first.keys()].sort()).toEqual(['十', '口']);
+    expect(requested).toEqual([['十', '口', '鬱']]);
+
+    await loadCharacters(store, ['十', '口'], api);
+    expect(requested).toHaveLength(1);
+
+    offline = true;
+    const cached = await loadCharacters(store, ['十', '人'], api);
+    expect([...cached.keys()].sort()).toEqual(['十', '口']);
   });
 });

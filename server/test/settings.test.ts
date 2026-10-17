@@ -33,7 +33,11 @@ describe.skipIf(!uri)('PUT /api/settings', () => {
 
   it('defaults to HSK 1 and 10 new cards a day', async () => {
     const me = await agent.get('/api/auth/me');
-    expect(me.body.user.settings).toEqual({ dailyNewCards: 10, levels: [1] });
+    expect(me.body.user.settings).toEqual({
+      dailyNewCards: 10,
+      levels: [1],
+      handwriting: { enabled: true, strokeOrder: 'strict', allowedMisses: 2 },
+    });
   });
 
   it('updates levels (sorted, deduplicated) and the daily limit', async () => {
@@ -44,7 +48,26 @@ describe.skipIf(!uri)('PUT /api/settings', () => {
     expect(res.body.user.settings).toEqual({
       dailyNewCards: 15,
       levels: [1, 3],
+      handwriting: { enabled: true, strokeOrder: 'strict', allowedMisses: 2 },
     });
+  });
+
+  it('updates handwriting settings field by field', async () => {
+    await agent
+      .put('/api/settings')
+      .send({ handwriting: { strokeOrder: 'lenient' } });
+    const res = await agent
+      .put('/api/settings')
+      .send({ handwriting: { allowedMisses: 0 } });
+    expect(res.body.user.settings.handwriting).toEqual({
+      enabled: true,
+      strokeOrder: 'lenient',
+      allowedMisses: 0,
+    });
+    const off = await agent
+      .put('/api/settings')
+      .send({ handwriting: { enabled: false } });
+    expect(off.body.user.settings.handwriting.enabled).toBe(false);
   });
 
   it('rejects invalid settings without changing anything', async () => {
@@ -55,6 +78,11 @@ describe.skipIf(!uri)('PUT /api/settings', () => {
       { dailyNewCards: 201 },
       { levels: [0] },
       { levels: '1' },
+      { handwriting: 'on' },
+      { handwriting: { enabled: 'yes' } },
+      { handwriting: { strokeOrder: 'loose' } },
+      { handwriting: { allowedMisses: 11 } },
+      { dailyNewCards: 5, handwriting: { allowedMisses: -1 } },
     ]) {
       const res = await agent.put('/api/settings').send(body);
       expect(res.status, JSON.stringify(body)).toBe(400);

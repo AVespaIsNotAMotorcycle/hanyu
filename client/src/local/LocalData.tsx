@@ -12,11 +12,12 @@ import {
   summarizeCards,
   type AuthUser,
   type CardSummary,
+  type CharacterContent,
   type DatasetResponse,
   type HskLevel,
   type WordNote,
 } from '@hanyu/shared';
-import { loadContent } from './content';
+import { loadCharacters, loadContent } from './content';
 import { LocalStore } from './store';
 import { Sync, type SyncStatus } from './sync';
 
@@ -103,6 +104,8 @@ export function useLocalData(): LocalData {
 export interface StudyData {
   summaries: Map<string, CardSummary>;
   words: Map<string, WordNote>;
+  /** Stroke data for the characters of started words (handwriting on). */
+  characters: Map<string, CharacterContent>;
   dataset: DatasetResponse | null;
   /** Content came from the cache because the server was unreachable. */
   offline: boolean;
@@ -120,6 +123,7 @@ export function useStudyData(settings: AuthUser['settings']): {
   const [data, setData] = useState<StudyData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const levels = settings.levels.join(',');
+  const handwriting = settings.handwriting.enabled;
   const datasetChecked = useRef(false);
 
   useEffect(() => {
@@ -140,8 +144,18 @@ export function useStudyData(settings: AuthUser['settings']): {
         { checkDataset: !datasetChecked.current },
       );
       if (!content.offline) datasetChecked.current = true;
+      // Handwriting cards need the characters of every started word.
+      const characterIds = handwriting
+        ? [...summaries.keys()].flatMap((key) => {
+            const { noteType, noteId } = parseCardKey(key)!;
+            return noteType === 'character'
+              ? [noteId]
+              : (content.words.get(noteId)?.characters ?? []);
+          })
+        : [];
+      const characters = await loadCharacters(store, characterIds);
       if (!cancelled) {
-        setData({ summaries, ...content });
+        setData({ summaries, characters, ...content });
         setError(null);
       }
     })().catch((err: unknown) => {
@@ -151,7 +165,7 @@ export function useStudyData(settings: AuthUser['settings']): {
     return () => {
       cancelled = true;
     };
-  }, [store, revision, levels]);
+  }, [store, revision, levels, handwriting]);
 
   return { data, error };
 }

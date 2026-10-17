@@ -9,6 +9,8 @@ import {
   type NoteType,
   type WordNote,
 } from './content.js';
+import type { CharacterContent, DatasetResponse } from './dataset.js';
+import type { HandwritingSettings } from './handwriting.js';
 import {
   compareReviews,
   replayReviews,
@@ -16,8 +18,8 @@ import {
   type ReviewEvent,
 } from './scheduling.js';
 
-/** Card kinds that are studied today. Meaning and handwriting cards come later. */
-export const ACTIVE_CARD_KINDS: readonly CardKind[] = ['pinyin'];
+/** Card kinds that are studied. Meaning cards come later. */
+export const ACTIVE_CARD_KINDS: readonly CardKind[] = ['pinyin', 'handwriting'];
 
 export const HSK_LEVELS: readonly HskLevel[] = [1, 2, 3, 4, 5, 6, 7];
 export const HSK_LEVEL_LABELS: Record<HskLevel, string> = {
@@ -265,7 +267,13 @@ export interface QueueItem {
   /** Null for a new card. */
   schedule: CardSchedule | null;
   leech: boolean;
+  /**
+   * Pinyin cards: the word to read. Handwriting cards: the word that
+   * introduced the character, shown with a blank where the character goes.
+   */
   word: WordNote;
+  /** Handwriting cards: the character to draw. */
+  character: CharacterContent | null;
 }
 
 export interface StudyQueue {
@@ -273,12 +281,15 @@ export interface StudyQueue {
   cards: QueueItem[];
   dueCount: number;
   newCount: number;
+  /** Cards introduced today, all kinds. */
   introducedToday: number;
 }
 
 export interface StudySettings {
+  /** New cards per study day, for each card kind. */
   dailyNewCards: number;
   levels: readonly HskLevel[];
+  handwriting: Pick<HandwritingSettings, 'enabled'>;
 }
 
 export interface QueueInput {
@@ -289,6 +300,8 @@ export interface QueueInput {
    * enabled levels. Cards whose word is missing are skipped.
    */
   words: ReadonlyMap<string, WordNote>;
+  /** Characters by ID: at least those of started words. */
+  characters: ReadonlyMap<string, CharacterContent>;
   settings: StudySettings;
   now: Date;
   /** Start of the study day (studyDayStart). */
@@ -296,64 +309,136 @@ export interface QueueInput {
   mode?: StudyMode;
 }
 
-// Phase 1 studies word pinyin cards only.
-const KIND: CardKind = 'pinyin';
+/**
+ * The cards a learner can have, given their settings: word pinyin cards
+ * always, character handwriting cards when handwriting is on.
+ */
+export function studiedKinds(settings: StudySettings): CardKind[] {
+  return ACTIVE_CARD_KINDS.filter(
+    (kind) => kind !== 'handwriting' || settings.handwriting.enabled,
+  );
+}
+
+/**
+ * Each started word's ID, earliest introduced first. A character's
+ * handwriting card is introduced by (and prompted with) the first of these
+ * that contains it.
+ */
+function startedWords(
+  summaries: ReadonlyMap<string, CardSummary>,
+  words: ReadonlyMap<string, WordNote>,
+): WordNote[] {
+  return [...summaries.values()]
+    .filter((s) => parseCardKey(s.key)?.kind === 'pinyin')
+    .sort((a, b) => a.introducedAt.getTime() - b.introducedAt.getTime())
+    .flatMap((s) => words.get(parseCardKey(s.key)!.noteId) ?? []);
+}
 
 /** Builds what to study now. Pure, so every device builds the same queue. */
 export function buildQueue({
   summaries,
   words,
+  characters,
   settings,
   now,
   dayStart,
   mode = 'regular',
 }: QueueInput): StudyQueue {
-  const introducedToday = countIntroducedSince(summaries.values(), dayStart);
+  const kinds = studiedKinds(settings);
+  const studied = [...summaries.values()].filter((s) =>
+    kinds.includes(parseCardKey(s.key)?.kind as CardKind),
+  );
+  const introducedToday = countIntroducedSince(studied, dayStart);
+  const introducedTodayOf = (kind: CardKind) =>
+    countIntroducedSince(
+      studied.filter((s) => parseCardKey(s.key)?.kind === kind),
+      dayStart,
+    );
+
+  const started = startedWords(summaries, words);
+  const promptWord = new Map<string, WordNote>();
+  for (const word of started) {
+    for (const char of word.characters) {
+      if (!promptWord.has(char)) promptWord.set(char, word);
+    }
+  }
+
   const item = (summary: CardSummary): QueueItem[] => {
-    const word = words.get(parseCardKey(summary.key)?.noteId ?? '');
-    return word
-      ? [
-          {
-            key: summary.key,
-            kind: KIND,
-            schedule: summary.schedule,
-            leech: summary.leech,
-            word,
-          },
-        ]
-      : [];
+    const key = parseCardKey(summary.key);
+    if (!key) return [];
+    const common = {
+      key: summary.key,
+      kind: key.kind,
+      schedule: summary.schedule,
+      leech: summary.leech,
+    };
+    if (key.kind === 'handwriting') {
+      const character = characters.get(key.noteId);
+      const word = promptWord.get(key.noteId);
+      return character && word ? [{ ...common, word, character }] : [];
+    }
+    const word = words.get(key.noteId);
+    return word ? [{ ...common, word, character: null }] : [];
   };
 
   if (mode === 'flagged') {
     // Every leech, most overdue first, whether or not it's due.
-    const cards = [...summaries.values()]
+    const cards = studied
       .filter((s) => s.leech)
       .sort((a, b) => a.schedule.due.getTime() - b.schedule.due.getTime())
       .flatMap(item);
     return { cards, dueCount: cards.length, newCount: 0, introducedToday };
   }
 
-  const due = dueCards(summaries.values(), now).flatMap(item);
-  const started = new Set(
-    [...summaries.keys()].map((key) => parseCardKey(key)?.noteId),
-  );
+  const due = dueCards(studied, now).flatMap(item);
+
+  // New pinyin cards: unstarted words from enabled levels, most frequent first.
+  const startedIds = new Set(started.map((w) => w._id));
   const newWords = [...words.values()]
-    .filter((w) => settings.levels.includes(w.level) && !started.has(w._id))
+    .filter((w) => settings.levels.includes(w.level) && !startedIds.has(w._id))
     .sort((a, b) => a.level - b.level || a.levelOrder - b.levelOrder)
-    .slice(0, newCardAllowance(settings.dailyNewCards, introducedToday));
-  return {
-    cards: [
-      ...due,
-      ...newWords.map((word): QueueItem => ({
-        key: cardKey('word', word._id, KIND),
-        kind: KIND,
+    .slice(
+      0,
+      newCardAllowance(settings.dailyNewCards, introducedTodayOf('pinyin')),
+    )
+    .map((word): QueueItem => ({
+      key: cardKey('word', word._id, 'pinyin'),
+      kind: 'pinyin',
+      schedule: null,
+      leech: false,
+      word,
+      character: null,
+    }));
+
+  // New handwriting cards: characters of started words, in the order the
+  // words were introduced.
+  const newCharacters: QueueItem[] = [];
+  if (kinds.includes('handwriting')) {
+    const allowance = newCardAllowance(
+      settings.dailyNewCards,
+      introducedTodayOf('handwriting'),
+    );
+    for (const [char, word] of promptWord) {
+      if (newCharacters.length >= allowance) break;
+      const key = cardKey('character', char, 'handwriting');
+      const character = characters.get(char);
+      if (summaries.has(key) || !character) continue;
+      newCharacters.push({
+        key,
+        kind: 'handwriting',
         schedule: null,
         leech: false,
         word,
-      })),
-    ],
+        character,
+      });
+    }
+  }
+
+  const fresh = [...newWords, ...newCharacters];
+  return {
+    cards: [...due, ...fresh],
     dueCount: due.length,
-    newCount: newWords.length,
+    newCount: fresh.length,
     introducedToday,
   };
 }
@@ -363,7 +448,7 @@ export interface Deck {
   label: string;
   /** New cards are introduced only from enabled decks. */
   enabled: boolean;
-  /** Cards in the deck (one per word per active card kind). */
+  /** Cards in the deck: a pinyin card per word, plus a handwriting card per character introduced at this level when handwriting is on. */
   total: number;
   /** Cards reviewed at least once. */
   started: number;
@@ -373,29 +458,45 @@ export interface Deck {
   flagged: number;
 }
 
-/** Per-level progress. `levelCounts` gives each level's size. */
+/**
+ * Per-level progress. Pinyin cards belong to their word's level and
+ * handwriting cards to their character's `introLevel`.
+ */
 export function buildDecks({
   summaries,
   words,
+  characters,
   settings,
-  levelCounts,
+  dataset,
   now,
 }: Omit<QueueInput, 'dayStart' | 'mode'> & {
-  levelCounts: Readonly<Record<HskLevel, number>>;
+  dataset: Pick<DatasetResponse, 'levelCounts' | 'characterLevelCounts'>;
 }): Deck[] {
+  const kinds = studiedKinds(settings);
   const decks = HSK_LEVELS.map((level): Deck => ({
     level,
     label: HSK_LEVEL_LABELS[level],
     enabled: settings.levels.includes(level),
-    total: levelCounts[level] ?? 0,
+    total:
+      (dataset.levelCounts[level] ?? 0) +
+      (kinds.includes('handwriting')
+        ? (dataset.characterLevelCounts[level] ?? 0)
+        : 0),
     started: 0,
     due: 0,
     flagged: 0,
   }));
-  const due = new Set(dueCards(summaries.values(), now).map((c) => c.key));
-  for (const summary of summaries.values()) {
-    const word = words.get(parseCardKey(summary.key)?.noteId ?? '');
-    const deck = word && decks[word.level - 1];
+  const studied = [...summaries.values()].filter((s) =>
+    kinds.includes(parseCardKey(s.key)?.kind as CardKind),
+  );
+  const due = new Set(dueCards(studied, now).map((c) => c.key));
+  for (const summary of studied) {
+    const key = parseCardKey(summary.key)!;
+    const level =
+      key.kind === 'handwriting'
+        ? characters.get(key.noteId)?.introLevel
+        : words.get(key.noteId)?.level;
+    const deck = level && decks[level - 1];
     if (!deck) continue;
     deck.started++;
     if (due.has(summary.key)) deck.due++;
@@ -404,8 +505,9 @@ export function buildDecks({
   return decks;
 }
 
-/** PUT /api/settings. Returns AuthResponse. */
+/** PUT /api/settings. Returns AuthResponse. Fields left out are unchanged. */
 export interface UpdateSettingsRequest {
   dailyNewCards?: number;
   levels?: HskLevel[];
+  handwriting?: Partial<HandwritingSettings>;
 }

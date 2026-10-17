@@ -5,6 +5,7 @@ import {
   type Rating,
   type WordNote,
 } from './content.js';
+import type { CharacterContent } from './dataset.js';
 import {
   buildDecks,
   buildQueue,
@@ -207,6 +208,7 @@ describe('buildQueue and buildDecks', () => {
       level,
       levelOrder,
       simplified: `词${n}`,
+      characters: [`字${n}`],
     }) as WordNote;
   const words = new Map(
     [
@@ -224,7 +226,12 @@ describe('buildQueue and buildDecks', () => {
     rating,
     reviewedAt: at,
   });
-  const settings = { dailyNewCards: 10, levels: [1] as HskLevel[] };
+  const settings = {
+    dailyNewCards: 10,
+    levels: [1] as HskLevel[],
+    handwriting: { enabled: false },
+  };
+  const characters = new Map<string, CharacterContent>();
   const build = (
     logs: ReturnType<typeof log>[],
     overrides: Partial<Parameters<typeof buildQueue>[0]> = {},
@@ -232,6 +239,7 @@ describe('buildQueue and buildDecks', () => {
     buildQueue({
       summaries: summarizeCards(logs),
       words,
+      characters,
       settings,
       now,
       dayStart,
@@ -255,7 +263,7 @@ describe('buildQueue and buildDecks', () => {
 
   it('puts due cards first and limits new cards per day', () => {
     const queue = build([log('w3', new Date(now.getTime() - MINUTE))], {
-      settings: { dailyNewCards: 2, levels: [1] },
+      settings: { ...settings, dailyNewCards: 2 },
     });
     expect(
       queue.cards.map((c) => [c.word._id, c.schedule?.phase ?? 'new']),
@@ -272,7 +280,7 @@ describe('buildQueue and buildDecks', () => {
 
   it('keeps reviewing started cards from disabled levels', () => {
     const queue = build([log('w4', new Date(now.getTime() - MINUTE))], {
-      settings: { dailyNewCards: 10, levels: [] },
+      settings: { ...settings, levels: [] },
     });
     expect(queue.cards.map((c) => c.word._id)).toEqual(['w4']);
   });
@@ -295,6 +303,7 @@ describe('buildQueue and buildDecks', () => {
     const queue = buildQueue({
       summaries,
       words,
+      characters,
       settings,
       now,
       dayStart,
@@ -314,9 +323,13 @@ describe('buildQueue and buildDecks', () => {
     const decks = buildDecks({
       summaries,
       words,
+      characters,
       settings,
       now,
-      levelCounts: { 1: 3, 2: 2, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 },
+      dataset: {
+        levelCounts: { 1: 3, 2: 2, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 },
+        characterLevelCounts: { 1: 9, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 },
+      },
     });
     expect(decks.slice(0, 2)).toEqual([
       {
@@ -339,5 +352,136 @@ describe('buildQueue and buildDecks', () => {
       },
     ]);
     expect(decks.at(-1)!.label).toBe('7–9');
+  });
+});
+
+describe('handwriting cards', () => {
+  const now = new Date('2026-10-16T12:00:00Z');
+  const dayStart = studyDayStart(now, 'UTC');
+  // 学生 introduces 学 and 生; 大学 then adds 大 (学 is already introduced).
+  const words = new Map(
+    [
+      { _id: 'xuesheng', level: 1, levelOrder: 1, characters: ['学', '生'] },
+      { _id: 'daxue', level: 1, levelOrder: 2, characters: ['大', '学'] },
+      { _id: 'ren', level: 1, levelOrder: 3, characters: ['人'] },
+    ].map((w) => [w._id, w as unknown as WordNote]),
+  );
+  const char = (id: string, introLevel: HskLevel = 1) =>
+    ({
+      _id: id,
+      introLevel,
+      strokes: [],
+      medians: [],
+    }) as unknown as CharacterContent;
+  const characters = new Map(['学', '生', '大', '人'].map((c) => [c, char(c)]));
+  let id = 0;
+  const log = (key: string, minutesAgo: number, rating: Rating = 3) => ({
+    _id: `h${id++}`,
+    cardKey: key,
+    rating,
+    reviewedAt: new Date(now.getTime() - minutesAgo * MINUTE),
+  });
+  const settings = {
+    dailyNewCards: 10,
+    levels: [1] as HskLevel[],
+    handwriting: { enabled: true },
+  };
+  const build = (
+    logs: ReturnType<typeof log>[],
+    overrides: Partial<Parameters<typeof buildQueue>[0]> = {},
+  ) =>
+    buildQueue({
+      summaries: summarizeCards(logs),
+      words,
+      characters,
+      settings,
+      now,
+      dayStart,
+      ...overrides,
+    });
+  const newCards = (queue: ReturnType<typeof build>) =>
+    queue.cards.filter((c) => c.schedule === null).map((c) => c.key);
+
+  it('introduces a character once a word containing it is started', () => {
+    expect(newCards(build([]))).not.toContain('character:学:handwriting');
+
+    // 大学 was started first, so it introduces (and prompts) 大 and 学.
+    const queue = build([
+      log('word:daxue:pinyin', 60 * 24 * 3),
+      log('word:xuesheng:pinyin', 60 * 24 * 2),
+    ]);
+    const handwriting = queue.cards.filter((c) => c.kind === 'handwriting');
+    expect(handwriting.map((c) => [c.character!._id, c.word._id])).toEqual([
+      ['大', 'daxue'],
+      ['学', 'daxue'],
+      ['生', 'xuesheng'],
+    ]);
+    expect(handwriting[0]).toMatchObject({ schedule: null, leech: false });
+  });
+
+  it('limits new handwriting cards separately from new words', () => {
+    const queue = build(
+      [
+        log('word:xuesheng:pinyin', 60 * 24),
+        log('word:daxue:pinyin', 60 * 24),
+        log('character:学:handwriting', 30), // introduced today
+      ],
+      { settings: { ...settings, dailyNewCards: 2 } },
+    );
+    expect(newCards(queue)).toEqual([
+      'word:ren:pinyin',
+      'character:生:handwriting',
+    ]);
+  });
+
+  it('reviews due handwriting cards, prompting with the introducing word', () => {
+    const queue = build([
+      log('word:xuesheng:pinyin', 60 * 24 * 40),
+      log('character:生:handwriting', 60 * 24 * 40),
+    ]);
+    const due = queue.cards.find((c) => c.key === 'character:生:handwriting')!;
+    expect(due.schedule?.phase).toBe('learning');
+    expect(due.word._id).toBe('xuesheng');
+  });
+
+  it('suspends all handwriting cards when handwriting is off', () => {
+    const logs = [
+      log('word:xuesheng:pinyin', 60 * 24 * 40),
+      log('character:生:handwriting', 60 * 24 * 40),
+    ];
+    const off = { ...settings, handwriting: { enabled: false } };
+    const queue = build(logs, { settings: off });
+    expect(queue.cards.some((c) => c.kind === 'handwriting')).toBe(false);
+    const decks = buildDecks({
+      summaries: summarizeCards(logs),
+      words,
+      characters,
+      settings: off,
+      now,
+      dataset: {
+        levelCounts: { 1: 3, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 },
+        characterLevelCounts: { 1: 4, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 },
+      },
+    });
+    expect(decks[0]).toMatchObject({ total: 3, started: 1 });
+  });
+
+  it('counts handwriting cards in their character’s level', () => {
+    const decks = buildDecks({
+      summaries: summarizeCards([
+        log('word:xuesheng:pinyin', 60 * 24),
+        log('character:生:handwriting', 60 * 24),
+      ]),
+      words,
+      characters: new Map([['生', char('生', 2)]]),
+      settings,
+      now,
+      dataset: {
+        levelCounts: { 1: 3, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 },
+        characterLevelCounts: { 1: 4, 2: 5, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 },
+      },
+    });
+    expect(decks[0]).toMatchObject({ total: 7, started: 1 });
+    expect(decks[1]).toMatchObject({ total: 5, started: 1 });
   });
 });

@@ -8,10 +8,13 @@ import {
   MAX_ANSWER_LENGTH,
   newCardSchedule,
   RATING_LABELS,
+  ratingForHandwriting,
   ratingForPinyin,
+  describeHandwriting,
   studyDayStart,
   type AuthUser,
   type CardSchedule,
+  type HandwritingResult,
   type PinyinGrade,
   type QueueItem,
   type Rating,
@@ -20,13 +23,17 @@ import {
 import { timeZone } from './api';
 import { deviceId } from './device';
 import { formatInterval } from './format';
+import { HandwritingQuiz } from './HandwritingQuiz';
 import { useLocalData, useStudyData } from './local/LocalData';
 import { PinyinInput } from './PinyinInput';
 
 interface Answered {
-  grade: PinyinGrade;
   rating: Rating;
   next: CardSchedule;
+  /** Pinyin cards. */
+  grade?: PinyinGrade;
+  /** Handwriting cards. */
+  handwriting?: HandwritingResult;
 }
 
 const VERDICTS: Record<PinyinGrade['verdict'], string> = {
@@ -59,6 +66,9 @@ export function StudySession({
   const [answer, setAnswer] = useState('');
   const [answered, setAnswered] = useState<Answered | null>(null);
   const [done, setDone] = useState(0);
+  // Bumped each time a card is shown, so inputs reset between cards (and
+  // not when an answer is recorded).
+  const [turn, setTurn] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const shownAt = useRef(Date.now());
 
@@ -97,6 +107,7 @@ export function StudySession({
     setCurrent(next ?? null);
     setAnswer('');
     setAnswered(null);
+    setTurn((n) => n + 1);
     shownAt.current = Date.now();
   }
 
@@ -113,14 +124,31 @@ export function StudySession({
       advance(learning && soon ? [...waiting, next] : waiting);
       return;
     }
-    if (!answer.trim()) return;
+    if (current.kind !== 'pinyin' || !answer.trim()) return;
     const { word } = current;
     const grade = gradePinyin(
       answer,
       [word.citationPinyin, ...word.alternatePinyin],
       word.simplified,
     );
-    const rating = ratingForPinyin(grade);
+    await record(ratingForPinyin(grade), answer, { grade });
+  }
+
+  async function drawn(handwriting: HandwritingResult) {
+    await record(
+      ratingForHandwriting(handwriting, user.settings.handwriting),
+      describeHandwriting(handwriting),
+      { handwriting },
+    );
+  }
+
+  /** Writes the review to this device (it syncs later) and shows feedback. */
+  async function record(
+    rating: Rating,
+    answerText: string,
+    detail: Pick<Answered, 'grade' | 'handwriting'>,
+  ) {
+    if (!current) return;
     const now = new Date();
     const next = applyReview(current.schedule ?? newCardSchedule(now), {
       rating,
@@ -132,7 +160,7 @@ export function StudySession({
         cardKey: current.key,
         rating,
         reviewedAt: now.toISOString(),
-        answer: answer.slice(0, MAX_ANSWER_LENGTH),
+        answer: answerText.slice(0, MAX_ANSWER_LENGTH),
         durationMs: now.getTime() - shownAt.current,
         deviceId,
       });
@@ -141,7 +169,7 @@ export function StudySession({
       return;
     }
     recorded();
-    setAnswered({ grade, rating, next });
+    setAnswered({ rating, next, ...detail });
     setDone((n) => n + 1);
   }
 
@@ -178,21 +206,38 @@ export function StudySession({
               </span>
             )}
           </span>
-          <p className="card-word" lang="zh-Hans">
-            {current.word.simplified}
-          </p>
-          <p className="hint">{current.word.definitions[0]}</p>
-          <PinyinInput
-            key={`${current.key}-${done}`}
-            value={answer}
-            onChange={setAnswer}
-            readOnly={answered !== null}
-            autoFocus
-            aria-label="Pinyin"
-            placeholder="Type pinyin, e.g. xue2sheng"
-          />
+          {current.kind === 'handwriting' ? (
+            <>
+              <HandwritingPrompt item={current} revealed={answered !== null} />
+              <HandwritingQuiz
+                key={`${current.key}-${turn}`}
+                character={current.character!}
+                onDone={(result) => void drawn(result)}
+              />
+            </>
+          ) : (
+            <>
+              <p className="card-word" lang="zh-Hans">
+                {current.word.simplified}
+              </p>
+              <p className="hint">{current.word.definitions[0]}</p>
+              <PinyinInput
+                key={`${current.key}-${turn}`}
+                value={answer}
+                onChange={setAnswer}
+                readOnly={answered !== null}
+                autoFocus
+                aria-label="Pinyin"
+                placeholder="Type pinyin, e.g. xue2sheng"
+              />
+            </>
+          )}
           {answered && <Feedback answered={answered} />}
-          <button type="submit">{answered ? 'Continue' : 'Check'}</button>
+          {(answered || current.kind === 'pinyin') && (
+            <button type="submit" autoFocus={answered !== null}>
+              {answered ? 'Continue' : 'Check'}
+            </button>
+          )}
         </form>
       ) : (
         <div className="card">
@@ -210,11 +255,86 @@ export function StudySession({
   );
 }
 
-function Feedback({
+/**
+ * What a handwriting card asks for: the word with a blank where the
+ * character goes (学_ for 学生), its pinyin, and its gloss.
+ */
+function HandwritingPrompt({
+  item: { word, character },
+  revealed,
+}: {
+  item: QueueItem;
+  revealed: boolean;
+}) {
+  const blanked = [...word.simplified].map((c, i) =>
+    c === character!._id && !revealed ? (
+      <span key={i} className="blank" aria-label="blank">
+        ＿
+      </span>
+    ) : (
+      <span key={i}>{c}</span>
+    ),
+  );
+  return (
+    <>
+      <p className="card-word prompt" lang="zh-Hans">
+        {blanked}
+      </p>
+      <p lang="zh-Latn-pinyin">{displayPinyin(word.citationPinyin)}</p>
+      <p className="hint">{word.definitions[0]}</p>
+    </>
+  );
+}
+
+function Feedback({ answered }: { answered: Answered }) {
+  return answered.handwriting ? (
+    <HandwritingFeedback answered={answered} />
+  ) : (
+    <PinyinFeedback answered={answered} />
+  );
+}
+
+function NextReview({ rating, next }: Pick<Answered, 'rating' | 'next'>) {
+  return (
+    <p className="rating">
+      {RATING_LABELS[rating]} · next in{' '}
+      {formatInterval(next.due.getTime() - Date.now())}
+    </p>
+  );
+}
+
+function HandwritingFeedback({
+  answered: { handwriting, rating, next },
+}: {
+  answered: Answered;
+}) {
+  const { misses, orderMisses, hinted, revealed } = handwriting!;
+  const verdict = rating === 3 ? 'correct' : rating === 2 ? 'tone' : 'wrong';
+  const summary = revealed
+    ? 'Shown'
+    : misses === 0 && !hinted
+      ? 'Clean'
+      : [
+          misses > 0 &&
+            `${misses} ${misses === 1 ? 'miss' : 'misses'}${orderMisses > 0 ? ` (${orderMisses} stroke order)` : ''}`,
+          hinted && 'hint used',
+        ]
+          .filter(Boolean)
+          .join(', ');
+  return (
+    <div className={`feedback ${verdict}`} role="status">
+      <strong>{summary}</strong>
+      <NextReview rating={rating} next={next} />
+    </div>
+  );
+}
+
+function PinyinFeedback({
   answered: { grade, rating, next },
 }: {
   answered: Answered;
 }) {
+  if (!grade) return null;
   const sandhi = grade.syllables.some((s) => s.sandhi);
   return (
     <div className={`feedback ${grade.verdict}`} role="status">
@@ -228,10 +348,7 @@ function Feedback({
               </span>
             ))}
       </span>
-      <p className="rating">
-        {RATING_LABELS[rating]} · next in{' '}
-        {formatInterval(next.due.getTime() - Date.now())}
-      </p>
+      <NextReview rating={rating} next={next} />
       {sandhi && (
         <p className="hint">
           That’s the tone-sandhi pronunciation. Type citation tones.

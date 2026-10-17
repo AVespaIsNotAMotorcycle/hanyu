@@ -2,6 +2,7 @@ import { useState } from 'react';
 import {
   buildDecks,
   buildQueue,
+  MAX_ALLOWED_MISSES,
   MAX_DAILY_NEW_CARDS,
   studyDayStart,
   type AuthResponse,
@@ -30,7 +31,11 @@ export function Decks({
   const settings = pending ?? user.settings;
 
   async function save(change: UpdateSettingsRequest) {
-    setPending({ ...settings, ...change } as AuthUser['settings']);
+    setPending({
+      ...settings,
+      ...change,
+      handwriting: { ...settings.handwriting, ...change.handwriting },
+    } as AuthUser['settings']);
     try {
       const { user } = await putJson<AuthResponse>('/settings', change);
       onUserChange(user);
@@ -56,9 +61,9 @@ export function Decks({
   const now = new Date();
   const decks = buildDecks({
     ...data,
+    dataset: data.dataset,
     settings,
     now,
-    levelCounts: data.dataset.levelCounts,
   });
   const queue = buildQueue({
     ...data,
@@ -144,6 +149,64 @@ export function Decks({
           }}
         />
       </label>
+      <fieldset className="handwriting-settings">
+        <legend>Handwriting</legend>
+        <label>
+          <input
+            type="checkbox"
+            checked={settings.handwriting.enabled}
+            onChange={(event) =>
+              void save({ handwriting: { enabled: event.target.checked } })
+            }
+          />{' '}
+          Write characters from words you’ve started
+        </label>
+        {settings.handwriting.enabled && (
+          <>
+            <label>
+              Stroke order{' '}
+              <select
+                value={settings.handwriting.strokeOrder}
+                onChange={(event) =>
+                  void save({
+                    handwriting: {
+                      strokeOrder: event.target.value as 'strict' | 'lenient',
+                    },
+                  })
+                }
+              >
+                <option value="strict">Strict: out of order is a miss</option>
+                <option value="lenient">
+                  Lenient: out of order is forgiven
+                </option>
+              </select>
+            </label>
+            <label>
+              Misses allowed for a pass{' '}
+              <input
+                type="number"
+                min={0}
+                max={MAX_ALLOWED_MISSES}
+                defaultValue={settings.handwriting.allowedMisses}
+                key={settings.handwriting.allowedMisses}
+                onBlur={(event) => {
+                  const value = event.currentTarget.valueAsNumber;
+                  if (
+                    Number.isInteger(value) &&
+                    value !== settings.handwriting.allowedMisses
+                  ) {
+                    void save({ handwriting: { allowedMisses: value } });
+                  }
+                }}
+              />
+            </label>
+            <p className="hint">
+              A clean character is Good; up to the allowed misses, Hard; more,
+              or a hint, Again.
+            </p>
+          </>
+        )}
+      </fieldset>
       {saveError && (
         <p className="error" role="alert">
           Couldn’t save: {saveError}

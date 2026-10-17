@@ -9,10 +9,11 @@ import { reviewsRouter } from './routes/reviews.js';
 import { settingsRouter } from './routes/settings.js';
 import { contentRouter } from './routes/content.js';
 
-const clientDist = path.resolve(
-  path.dirname(fileURLToPath(import.meta.url)),
-  '../../client/dist',
-);
+const here = path.dirname(fileURLToPath(import.meta.url));
+const clientDist = path.resolve(here, '../../client/dist');
+// License texts for the data sent to browsers (stroke data must travel with
+// the Arphic Public License).
+const licenses = path.resolve(here, '../../data/seed/LICENSES');
 
 export interface AppOptions {
   /** Serve the React build from client/dist (production). */
@@ -48,6 +49,7 @@ export function createApp({
     res.status(404).json({ error: 'Not found' });
   });
   app.use('/api', api);
+  app.use('/licenses', express.static(licenses));
 
   // In production, one dyno serves both the API and the React build.
   if (serveClient) {

@@ -1,8 +1,11 @@
 import {
   DEFAULT_DAILY_NEW_CARDS,
+  DEFAULT_HANDWRITING,
   DEFAULT_LEVELS,
+  MAX_ALLOWED_MISSES,
   MAX_DAILY_NEW_CARDS,
   type AuthUser,
+  type HandwritingSettings,
   type HskLevel,
 } from '@hanyu/shared';
 import {
@@ -35,6 +38,20 @@ const userSchema = new Schema(
         type: [{ type: Number, min: 1, max: 7 }],
         default: () => [...DEFAULT_LEVELS],
       },
+      handwriting: {
+        enabled: { type: Boolean, default: DEFAULT_HANDWRITING.enabled },
+        strokeOrder: {
+          type: String,
+          enum: ['strict', 'lenient'],
+          default: DEFAULT_HANDWRITING.strokeOrder,
+        },
+        allowedMisses: {
+          type: Number,
+          min: 0,
+          max: MAX_ALLOWED_MISSES,
+          default: DEFAULT_HANDWRITING.allowedMisses,
+        },
+      },
     },
   },
   { timestamps: true },
@@ -53,6 +70,15 @@ export function toAuthUser(user: UserDocument): AuthUser {
     settings: {
       dailyNewCards: user.settings?.dailyNewCards ?? DEFAULT_DAILY_NEW_CARDS,
       levels: (user.settings?.levels ?? DEFAULT_LEVELS) as HskLevel[],
+      handwriting: {
+        enabled:
+          user.settings?.handwriting?.enabled ?? DEFAULT_HANDWRITING.enabled,
+        strokeOrder: (user.settings?.handwriting?.strokeOrder ??
+          DEFAULT_HANDWRITING.strokeOrder) as HandwritingSettings['strokeOrder'],
+        allowedMisses:
+          user.settings?.handwriting?.allowedMisses ??
+          DEFAULT_HANDWRITING.allowedMisses,
+      },
     },
   };
 }

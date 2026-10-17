@@ -3,6 +3,7 @@
 export * from './auth.js';
 export * from './content.js';
 export * from './dataset.js';
+export * from './handwriting.js';
 export * from './pinyin.js';
 export * from './pinyinAnswer.js';
 export * from './queue.js';

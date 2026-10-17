@@ -31,3 +31,12 @@ describe('malformed JSON', () => {
     expect(res.body).toHaveProperty('error');
   });
 });
+
+describe('GET /licenses', () => {
+  it('serves data license texts without a session', async () => {
+    const res = await request(createApp()).get('/licenses/ARPHICPL.txt');
+
+    expect(res.status).toBe(200);
+    expect(res.text).toMatch(/ARPHIC PUBLIC LICENSE/i);
+  });
+});
