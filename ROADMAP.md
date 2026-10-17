@@ -77,7 +77,7 @@ Estimated time: 1–2 weeks
 
 - [x] Scaffold the Express API and React client in one repository
 - [x] Add sign-up, sign-in, and authentication middleware on every API route
-- [ ] Deploy to Heroku early: one dyno where Express serves both the API and the React production build
+- [x] Deploy to Heroku early: one dyno where Express serves both the API and the React production build
 - [ ] Implement scheduling with FSRS (`ts-fsrs` for TypeScript)
 - [ ] Build a pinyin answer field that:
   - Accepts tone numbers (`xue2sheng5`) and renders them as diacritics
