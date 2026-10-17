@@ -87,7 +87,7 @@ Estimated time: 1–2 weeks
   - Fully correct → Good
   - Tone error only → Hard
   - Wrong syllable → Again
-- [ ] Add per-level decks, daily new-card limits, and a review queue
+- [x] Add per-level decks, daily new-card limits, and a review queue
 - [ ] Record each review as an immutable log entry, and recompute card state from the logs
 - [ ] Sync logs between IndexedDB and MongoDB
 - [ ] Flag leeches and add a flagged-cards-only study mode

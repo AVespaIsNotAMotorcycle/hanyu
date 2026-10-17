@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import type { AuthResponse, AuthUser, HealthResponse } from '@hanyu/shared';
 import { ApiError, getJson, postJson } from './api';
 import { AuthForm } from './AuthForm';
-import { PinyinDrill } from './PinyinDrill';
+import { Decks } from './Decks';
+import { StudySession } from './StudySession';
 
 export function App() {
   // undefined: still checking for an existing session.
@@ -29,7 +30,11 @@ export function App() {
       ) : user === null ? (
         <AuthForm onSignedIn={setUser} />
       ) : (
-        <Home user={user} onSignedOut={() => setUser(null)} />
+        <Home
+          user={user}
+          onUserChange={setUser}
+          onSignedOut={() => setUser(null)}
+        />
       )}
     </main>
   );
@@ -37,12 +42,15 @@ export function App() {
 
 function Home({
   user,
+  onUserChange,
   onSignedOut,
 }: {
   user: AuthUser;
+  onUserChange: (user: AuthUser) => void;
   onSignedOut: () => void;
 }) {
   const [health, setHealth] = useState<HealthResponse | null>(null);
+  const [studying, setStudying] = useState(false);
 
   useEffect(() => {
     getJson<HealthResponse>('/health')
@@ -63,7 +71,11 @@ function Home({
           Sign out
         </button>
       </p>
-      <PinyinDrill />
+      {studying ? (
+        <StudySession onExit={() => setStudying(false)} />
+      ) : (
+        <Decks onUserChange={onUserChange} onStudy={() => setStudying(true)} />
+      )}
       <p className="status">
         {health
           ? `API ${health.status} · database ${health.db}`

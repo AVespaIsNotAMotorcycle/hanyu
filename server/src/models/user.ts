@@ -1,4 +1,10 @@
-import type { AuthUser } from '@hanyu/shared';
+import {
+  DEFAULT_DAILY_NEW_CARDS,
+  DEFAULT_LEVELS,
+  MAX_DAILY_NEW_CARDS,
+  type AuthUser,
+  type HskLevel,
+} from '@hanyu/shared';
 import {
   model,
   Schema,
@@ -19,7 +25,16 @@ const userSchema = new Schema(
     passwordHash: { type: String, required: true, select: false },
     displayName: { type: String, trim: true },
     settings: {
-      dailyNewCards: { type: Number, default: 10, min: 0 },
+      dailyNewCards: {
+        type: Number,
+        default: DEFAULT_DAILY_NEW_CARDS,
+        min: 0,
+        max: MAX_DAILY_NEW_CARDS,
+      },
+      levels: {
+        type: [{ type: Number, min: 1, max: 7 }],
+        default: () => [...DEFAULT_LEVELS],
+      },
     },
   },
   { timestamps: true },
@@ -35,6 +50,9 @@ export function toAuthUser(user: UserDocument): AuthUser {
     id: user.id as string,
     email: user.email,
     displayName: user.displayName ?? null,
-    settings: { dailyNewCards: user.settings?.dailyNewCards ?? 10 },
+    settings: {
+      dailyNewCards: user.settings?.dailyNewCards ?? DEFAULT_DAILY_NEW_CARDS,
+      levels: (user.settings?.levels ?? DEFAULT_LEVELS) as HskLevel[],
+    },
   };
 }

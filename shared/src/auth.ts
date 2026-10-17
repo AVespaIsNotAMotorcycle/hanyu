@@ -1,5 +1,7 @@
 // Request and response shapes for /api/auth.
 
+import type { HskLevel } from './content.js';
+
 export const PASSWORD_MIN_LENGTH = 8;
 /** Long passphrases are fine; this only bounds the work done per request. */
 export const PASSWORD_MAX_LENGTH = 256;
@@ -10,7 +12,10 @@ export interface AuthUser {
   email: string;
   displayName: string | null;
   settings: {
+    /** New cards introduced per study day, across enabled decks. */
     dailyNewCards: number;
+    /** HSK levels whose decks introduce new cards. */
+    levels: HskLevel[];
   };
 }
 

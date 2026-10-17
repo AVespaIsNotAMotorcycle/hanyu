@@ -33,3 +33,10 @@ export function getJson<T>(path: string): Promise<T> {
 export function postJson<T>(path: string, body?: unknown): Promise<T> {
   return request<T>('POST', path, body);
 }
+
+export function putJson<T>(path: string, body: unknown): Promise<T> {
+  return request<T>('PUT', path, body);
+}
+
+/** The browser's IANA time zone, which the server uses to find "today". */
+export const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;

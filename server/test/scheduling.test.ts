@@ -2,12 +2,12 @@ import { replayReviews } from '@hanyu/shared';
 import mongoose from 'mongoose';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { ReviewLogModel } from '../src/models/index.js';
-import { loadCardSchedules } from '../src/scheduling.js';
+import { loadCardSummaries } from '../src/scheduling.js';
 
 // Integration tests: set MONGODB_TEST_URI (e.g. mongodb://localhost:27017) to run.
 const uri = process.env.MONGODB_TEST_URI;
 
-describe.skipIf(!uri)('loadCardSchedules', () => {
+describe.skipIf(!uri)('loadCardSummaries', () => {
   const learner = new mongoose.Types.ObjectId();
   const other = new mongoose.Types.ObjectId();
   const at = (minutes: number) =>
@@ -52,13 +52,14 @@ describe.skipIf(!uri)('loadCardSchedules', () => {
   });
 
   it("replays only the user's own logs, per card", async () => {
-    const schedules = await loadCardSchedules(learner);
+    const summaries = await loadCardSummaries(learner);
 
-    expect([...schedules.keys()].sort()).toEqual([
+    // The other user's log for the same card is not mixed in.
+    expect([...summaries.keys()]).toEqual(['word:hsk30-00001:pinyin']);
+    const { schedule: pinyin, introducedAt } = summaries.get(
       'word:hsk30-00001:pinyin',
-      'word:hsk30-00002:meaning',
-    ]);
-    const pinyin = schedules.get('word:hsk30-00001:pinyin')!;
+    )!;
+    expect(introducedAt).toEqual(at(0));
     expect(pinyin).toEqual(
       replayReviews(logs.slice(0, 2).map((l) => ({ ...l, rating: 3 }))),
     );
@@ -66,12 +67,17 @@ describe.skipIf(!uri)('loadCardSchedules', () => {
     expect(pinyin.reps).toBe(2);
   });
 
+  it('covers only active card kinds by default', async () => {
+    const summaries = await loadCardSummaries(learner);
+    expect(summaries.has('word:hsk30-00002:meaning')).toBe(false);
+  });
+
   it('limits the replay to the given card keys', async () => {
-    const schedules = await loadCardSchedules(learner, [
+    const summaries = await loadCardSummaries(learner, [
       'word:hsk30-00002:meaning',
       'word:hsk30-09999:pinyin',
     ]);
 
-    expect([...schedules.keys()]).toEqual(['word:hsk30-00002:meaning']);
+    expect([...summaries.keys()]).toEqual(['word:hsk30-00002:meaning']);
   });
 });

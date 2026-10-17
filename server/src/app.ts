@@ -4,7 +4,8 @@ import express, { type ErrorRequestHandler } from 'express';
 import { requireAuth } from './auth/requireAuth.js';
 import { createAuthRouter } from './routes/auth.js';
 import { healthRouter } from './routes/health.js';
-import { wordsRouter } from './routes/words.js';
+import { settingsRouter } from './routes/settings.js';
+import { studyRouter } from './routes/study.js';
 
 const clientDist = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -36,7 +37,8 @@ export function createApp({
   // Everything below requires a signed-in user.
   api.use(requireAuth);
   api.use('/health', healthRouter);
-  api.use('/words', wordsRouter);
+  api.use('/settings', settingsRouter);
+  api.use(studyRouter);
   api.use((_req, res) => {
     res.status(404).json({ error: 'Not found' });
   });
