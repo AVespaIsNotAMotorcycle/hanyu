@@ -5,6 +5,7 @@ export * from './content.js';
 export * from './pinyin.js';
 export * from './pinyinAnswer.js';
 export * from './queue.js';
+export * from './reviews.js';
 export * from './scheduling.js';
 
 export interface HealthResponse {

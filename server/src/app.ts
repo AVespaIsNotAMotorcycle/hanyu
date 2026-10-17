@@ -4,6 +4,7 @@ import express, { type ErrorRequestHandler } from 'express';
 import { requireAuth } from './auth/requireAuth.js';
 import { createAuthRouter } from './routes/auth.js';
 import { healthRouter } from './routes/health.js';
+import { reviewsRouter } from './routes/reviews.js';
 import { settingsRouter } from './routes/settings.js';
 import { studyRouter } from './routes/study.js';
 
@@ -37,6 +38,7 @@ export function createApp({
   // Everything below requires a signed-in user.
   api.use(requireAuth);
   api.use('/health', healthRouter);
+  api.use('/reviews', reviewsRouter);
   api.use('/settings', settingsRouter);
   api.use(studyRouter);
   api.use((_req, res) => {
