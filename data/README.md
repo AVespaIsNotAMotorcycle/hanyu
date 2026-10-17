@@ -49,6 +49,7 @@ npm run passages:generate -- --level 1 --count 5 --max-cost 5
 npm run passages:generate -- --level 1 --grammar g1-008,g1-020
 npm run passages:generate -- --level 1 --dry-run   # print the prompts; no API call
 npm run passages:check                          # segment, and run missing answer-key checks (--max-cost 1)
+npm run passages:translate                      # reference translations where missing (--force redoes them)
 npm run passages:review -- --sample 3           # spot-check a random sample by hand
 npm run db:seed                                 # load data/passages into MongoDB
 ```
@@ -60,11 +61,29 @@ Generation and checking need `ANTHROPIC_API_KEY` in `.env`. Each passage:
 3. **Is checked, and sent back with the problems until it passes** (at most 3 attempts):
    - **Shape and level**: length; every target grammar point quoted exactly from the text; 3 multiple-choice questions with 4 distinct options; 3 cloze questions whose sentences match the text once filled in, with answers made of level vocabulary (at most 4 characters) and stroke data, so they can be handwritten; and the **level check**: at least 95% of hanzi tokens (passage, questions, and options) are HSK words at or below the level, compounds of them, or declared names (up to 3).
    - **Answer key** ([`src/passages/answerKey.ts`](src/passages/answerKey.ts)): a separate call sees the passage and questions without the key, answers each one, and reports problems. The check fails if it picks a different option, finds a second option defensible, fills a blank with a word the question doesn't accept, or reports a major issue. Minor issues are recorded but don't fail it.
-4. **Is segmented for tap-to-look-up** (`tokens`: jieba, with compounds split into HSK words and names kept whole; see `tokenize` in `src/passages/level.ts`).
-5. **Is written to `data/passages/hsk<level>/<id>.json`** with its level check, answer-key check, and provenance (model, prompt version, attempts, cost). Delete a file to drop a passage.
+4. **Gets a reference translation** ([`src/passages/translate.ts`](src/passages/translate.ts)): one faithful, natural English paragraph per Chinese paragraph, the model answer translation exercises are graded against. If it fails, the passage is still written; `passages:translate` fills it in later.
+5. **Is segmented for tap-to-look-up** (`tokens`: jieba, with compounds split into HSK words and names kept whole; see `tokenize` in `src/passages/level.ts`).
+6. **Is written to `data/passages/hsk<level>/<id>.json`** with its level check, answer-key check, and provenance (model, prompt version, attempts, cost). Delete a file to drop a passage.
 
 `db:seed` refuses passages under the level threshold and passages that haven't passed the answer-key check. `passages:check` brings older files up to date: it always redoes the segmentation (free), and runs the answer-key check where it's missing or was made with an older `CHECK_PROMPT_VERSION` (`--force` reruns it everywhere). A failed check is recorded in the file; regenerate or delete that passage.
 
 **Spot-checks by hand.** The automated checks come first; `passages:review` then shows a random sample of passages that passed them and haven't been reviewed (text, key, the checker's answers and issues) and asks to approve (recorded in the file's `review`, with an optional note), delete, or skip. `passages:coverage` shows how many passages at each level have been reviewed.
 
 Costs come from the API's reported usage at Sonnet 5.5 prices (`PRICING` in `src/passages/llm.ts`). A run stops before any call that could pass `--max-cost` (default $5 for generation, $1 for checks). Answer-key checks cost under a cent each. Bump `PROMPT_VERSION` when the generation prompt or schema changes, and `CHECK_PROMPT_VERSION` when the check's does.
+
+## Translation Grader Evals
+
+The web app grades learners' Chinese → English translations with `gradeTranslation` (`shared/src/grading.ts`, Sonnet 5.5): per-criterion scores (accuracy, completeness, grammar handling, naturalness), errors with quoted spans, and the source words the learner misunderstood. `src/grader/` checks that grader against two sets:
+
+```sh
+npm run grader:learner-set        # build grader-evals/learner.json (--max-cost 1; --force rebuilds)
+npm run grader:eval               # grade both sets; writes grader-evals/results/<model>-v<version>.json (--max-cost 2)
+npm run grader:consistency        # re-grade a fixed sample; writes grader-evals/consistency/ (--max-cost 0.5)
+```
+
+- **Calibration** ([`src/grader/mqm.ts`](src/grader/mqm.ts)): 40 machine translations of TED talk sentences from Google's [WMT MQM release](https://github.com/google/wmt-mqm-human-evaluation) (`mqm-ted-zhen`, pinned in `sources.ts`), rated by professional translators with error spans and severities. The sample is fixed: 10 per MQM penalty band (none, minor, one major, several), learner-length sentences, one per source segment. The annotations are Apache-2.0, but TED talk text is CC BY-NC-ND, so it stays in `data/raw`: results record only item IDs and numbers. Metrics: Spearman correlation of the grader's penalty (major 5, minor 1) and overall score with the MQM penalty, the share of MQM major errors the grader's spans cover, and the share of error-free translations given no major error.
+- **Learner-style** ([`src/grader/learnerSet.ts`](src/grader/learnerSet.ts)): for each passage paragraph, the reference translation with two injected errors (wrong tense, dropped clause, mistranslated word, wrong number/time/person, round-robin), whose quoted spans are the answer key, and a faithful paraphrase that should get no major errors (the reference isn't the only right answer). Built once with Sonnet 5.5 and reviewed in git. Metrics: the share of injected errors the grader's spans cover (by translation or source span), the share of paraphrases with no major error, and mean overall scores for each kind.
+
+**When the grading prompt or model changes**, bump `GRADER_PROMPT_VERSION` and run `grader:eval`: `test/grader.test.ts` fails until results exist for the current model and version, and comparing results files shows what the change did. **Every so often** (say monthly, or when the API model behind the name might have changed), run `grader:consistency`: it re-grades the first 5 items of each set and reports how far overall scores moved from the eval run.
+
+Results for `claude-sonnet-5-5`, prompt v1 (October 2026, $0.74): calibration penalty Spearman 0.34 (score 0.22), MQM major-error span recall 61%, every error-free translation free of major errors; learner-style injected-error recall 90%, 95% of paraphrases free of major errors, mean overall 3.97 (injected) vs 4.85 (paraphrase). The grader is more lenient than MQM raters, who mark many awkward-style issues as major. A consistency run moved overall scores by 0.06 on average.

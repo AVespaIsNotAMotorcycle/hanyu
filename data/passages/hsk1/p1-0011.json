@@ -199,6 +199,9 @@
       "”"
     ]
   ],
+  "translation": [
+    "Today is Sunday, and the weather is very nice. Xiaoming is at home, and he wants to find a friend to hang out with. He phones a friend: \"Hello, where are you?\" The friend says, \"I'm at school.\" Xiaoming says, \"Do you have time this afternoon? I'd like to go see a movie with you.\" The friend says, \"Great! Let's meet at the cinema at three o'clock this afternoon.\" In the afternoon, Xiaoming arrives first. When the friend arrives, he says to Xiaoming, \"I'm sorry, I'm late.\" Xiaoming says, \"It's okay.\""
+  ],
   "verification": {
     "tokens": 104,
     "atOrBelowLevel": 99,

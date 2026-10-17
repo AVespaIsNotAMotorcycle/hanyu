@@ -196,6 +196,13 @@
       "”"
     ]
   ],
+  "translation": [
+    "Today is Sunday, and the weather is very nice. My friend Xiaoming and I go to a store. I want to buy a new piece of clothing. Xiaoming wants to buy apples.",
+    "I ask, \"Excuse me, may I try on this piece of clothing?\"",
+    "The person in the store says, \"Yes, you may.\"",
+    "This piece of clothing looks very nice, and it isn't expensive either. I say, \"I'll take this one.\"",
+    "Xiaoming says, \"I'd like some apples too. Let's go home and eat them.\""
+  ],
   "verification": {
     "tokens": 87,
     "atOrBelowLevel": 86,

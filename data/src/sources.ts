@@ -11,12 +11,15 @@ export interface Source {
   /** False for sources that change upstream and can't be locked. */
   pinned: boolean;
   license: string;
+  /** False for sources the seed doesn't use (left out of its manifest). */
+  seed?: false;
 }
 
 const HSK_WORDS_COMMIT = '6859875bf3ba3b7209dee3b23171f893f7493776';
 const HSK_LISTS_COMMIT = '182692ce5a11bc30bdc771835d2f0f27491c25de';
 const MMAH_COMMIT = 'bddc96d41bef78427ed0e034e9f7e31d71fd1b92';
 const WORDFREQ_COMMIT = '912caf64b657478d1dff1138efdc078947d54bb1';
+const MQM_COMMIT = '29acd6999aaea3586378c9dcb58d8cc4820cede3';
 
 const github = (repo: string, commit: string, file: string) =>
   `https://raw.githubusercontent.com/${repo}/${commit}/${file.split('/').map(encodeURIComponent).join('/')}`;
@@ -113,6 +116,22 @@ export const sources: Source[] = [
     ),
     pinned: true,
     license: 'CC BY-SA 4.0 (includes SUBTLEX-CH, credit its authors)',
+  },
+  {
+    // Expert MQM error annotations of Chinese → English translations of TED
+    // talks: the translation grader's calibration set. Not part of the seed;
+    // the eval reads it from data/raw and never commits its text.
+    id: 'mqm-ted-zhen',
+    file: 'mqm-ted-zhen.tsv',
+    url: github(
+      'google/wmt-mqm-human-evaluation',
+      MQM_COMMIT,
+      'ted/zhen/mqm_ted_zhen.tsv',
+    ),
+    pinned: true,
+    license:
+      'Annotations Apache-2.0 (Google); TED talk text CC BY-NC-ND 4.0, not republished',
+    seed: false,
   },
 ];
 

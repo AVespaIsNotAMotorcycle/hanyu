@@ -2,7 +2,8 @@
 // level that exercises chosen grammar points, with multiple-choice and cloze
 // questions. Drafts are checked (structure, level share, cloze answers),
 // then answered by an independent call (answerKey.ts), and sent back with
-// the problems until they pass or attempts run out.
+// the problems until they pass or attempts run out. A passing passage gets a
+// reference translation (translate.ts).
 
 import type Anthropic from '@anthropic-ai/sdk';
 import {
@@ -17,6 +18,7 @@ import type { Segmenter } from '../segmenter.js';
 import { checkAnswerKey } from './answerKey.js';
 import type { SeedContent } from './content.js';
 import { checkLevel, tokenize } from './level.js';
+import { translatePassage } from './translate.js';
 import { closeObjects, costOf, MODEL, type Llm } from './llm.js';
 
 export { costOf, MODEL, PRICING, type Llm } from './llm.js';
@@ -443,6 +445,13 @@ export async function generatePassage({
       problems = keyCheck.problems;
       if (problems.length === 0) {
         passage.answerKeyCheck = keyCheck.check;
+        // A reference translation for translation exercises. It doesn't
+        // block the passage: passages:translate can retry it.
+        if (costUsd + (checkCost || 0.02) <= budgetUsd) {
+          const translated = await translatePassage(passage, llm);
+          costUsd += translated.costUsd;
+          passage.translation = translated.translation;
+        }
         passage.generation.costUsd = Math.round(costUsd * 10000) / 10000;
         return {
           passage,
@@ -518,6 +527,7 @@ function toPassage(
     grammar: draft.grammar,
     questions,
     tokens,
+    translation: null,
     verification: check,
     answerKeyCheck: null,
     review: null,

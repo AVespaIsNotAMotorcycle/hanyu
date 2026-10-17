@@ -1,0 +1,79 @@
+{
+  "model": "claude-sonnet-5-5",
+  "promptVersion": "1",
+  "ranAt": "2026-10-17T16:36:46.047Z",
+  "costUsd": 0.0891,
+  "meanOverallChange": 0.06,
+  "items": [
+    {
+      "id": "Borderline/811",
+      "overall": 4.5,
+      "before": 4.3,
+      "graderPenalty": 1,
+      "penaltyBefore": 1
+    },
+    {
+      "id": "DIDI-NLP/687",
+      "overall": 4.5,
+      "before": 4.5,
+      "graderPenalty": 1,
+      "penaltyBefore": 1
+    },
+    {
+      "id": "Facebook-AI/552",
+      "overall": 4.8,
+      "before": 4.8,
+      "graderPenalty": 1,
+      "penaltyBefore": 1
+    },
+    {
+      "id": "Facebook-AI/727",
+      "overall": 4.3,
+      "before": 4.3,
+      "graderPenalty": 3,
+      "penaltyBefore": 3
+    },
+    {
+      "id": "Facebook-AI/784",
+      "overall": 4.8,
+      "before": 4.8,
+      "graderPenalty": 1,
+      "penaltyBefore": 2
+    },
+    {
+      "id": "p1-0001/0/injected",
+      "overall": 4,
+      "before": 4,
+      "graderPenalty": 2,
+      "penaltyBefore": 2
+    },
+    {
+      "id": "p1-0001/0/paraphrase",
+      "overall": 5,
+      "before": 5,
+      "graderPenalty": 0,
+      "penaltyBefore": 0
+    },
+    {
+      "id": "p1-0002/0/injected",
+      "overall": 4,
+      "before": 4,
+      "graderPenalty": 10,
+      "penaltyBefore": 10
+    },
+    {
+      "id": "p1-0002/0/paraphrase",
+      "overall": 4.8,
+      "before": 5,
+      "graderPenalty": 1,
+      "penaltyBefore": 0
+    },
+    {
+      "id": "p1-0002/1/injected",
+      "overall": 4,
+      "before": 3.8,
+      "graderPenalty": 10,
+      "penaltyBefore": 10
+    }
+  ]
+}

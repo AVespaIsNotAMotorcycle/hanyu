@@ -187,6 +187,10 @@
       "”"
     ]
   ],
+  "translation": [
+    "Today is March 8th, Sunday. I am nineteen years old this year. At half past seven in the morning, I got up. I drank a glass of milk and ate two eggs.",
+    "At nine o'clock, I went to school for class. At twenty past twelve at noon, my classmate and I went to a restaurant to eat. I had tea, and he had water. He said, \"I came to China a year ago. I miss home a lot.\" I said, \"It's okay. We are good friends.\""
+  ],
   "verification": {
     "tokens": 86,
     "atOrBelowLevel": 85,

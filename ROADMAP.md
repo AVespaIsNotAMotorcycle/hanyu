@@ -120,20 +120,20 @@ Estimated time: 1–2 weeks
 
 ## Phase 4: Translation Challenges
 
-- [ ] Start with Chinese → English, matching the reading-first goal
-- [ ] Build an LLM grading endpoint that receives:
+- [x] Start with Chinese → English, matching the reading-first goal (one paragraph per exercise, against reference translations generated offline)
+- [x] Build an LLM grading endpoint that receives:
   - The source passage
   - A reference translation
   - A fixed rubric: accuracy, completeness, grammar handling, naturalness
-- [ ] Require structured JSON output with per-criterion scores and quoted spans identifying each error
-- [ ] Route all LLM calls through the Express API so API keys stay off the client
-- [ ] Log every grading result
-- [ ] Build a grader eval set:
+- [x] Require structured JSON output with per-criterion scores and quoted spans identifying each error
+- [x] Route all LLM calls through the Express API so API keys stay off the client
+- [x] Log every grading result
+- [x] Build a grader eval set:
   - Calibration: Chinese → English segments from Google's WMT MQM release, whose translations professional translators annotated with error spans and severities
   - Learner-style: reference translations of in-app passages with deliberately injected errors (wrong tense, dropped clause, mistranslated word), where the injected errors are the answer key
-- [ ] Run the eval set whenever the grading prompt or model changes
-- [ ] Re-grade a fixed sample set periodically to check grader consistency
-- [ ] Send mistranslated words directly into the SRS queue
+- [x] Run the eval set whenever the grading prompt or model changes
+- [x] Re-grade a fixed sample set periodically to check grader consistency
+- [x] Send mistranslated words directly into the SRS queue
 - [ ] Later: add English → Chinese for production practice
 
 **Milestone:** consistent, actionable feedback on HSK 1–3 translation exercises.
@@ -174,8 +174,7 @@ Licenses apply whether or not the app charges money.
 
 ## Open Decisions
 
-- LLM provider and model for grading (passage generation uses Claude Sonnet 5.5, decided October 2026)
-- Monthly LLM budget, and per-user rate limits on grading (generation runs have a per-run cost cap)
+None right now. Decided in October 2026: Claude Sonnet 5.5 generates passages and grades translations; grading is limited to 20 per user per 24 hours and $10 a month across all users (generation runs have a per-run cost cap).
 
 ## Technical Stack
 

@@ -62,6 +62,7 @@ passagesRouter.get('/', async (req, res) => {
       grammar: 1,
       questions: 1,
       tokens: 1,
+      translation: 1,
     },
   )
     .sort({ _id: 1 })
@@ -77,6 +78,7 @@ passagesRouter.get('/', async (req, res) => {
       length: [...paragraphs(p.text).join('')].length,
       grammarIds: [...new Set(p.grammar.map((g) => g.grammarId))],
       questionCount: p.questions.length,
+      translatable: Boolean(p.translation?.length),
       vocabulary: [...tokens[i]!].map(([text, count]): PassageWord => ({
         text,
         wordIds: ids.get(text) ?? [],

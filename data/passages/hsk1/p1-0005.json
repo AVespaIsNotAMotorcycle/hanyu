@@ -163,6 +163,9 @@
       "。"
     ]
   ],
+  "translation": [
+    "Today is Sunday, and my mom and I go to the store. There are a lot of things in the store. These clothes look very nice, and those clothes are a bit expensive. Mom asks me, \"Which one do you like?\" I say, \"I like this one.\" Mom says, \"OK, let's buy this one.\" Some people are looking over there, and some people are buying over here. Everyone is very happy."
+  ],
   "verification": {
     "tokens": 89,
     "atOrBelowLevel": 88,

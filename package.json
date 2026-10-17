@@ -29,8 +29,12 @@
     "data:build": "npm run build -w shared && npm run build:seed -w data",
     "passages:generate": "npm run build -w shared && npm run passages:generate -w data --",
     "passages:check": "npm run build -w shared && npm run passages:check -w data --",
+    "passages:translate": "npm run build -w shared && npm run passages:translate -w data --",
     "passages:review": "npm run build -w shared && npm run passages:review -w data --",
-    "passages:coverage": "npm run build -w shared && npm run passages:coverage -w data --"
+    "passages:coverage": "npm run build -w shared && npm run passages:coverage -w data --",
+    "grader:learner-set": "npm run build -w shared && npm run grader:learner-set -w data --",
+    "grader:eval": "npm run build -w shared && npm run grader:eval -w data --",
+    "grader:consistency": "npm run build -w shared && npm run grader:consistency -w data --"
   },
   "devDependencies": {
     "concurrently": "^10.0.6",

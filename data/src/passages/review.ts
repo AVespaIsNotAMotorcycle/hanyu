@@ -10,7 +10,11 @@ export function formatForReview(passage: Passage): string {
   const lines = [
     `${passage._id} · HSK ${passage.level} · ${passage.title} (${passage.titleEnglish})`,
     '',
-    ...paragraphs(passage.text).flatMap((p) => [p, '']),
+    ...paragraphs(passage.text).flatMap((p, i) => [
+      p,
+      ...(passage.translation?.[i] ? [`  → ${passage.translation[i]}`] : []),
+      '',
+    ]),
   ];
   if (passage.names.length) lines.push(`Names: ${passage.names.join('、')}`);
   lines.push(

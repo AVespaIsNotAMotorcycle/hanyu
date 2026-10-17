@@ -204,6 +204,11 @@
       "”"
     ]
   ],
+  "translation": [
+    "Today is Sunday, and my mom and I are both at home.",
+    "My mom is cooking, and I'm watching TV. The phone rings. It's my friend Xiaoming. He asks, \"What are you doing?\" I say, \"I'm watching TV, and my mom is cooking.\" Xiaoming says, \"I'm at the bookstore. Do you want to come?\" I say, \"I can't go right now. Let's go after we eat.\"",
+    "In the afternoon, we hang out at the bookstore. I buy a book. Xiaoming says, \"Let's come again tomorrow.\""
+  ],
   "verification": {
     "tokens": 92,
     "atOrBelowLevel": 90,

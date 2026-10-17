@@ -56,6 +56,7 @@ const passage = (id: string, overrides: Partial<Passage> = {}): Passage => ({
     ['小明', '是', '大学生', '。'],
     ['他', '买', '了', '一', '本', '书', '。'],
   ],
+  translation: ['Xiaoming is a university student.', 'He bought a book.'],
   verification: { tokens: 10, atOrBelowLevel: 10, share: 1, offLevel: [] },
   answerKeyCheck: {
     model: 'claude-sonnet-5-5',
@@ -216,6 +217,7 @@ describe.skipIf(!uri)('passages', () => {
         length: 14,
         grammarIds: ['g1-001'],
         questionCount: 2,
+        translatable: true,
         // Names left out; homographs list every word with the form.
         vocabulary: [
           { text: '是', wordIds: [], count: 1 },

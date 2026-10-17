@@ -75,6 +75,7 @@ describe('passageFamiliarity and recommendPassages', () => {
     length: 10,
     grammarIds: [],
     questionCount: 0,
+    translatable: false,
     vocabulary,
   });
 

@@ -43,33 +43,40 @@ Open http://localhost:5173 and create an account. Once signed in, the page shows
 
 Run from the repository root:
 
-| Script                      | What it does                                                           |
-| --------------------------- | ---------------------------------------------------------------------- |
-| `npm run dev`               | Run shared, server, and client in watch mode                           |
-| `npm run build`             | Build shared, then server, then client                                 |
-| `npm start`                 | Run the built server (set `NODE_ENV=production` to serve UI)           |
-| `npm test`                  | Run all workspace tests                                                |
-| `npm run typecheck`         | Type-check all workspaces                                              |
-| `npm run format`            | Format with Prettier                                                   |
-| `npm run db:up`/`down`      | Start or stop the local MongoDB container                              |
-| `npm run db:seed`           | Load `data/seed` into MongoDB (idempotent; `-- --force`, `-- --prune`) |
-| `npm run data:fetch`        | Download pipeline sources into `data/raw` and verify their hashes      |
-| `npm run data:build`        | Rebuild `data/seed` from `data/raw`                                    |
-| `npm run passages:generate` | Generate reading passages with Claude (see `data/README.md`)           |
-| `npm run passages:check`    | Segment passages and run the answer-key check where it's missing       |
-| `npm run passages:review`   | Spot-check a random sample of passages by hand                         |
-| `npm run passages:coverage` | Passages, check and review status, and grammar coverage per level      |
+| Script                       | What it does                                                           |
+| ---------------------------- | ---------------------------------------------------------------------- |
+| `npm run dev`                | Run shared, server, and client in watch mode                           |
+| `npm run build`              | Build shared, then server, then client                                 |
+| `npm start`                  | Run the built server (set `NODE_ENV=production` to serve UI)           |
+| `npm test`                   | Run all workspace tests                                                |
+| `npm run typecheck`          | Type-check all workspaces                                              |
+| `npm run format`             | Format with Prettier                                                   |
+| `npm run db:up`/`down`       | Start or stop the local MongoDB container                              |
+| `npm run db:seed`            | Load `data/seed` into MongoDB (idempotent; `-- --force`, `-- --prune`) |
+| `npm run data:fetch`         | Download pipeline sources into `data/raw` and verify their hashes      |
+| `npm run data:build`         | Rebuild `data/seed` from `data/raw`                                    |
+| `npm run passages:generate`  | Generate reading passages with Claude (see `data/README.md`)           |
+| `npm run passages:check`     | Segment passages and run the answer-key check where it's missing       |
+| `npm run passages:review`    | Spot-check a random sample of passages by hand                         |
+| `npm run passages:coverage`  | Passages, check and review status, and grammar coverage per level      |
+| `npm run passages:translate` | Generate reference translations for passages that lack them            |
+| `npm run grader:learner-set` | Build the grader's learner-style eval set from passages                |
+| `npm run grader:eval`        | Run the grader eval set (whenever the grading prompt or model changes) |
+| `npm run grader:consistency` | Re-grade a fixed sample and compare with the eval run                  |
 
 ## Configuration
 
 Environment variables, read from `.env` locally (see `.env.example`) or Heroku config vars in production:
 
-| Variable           | Default                           | Purpose                                                                       |
-| ------------------ | --------------------------------- | ----------------------------------------------------------------------------- |
-| `NODE_ENV`         | `development`                     | `production` serves the client, uses `Secure` cookies, trusts Heroku's proxy  |
-| `PORT`             | `5000`                            | API port (Heroku sets this)                                                   |
-| `MONGODB_URI`      | `mongodb://localhost:27017/hanyu` | MongoDB connection string                                                     |
-| `MONGODB_TEST_URI` | (unset)                           | MongoDB server for the database integration tests; they're skipped when unset |
+| Variable                     | Default                           | Purpose                                                                       |
+| ---------------------------- | --------------------------------- | ----------------------------------------------------------------------------- |
+| `NODE_ENV`                   | `development`                     | `production` serves the client, uses `Secure` cookies, trusts Heroku's proxy  |
+| `PORT`                       | `5000`                            | API port (Heroku sets this)                                                   |
+| `MONGODB_URI`                | `mongodb://localhost:27017/hanyu` | MongoDB connection string                                                     |
+| `MONGODB_TEST_URI`           | (unset)                           | MongoDB server for the database integration tests; they're skipped when unset |
+| `ANTHROPIC_API_KEY`          | (unset)                           | Translation grading (off without it) and the offline passage and eval scripts |
+| `GRADING_DAILY_LIMIT`        | `20`                              | Gradings per user in any 24 hours                                             |
+| `GRADING_MONTHLY_BUDGET_USD` | `10`                              | Grading spend across all users per calendar month (UTC)                       |
 
 ## Authentication
 

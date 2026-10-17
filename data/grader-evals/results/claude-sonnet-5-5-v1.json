@@ -1,0 +1,846 @@
+{
+  "model": "claude-sonnet-5-5",
+  "promptVersion": "1",
+  "ranAt": "2026-10-17T16:31:51.547Z",
+  "costUsd": 0.7352,
+  "calibration": {
+    "items": 40,
+    "penaltySpearman": 0.343,
+    "scoreSpearman": 0.215,
+    "majorSpanRecall": 0.613,
+    "cleanWithoutMajor": 1
+  },
+  "learner": {
+    "items": 42,
+    "injectedRecall": 0.905,
+    "paraphraseWithoutMajor": 0.952,
+    "meanOverallInjected": 3.971,
+    "meanOverallParaphrase": 4.848
+  },
+  "calibrationItems": [
+    {
+      "id": "metricsystem5/130",
+      "mqmPenalty": 0,
+      "graderPenalty": 3,
+      "overall": 4.3,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "metricsystem2/542",
+      "mqmPenalty": 0,
+      "graderPenalty": 1,
+      "overall": 4.8,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "metricsystem4/414",
+      "mqmPenalty": 0,
+      "graderPenalty": 0,
+      "overall": 5,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "Online-W/134",
+      "mqmPenalty": 0,
+      "graderPenalty": 2,
+      "overall": 4.5,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "SMU/455",
+      "mqmPenalty": 0,
+      "graderPenalty": 1,
+      "overall": 4.8,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "metricsystem4/779",
+      "mqmPenalty": 0,
+      "graderPenalty": 0,
+      "overall": 4.8,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "IIE-MT/406",
+      "mqmPenalty": 0,
+      "graderPenalty": 0,
+      "overall": 5,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "DIDI-NLP/687",
+      "mqmPenalty": 0,
+      "graderPenalty": 1,
+      "overall": 4.5,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "metricsystem1/397",
+      "mqmPenalty": 0,
+      "graderPenalty": 0,
+      "overall": 4.8,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "metricsystem3/427",
+      "mqmPenalty": 0,
+      "graderPenalty": 2,
+      "overall": 4,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "IIE-MT/826",
+      "mqmPenalty": 1,
+      "graderPenalty": 2,
+      "overall": 3.8,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "Borderline/811",
+      "mqmPenalty": 1,
+      "graderPenalty": 1,
+      "overall": 4.3,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "Facebook-AI/784",
+      "mqmPenalty": 2,
+      "graderPenalty": 2,
+      "overall": 4.8,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "metricsystem2/761",
+      "mqmPenalty": 1,
+      "graderPenalty": 1,
+      "overall": 4.8,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "metricsystem3/772",
+      "mqmPenalty": 1,
+      "graderPenalty": 1,
+      "overall": 4.8,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "MiSS/767",
+      "mqmPenalty": 1,
+      "graderPenalty": 1,
+      "overall": 4.8,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "IIE-MT/513",
+      "mqmPenalty": 0.1,
+      "graderPenalty": 1,
+      "overall": 4.5,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "metricsystem4/688",
+      "mqmPenalty": 1,
+      "graderPenalty": 1,
+      "overall": 4.5,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "Online-W/412",
+      "mqmPenalty": 1,
+      "graderPenalty": 6,
+      "overall": 3.5,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 1
+    },
+    {
+      "id": "NiuTrans/548",
+      "mqmPenalty": 1,
+      "graderPenalty": 1,
+      "overall": 4,
+      "majorSpans": 0,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "metricsystem1/499",
+      "mqmPenalty": 5,
+      "graderPenalty": 3,
+      "overall": 4,
+      "majorSpans": 1,
+      "majorFound": 1,
+      "graderMajors": 0
+    },
+    {
+      "id": "Facebook-AI/727",
+      "mqmPenalty": 5,
+      "graderPenalty": 3,
+      "overall": 4.3,
+      "majorSpans": 1,
+      "majorFound": 1,
+      "graderMajors": 0
+    },
+    {
+      "id": "NiuTrans/774",
+      "mqmPenalty": 5,
+      "graderPenalty": 1,
+      "overall": 4.8,
+      "majorSpans": 1,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "metricsystem2/703",
+      "mqmPenalty": 5,
+      "graderPenalty": 1,
+      "overall": 4.5,
+      "majorSpans": 1,
+      "majorFound": 1,
+      "graderMajors": 0
+    },
+    {
+      "id": "SMU/422",
+      "mqmPenalty": 5,
+      "graderPenalty": 0,
+      "overall": 4.8,
+      "majorSpans": 1,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "metricsystem3/421",
+      "mqmPenalty": 5,
+      "graderPenalty": 6,
+      "overall": 3.3,
+      "majorSpans": 1,
+      "majorFound": 1,
+      "graderMajors": 1
+    },
+    {
+      "id": "metricsystem1/110",
+      "mqmPenalty": 6.1,
+      "graderPenalty": 2,
+      "overall": 4.5,
+      "majorSpans": 1,
+      "majorFound": 1,
+      "graderMajors": 0
+    },
+    {
+      "id": "Facebook-AI/552",
+      "mqmPenalty": 5,
+      "graderPenalty": 1,
+      "overall": 4.8,
+      "majorSpans": 1,
+      "majorFound": 1,
+      "graderMajors": 0
+    },
+    {
+      "id": "metricsystem2/117",
+      "mqmPenalty": 6,
+      "graderPenalty": 1,
+      "overall": 4.8,
+      "majorSpans": 1,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "MiSS/446",
+      "mqmPenalty": 5,
+      "graderPenalty": 2,
+      "overall": 3.5,
+      "majorSpans": 1,
+      "majorFound": 1,
+      "graderMajors": 0
+    },
+    {
+      "id": "metricsystem1/146",
+      "mqmPenalty": 10,
+      "graderPenalty": 0,
+      "overall": 5,
+      "majorSpans": 2,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "metricsystem3/200",
+      "mqmPenalty": 10,
+      "graderPenalty": 0,
+      "overall": 5,
+      "majorSpans": 2,
+      "majorFound": 0,
+      "graderMajors": 0
+    },
+    {
+      "id": "IIE-MT/151",
+      "mqmPenalty": 10,
+      "graderPenalty": 2,
+      "overall": 4.5,
+      "majorSpans": 2,
+      "majorFound": 2,
+      "graderMajors": 0
+    },
+    {
+      "id": "MiSS/143",
+      "mqmPenalty": 10,
+      "graderPenalty": 4,
+      "overall": 3.8,
+      "majorSpans": 2,
+      "majorFound": 2,
+      "graderMajors": 0
+    },
+    {
+      "id": "MiSS/162",
+      "mqmPenalty": 10,
+      "graderPenalty": 3,
+      "overall": 4,
+      "majorSpans": 2,
+      "majorFound": 1,
+      "graderMajors": 0
+    },
+    {
+      "id": "NiuTrans/490",
+      "mqmPenalty": 10,
+      "graderPenalty": 7,
+      "overall": 3.5,
+      "majorSpans": 2,
+      "majorFound": 2,
+      "graderMajors": 1
+    },
+    {
+      "id": "metricsystem2/801",
+      "mqmPenalty": 17,
+      "graderPenalty": 8,
+      "overall": 3.5,
+      "majorSpans": 3,
+      "majorFound": 2,
+      "graderMajors": 1
+    },
+    {
+      "id": "NiuTrans/442",
+      "mqmPenalty": 10,
+      "graderPenalty": 2,
+      "overall": 4.5,
+      "majorSpans": 2,
+      "majorFound": 1,
+      "graderMajors": 0
+    },
+    {
+      "id": "metricsystem1/827",
+      "mqmPenalty": 10,
+      "graderPenalty": 6,
+      "overall": 3.8,
+      "majorSpans": 2,
+      "majorFound": 2,
+      "graderMajors": 1
+    },
+    {
+      "id": "NiuTrans/139",
+      "mqmPenalty": 10,
+      "graderPenalty": 0,
+      "overall": 5,
+      "majorSpans": 2,
+      "majorFound": 0,
+      "graderMajors": 0
+    }
+  ],
+  "learnerItems": [
+    {
+      "id": "p1-0001/0/injected",
+      "kind": "injected",
+      "overall": 4,
+      "accuracy": 4,
+      "completeness": 4,
+      "injected": 2,
+      "injectedFound": 2,
+      "graderMajors": 0,
+      "graderPenalty": 2
+    },
+    {
+      "id": "p1-0001/0/paraphrase",
+      "kind": "paraphrase",
+      "overall": 5,
+      "accuracy": 5,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 0
+    },
+    {
+      "id": "p1-0002/0/injected",
+      "kind": "injected",
+      "overall": 4,
+      "accuracy": 3,
+      "completeness": 3,
+      "injected": 2,
+      "injectedFound": 2,
+      "graderMajors": 2,
+      "graderPenalty": 10
+    },
+    {
+      "id": "p1-0002/0/paraphrase",
+      "kind": "paraphrase",
+      "overall": 5,
+      "accuracy": 5,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 0
+    },
+    {
+      "id": "p1-0002/1/injected",
+      "kind": "injected",
+      "overall": 3.8,
+      "accuracy": 3,
+      "completeness": 5,
+      "injected": 2,
+      "injectedFound": 2,
+      "graderMajors": 2,
+      "graderPenalty": 10
+    },
+    {
+      "id": "p1-0002/1/paraphrase",
+      "kind": "paraphrase",
+      "overall": 5,
+      "accuracy": 5,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 0
+    },
+    {
+      "id": "p1-0002/2/injected",
+      "kind": "injected",
+      "overall": 3.8,
+      "accuracy": 4,
+      "completeness": 5,
+      "injected": 2,
+      "injectedFound": 2,
+      "graderMajors": 2,
+      "graderPenalty": 10
+    },
+    {
+      "id": "p1-0002/2/paraphrase",
+      "kind": "paraphrase",
+      "overall": 4.8,
+      "accuracy": 5,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 1
+    },
+    {
+      "id": "p1-0003/0/injected",
+      "kind": "injected",
+      "overall": 3.8,
+      "accuracy": 4,
+      "completeness": 3,
+      "injected": 2,
+      "injectedFound": 2,
+      "graderMajors": 1,
+      "graderPenalty": 6
+    },
+    {
+      "id": "p1-0003/0/paraphrase",
+      "kind": "paraphrase",
+      "overall": 5,
+      "accuracy": 5,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 0
+    },
+    {
+      "id": "p1-0003/1/injected",
+      "kind": "injected",
+      "overall": 2.3,
+      "accuracy": 2,
+      "completeness": 2,
+      "injected": 2,
+      "injectedFound": 2,
+      "graderMajors": 2,
+      "graderPenalty": 10
+    },
+    {
+      "id": "p1-0003/1/paraphrase",
+      "kind": "paraphrase",
+      "overall": 4.3,
+      "accuracy": 4,
+      "completeness": 4,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 1
+    },
+    {
+      "id": "p1-0003/2/injected",
+      "kind": "injected",
+      "overall": 4,
+      "accuracy": 2,
+      "completeness": 5,
+      "injected": 2,
+      "injectedFound": 2,
+      "graderMajors": 1,
+      "graderPenalty": 6
+    },
+    {
+      "id": "p1-0003/2/paraphrase",
+      "kind": "paraphrase",
+      "overall": 5,
+      "accuracy": 5,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 0
+    },
+    {
+      "id": "p1-0003/3/injected",
+      "kind": "injected",
+      "overall": 4,
+      "accuracy": 3,
+      "completeness": 5,
+      "injected": 2,
+      "injectedFound": 2,
+      "graderMajors": 1,
+      "graderPenalty": 6
+    },
+    {
+      "id": "p1-0003/3/paraphrase",
+      "kind": "paraphrase",
+      "overall": 4.8,
+      "accuracy": 5,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 2
+    },
+    {
+      "id": "p1-0003/4/injected",
+      "kind": "injected",
+      "overall": 3.8,
+      "accuracy": 4,
+      "completeness": 2,
+      "injected": 2,
+      "injectedFound": 1,
+      "graderMajors": 1,
+      "graderPenalty": 5
+    },
+    {
+      "id": "p1-0003/4/paraphrase",
+      "kind": "paraphrase",
+      "overall": 4,
+      "accuracy": 3,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 1,
+      "graderPenalty": 6
+    },
+    {
+      "id": "p1-0004/0/injected",
+      "kind": "injected",
+      "overall": 2.8,
+      "accuracy": 2,
+      "completeness": 2,
+      "injected": 2,
+      "injectedFound": 2,
+      "graderMajors": 2,
+      "graderPenalty": 10
+    },
+    {
+      "id": "p1-0004/0/paraphrase",
+      "kind": "paraphrase",
+      "overall": 5,
+      "accuracy": 5,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 0
+    },
+    {
+      "id": "p1-0004/1/injected",
+      "kind": "injected",
+      "overall": 4.5,
+      "accuracy": 3,
+      "completeness": 5,
+      "injected": 2,
+      "injectedFound": 2,
+      "graderMajors": 2,
+      "graderPenalty": 10
+    },
+    {
+      "id": "p1-0004/1/paraphrase",
+      "kind": "paraphrase",
+      "overall": 5,
+      "accuracy": 5,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 0
+    },
+    {
+      "id": "p1-0005/0/injected",
+      "kind": "injected",
+      "overall": 4.3,
+      "accuracy": 3,
+      "completeness": 5,
+      "injected": 2,
+      "injectedFound": 2,
+      "graderMajors": 1,
+      "graderPenalty": 6
+    },
+    {
+      "id": "p1-0005/0/paraphrase",
+      "kind": "paraphrase",
+      "overall": 4.8,
+      "accuracy": 4,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 1
+    },
+    {
+      "id": "p1-0006/0/injected",
+      "kind": "injected",
+      "overall": 3.8,
+      "accuracy": 4,
+      "completeness": 3,
+      "injected": 2,
+      "injectedFound": 2,
+      "graderMajors": 1,
+      "graderPenalty": 6
+    },
+    {
+      "id": "p1-0006/0/paraphrase",
+      "kind": "paraphrase",
+      "overall": 4.5,
+      "accuracy": 4,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 2
+    },
+    {
+      "id": "p1-0007/0/injected",
+      "kind": "injected",
+      "overall": 4.8,
+      "accuracy": 5,
+      "completeness": 4,
+      "injected": 2,
+      "injectedFound": 1,
+      "graderMajors": 1,
+      "graderPenalty": 5
+    },
+    {
+      "id": "p1-0007/0/paraphrase",
+      "kind": "paraphrase",
+      "overall": 5,
+      "accuracy": 5,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 0
+    },
+    {
+      "id": "p1-0007/1/injected",
+      "kind": "injected",
+      "overall": 4.5,
+      "accuracy": 3,
+      "completeness": 5,
+      "injected": 2,
+      "injectedFound": 2,
+      "graderMajors": 2,
+      "graderPenalty": 10
+    },
+    {
+      "id": "p1-0007/1/paraphrase",
+      "kind": "paraphrase",
+      "overall": 4.8,
+      "accuracy": 4,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 1
+    },
+    {
+      "id": "p1-0008/0/injected",
+      "kind": "injected",
+      "overall": 4,
+      "accuracy": 3,
+      "completeness": 5,
+      "injected": 2,
+      "injectedFound": 2,
+      "graderMajors": 2,
+      "graderPenalty": 10
+    },
+    {
+      "id": "p1-0008/0/paraphrase",
+      "kind": "paraphrase",
+      "overall": 5,
+      "accuracy": 5,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 0
+    },
+    {
+      "id": "p1-0009/0/injected",
+      "kind": "injected",
+      "overall": 3.8,
+      "accuracy": 3,
+      "completeness": 5,
+      "injected": 2,
+      "injectedFound": 1,
+      "graderMajors": 1,
+      "graderPenalty": 5
+    },
+    {
+      "id": "p1-0009/0/paraphrase",
+      "kind": "paraphrase",
+      "overall": 5,
+      "accuracy": 5,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 0
+    },
+    {
+      "id": "p1-0009/1/injected",
+      "kind": "injected",
+      "overall": 4,
+      "accuracy": 3,
+      "completeness": 3,
+      "injected": 2,
+      "injectedFound": 2,
+      "graderMajors": 2,
+      "graderPenalty": 10
+    },
+    {
+      "id": "p1-0009/1/paraphrase",
+      "kind": "paraphrase",
+      "overall": 5,
+      "accuracy": 5,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 0
+    },
+    {
+      "id": "p1-0009/2/injected",
+      "kind": "injected",
+      "overall": 4.3,
+      "accuracy": 2,
+      "completeness": 5,
+      "injected": 2,
+      "injectedFound": 2,
+      "graderMajors": 2,
+      "graderPenalty": 10
+    },
+    {
+      "id": "p1-0009/2/paraphrase",
+      "kind": "paraphrase",
+      "overall": 4.8,
+      "accuracy": 5,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 1
+    },
+    {
+      "id": "p1-0010/0/injected",
+      "kind": "injected",
+      "overall": 4.3,
+      "accuracy": 4,
+      "completeness": 5,
+      "injected": 2,
+      "injectedFound": 2,
+      "graderMajors": 1,
+      "graderPenalty": 6
+    },
+    {
+      "id": "p1-0010/0/paraphrase",
+      "kind": "paraphrase",
+      "overall": 5,
+      "accuracy": 5,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 0
+    },
+    {
+      "id": "p1-0011/0/injected",
+      "kind": "injected",
+      "overall": 4.8,
+      "accuracy": 5,
+      "completeness": 4,
+      "injected": 2,
+      "injectedFound": 1,
+      "graderMajors": 0,
+      "graderPenalty": 1
+    },
+    {
+      "id": "p1-0011/0/paraphrase",
+      "kind": "paraphrase",
+      "overall": 5,
+      "accuracy": 5,
+      "completeness": 5,
+      "injected": 0,
+      "injectedFound": 0,
+      "graderMajors": 0,
+      "graderPenalty": 0
+    }
+  ]
+}

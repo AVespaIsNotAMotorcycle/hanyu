@@ -21,6 +21,7 @@ const passageSchema = new Schema(
     ],
     questions: { type: [Schema.Types.Mixed], required: true },
     tokens: { type: [[String]], required: true },
+    translation: { type: [String], default: null },
     verification: {
       tokens: Number,
       atOrBelowLevel: Number,

@@ -65,6 +65,7 @@ function canonical(passage: Passage): Passage {
     grammar: passage.grammar,
     questions: passage.questions,
     tokens: passage.tokens,
+    translation: passage.translation ?? null,
     verification: passage.verification,
     answerKeyCheck: passage.answerKeyCheck ?? null,
     review: passage.review ?? null,

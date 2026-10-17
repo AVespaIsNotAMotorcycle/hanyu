@@ -9,6 +9,10 @@ import { reviewsRouter } from './routes/reviews.js';
 import { settingsRouter } from './routes/settings.js';
 import { contentRouter } from './routes/content.js';
 import { passagesRouter } from './routes/passages.js';
+import {
+  createTranslationsRouter,
+  type GradingOptions,
+} from './routes/translations.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const clientDist = path.resolve(here, '../../client/dist');
@@ -24,11 +28,14 @@ export interface AppOptions {
    * see the client's IP instead of the router's.
    */
   trustProxy?: boolean;
+  /** Translation grading. Off (no LLM) unless given. */
+  grading?: GradingOptions;
 }
 
 export function createApp({
   serveClient = false,
   trustProxy = false,
+  grading = { llm: null, dailyLimit: 20, monthlyBudgetUsd: 10 },
 }: AppOptions = {}) {
   const app = express();
 
@@ -47,6 +54,7 @@ export function createApp({
   api.use('/settings', settingsRouter);
   api.use(contentRouter);
   api.use('/passages', passagesRouter);
+  api.use('/translations', createTranslationsRouter(grading));
   api.use((_req, res) => {
     res.status(404).json({ error: 'Not found' });
   });

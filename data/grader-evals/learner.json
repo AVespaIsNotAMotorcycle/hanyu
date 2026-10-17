@@ -1,0 +1,695 @@
+[
+  {
+    "id": "p1-0001/0/injected",
+    "passageId": "p1-0001",
+    "paragraph": 0,
+    "source": "今天是星期日，天气很好，不冷也不热。我和朋友们去大学玩。第一，我们在大学里看书。第二，我们去那边喝茶。外边有很多小朋友，他们在玩。我们看见一只小狗，它很漂亮。我们都很高兴。",
+    "reference": "Today is Sunday, and the weather is very nice, neither cold nor hot. My friends and I went to the university to have some fun. First, we read books at the university. Second, we went over there to drink tea. There were a lot of children outside, and they were playing. We saw a little dog, and it was very pretty. We were all very happy.",
+    "translation": "Today is Sunday, and the weather is very nice, neither cold nor hot. My friends and I go to the university to have some fun. First, we read books at the university. Second, we went over there to drink tea. There were a lot of children outside. We saw a little dog, and it was very pretty. We were all very happy.",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong tense or aspect",
+        "translationSpan": "go to the university",
+        "sourceSpan": "我和朋友们去大学玩",
+        "description": "The narration is in the past, but the verb is given in the present tense (\"go\"), so a completed action is rendered as habitual or present."
+      },
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "他们在玩",
+        "description": "The clause saying that the children were playing is left untranslated."
+      }
+    ]
+  },
+  {
+    "id": "p1-0001/0/paraphrase",
+    "passageId": "p1-0001",
+    "paragraph": 0,
+    "source": "今天是星期日，天气很好，不冷也不热。我和朋友们去大学玩。第一，我们在大学里看书。第二，我们去那边喝茶。外边有很多小朋友，他们在玩。我们看见一只小狗，它很漂亮。我们都很高兴。",
+    "reference": "Today is Sunday, and the weather is very nice, neither cold nor hot. My friends and I went to the university to have some fun. First, we read books at the university. Second, we went over there to drink tea. There were a lot of children outside, and they were playing. We saw a little dog, and it was very pretty. We were all very happy.",
+    "translation": "It is Sunday today, and the weather is lovely, neither chilly nor warm. My friends and I headed to the university to enjoy ourselves. To begin with, we read at the university. After that, we went over there for some tea. Plenty of kids were outside, playing. We spotted a puppy, and it was beautiful. All of us were delighted.",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0002/0/injected",
+    "passageId": "p1-0002",
+    "paragraph": 0,
+    "source": "今天是星期天，我在家看书。我的猫在桌子下睡觉。桌子上有一个杯子，杯子里有水。",
+    "reference": "Today is Sunday, and I'm at home reading. My cat is sleeping under the table. There is a cup on the table, and there is water in the cup.",
+    "translation": "Today is Sunday, and I'm at home reading. My cat is sleeping under the chair. There is a cup on the table.",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "dropped clause",
+        "translationSpan": "There is a cup on the table.",
+        "sourceSpan": "杯子里有水",
+        "description": "The final clause 'and there is water in the cup' is not translated; the translation ends after the cup on the table."
+      },
+      {
+        "type": "mistranslated word",
+        "translationSpan": "chair",
+        "sourceSpan": "桌子",
+        "description": "桌子 means 'table', but it is rendered as 'chair', which is a plausible but wrong furniture word."
+      }
+    ]
+  },
+  {
+    "id": "p1-0002/0/paraphrase",
+    "passageId": "p1-0002",
+    "paragraph": 0,
+    "source": "今天是星期天，我在家看书。我的猫在桌子下睡觉。桌子上有一个杯子，杯子里有水。",
+    "reference": "Today is Sunday, and I'm at home reading. My cat is sleeping under the table. There is a cup on the table, and there is water in the cup.",
+    "translation": "It's Sunday today, so I'm staying home to read. My cat is asleep beneath the table. A cup sits on the table, and it has some water in it.",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0002/1/injected",
+    "passageId": "p1-0002",
+    "paragraph": 1,
+    "source": "小明给我打电话：“你现在能来我家吗？我会做饭，我们吃午饭吧。”",
+    "reference": "Xiaoming called me: \"Can you come to my house now? I can cook. Let's have lunch together.\"",
+    "translation": "Xiaoming called me: \"Can you come to his house now? I can cook. Let's have dinner together.\"",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong number, time, or person",
+        "translationSpan": "his house",
+        "sourceSpan": "我家",
+        "description": "\"我家\" means \"my house\" (Xiaoming's own home, as the speaker), but the translation says \"his house\", changing the person."
+      },
+      {
+        "type": "mistranslated word",
+        "translationSpan": "dinner",
+        "sourceSpan": "午饭",
+        "description": "\"午饭\" means \"lunch\", but it was rendered as \"dinner\", a wrong but plausible meal word."
+      }
+    ]
+  },
+  {
+    "id": "p1-0002/1/paraphrase",
+    "passageId": "p1-0002",
+    "paragraph": 1,
+    "source": "小明给我打电话：“你现在能来我家吗？我会做饭，我们吃午饭吧。”",
+    "reference": "Xiaoming called me: \"Can you come to my house now? I can cook. Let's have lunch together.\"",
+    "translation": "Xiaoming phoned me and said, \"Are you able to come over to my place right now? I know how to cook, so let's eat lunch together.\"",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0002/2/injected",
+    "passageId": "p1-0002",
+    "paragraph": 2,
+    "source": "我说：“好，我现在去。”我家前边有一个超市，小明家在超市后边。我去超市买了苹果。小明在超市外边，他看见我，说：“你来了！”",
+    "reference": "I said, \"Okay, I'll go now.\" There is a supermarket in front of my house, and Xiaoming's house is behind the supermarket. I went to the supermarket and bought some apples. Xiaoming was outside the supermarket. He saw me and said, \"You're here!\"",
+    "translation": "I said, \"Okay, I'll go now.\" There is a supermarket in front of my house, and Xiaoming's house is behind the supermarket. I go to the supermarket and buy some apples. Xiaoming was outside the supermarket. She saw me and said, \"You're here!\"",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong tense or aspect",
+        "translationSpan": "I go to the supermarket and buy some apples.",
+        "sourceSpan": "我去超市买了苹果。",
+        "description": "The source describes a completed action (买了), but the translation uses the present tense instead of the past tense."
+      },
+      {
+        "type": "wrong number, time, or person",
+        "translationSpan": "She saw me",
+        "sourceSpan": "他看见我",
+        "description": "The source says 他 (he) saw me, but the translation changes the subject to 'She'."
+      }
+    ]
+  },
+  {
+    "id": "p1-0002/2/paraphrase",
+    "passageId": "p1-0002",
+    "paragraph": 2,
+    "source": "我说：“好，我现在去。”我家前边有一个超市，小明家在超市后边。我去超市买了苹果。小明在超市外边，他看见我，说：“你来了！”",
+    "reference": "I said, \"Okay, I'll go now.\" There is a supermarket in front of my house, and Xiaoming's house is behind the supermarket. I went to the supermarket and bought some apples. Xiaoming was outside the supermarket. He saw me and said, \"You're here!\"",
+    "translation": "I replied, \"Alright, I'll head over now.\" A supermarket sits in front of my home, and Xiaoming lives behind it. I went to the supermarket and purchased some apples. Xiaoming was standing outside the store. When he spotted me, he said, \"You've come!\"",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0003/0/injected",
+    "passageId": "p1-0003",
+    "paragraph": 0,
+    "source": "今天是星期天，天气很好。我和朋友小明去商店。我想买一件新衣服。小明想买苹果。",
+    "reference": "Today is Sunday, and the weather is very nice. My friend Xiaoming and I go to a store. I want to buy a new piece of clothing. Xiaoming wants to buy apples.",
+    "translation": "Today was Sunday, and the weather is very nice. My friend Xiaoming and I go to a store. I want to buy a new piece of clothing.",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong tense or aspect",
+        "translationSpan": "Today was Sunday",
+        "sourceSpan": "今天是星期天",
+        "description": "The source states that today is Sunday (present), but the translation uses the past tense 'was', which is inconsistent with the present-tense context."
+      },
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "小明想买苹果。",
+        "description": "The final sentence saying that Xiaoming wants to buy apples is omitted from the translation."
+      }
+    ]
+  },
+  {
+    "id": "p1-0003/0/paraphrase",
+    "passageId": "p1-0003",
+    "paragraph": 0,
+    "source": "今天是星期天，天气很好。我和朋友小明去商店。我想买一件新衣服。小明想买苹果。",
+    "reference": "Today is Sunday, and the weather is very nice. My friend Xiaoming and I go to a store. I want to buy a new piece of clothing. Xiaoming wants to buy apples.",
+    "translation": "It's Sunday today and the weather is lovely. My friend Xiaoming and I are heading to a shop. I'd like to buy a new article of clothing, while Xiaoming wants to get some apples.",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0003/1/injected",
+    "passageId": "p1-0003",
+    "paragraph": 1,
+    "source": "我问：“请问，我可以穿一下这件衣服吗？”",
+    "reference": "I ask, \"Excuse me, may I try on this piece of clothing?\"",
+    "translation": "I ask, \"Excuse me, may I buy?\"",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "这件衣服",
+        "description": "The object \"这件衣服\" (this piece of clothing) is left untranslated, so the sentence no longer says what is being asked about."
+      },
+      {
+        "type": "mistranslated word",
+        "translationSpan": "buy",
+        "sourceSpan": "穿一下",
+        "description": "\"穿一下\" means to try on (wear briefly), but it is rendered as \"buy\", which is a wrong but plausible word in a clothing context."
+      }
+    ]
+  },
+  {
+    "id": "p1-0003/1/paraphrase",
+    "passageId": "p1-0003",
+    "paragraph": 1,
+    "source": "我问：“请问，我可以穿一下这件衣服吗？”",
+    "reference": "I ask, \"Excuse me, may I try on this piece of clothing?\"",
+    "translation": "I asked politely, \"Pardon me, would it be all right if I tried this garment on?\"",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0003/2/injected",
+    "passageId": "p1-0003",
+    "paragraph": 2,
+    "source": "商店的人说：“可以。”",
+    "reference": "The person in the store says, \"Yes, you may.\"",
+    "translation": "The people in the restaurant say, \"Yes, you may.\"",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "mistranslated word",
+        "translationSpan": "restaurant",
+        "sourceSpan": "商店",
+        "description": "商店 means 'store/shop', but it was rendered as 'restaurant', which is a wrong but plausible word."
+      },
+      {
+        "type": "wrong number, time, or person",
+        "translationSpan": "The people",
+        "sourceSpan": "商店的人",
+        "description": "The source refers to a single person (的人), but the translation changes it to plural 'people' (and 'say' now matches plural), altering the number."
+      }
+    ]
+  },
+  {
+    "id": "p1-0003/2/paraphrase",
+    "passageId": "p1-0003",
+    "paragraph": 2,
+    "source": "商店的人说：“可以。”",
+    "reference": "The person in the store says, \"Yes, you may.\"",
+    "translation": "The shop assistant replies, \"Sure, that's fine.\"",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0003/3/injected",
+    "passageId": "p1-0003",
+    "paragraph": 3,
+    "source": "这件衣服很好看，也不贵。我说：“我要这件。”",
+    "reference": "This piece of clothing looks very nice, and it isn't expensive either. I say, \"I'll take this one.\"",
+    "translation": "This piece of clothing looked very nice, and it isn't expensive either. She said, \"I'll take this one.\"",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong number, time, or person",
+        "translationSpan": "She said",
+        "sourceSpan": "我说",
+        "description": "The speaker is 我 (I), but the translation changes the person to \"She\"."
+      },
+      {
+        "type": "wrong tense or aspect",
+        "translationSpan": "looked very nice",
+        "sourceSpan": "很好看",
+        "description": "The source describes a present state (很好看), but the translation uses the past tense \"looked\", which is inconsistent with the following present-tense \"isn't expensive\"."
+      }
+    ]
+  },
+  {
+    "id": "p1-0003/3/paraphrase",
+    "passageId": "p1-0003",
+    "paragraph": 3,
+    "source": "这件衣服很好看，也不贵。我说：“我要这件。”",
+    "reference": "This piece of clothing looks very nice, and it isn't expensive either. I say, \"I'll take this one.\"",
+    "translation": "This garment looks great, and it's not pricey either. I say, \"I want this one.\"",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0003/4/injected",
+    "passageId": "p1-0003",
+    "paragraph": 4,
+    "source": "小明说：“我也要一些苹果。我们回家吃吧。”",
+    "reference": "Xiaoming says, \"I'd like some apples too. Let's go home and eat them.\"",
+    "translation": "Xiaoming said, \"I'd like some apples too.\"",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong tense or aspect",
+        "translationSpan": "said",
+        "sourceSpan": "说",
+        "description": "The source reports the speech in the present (说), but the translation uses the past tense 'said', changing the tense."
+      },
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "我们回家吃吧。",
+        "description": "The final sentence 'Let's go home and eat them' is left untranslated."
+      }
+    ]
+  },
+  {
+    "id": "p1-0003/4/paraphrase",
+    "passageId": "p1-0003",
+    "paragraph": 4,
+    "source": "小明说：“我也要一些苹果。我们回家吃吧。”",
+    "reference": "Xiaoming says, \"I'd like some apples too. Let's go home and eat them.\"",
+    "translation": "Xiaoming says, \"Can I have some apples too? Let's eat them at home.\"",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0004/0/injected",
+    "passageId": "p1-0004",
+    "paragraph": 0,
+    "source": "今天是星期二。小明的妈妈生病了，没有去上班。",
+    "reference": "Today is Tuesday. Xiaoming's mother is sick and did not go to work.",
+    "translation": "Today is Tuesday. Xiaoming's mother is tired.",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "没有去上班",
+        "description": "The clause saying that she did not go to work is left untranslated."
+      },
+      {
+        "type": "mistranslated word",
+        "translationSpan": "tired",
+        "sourceSpan": "生病了",
+        "description": "生病了 means 'got sick/is ill', but it was rendered as 'tired', which is a different condition."
+      }
+    ]
+  },
+  {
+    "id": "p1-0004/0/paraphrase",
+    "passageId": "p1-0004",
+    "paragraph": 0,
+    "source": "今天是星期二。小明的妈妈生病了，没有去上班。",
+    "reference": "Today is Tuesday. Xiaoming's mother is sick and did not go to work.",
+    "translation": "It's Tuesday today. Xiaoming's mom fell ill and didn't go in to work.",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0004/1/injected",
+    "passageId": "p1-0004",
+    "paragraph": 1,
+    "source": "小明问：“妈妈，你怎么样？”\n妈妈说：“我有点儿不好，想去医院看病。”\n小明说：“医院在哪儿？我和你去吧。”\n妈妈说：“不要去，你去上课吧。你几点下课？”\n小明说：“下午四点。下课后我做饭。你想吃什么？”\n妈妈说：“面条儿。现在我要睡觉了。”",
+    "reference": "Xiaoming asked, \"Mom, how are you?\" Mom said, \"I'm not feeling very well. I want to go to the hospital to see a doctor.\" Xiaoming said, \"Where is the hospital? I'll go with you.\" Mom said, \"Don't go. Go to class. What time does your class finish?\" Xiaoming said, \"Four in the afternoon. After class, I'll cook. What would you like to eat?\" Mom said, \"Noodles. Now I'm going to sleep.\"",
+    "translation": "Xiaoming asked, \"Mom, how are you?\" Mom said, \"I'm not feeling very well. I want to go to the hospital to see a doctor.\" Xiaoming said, \"Where is the hospital? I'll go with you.\" Mom said, \"Don't go. Go to class. What time does your class finish?\" Xiaoming said, \"Four in the morning. After class, I'll clean. What would you like to eat?\" Mom said, \"Noodles. Now I'm going to sleep.\"",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong number, time, or person",
+        "translationSpan": "Four in the morning",
+        "sourceSpan": "下午四点",
+        "description": "下午 means afternoon, but it was translated as 'morning', changing the time of day."
+      },
+      {
+        "type": "mistranslated word",
+        "translationSpan": "clean",
+        "sourceSpan": "做饭",
+        "description": "做饭 means to cook (make a meal), but it was rendered as 'clean', which is a wrong but plausible household action."
+      }
+    ]
+  },
+  {
+    "id": "p1-0004/1/paraphrase",
+    "passageId": "p1-0004",
+    "paragraph": 1,
+    "source": "小明问：“妈妈，你怎么样？”\n妈妈说：“我有点儿不好，想去医院看病。”\n小明说：“医院在哪儿？我和你去吧。”\n妈妈说：“不要去，你去上课吧。你几点下课？”\n小明说：“下午四点。下课后我做饭。你想吃什么？”\n妈妈说：“面条儿。现在我要睡觉了。”",
+    "reference": "Xiaoming asked, \"Mom, how are you?\" Mom said, \"I'm not feeling very well. I want to go to the hospital to see a doctor.\" Xiaoming said, \"Where is the hospital? I'll go with you.\" Mom said, \"Don't go. Go to class. What time does your class finish?\" Xiaoming said, \"Four in the afternoon. After class, I'll cook. What would you like to eat?\" Mom said, \"Noodles. Now I'm going to sleep.\"",
+    "translation": "Xiaoming asked, \"Mom, how are you doing?\" His mother replied, \"I'm a little unwell, and I'd like to go to the hospital to see a doctor.\" Xiaoming said, \"Where's the hospital? Let me go with you.\" Mom said, \"No, don't come. Go to school. When does your class end?\" Xiaoming said, \"At four in the afternoon. When class is over, I'll make dinner. What do you feel like eating?\" Mom said, \"Noodles. I'm going to go to sleep now.\"",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0005/0/injected",
+    "passageId": "p1-0005",
+    "paragraph": 0,
+    "source": "今天是星期天，我和妈妈去商店。商店里有很多东西。这些衣服很好看，那些衣服有点儿贵。妈妈问我：“你喜欢哪个？”我说：“我喜欢这个。”妈妈说：“好，我们买这个吧。”有的人在那儿看，有些人在这儿买。大家都很高兴。",
+    "reference": "Today is Sunday, and my mom and I go to the store. There are a lot of things in the store. These clothes look very nice, and those clothes are a bit expensive. Mom asks me, \"Which one do you like?\" I say, \"I like this one.\" Mom says, \"OK, let's buy this one.\" Some people are looking over there, and some people are buying over here. Everyone is very happy.",
+    "translation": "Today is Saturday, and my mom and I went to the store. There are a lot of things in the store. These clothes look very nice, and those clothes are a bit expensive. Mom asks me, \"Which one do you like?\" I say, \"I like this one.\" Mom says, \"OK, let's buy this one.\" Some people are looking over there, and some people are buying over here. Everyone is very happy.",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong number, time, or person",
+        "translationSpan": "Saturday",
+        "sourceSpan": "星期天",
+        "description": "星期天 means Sunday, but the translation says Saturday, changing the day."
+      },
+      {
+        "type": "wrong tense or aspect",
+        "translationSpan": "went",
+        "sourceSpan": "我和妈妈去商店",
+        "description": "The source describes the action in the present narrative (去), but the translation switches to past tense 'went', which is inconsistent with the rest of the passage and not supported by the source."
+      }
+    ]
+  },
+  {
+    "id": "p1-0005/0/paraphrase",
+    "passageId": "p1-0005",
+    "paragraph": 0,
+    "source": "今天是星期天，我和妈妈去商店。商店里有很多东西。这些衣服很好看，那些衣服有点儿贵。妈妈问我：“你喜欢哪个？”我说：“我喜欢这个。”妈妈说：“好，我们买这个吧。”有的人在那儿看，有些人在这儿买。大家都很高兴。",
+    "reference": "Today is Sunday, and my mom and I go to the store. There are a lot of things in the store. These clothes look very nice, and those clothes are a bit expensive. Mom asks me, \"Which one do you like?\" I say, \"I like this one.\" Mom says, \"OK, let's buy this one.\" Some people are looking over there, and some people are buying over here. Everyone is very happy.",
+    "translation": "It's Sunday today, so Mom and I are going to a shop. The shop has plenty of things. These clothes are really pretty, while those ones are slightly pricey. Mom asks me, \"Which one do you like?\" I answer, \"I like this one.\" Mom replies, \"Good, let's get this one.\" A few people are browsing over there, and others are shopping over here. Everybody is very happy.",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0006/0/injected",
+    "passageId": "p1-0006",
+    "paragraph": 0,
+    "source": "今天是星期日，我和妈妈去商店。这家商店很大，东西不贵。我买了一件新衣服，八十块。妈妈买了两本书，一百元。她很高兴。我家有四口人，还有一只猫和一只狗。我们回家了。爸爸正在做饭，有饺子，也有鸡蛋。",
+    "reference": "Today is Sunday, and my mom and I went to a store. This store is very big, and the things aren't expensive. I bought a new piece of clothing for eighty yuan. Mom bought two books for one hundred yuan. She was very happy. There are four people in my family, plus a cat and a dog. We went home. Dad was cooking; there were dumplings and also eggs.",
+    "translation": "Today is Sunday, and my mom and I go to a store. This store is very big, and the things aren't expensive. I bought a new piece of clothing for eighty yuan. Mom bought two books for one hundred yuan. She was very happy. There are four people in my family, plus a cat and a dog. We went home. Dad was cooking.",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong tense or aspect",
+        "translationSpan": "go to a store",
+        "sourceSpan": "我和妈妈去商店",
+        "description": "The outing is narrated in the past (the rest of the story is past tense), but the translation uses the present tense 'go', creating an inconsistent tense."
+      },
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "有饺子，也有鸡蛋",
+        "description": "The clause saying there were dumplings and also eggs is omitted from the translation."
+      }
+    ]
+  },
+  {
+    "id": "p1-0006/0/paraphrase",
+    "passageId": "p1-0006",
+    "paragraph": 0,
+    "source": "今天是星期日，我和妈妈去商店。这家商店很大，东西不贵。我买了一件新衣服，八十块。妈妈买了两本书，一百元。她很高兴。我家有四口人，还有一只猫和一只狗。我们回家了。爸爸正在做饭，有饺子，也有鸡蛋。",
+    "reference": "Today is Sunday, and my mom and I went to a store. This store is very big, and the things aren't expensive. I bought a new piece of clothing for eighty yuan. Mom bought two books for one hundred yuan. She was very happy. There are four people in my family, plus a cat and a dog. We went home. Dad was cooking; there were dumplings and also eggs.",
+    "translation": "It is Sunday today, and Mom and I went to a shop. The shop is very large and the goods are cheap. I purchased a new garment for eighty yuan. Mom bought two books for a hundred yuan. She was delighted. My family has four members, along with one cat and one dog. We returned home. Dad was making dinner, and there were dumplings as well as eggs.",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0007/0/injected",
+    "passageId": "p1-0007",
+    "paragraph": 0,
+    "source": "今天是三月八号，星期日。我今年十九岁。早上七点半，我起床了。我喝了一杯牛奶，吃了两个鸡蛋。",
+    "reference": "Today is March 8th, Sunday. I am nineteen years old this year. At half past seven in the morning, I got up. I drank a glass of milk and ate two eggs.",
+    "translation": "Today is March 8th, Sunday. I am nineteen years old this year. At half past seven in the morning, I got up. I drank a glass of milk.",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "吃了两个鸡蛋",
+        "description": "The clause saying the speaker ate two eggs is omitted from the translation."
+      },
+      {
+        "type": "mistranslated word",
+        "translationSpan": "got up",
+        "sourceSpan": "起床了",
+        "description": "Wait"
+      }
+    ]
+  },
+  {
+    "id": "p1-0007/0/paraphrase",
+    "passageId": "p1-0007",
+    "paragraph": 0,
+    "source": "今天是三月八号，星期日。我今年十九岁。早上七点半，我起床了。我喝了一杯牛奶，吃了两个鸡蛋。",
+    "reference": "Today is March 8th, Sunday. I am nineteen years old this year. At half past seven in the morning, I got up. I drank a glass of milk and ate two eggs.",
+    "translation": "Today is Sunday, March 8th. I am nineteen this year. I woke up at 7:30 in the morning. I had a glass of milk and two eggs.",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0007/1/injected",
+    "passageId": "p1-0007",
+    "paragraph": 1,
+    "source": "九点，我去学校上课。中午十二点二十分，我和同学去饭店吃饭。我喝了茶，他喝了水。他说：“我来中国一年了。我很想家。”我说：“没关系，我们是好朋友。”",
+    "reference": "At nine o'clock, I went to school for class. At twenty past twelve at noon, my classmate and I went to a restaurant to eat. I had tea, and he had water. He said, \"I came to China a year ago. I miss home a lot.\" I said, \"It's okay. We are good friends.\"",
+    "translation": "At nine o'clock, I went to school for class. At twenty past one at noon, my classmate and I went to a restaurant to eat. I had coffee, and he had water. He said, \"I came to China a year ago. I miss home a lot.\" I said, \"It's okay. We are good friends.\"",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "mistranslated word",
+        "translationSpan": "coffee",
+        "sourceSpan": "茶",
+        "description": "茶 means 'tea', but it was translated as 'coffee', a wrong but plausible drink."
+      },
+      {
+        "type": "wrong number, time, or person",
+        "translationSpan": "twenty past one at noon",
+        "sourceSpan": "中午十二点二十分",
+        "description": "The time 十二点二十分 is twenty past twelve, but it was rendered as twenty past one."
+      }
+    ]
+  },
+  {
+    "id": "p1-0007/1/paraphrase",
+    "passageId": "p1-0007",
+    "paragraph": 1,
+    "source": "九点，我去学校上课。中午十二点二十分，我和同学去饭店吃饭。我喝了茶，他喝了水。他说：“我来中国一年了。我很想家。”我说：“没关系，我们是好朋友。”",
+    "reference": "At nine o'clock, I went to school for class. At twenty past twelve at noon, my classmate and I went to a restaurant to eat. I had tea, and he had water. He said, \"I came to China a year ago. I miss home a lot.\" I said, \"It's okay. We are good friends.\"",
+    "translation": "At 9:00 I headed to school to attend class. At 12:20 in the afternoon, a classmate and I went to a restaurant for a meal. I drank tea while he drank water. He told me, \"I've been in China for a year now. I really miss home.\" I replied, \"Don't worry about it, we're good friends.\"",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0008/0/injected",
+    "passageId": "p1-0008",
+    "paragraph": 0,
+    "source": "今天是星期天，天气很好。我和小明去商店。商店里的东西非常多，衣服都很好看。我看见一件新衣服，真漂亮！我问小明：“多少钱？”小明看一下，说：“三百块，太贵了！”我有点儿不高兴。小明说：“我们去超市吧。”超市的水果很便宜。我们买了苹果和面包，都很好吃。",
+    "reference": "Today is Sunday, and the weather is very nice. Xiaoming and I go to a store. There are a great many things in the store, and the clothes all look nice. I see a new piece of clothing, and it is so beautiful! I ask Xiaoming, \"How much is it?\" Xiaoming takes a look and says, \"Three hundred yuan. That's too expensive!\" I am a little unhappy. Xiaoming says, \"Let's go to the supermarket.\" The fruit at the supermarket is very cheap. We buy apples and bread, and they are both delicious.",
+    "translation": "Today is Sunday, and the weather is very nice. Xiaoming and I go to a store. There are a great many things in the store, and the clothes all look nice. I see a new piece of clothing, and it is so beautiful! I ask Xiaoming, \"How much is it?\" Xiaoming takes a look and says, \"Five hundred yuan. That's too expensive!\" I am a little unhappy. Xiaoming says, \"Let's go to the supermarket.\" The fruit at the supermarket is very cheap. We will buy apples and bread, and they are both delicious.",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong number, time, or person",
+        "translationSpan": "Five hundred yuan",
+        "sourceSpan": "三百块",
+        "description": "The price 三百 (three hundred) is changed to five hundred."
+      },
+      {
+        "type": "wrong tense or aspect",
+        "translationSpan": "We will buy apples and bread",
+        "sourceSpan": "我们买了苹果和面包",
+        "description": "The completed action marked by 了 is rendered as a future action (will buy) instead of a completed one."
+      }
+    ]
+  },
+  {
+    "id": "p1-0008/0/paraphrase",
+    "passageId": "p1-0008",
+    "paragraph": 0,
+    "source": "今天是星期天，天气很好。我和小明去商店。商店里的东西非常多，衣服都很好看。我看见一件新衣服，真漂亮！我问小明：“多少钱？”小明看一下，说：“三百块，太贵了！”我有点儿不高兴。小明说：“我们去超市吧。”超市的水果很便宜。我们买了苹果和面包，都很好吃。",
+    "reference": "Today is Sunday, and the weather is very nice. Xiaoming and I go to a store. There are a great many things in the store, and the clothes all look nice. I see a new piece of clothing, and it is so beautiful! I ask Xiaoming, \"How much is it?\" Xiaoming takes a look and says, \"Three hundred yuan. That's too expensive!\" I am a little unhappy. Xiaoming says, \"Let's go to the supermarket.\" The fruit at the supermarket is very cheap. We buy apples and bread, and they are both delicious.",
+    "translation": "It is Sunday today and the weather is lovely. Xiaoming and I head to a shop. The shop has an enormous number of goods, and all the clothes are attractive. I notice a new item of clothing, and how pretty it is! I ask Xiaoming, \"What does it cost?\" Xiaoming glances at it and says, \"Three hundred yuan. That's far too pricey!\" I feel a bit unhappy. Xiaoming says, \"Why don't we go to the supermarket?\" Fruit at the supermarket is very inexpensive. We buy apples and bread, and both taste great.",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0009/0/injected",
+    "passageId": "p1-0009",
+    "paragraph": 0,
+    "source": "今天是星期天,我和妈妈都在家。",
+    "reference": "Today is Sunday, and my mom and I are both at home.",
+    "translation": "Yesterday was Sunday, and my mom and I are both at home.",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong tense or aspect",
+        "translationSpan": "Yesterday was Sunday",
+        "sourceSpan": "今天是星期天",
+        "description": "The source says today is Sunday (present), but the translation uses past tense and changes the time to yesterday, misrepresenting the tense."
+      },
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "我和妈妈都在家",
+        "description": "This is not dropped fully; see below."
+      }
+    ]
+  },
+  {
+    "id": "p1-0009/0/paraphrase",
+    "passageId": "p1-0009",
+    "paragraph": 0,
+    "source": "今天是星期天,我和妈妈都在家。",
+    "reference": "Today is Sunday, and my mom and I are both at home.",
+    "translation": "It's Sunday today, and both my mother and I are home.",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0009/1/injected",
+    "passageId": "p1-0009",
+    "paragraph": 1,
+    "source": "妈妈正在做饭,我在看电视。电话来了,是朋友小明。他问:“你在做什么?”我说:“我在看电视,妈妈正在做饭。”小明说:“我在书店。你想来吗?”我说:“我现在不能去,吃了饭再去吧。”",
+    "reference": "My mom is cooking, and I'm watching TV. The phone rings. It's my friend Xiaoming. He asks, \"What are you doing?\" I say, \"I'm watching TV, and my mom is cooking.\" Xiaoming says, \"I'm at the bookstore. Do you want to come?\" I say, \"I can't go right now. Let's go after we eat.\"",
+    "translation": "My mom is cooking, and I'm watching TV. The phone rings. It's my friend Xiaoming. He asks, \"What are you doing?\" I say, \"I'm watching TV, and my mom is cooking.\" Xiaoming says, \"I'm at the library.\" I say, \"I can't go right now. Let's go after we eat.\"",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "你想来吗?",
+        "description": "The question \"Do you want to come?\" is omitted from Xiaoming's speech."
+      },
+      {
+        "type": "mistranslated word",
+        "translationSpan": "library",
+        "sourceSpan": "书店",
+        "description": "书店 means bookstore, but it was rendered as \"library\"."
+      }
+    ]
+  },
+  {
+    "id": "p1-0009/1/paraphrase",
+    "passageId": "p1-0009",
+    "paragraph": 1,
+    "source": "妈妈正在做饭,我在看电视。电话来了,是朋友小明。他问:“你在做什么?”我说:“我在看电视,妈妈正在做饭。”小明说:“我在书店。你想来吗?”我说:“我现在不能去,吃了饭再去吧。”",
+    "reference": "My mom is cooking, and I'm watching TV. The phone rings. It's my friend Xiaoming. He asks, \"What are you doing?\" I say, \"I'm watching TV, and my mom is cooking.\" Xiaoming says, \"I'm at the bookstore. Do you want to come?\" I say, \"I can't go right now. Let's go after we eat.\"",
+    "translation": "Mom is making dinner while I watch television. Then the phone rings, and it's my friend Xiaoming. He asks, \"What are you up to?\" I answer, \"I'm watching TV, and Mom is making dinner.\" Xiaoming says, \"I'm at the bookstore. Would you like to come over?\" I reply, \"I can't go at the moment. Let's go once we've eaten.\"",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0009/2/injected",
+    "passageId": "p1-0009",
+    "paragraph": 2,
+    "source": "下午我们在书店玩。我买了一本书。小明说:“明天再来吧。”",
+    "reference": "In the afternoon, we hang out at the bookstore. I buy a book. Xiaoming says, \"Let's come again tomorrow.\"",
+    "translation": "In the afternoon, we hang out at the library. I buy a book. Xiaoming says, \"Let's come again next week.\"",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "mistranslated word",
+        "translationSpan": "library",
+        "sourceSpan": "书店",
+        "description": "书店 means 'bookstore', but it was rendered as 'library', a plausible but wrong word."
+      },
+      {
+        "type": "wrong number, time, or person",
+        "translationSpan": "next week",
+        "sourceSpan": "明天",
+        "description": "明天 means 'tomorrow', but it was translated as 'next week', which changes the time."
+      }
+    ]
+  },
+  {
+    "id": "p1-0009/2/paraphrase",
+    "passageId": "p1-0009",
+    "paragraph": 2,
+    "source": "下午我们在书店玩。我买了一本书。小明说:“明天再来吧。”",
+    "reference": "In the afternoon, we hang out at the bookstore. I buy a book. Xiaoming says, \"Let's come again tomorrow.\"",
+    "translation": "This afternoon we spend time in the bookshop. I purchase a book. Xiaoming says, \"We should come back tomorrow.\"",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0010/0/injected",
+    "passageId": "p1-0010",
+    "paragraph": 0,
+    "source": "今天我和朋友小明去超市。我想买苹果，小明也想买苹果。苹果太贵了，我们不买。我们还看了面包。面包很便宜，我们买了三个。小明问：“我们还要买牛奶吗？”我说：“不要了，家里有牛奶。”我们没有买牛奶，回家了。",
+    "reference": "Today my friend Xiaoming and I went to the supermarket. I wanted to buy apples, and Xiaoming wanted to buy apples too. The apples were too expensive, so we didn't buy any. We also looked at the bread. The bread was very cheap, and we bought three loaves. Xiaoming asked, \"Do we need to buy milk too?\" I said, \"No, we don't need to. We have milk at home.\" We didn't buy any milk and went home.",
+    "translation": "Today my friend Xiaoming and I went to the supermarket. I wanted to buy apples, and Xiaoming wanted to buy apples too. The apples were too expensive, so we didn't buy any. We also looked at the bread. The bread was very cheap, and we buy two loaves. Xiaoming asked, \"Do we need to buy milk too?\" I said, \"No, we don't need to. We have milk at home.\" We didn't buy any milk and went home.",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong number, time, or person",
+        "translationSpan": "two loaves",
+        "sourceSpan": "三个",
+        "description": "The source says three (三个), but the translation says two loaves."
+      },
+      {
+        "type": "wrong tense or aspect",
+        "translationSpan": "we buy",
+        "sourceSpan": "我们买了三个",
+        "description": "The action is completed (了) and the narrative is in the past, but the translation uses present tense 'buy' instead of 'bought'."
+      }
+    ]
+  },
+  {
+    "id": "p1-0010/0/paraphrase",
+    "passageId": "p1-0010",
+    "paragraph": 0,
+    "source": "今天我和朋友小明去超市。我想买苹果，小明也想买苹果。苹果太贵了，我们不买。我们还看了面包。面包很便宜，我们买了三个。小明问：“我们还要买牛奶吗？”我说：“不要了，家里有牛奶。”我们没有买牛奶，回家了。",
+    "reference": "Today my friend Xiaoming and I went to the supermarket. I wanted to buy apples, and Xiaoming wanted to buy apples too. The apples were too expensive, so we didn't buy any. We also looked at the bread. The bread was very cheap, and we bought three loaves. Xiaoming asked, \"Do we need to buy milk too?\" I said, \"No, we don't need to. We have milk at home.\" We didn't buy any milk and went home.",
+    "translation": "Today I went to the supermarket with my friend Xiaoming. I wanted some apples, and so did Xiaoming. But they were too pricey, so we passed on them. We also checked out the bread. It was really cheap, so we got three pieces. Xiaoming asked, \"Should we get some milk as well?\" I replied, \"No need, there's milk at home.\" We didn't pick up any milk and headed home.",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "p1-0011/0/injected",
+    "passageId": "p1-0011",
+    "paragraph": 0,
+    "source": "今天是星期天，天气很好。小明在家，他想找朋友玩儿。他给朋友打电话：“喂，你在哪儿？”朋友说：“我在学校。”小明说：“你下午有时间吗？我想和你去看电影。”朋友说：“好！我们下午三点在电影院见。”下午，小明先到了。朋友来了，他对小明说：“对不起，我来晚了。”小明说：“没关系。”",
+    "reference": "Today is Sunday, and the weather is very nice. Xiaoming is at home, and he wants to find a friend to hang out with. He phones a friend: \"Hello, where are you?\" The friend says, \"I'm at school.\" Xiaoming says, \"Do you have time this afternoon? I'd like to go see a movie with you.\" The friend says, \"Great! Let's meet at the cinema at three o'clock this afternoon.\" In the afternoon, Xiaoming arrives first. When the friend arrives, he says to Xiaoming, \"I'm sorry, I'm late.\" Xiaoming says, \"It's okay.\"",
+    "translation": "Today is Sunday, and the weather is very nice. Xiaoming is at home, and he wants to find a friend to hang out with. He phones a friend: \"Hello, where are you?\" The friend says, \"I'm at school.\" Xiaoming says, \"Do you have time this afternoon? I'd like to go see a movie with you.\" The friend says, \"Great! Let's meet at the cinema at three o'clock this afternoon.\" In the afternoon, Xiaoming arrives first. When the friend arrives, he says to Xiaoming, \"I'm sorry, I'm late.\"",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong tense or aspect",
+        "translationSpan": "Xiaoming arrives first",
+        "sourceSpan": "小明先到了",
+        "description": "The source uses 了 to mark a completed action (Xiaoming had already arrived first), but the translation uses the simple present tense, which makes it a habitual or present action rather than a completed one."
+      },
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "小明说：“没关系。”",
+        "description": "The final sentence in which Xiaoming replies \"It's okay\" is left untranslated."
+      }
+    ]
+  },
+  {
+    "id": "p1-0011/0/paraphrase",
+    "passageId": "p1-0011",
+    "paragraph": 0,
+    "source": "今天是星期天，天气很好。小明在家，他想找朋友玩儿。他给朋友打电话：“喂，你在哪儿？”朋友说：“我在学校。”小明说：“你下午有时间吗？我想和你去看电影。”朋友说：“好！我们下午三点在电影院见。”下午，小明先到了。朋友来了，他对小明说：“对不起，我来晚了。”小明说：“没关系。”",
+    "reference": "Today is Sunday, and the weather is very nice. Xiaoming is at home, and he wants to find a friend to hang out with. He phones a friend: \"Hello, where are you?\" The friend says, \"I'm at school.\" Xiaoming says, \"Do you have time this afternoon? I'd like to go see a movie with you.\" The friend says, \"Great! Let's meet at the cinema at three o'clock this afternoon.\" In the afternoon, Xiaoming arrives first. When the friend arrives, he says to Xiaoming, \"I'm sorry, I'm late.\" Xiaoming says, \"It's okay.\"",
+    "translation": "It's Sunday today and the weather is lovely. Xiaoming is home and would like to find a friend to play with. He calls a friend and says, \"Hi, where are you?\" The friend answers, \"I'm at school.\" Xiaoming says, \"Are you free this afternoon? I'd like to go to a movie with you.\" The friend replies, \"Sure! Let's meet at the movie theater at 3 p.m.\" That afternoon, Xiaoming got there first. When the friend showed up, he told Xiaoming, \"Sorry, I'm late.\" Xiaoming said, \"No problem.\"",
+    "kind": "paraphrase",
+    "injected": []
+  }
+]

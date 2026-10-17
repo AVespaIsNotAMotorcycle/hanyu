@@ -224,6 +224,11 @@
       "”"
     ]
   ],
+  "translation": [
+    "Today is Sunday, and I'm at home reading. My cat is sleeping under the table. There is a cup on the table, and there is water in the cup.",
+    "Xiaoming called me: \"Can you come to my house now? I can cook. Let's have lunch together.\"",
+    "I said, \"Okay, I'll go now.\" There is a supermarket in front of my house, and Xiaoming's house is behind the supermarket. I went to the supermarket and bought some apples. Xiaoming was outside the supermarket. He saw me and said, \"You're here!\""
+  ],
   "verification": {
     "tokens": 101,
     "atOrBelowLevel": 101,

@@ -371,12 +371,14 @@ const manifest: DatasetManifest & { contentHash: string; cedictDate: string } =
     contentHash: contentHash.digest('hex'),
     cedictDate: cedictInfo.date ?? 'unknown',
     sources: await Promise.all(
-      sources.map(async (s) => ({
-        id: s.id,
-        url: s.url,
-        sha256: await sha256File(raw(s.id)),
-        license: s.license,
-      })),
+      sources
+        .filter((s) => s.seed !== false)
+        .map(async (s) => ({
+          id: s.id,
+          url: s.url,
+          sha256: await sha256File(raw(s.id)),
+          license: s.license,
+        })),
     ),
     counts: Object.fromEntries(
       Object.entries(outputs).map(([file, records]) => [file, records.length]),

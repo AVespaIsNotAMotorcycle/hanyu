@@ -3,6 +3,7 @@
 //   npm run passages:generate -- --level 1 [--count 5] [--max-cost 5]
 //                                [--grammar g1-008,g1-020] [--dry-run]
 //   npm run passages:check [-- --level 1] [--force] [--max-cost 1]
+//   npm run passages:translate [-- --level 1] [--force] [--max-cost 1]
 //   npm run passages:review [-- --level 1] [--sample 3]
 //   npm run passages:coverage [-- --level 1]
 //
@@ -34,6 +35,7 @@ import {
   writePassage,
 } from './library.js';
 import { formatForReview } from './review.js';
+import { translatePassage } from './translate.js';
 
 const TARGETS_PER_PASSAGE = 2;
 
@@ -218,6 +220,34 @@ if (command === 'coverage') {
       `Failed the answer-key check (db:seed refuses them; regenerate or delete): ${failed.join(', ')}`,
     );
   }
+} else if (command === 'translate') {
+  // Reference translations for translation exercises, where missing
+  // (--force redoes them).
+  const cap = costCap(1);
+  let llm: Llm | null = null;
+  let spent = 0;
+  let lastCost = 0;
+  run: for (const level of levelsArg()) {
+    for (const passage of readPassages(level)) {
+      if (passage.translation && !values.force) continue;
+      if (spent + (lastCost || 0.02) > cap) {
+        console.log(`Stopped: the next call could pass the $${cap} cap.`);
+        break run;
+      }
+      llm ??= anthropic();
+      const result = await translatePassage(passage, llm);
+      lastCost = result.costUsd;
+      spent += result.costUsd;
+      if (result.translation) {
+        passage.translation = result.translation;
+        writePassage(passage);
+        console.log(`${passage._id}: ✓ ($${result.costUsd.toFixed(3)})`);
+      } else {
+        console.log(`${passage._id}: ✗ ${result.problem}`);
+      }
+    }
+  }
+  console.log(`Spent about $${spent.toFixed(3)} of $${cap}.`);
 } else if (command === 'review') {
   // Spot-check a random sample of passages that passed the automated checks.
   const sample = Number(values.sample);
@@ -266,7 +296,7 @@ if (command === 'coverage') {
   }
 } else {
   console.error(
-    'Usage: cli.ts generate --level N [...] | check [--level N] | review [--level N] | coverage [--level N]',
+    'Usage: cli.ts generate --level N [...] | check | translate | review | coverage [--level N]',
   );
   process.exit(1);
 }

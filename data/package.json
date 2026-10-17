@@ -11,8 +11,12 @@
     "test": "vitest run",
     "passages:generate": "tsx --env-file-if-exists=../.env src/passages/cli.ts generate",
     "passages:check": "tsx --env-file-if-exists=../.env src/passages/cli.ts check",
+    "passages:translate": "tsx --env-file-if-exists=../.env src/passages/cli.ts translate",
     "passages:review": "tsx src/passages/cli.ts review",
-    "passages:coverage": "tsx src/passages/cli.ts coverage"
+    "passages:coverage": "tsx src/passages/cli.ts coverage",
+    "grader:learner-set": "tsx --env-file-if-exists=../.env src/grader/cli.ts learner-set",
+    "grader:eval": "tsx --env-file-if-exists=../.env src/grader/cli.ts eval",
+    "grader:consistency": "tsx --env-file-if-exists=../.env src/grader/cli.ts consistency"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",

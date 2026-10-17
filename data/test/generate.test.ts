@@ -29,6 +29,7 @@ import {
   writePassage,
 } from '../src/passages/library.js';
 import { formatForReview } from '../src/passages/review.js';
+import { translatePassage } from '../src/passages/translate.js';
 import { createSegmenter } from '../src/segmenter.js';
 
 const content = loadSeedContent();
@@ -114,19 +115,30 @@ const agreeingCheck = () => ({
   issues: [{ severity: 'minor', description: 'A little plain.' }],
 });
 
-const isCheckCall = (
-  params: Anthropic.Messages.MessageCreateParamsNonStreaming,
-) => typeof params.system === 'string';
+type Params = Anthropic.Messages.MessageCreateParamsNonStreaming;
+const isCheckCall = (params: Params) =>
+  typeof params.system === 'string' && params.system.includes('You check');
+const isTranslateCall = (params: Params) =>
+  typeof params.system === 'string' && params.system.includes('You translate');
+
+/** A reference translation with one paragraph per "Paragraph N:" in the request. */
+const translationFor = (params: Params) => ({
+  paragraphs: [
+    ...String(params.messages[0]!.content).matchAll(/^Paragraph (\d+):/gm),
+  ].map((m) => `English paragraph ${m[1]}.`),
+});
 
 /**
  * A fake client that answers each generation call with the next draft as
- * JSON text, the way structured outputs replies, and each answer-key check
- * with the next check reply (agreeing with the key once they run out). A
- * string draft is sent as is (for truncated replies).
+ * JSON text, the way structured outputs replies, each answer-key check with
+ * the next check reply (agreeing with the key once they run out), and each
+ * translation request with placeholder paragraphs. A string draft is sent as
+ * is (for truncated replies).
  */
 function fakeLlm(drafts: unknown[], checks: unknown[] = []) {
-  const calls: Anthropic.Messages.MessageCreateParamsNonStreaming[] = [];
-  const checkCalls: Anthropic.Messages.MessageCreateParamsNonStreaming[] = [];
+  const calls: Params[] = [];
+  const checkCalls: Params[] = [];
+  const translateCalls: Params[] = [];
   const llm: Llm = {
     async create(params) {
       // The API rejects forced tool use for this model.
@@ -136,6 +148,9 @@ function fakeLlm(drafts: unknown[], checks: unknown[] = []) {
       if (isCheckCall(params)) {
         checkCalls.push(structuredClone(params));
         reply = checks[checkCalls.length - 1] ?? agreeingCheck();
+      } else if (isTranslateCall(params)) {
+        translateCalls.push(structuredClone(params));
+        reply = translationFor(params);
       } else {
         calls.push(structuredClone(params));
         reply = drafts[calls.length - 1];
@@ -154,7 +169,7 @@ function fakeLlm(drafts: unknown[], checks: unknown[] = []) {
       };
     },
   };
-  return { llm, calls, checkCalls };
+  return { llm, calls, checkCalls, translateCalls };
 }
 
 /** Every object in a JSON schema, depth first. */
@@ -312,8 +327,13 @@ describe('generatePassage', () => {
       given: '回家',
       alternatives: ['回去'],
     });
-    expect(result.costUsd).toBeCloseTo(2 * costOf(usage));
-    expect(passage.generation.costUsd).toBeCloseTo(2 * costOf(usage), 3);
+    // The draft, the check, and the reference translation.
+    expect(result.costUsd).toBeCloseTo(3 * costOf(usage));
+    expect(passage.generation.costUsd).toBeCloseTo(3 * costOf(usage), 3);
+    expect(passage.translation).toEqual([
+      'English paragraph 1.',
+      'English paragraph 2.',
+    ]);
     expect(passage.review).toBeNull();
 
     // Segmented for tap-to-look-up, one token list per paragraph.
@@ -370,8 +390,8 @@ describe('generatePassage', () => {
     expect(String(feedback!.content)).toMatch(
       /fix these problems[\s\S]*Cloze question 1/,
     );
-    // Two drafts and one answer-key check.
-    expect(result.costUsd).toBeCloseTo(3 * costOf(usage));
+    // Two drafts, one answer-key check, and the translation.
+    expect(result.costUsd).toBeCloseTo(4 * costOf(usage));
   });
 
   it('asks again when a reply is cut off', async () => {
@@ -541,6 +561,44 @@ describe('library', () => {
     expect(coverage.at(-1)).toMatchObject({
       point: { _id: 'g1-001' },
       passages: 2,
+    });
+  });
+});
+
+describe('translatePassage', () => {
+  const reply = (paragraphs: string[]): Llm => ({
+    async create() {
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify({ paragraphs }),
+            citations: null,
+          } as Anthropic.Messages.TextBlock,
+        ],
+        usage: usage as Anthropic.Messages.Usage,
+        stop_reason: 'end_turn',
+      };
+    },
+  });
+  const passage = { title: '买东西', text: '我买书。\n\n他买茶。' };
+
+  it('returns one paragraph per paragraph', async () => {
+    const result = await translatePassage(
+      passage,
+      reply([' I buy books. ', 'He buys tea.']),
+    );
+    expect(result.translation).toEqual(['I buy books.', 'He buys tea.']);
+  });
+
+  it('rejects a reply with the wrong number of paragraphs', async () => {
+    const result = await translatePassage(
+      passage,
+      reply(['I buy books. He buys tea.']),
+    );
+    expect(result).toMatchObject({
+      translation: null,
+      problem: 'Expected 2 translated paragraphs, got 1',
     });
   });
 });

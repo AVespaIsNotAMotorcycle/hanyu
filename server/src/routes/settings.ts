@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import {
-  cardKey,
   HSK_LEVELS,
   isHskLevel,
   MAX_ADDED_WORDS,
@@ -8,8 +7,9 @@ import {
   MAX_DAILY_NEW_CARDS,
   type AuthResponse,
 } from '@hanyu/shared';
-import { ReviewLogModel, WordModel } from '../models/index.js';
-import { toAuthUser, type UserDocument } from '../models/user.js';
+import { addWords } from '../addedWords.js';
+import { WordModel } from '../models/index.js';
+import { toAuthUser } from '../models/user.js';
 
 export const settingsRouter = Router();
 
@@ -86,17 +86,6 @@ settingsRouter.put('/', async (req, res) => {
   res.json(body);
 });
 
-/** Added words whose pinyin card has no reviews yet (started ones are dropped). */
-async function unstarted(user: UserDocument, ids: readonly string[]) {
-  const started = new Set(
-    await ReviewLogModel.distinct('cardKey', {
-      userId: user._id,
-      cardKey: { $in: ids.map((id) => cardKey('word', id, 'pinyin')) },
-    }),
-  );
-  return ids.filter((id) => !started.has(cardKey('word', id, 'pinyin')));
-}
-
 // "Add to SRS" from reading. Body: AddWordRequest. The word becomes the next
 // new card (see buildQueue); adding a started or already-added word is a no-op.
 settingsRouter.post('/added-words', async (req, res) => {
@@ -109,14 +98,11 @@ settingsRouter.post('/added-words', async (req, res) => {
     return;
   }
   const user = req.user!;
-  const current = user.settings?.addedWords ?? [];
-  const pending = await unstarted(user, [...new Set([...current, wordId])]);
-  if (pending.length > MAX_ADDED_WORDS) {
+  if (!(await addWords(user, [wordId]))) {
     throw badRequest(
       `At most ${MAX_ADDED_WORDS} added words can wait at once; study some first`,
     );
   }
-  user.set('settings.addedWords', pending);
   await user.save();
   const body: AuthResponse = { user: toAuthUser(user) };
   res.json(body);

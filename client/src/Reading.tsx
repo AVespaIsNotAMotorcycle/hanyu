@@ -32,6 +32,7 @@ import { HandwritingQuiz } from './HandwritingQuiz';
 import { loadCharacters } from './local/content';
 import { useLocalData, useStudyData } from './local/LocalData';
 import type { LocalStore } from './local/store';
+import { TranslationExercises } from './Translation';
 
 // Passages opened on this device. Only recommendations use it, so it isn't
 // synced; it goes with the local database on sign-out.
@@ -186,6 +187,7 @@ function PassageItem({
       <span className="hint">
         HSK {HSK_LEVEL_LABELS[passage.level]} · {passage.titleEnglish} ·{' '}
         {passage.length} characters · {passage.questionCount} questions
+        {passage.translatable && ' · translation'}
       </span>
       {known && <span className="hint">{known}</span>}
     </button>
@@ -322,6 +324,11 @@ function PassageView({
           </li>
         ))}
       </ol>
+      <TranslationExercises
+        passage={passage}
+        words={words}
+        onUserChange={onUserChange}
+      />
     </article>
   );
 }

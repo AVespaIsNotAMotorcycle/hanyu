@@ -203,6 +203,10 @@
       "”"
     ]
   ],
+  "translation": [
+    "Today is Tuesday. Xiaoming's mother is sick and did not go to work.",
+    "Xiaoming asked, \"Mom, how are you?\" Mom said, \"I'm not feeling very well. I want to go to the hospital to see a doctor.\" Xiaoming said, \"Where is the hospital? I'll go with you.\" Mom said, \"Don't go. Go to class. What time does your class finish?\" Xiaoming said, \"Four in the afternoon. After class, I'll cook. What would you like to eat?\" Mom said, \"Noodles. Now I'm going to sleep.\""
+  ],
   "verification": {
     "tokens": 101,
     "atOrBelowLevel": 98,

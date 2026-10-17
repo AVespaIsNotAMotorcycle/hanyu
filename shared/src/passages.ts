@@ -112,6 +112,11 @@ export interface Passage {
    * words, so each token can be looked up.
    */
   tokens: string[][];
+  /**
+   * A reference English translation per paragraph, for translation
+   * exercises (`npm run passages:translate`). Null until generated.
+   */
+  translation: string[] | null;
   verification: LevelCheck;
   /** Null until `npm run passages:check` has run. */
   answerKeyCheck: AnswerKeyCheck | null;
@@ -136,6 +141,8 @@ export interface PassageSummary {
   length: number;
   grammarIds: string[];
   questionCount: number;
+  /** Paragraphs that have a reference translation (translation exercises). */
+  translatable: boolean;
   /** The words in the text (names left out), for recommendations. */
   vocabulary: PassageWord[];
 }
