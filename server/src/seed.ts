@@ -43,7 +43,8 @@ async function readJson<T>(dir: string, file: string): Promise<T> {
 
 /** Replaces every document by _id, and finds (or deletes) ones not in `docs`. */
 async function sync<T extends { _id: string }>(
-  model: Model<T>,
+  // Any virtuals (Mongoose adds `id`); only the document shape matters here.
+  model: Model<T, any, any, any>,
   docs: T[],
   prune: boolean,
 ): Promise<{ upserted: number; stale: number }> {

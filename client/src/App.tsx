@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type { AuthResponse, AuthUser, HealthResponse } from '@hanyu/shared';
 import { ApiError, getJson, postJson } from './api';
 import { AuthForm } from './AuthForm';
+import { PinyinDrill } from './PinyinDrill';
 
 export function App() {
   // undefined: still checking for an existing session.
@@ -62,6 +63,7 @@ function Home({
           Sign out
         </button>
       </p>
+      <PinyinDrill />
       <p className="status">
         {health
           ? `API ${health.status} · database ${health.db}`
