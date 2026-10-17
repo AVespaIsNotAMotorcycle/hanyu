@@ -1,0 +1,109 @@
+{
+  "_id": "p1-0011",
+  "level": 1,
+  "title": "和朋友看电影",
+  "titleEnglish": "Watching a Movie with a Friend",
+  "text": "今天是星期天，天气很好。小明在家，他想找朋友玩儿。他给朋友打电话：“喂，你在哪儿？”朋友说：“我在学校。”小明说：“你下午有时间吗？我想和你去看电影。”朋友说：“好！我们下午三点在电影院见。”下午，小明先到了。朋友来了，他对小明说：“对不起，我来晚了。”小明说：“没关系。”",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g1-021",
+      "example": "在电影院见"
+    },
+    {
+      "grammarId": "g1-022",
+      "example": "和你去看电影"
+    },
+    {
+      "grammarId": "g1-022",
+      "example": "对小明说"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "小明想做什么？",
+      "promptEnglish": "What does Xiaoming want to do?",
+      "options": [
+        "去买东西",
+        "和朋友去看电影",
+        "去学校上课",
+        "在家看电视"
+      ],
+      "answer": 1,
+      "explanation": "Xiaoming says '我想和你去看电影' (I want to go see a movie with you)."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "朋友现在在哪儿？",
+      "promptEnglish": "Where is the friend now?",
+      "options": [
+        "在家",
+        "在电影院",
+        "在学校",
+        "在商店"
+      ],
+      "answer": 2,
+      "explanation": "When Xiaoming asks where he is, the friend answers '我在学校'."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "他们下午在哪儿见？",
+      "promptEnglish": "Where do they meet in the afternoon?",
+      "options": [
+        "电影院",
+        "学校",
+        "饭店",
+        "小明家"
+      ],
+      "answer": 0,
+      "explanation": "The friend says '我们下午三点在电影院见' (we meet at the cinema at three)."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "小明在＿＿，他想找朋友玩儿。",
+      "answer": "家",
+      "alsoAccepted": [],
+      "hint": "home"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "你下午有＿＿吗？",
+      "answer": "时间",
+      "alsoAccepted": [],
+      "hint": "time"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "我们下午三点在＿＿见。",
+      "answer": "电影院",
+      "alsoAccepted": [],
+      "hint": "cinema"
+    }
+  ],
+  "verification": {
+    "tokens": 104,
+    "atOrBelowLevel": 99,
+    "share": 0.9519230769230769,
+    "offLevel": [
+      "儿",
+      "明",
+      "先"
+    ]
+  },
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-17T03:44:44.135Z",
+    "attempts": 2,
+    "costUsd": 0.0346
+  }
+}

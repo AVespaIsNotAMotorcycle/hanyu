@@ -1,0 +1,112 @@
+{
+  "_id": "p1-0003",
+  "level": 1,
+  "title": "去商店",
+  "titleEnglish": "Going to the Store",
+  "text": "今天是星期天，天气很好。我和朋友小明去商店。我想买一件新衣服。小明想买苹果。\n\n我问：“请问，我可以穿一下这件衣服吗？”\n\n商店的人说：“可以。”\n\n这件衣服很好看，也不贵。我说：“我要这件。”\n\n小明说：“我也要一些苹果。我们回家吃吧。”",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g1-005",
+      "example": "我想买一件新衣服"
+    },
+    {
+      "grammarId": "g1-005",
+      "example": "我要这件"
+    },
+    {
+      "grammarId": "g1-006",
+      "example": "我可以穿一下这件衣服吗"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "我想买什么？",
+      "promptEnglish": "What does the speaker want to buy?",
+      "options": [
+        "一件新衣服",
+        "一些苹果",
+        "一个电脑",
+        "一个手机"
+      ],
+      "answer": 0,
+      "explanation": "The passage says 我想买一件新衣服, so the speaker wants to buy a new piece of clothing."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "小明想买什么？",
+      "promptEnglish": "What does Xiaoming want to buy?",
+      "options": [
+        "衣服",
+        "书",
+        "苹果",
+        "茶"
+      ],
+      "answer": 2,
+      "explanation": "The passage says 小明想买苹果, and later 我也要一些苹果, so he wants apples."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "今天天气怎么样？",
+      "promptEnglish": "How is the weather today?",
+      "options": [
+        "很好",
+        "很冷",
+        "下雨",
+        "下雪"
+      ],
+      "answer": 0,
+      "explanation": "The first sentence says 天气很好, so the weather is good."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "我想＿＿一件新衣服。",
+      "answer": "买",
+      "alsoAccepted": [
+        "穿",
+        "要"
+      ],
+      "hint": "to buy"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "我问：“请问，我可以＿＿一下这件衣服吗？”",
+      "answer": "穿",
+      "alsoAccepted": [
+        "看"
+      ],
+      "hint": "to wear / try on"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "今天是星期天，＿＿很好。",
+      "answer": "天气",
+      "alsoAccepted": [],
+      "hint": "weather"
+    }
+  ],
+  "verification": {
+    "tokens": 87,
+    "atOrBelowLevel": 86,
+    "share": 0.9885057471264368,
+    "offLevel": [
+      "明"
+    ]
+  },
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-17T03:41:47.337Z",
+    "attempts": 2,
+    "costUsd": 0.0364
+  }
+}

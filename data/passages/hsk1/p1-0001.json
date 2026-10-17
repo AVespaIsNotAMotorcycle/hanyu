@@ -1,0 +1,111 @@
+{
+  "_id": "p1-0001",
+  "level": 1,
+  "title": "星期日在大学",
+  "titleEnglish": "Sunday at the University",
+  "text": "今天是星期日，天气很好，不冷也不热。我和朋友们去大学玩。第一，我们在大学里看书。第二，我们去那边喝茶。外边有很多小朋友，他们在玩。我们看见一只小狗，它很漂亮。我们都很高兴。",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-001",
+      "example": "第一"
+    },
+    {
+      "grammarId": "g1-001",
+      "example": "小狗"
+    },
+    {
+      "grammarId": "g1-002",
+      "example": "朋友们"
+    },
+    {
+      "grammarId": "g1-002",
+      "example": "外边"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "他们在大学里做什么？",
+      "promptEnglish": "What do they do at the university?",
+      "options": [
+        "看书",
+        "买东西",
+        "上课",
+        "做饭"
+      ],
+      "answer": 0,
+      "explanation": "The passage says '第一，我们在大学里看书', so they read books."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "外边有谁？",
+      "promptEnglish": "Who is outside?",
+      "options": [
+        "老师",
+        "小朋友",
+        "医生",
+        "妈妈"
+      ],
+      "answer": 1,
+      "explanation": "The passage says '外边有很多小朋友', so many children are outside."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "今天天气怎么样？",
+      "promptEnglish": "How is the weather today?",
+      "options": [
+        "很冷",
+        "很热",
+        "下雨",
+        "不冷也不热"
+      ],
+      "answer": 3,
+      "explanation": "The passage says '天气很好，不冷也不热', so it is neither cold nor hot."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "我们去那边＿＿茶。",
+      "answer": "喝",
+      "alsoAccepted": [],
+      "hint": "to drink"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "我们看见一只小狗，它很＿＿。",
+      "answer": "漂亮",
+      "alsoAccepted": [
+        "好看"
+      ],
+      "hint": "pretty"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "今天是＿＿，天气很好，不冷也不热。",
+      "answer": "星期日",
+      "alsoAccepted": [
+        "星期天"
+      ],
+      "hint": "Sunday"
+    }
+  ],
+  "verification": {
+    "tokens": 74,
+    "atOrBelowLevel": 74,
+    "share": 1,
+    "offLevel": []
+  },
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-17T03:34:18.251Z",
+    "attempts": 1,
+    "costUsd": 0.0279
+  }
+}

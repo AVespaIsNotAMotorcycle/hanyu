@@ -1,0 +1,122 @@
+{
+  "_id": "p1-0008",
+  "level": 1,
+  "title": "贵的新衣服",
+  "titleEnglish": "The Expensive New Clothes",
+  "text": "今天是星期天，天气很好。我和小明去商店。商店里的东西非常多，衣服都很好看。我看见一件新衣服，真漂亮！我问小明：“多少钱？”小明看一下，说：“三百块，太贵了！”我有点儿不高兴。小明说：“我们去超市吧。”超市的水果很便宜。我们买了苹果和面包，都很好吃。",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g1-015",
+      "example": "天气很好"
+    },
+    {
+      "grammarId": "g1-015",
+      "example": "非常多"
+    },
+    {
+      "grammarId": "g1-015",
+      "example": "真漂亮"
+    },
+    {
+      "grammarId": "g1-015",
+      "example": "太贵了"
+    },
+    {
+      "grammarId": "g1-015",
+      "example": "有点儿不高兴"
+    },
+    {
+      "grammarId": "g1-016",
+      "example": "衣服都很好看"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "他们先去哪儿？",
+      "promptEnglish": "Where did they go first?",
+      "options": [
+        "商店",
+        "学校",
+        "医院",
+        "电影院"
+      ],
+      "answer": 0,
+      "explanation": "The passage says \"我和小明去商店\" (I go to the shop with Xiaoming) first, and only later they go to the supermarket."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "小明觉得那件衣服怎么样？",
+      "promptEnglish": "What does Xiaoming think of the piece of clothing?",
+      "options": [
+        "很便宜",
+        "太贵了",
+        "不好看",
+        "不新"
+      ],
+      "answer": 1,
+      "explanation": "Xiaoming says \"三百块，太贵了！\", so he thinks it is too expensive."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "他们在超市买了什么？",
+      "promptEnglish": "What did they buy at the supermarket?",
+      "options": [
+        "衣服和书",
+        "苹果和面包",
+        "茶和牛奶",
+        "鸡蛋和饺子"
+      ],
+      "answer": 1,
+      "explanation": "The last sentence says \"我们买了苹果和面包\" (We bought apples and bread)."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "今天是＿＿，天气很好。",
+      "answer": "星期天",
+      "alsoAccepted": [
+        "星期日"
+      ],
+      "hint": "Sunday"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "我和小明＿＿商店。",
+      "answer": "去",
+      "alsoAccepted": [],
+      "hint": "to go"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "我＿＿一件新衣服，真漂亮！",
+      "answer": "看见",
+      "alsoAccepted": [],
+      "hint": "to see, catch sight of"
+    }
+  ],
+  "verification": {
+    "tokens": 102,
+    "atOrBelowLevel": 100,
+    "share": 0.9803921568627451,
+    "offLevel": [
+      "明",
+      "先"
+    ]
+  },
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-17T03:43:45.648Z",
+    "attempts": 1,
+    "costUsd": 0.0276
+  }
+}

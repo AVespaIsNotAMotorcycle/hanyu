@@ -1,0 +1,101 @@
+{
+  "_id": "p1-0005",
+  "level": 1,
+  "title": "在商店",
+  "titleEnglish": "At the Store",
+  "text": "今天是星期天，我和妈妈去商店。商店里有很多东西。这些衣服很好看，那些衣服有点儿贵。妈妈问我：“你喜欢哪个？”我说：“我喜欢这个。”妈妈说：“好，我们买这个吧。”有的人在那儿看，有些人在这儿买。大家都很高兴。",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-009",
+      "example": "我们买这个吧"
+    },
+    {
+      "grammarId": "g1-010",
+      "example": "这些衣服很好看，那些衣服有点儿贵"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "今天我和妈妈去哪儿？",
+      "promptEnglish": "Where do I and my mom go today?",
+      "options": [
+        "商店",
+        "书店",
+        "学校",
+        "医院"
+      ],
+      "answer": 0,
+      "explanation": "The passage begins: 今天是星期天，我和妈妈去商店 (Today is Sunday, my mom and I go to the store)."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "哪些衣服有点儿贵？",
+      "promptEnglish": "Which clothes are a little expensive?",
+      "options": [
+        "这些衣服",
+        "那些衣服",
+        "我的衣服",
+        "妈妈的衣服"
+      ],
+      "answer": 1,
+      "explanation": "The passage says 这些衣服很好看，那些衣服有点儿贵: 'those clothes' are a little expensive."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "最后大家怎么样？",
+      "promptEnglish": "How is everyone at the end?",
+      "options": [
+        "很高兴",
+        "很忙",
+        "很冷",
+        "很热"
+      ],
+      "answer": 0,
+      "explanation": "The last sentence is 大家都很高兴, meaning everyone is happy."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "商店里有很多＿＿。",
+      "answer": "东西",
+      "alsoAccepted": [],
+      "hint": "things"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "这些衣服很好看，那些衣服有点儿＿＿。",
+      "answer": "贵",
+      "alsoAccepted": [],
+      "hint": "expensive"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "今天是星期天，我和妈妈＿＿商店。",
+      "answer": "去",
+      "alsoAccepted": [],
+      "hint": "to go"
+    }
+  ],
+  "verification": {
+    "tokens": 89,
+    "atOrBelowLevel": 88,
+    "share": 0.9887640449438202,
+    "offLevel": [
+      "最"
+    ]
+  },
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-17T03:42:30.213Z",
+    "attempts": 2,
+    "costUsd": 0.0373
+  }
+}

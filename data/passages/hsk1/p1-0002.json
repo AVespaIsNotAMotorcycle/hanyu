@@ -1,0 +1,127 @@
+{
+  "_id": "p1-0002",
+  "level": 1,
+  "title": "星期天",
+  "titleEnglish": "Sunday",
+  "text": "今天是星期天，我在家看书。我的猫在桌子下睡觉。桌子上有一个杯子，杯子里有水。\n\n小明给我打电话：“你现在能来我家吗？我会做饭，我们吃午饭吧。”\n\n我说：“好，我现在去。”我家前边有一个超市，小明家在超市后边。我去超市买了苹果。小明在超市外边，他看见我，说：“你来了！”",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g1-003",
+      "example": "桌子下"
+    },
+    {
+      "grammarId": "g1-003",
+      "example": "桌子上"
+    },
+    {
+      "grammarId": "g1-003",
+      "example": "杯子里"
+    },
+    {
+      "grammarId": "g1-003",
+      "example": "前边"
+    },
+    {
+      "grammarId": "g1-003",
+      "example": "后边"
+    },
+    {
+      "grammarId": "g1-003",
+      "example": "外边"
+    },
+    {
+      "grammarId": "g1-004",
+      "example": "能来我家吗"
+    },
+    {
+      "grammarId": "g1-004",
+      "example": "会做饭"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "猫在哪儿？",
+      "promptEnglish": "Where is the cat?",
+      "options": [
+        "桌子上",
+        "桌子下",
+        "杯子里",
+        "超市里"
+      ],
+      "answer": 1,
+      "explanation": "The passage says 我的猫在桌子下睡觉, so the cat is under the table."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "小明家在哪儿？",
+      "promptEnglish": "Where is Xiao Ming's home?",
+      "options": [
+        "超市前边",
+        "超市后边",
+        "桌子下",
+        "超市里"
+      ],
+      "answer": 1,
+      "explanation": "The passage says 小明家在超市后边, so his home is behind the supermarket."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "我去超市买什么？",
+      "promptEnglish": "What did I buy at the supermarket?",
+      "options": [
+        "面包",
+        "牛奶",
+        "苹果",
+        "水"
+      ],
+      "answer": 2,
+      "explanation": "The passage says 我去超市买了苹果, so I bought apples."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "我的＿＿在桌子下睡觉。",
+      "answer": "猫",
+      "alsoAccepted": [
+        "狗"
+      ],
+      "hint": "cat"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "我会＿＿，我们吃午饭吧。",
+      "answer": "做饭",
+      "alsoAccepted": [],
+      "hint": "to cook"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "我去超市＿＿了苹果。",
+      "answer": "买",
+      "alsoAccepted": [],
+      "hint": "to buy"
+    }
+  ],
+  "verification": {
+    "tokens": 101,
+    "atOrBelowLevel": 101,
+    "share": 1,
+    "offLevel": []
+  },
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-17T03:41:24.610Z",
+    "attempts": 1,
+    "costUsd": 0.0366
+  }
+}

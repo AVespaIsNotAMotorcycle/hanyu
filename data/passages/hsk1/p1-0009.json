@@ -1,0 +1,107 @@
+{
+  "_id": "p1-0009",
+  "level": 1,
+  "title": "星期天的电话",
+  "titleEnglish": "A Sunday Phone Call",
+  "text": "今天是星期天,我和妈妈都在家。\n\n妈妈正在做饭,我在看电视。电话来了,是朋友小明。他问:“你在做什么?”我说:“我在看电视,妈妈正在做饭。”小明说:“我在书店。你想来吗?”我说:“我现在不能去,吃了饭再去吧。”\n\n下午我们在书店玩。我买了一本书。小明说:“明天再来吧。”",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g1-017",
+      "example": "妈妈正在做饭"
+    },
+    {
+      "grammarId": "g1-017",
+      "example": "我在看电视"
+    },
+    {
+      "grammarId": "g1-018",
+      "example": "吃了饭再去吧"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "妈妈正在做什么?",
+      "promptEnglish": "What is Mom doing?",
+      "options": [
+        "做饭",
+        "看电视",
+        "买书",
+        "玩"
+      ],
+      "answer": 0,
+      "explanation": "The passage says 妈妈正在做饭, so Mom is cooking."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "小明在哪儿?",
+      "promptEnglish": "Where is Xiaoming?",
+      "options": [
+        "家",
+        "书店",
+        "学校",
+        "医院"
+      ],
+      "answer": 1,
+      "explanation": "Xiaoming says 我在书店, so he is at the bookstore."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "下午我买了什么?",
+      "promptEnglish": "What did I buy in the afternoon?",
+      "options": [
+        "书",
+        "衣服",
+        "水果",
+        "茶"
+      ],
+      "answer": 0,
+      "explanation": "The passage says 我买了一本书, so I bought a book."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "妈妈正在做饭,我在看＿＿。",
+      "answer": "电视",
+      "alsoAccepted": [],
+      "hint": "TV"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "下午我们在书店＿＿。",
+      "answer": "玩",
+      "alsoAccepted": [],
+      "hint": "to play, to hang out"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "我＿＿了一本书。",
+      "answer": "买",
+      "alsoAccepted": [],
+      "hint": "to buy"
+    }
+  ],
+  "verification": {
+    "tokens": 92,
+    "atOrBelowLevel": 90,
+    "share": 0.9782608695652174,
+    "offLevel": [
+      "明"
+    ]
+  },
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-17T03:43:59.496Z",
+    "attempts": 1,
+    "costUsd": 0.0201
+  }
+}

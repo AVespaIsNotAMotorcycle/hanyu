@@ -1,0 +1,101 @@
+{
+  "_id": "p1-0007",
+  "level": 1,
+  "title": "我的一天",
+  "titleEnglish": "My Day",
+  "text": "今天是三月八号，星期日。我今年十九岁。早上七点半，我起床了。我喝了一杯牛奶，吃了两个鸡蛋。\n\n九点，我去学校上课。中午十二点二十分，我和同学去饭店吃饭。我喝了茶，他喝了水。他说：“我来中国一年了。我很想家。”我说：“没关系，我们是好朋友。”",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-013",
+      "example": "一杯牛奶"
+    },
+    {
+      "grammarId": "g1-014",
+      "example": "中午十二点二十分"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "今天几号？",
+      "promptEnglish": "What date is it today?",
+      "options": [
+        "三月七号",
+        "三月八号",
+        "八月三号",
+        "三月九号"
+      ],
+      "answer": 1,
+      "explanation": "The passage begins '今天是三月八号', so today is March 8th."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "我今年几岁？",
+      "promptEnglish": "How old am I this year?",
+      "options": [
+        "十八岁",
+        "二十岁",
+        "十九岁",
+        "十二岁"
+      ],
+      "answer": 2,
+      "explanation": "The passage says '我今年十九岁', so the speaker is 19."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "同学喝了什么？",
+      "promptEnglish": "What did the classmate drink?",
+      "options": [
+        "茶",
+        "水",
+        "牛奶",
+        "鸡蛋"
+      ],
+      "answer": 1,
+      "explanation": "The passage says '我喝了茶，他喝了水'. 'He' is the classmate, who drank water."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "我今年十九＿＿。",
+      "answer": "岁",
+      "alsoAccepted": [],
+      "hint": "years old (age measure word)"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "早上七点半，我＿＿了。",
+      "answer": "起床",
+      "alsoAccepted": [],
+      "hint": "get up"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "九点，我去学校＿＿。",
+      "answer": "上课",
+      "alsoAccepted": [],
+      "hint": "attend class"
+    }
+  ],
+  "verification": {
+    "tokens": 86,
+    "atOrBelowLevel": 85,
+    "share": 0.9883720930232558,
+    "offLevel": [
+      "杯"
+    ]
+  },
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-17T03:43:24.600Z",
+    "attempts": 2,
+    "costUsd": 0.0439
+  }
+}

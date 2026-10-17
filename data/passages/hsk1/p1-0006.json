@@ -1,0 +1,102 @@
+{
+  "_id": "p1-0006",
+  "level": 1,
+  "title": "星期日去商店",
+  "titleEnglish": "Going to the Shop on Sunday",
+  "text": "今天是星期日，我和妈妈去商店。这家商店很大，东西不贵。我买了一件新衣服，八十块。妈妈买了两本书，一百元。她很高兴。我家有四口人，还有一只猫和一只狗。我们回家了。爸爸正在做饭，有饺子，也有鸡蛋。",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-011",
+      "example": "一百元"
+    },
+    {
+      "grammarId": "g1-012",
+      "example": "两本书"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "妈妈买了什么？",
+      "promptEnglish": "What did Mom buy?",
+      "options": [
+        "两本书",
+        "一件衣服",
+        "一只猫",
+        "八十块"
+      ],
+      "answer": 0,
+      "explanation": "The passage says 妈妈买了两本书，一百元, so Mom bought two books."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "我家有几口人？",
+      "promptEnglish": "How many people are in my family?",
+      "options": [
+        "三口人",
+        "四口人",
+        "五口人",
+        "六口人"
+      ],
+      "answer": 1,
+      "explanation": "The passage says 我家有四口人, so there are four people."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "我的新衣服多少钱？",
+      "promptEnglish": "How much was my new clothing?",
+      "options": [
+        "八块",
+        "十块",
+        "八十块",
+        "一百元"
+      ],
+      "answer": 2,
+      "explanation": "The passage says 我买了一件新衣服，八十块, so it cost 80 yuan."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "今天是星期日，我和妈妈去＿＿。",
+      "answer": "商店",
+      "alsoAccepted": [
+        "超市",
+        "书店"
+      ],
+      "hint": "shop, store"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "我家有四口＿＿，还有一只猫和一只狗。",
+      "answer": "人",
+      "alsoAccepted": [],
+      "hint": "person, people"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "爸爸正在＿＿，有饺子，也有鸡蛋。",
+      "answer": "做饭",
+      "alsoAccepted": [],
+      "hint": "to cook a meal"
+    }
+  ],
+  "verification": {
+    "tokens": 82,
+    "atOrBelowLevel": 82,
+    "share": 1,
+    "offLevel": []
+  },
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-17T03:42:54.732Z",
+    "attempts": 2,
+    "costUsd": 0.04
+  }
+}
