@@ -10,7 +10,7 @@ Hanyu is a MERN app for learning to read Chinese. [ROADMAP.md](ROADMAP.md) is th
 
 npm workspaces, all TypeScript and ESM:
 
-- `shared/` (`@hanyu/shared`): types and logic used by every workspace: seed/document shapes (`content.ts`), pinyin helpers (`pinyin.ts`), API types. Compiled to `shared/dist`, which client and server import. After changing it, rebuild (`npm run build -w shared`) or keep `npm run dev` running.
+- `shared/` (`@hanyu/shared`): types and logic used by every workspace: seed/document shapes (`content.ts`), pinyin helpers (`pinyin.ts`), FSRS scheduling (`scheduling.ts`, wrapping `ts-fsrs`), API types. Compiled to `shared/dist`, which client and server import. After changing it, rebuild (`npm run build -w shared`) or keep `npm run dev` running.
 - `server/` (`@hanyu/server`): Express 5 + Mongoose. `src/app.ts` builds the app (`createApp()`, no side effects, used by tests); `src/index.ts` connects to MongoDB and listens. Routes live in `src/routes/` and mount under `/api`. Authentication is in `src/auth/` (scrypt passwords, cookie sessions stored hashed in the `sessions` collection, `requireAuth` middleware).
 - `client/` (`@hanyu/client`): React 19 + Vite. Calls the API through relative `/api/...` paths (Vite proxies to :5000 in dev; same origin in production).
 - `data/` (`@hanyu/data`): offline pipeline (run with tsx, never deployed as code) that builds `data/seed` from pinned sources in `data/raw`. Read `data/README.md` before changing it.
@@ -46,7 +46,7 @@ Before finishing a change, run `npm run typecheck` and `npm test`. Database inte
 ## Rules From the Roadmap
 
 - Every API route except sign-up, sign-in, and sign-out must require authentication. `app.ts` mounts `requireAuth` in front of everything after `/api/auth`, so new routers mounted below it are protected automatically; read the user from `req.user`. Every card, review log, and grading record carries a `userId`.
-- Review logs are append-only (enforced by `ReviewLogModel` hooks) and carry client-generated UUID `_id`s, so sync is a union. Card (FSRS) state is derived from logs, never synced or stored as truth. Cards are keyed by `cardKey(noteType, noteId, kind)`.
+- Review logs are append-only (enforced by `ReviewLogModel` hooks) and carry client-generated UUID `_id`s, so sync is a union. Card (FSRS) state is derived from logs, never synced or stored as truth: replay them with `replayReviews`/`replayByCard` from `@hanyu/shared` (on the server, `loadCardSchedules` in `server/src/scheduling.ts`). Keep scheduling deterministic so client and server agree; change `SCHEDULER_PARAMS` deliberately, since it reschedules every card. Cards are keyed by `cardKey(noteType, noteId, kind)`.
 - Word records store both simplified and traditional forms. Readings belong to words, not characters. Grade pinyin against `citationPinyin` (citation tones; 一/不 sandhi already undone) and `alternatePinyin`.
 - Seed data is generated: change the pipeline in `data/` and rebuild, never hand-edit `data/seed`. Keep each seed file under one license (see `data/seed/README.md`).
 - Never commit `data/raw` (it holds the HSK syllabus PDF) and never parse the PDF's text; it has copying disabled.

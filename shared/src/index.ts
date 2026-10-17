@@ -3,6 +3,7 @@
 export * from './auth.js';
 export * from './content.js';
 export * from './pinyin.js';
+export * from './scheduling.js';
 
 export interface HealthResponse {
   status: 'ok';
