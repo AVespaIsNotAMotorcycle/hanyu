@@ -145,6 +145,8 @@ export interface PassageSummary {
   translatable: boolean;
   /** The words in the text (names left out), for recommendations. */
   vocabulary: PassageWord[];
+  /** The signed-in user's questions answered so far, and answered right. */
+  progress: { answered: number; correct: number };
 }
 
 /** A distinct token in a passage and the HSK words it could be. */
@@ -168,6 +170,33 @@ export interface PassageResponse {
   grammarPoints: GrammarPoint[];
   /** Every HSK word whose simplified form is a token, for tap-to-look-up. */
   words: WordNote[];
+  /** The signed-in user's record on each question answered before. */
+  progress: QuestionProgress[];
+}
+
+/** How a question was answered: picking an option, typing, or writing. */
+export type AnswerMethod = 'choice' | 'typed' | 'handwriting';
+
+/**
+ * A user's record on one question. Only whether each answer was right is
+ * kept, not the answer, so a question always starts blank.
+ */
+export interface QuestionProgress {
+  questionId: string;
+  attempts: number;
+  /** Best grade: answered right at least once. */
+  correct: boolean;
+  lastAnsweredAt: string;
+}
+
+export interface RecordAnswerRequest {
+  questionId: string;
+  method: AnswerMethod;
+  correct: boolean;
+}
+
+export interface RecordAnswerResponse {
+  progress: QuestionProgress;
 }
 
 /** Strips what shouldn't decide a typed answer: spaces, punctuation, width. */

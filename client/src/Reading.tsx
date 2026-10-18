@@ -14,6 +14,7 @@ import {
   pendingAddedWords,
   ratingForHandwriting,
   recommendPassages,
+  type AnswerMethod,
   type AuthResponse,
   type AuthUser,
   type CardSummary,
@@ -25,7 +26,11 @@ import {
   type HskLevel,
   type PassageResponse,
   type PassagesResponse,
+  type PassageQuestion,
   type PassageSummary,
+  type QuestionProgress,
+  type RecordAnswerRequest,
+  type RecordAnswerResponse,
   type WordNote,
 } from '@hanyu/shared';
 import { deleteJson, getJson, postJson } from './api';
@@ -70,14 +75,16 @@ export function Reading({
   const [open, setOpen] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // Reloaded on returning from a passage, for its question progress.
   useEffect(() => {
+    if (open) return;
     getJson<PassagesResponse>('/passages')
       .then(({ passages }) => {
         setAll(passages);
         setError(null);
       })
       .catch((err: unknown) => setError(String(err)));
-  }, []);
+  }, [open]);
 
   // Reloaded on returning from a passage, which marks it read.
   useEffect(() => {
@@ -192,6 +199,16 @@ function PassageItem({
         {passage.length} characters · {passage.questionCount} questions
         {passage.translatable && ' · translation'}
       </span>
+      {passage.progress.answered > 0 && (
+        <span className="hint">
+          {passage.progress.correct === passage.questionCount
+            ? '✓ All questions answered right'
+            : `${passage.progress.correct} of ${passage.questionCount} questions answered right` +
+              (passage.progress.answered > passage.progress.correct
+                ? `, ${passage.progress.answered - passage.progress.correct} not yet`
+                : '')}
+        </span>
+      )}
       {known && <span className="hint">{known}</span>}
     </button>
   );
@@ -350,11 +367,29 @@ function PassageView({
       <ol className="questions">
         {passage.questions.map((q) => (
           <li key={q.id}>
-            {q.type === 'choice' ? (
-              <Choice passageId={passage._id} question={q} english={english} />
-            ) : (
-              <Cloze passageId={passage._id} question={q} user={user} />
-            )}
+            <Question
+              passageId={passage._id}
+              question={q}
+              english={english}
+              user={user}
+              progress={
+                data.progress.find((p) => p.questionId === q.id) ?? null
+              }
+              onProgress={(progress) =>
+                setData(
+                  (current) =>
+                    current && {
+                      ...current,
+                      progress: [
+                        ...current.progress.filter(
+                          (p) => p.questionId !== q.id,
+                        ),
+                        progress,
+                      ],
+                    },
+                )
+              }
+            />
           </li>
         ))}
       </ol>
@@ -513,14 +548,111 @@ function WordLookup({
   );
 }
 
+/**
+ * A question with the user's record on it (never their earlier answer, so
+ * it always starts blank). Each answer is recorded, and Try again asks it
+ * afresh.
+ */
+function Question({
+  passageId,
+  question,
+  english,
+  user,
+  progress,
+  onProgress,
+}: {
+  passageId: string;
+  question: PassageQuestion;
+  english: boolean;
+  user: AuthUser;
+  progress: QuestionProgress | null;
+  onProgress: (progress: QuestionProgress) => void;
+}) {
+  const [round, setRound] = useState(0);
+  const [answered, setAnswered] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+
+  function answer(correct: boolean, method: AnswerMethod) {
+    setAnswered(true);
+    const body: RecordAnswerRequest = {
+      questionId: question.id,
+      method,
+      correct,
+    };
+    postJson<RecordAnswerResponse>(
+      `/passages/${encodeURIComponent(passageId)}/answers`,
+      body,
+    )
+      .then(({ progress }) => {
+        onProgress(progress);
+        setSaveError(null);
+      })
+      .catch((err: unknown) =>
+        setSaveError(err instanceof Error ? err.message : String(err)),
+      );
+  }
+
+  return (
+    <>
+      <QuestionStatus progress={progress} />
+      {question.type === 'choice' ? (
+        <Choice
+          key={round}
+          passageId={passageId}
+          question={question}
+          english={english}
+          onAnswer={(correct) => answer(correct, 'choice')}
+        />
+      ) : (
+        <Cloze
+          key={round}
+          passageId={passageId}
+          question={question}
+          user={user}
+          onAnswer={answer}
+        />
+      )}
+      {saveError && (
+        <p className="error" role="alert">
+          Couldn’t save this answer: {saveError}
+        </p>
+      )}
+      {answered && (
+        <button
+          type="button"
+          className="link"
+          onClick={() => {
+            setAnswered(false);
+            setRound(round + 1);
+          }}
+        >
+          Try again
+        </button>
+      )}
+    </>
+  );
+}
+
+function QuestionStatus({ progress }: { progress: QuestionProgress | null }) {
+  if (!progress) return <p className="question-status">Not answered yet</p>;
+  const tries = `${progress.attempts} ${progress.attempts === 1 ? 'try' : 'tries'}`;
+  return progress.correct ? (
+    <p className="question-status right">✓ Answered right before · {tries}</p>
+  ) : (
+    <p className="question-status">Not answered right yet · {tries}</p>
+  );
+}
+
 function Choice({
   passageId,
   question,
   english,
+  onAnswer,
 }: {
   passageId: string;
   question: ChoiceQuestion;
   english: boolean;
+  onAnswer: (correct: boolean) => void;
 }) {
   const [picked, setPicked] = useState<number | null>(null);
   return (
@@ -550,7 +682,10 @@ function Choice({
                     ? 'wrong'
                     : undefined
             }
-            onClick={() => setPicked(i)}
+            onClick={() => {
+              setPicked(i);
+              onAnswer(i === question.answer);
+            }}
           >
             {option}
           </button>
@@ -592,10 +727,12 @@ function Cloze({
   passageId,
   question,
   user,
+  onAnswer,
 }: {
   passageId: string;
   question: ClozeQuestion;
   user: AuthUser;
+  onAnswer: (correct: boolean, method: 'typed' | 'handwriting') => void;
 }) {
   const [mode, setMode] = useState<Mode>(savedMode);
   const [result, setResult] = useState<{
@@ -672,15 +809,20 @@ function Cloze({
       ) : mode === 'keyboard' ? (
         <ClozeKeyboard
           question={question}
-          onAnswer={(typed) =>
-            setResult({ correct: checkClozeAnswer(typed, question), typed })
-          }
+          onAnswer={(typed) => {
+            const correct = checkClozeAnswer(typed, question);
+            setResult({ correct, typed });
+            onAnswer(correct, 'typed');
+          }}
         />
       ) : (
         <ClozeHandwriting
           answer={question.answer}
           user={user}
-          onAnswer={(correct) => setResult({ correct })}
+          onAnswer={(correct) => {
+            setResult({ correct });
+            onAnswer(correct, 'handwriting');
+          }}
         />
       )}
     </div>

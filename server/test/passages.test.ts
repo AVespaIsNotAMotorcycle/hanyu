@@ -229,6 +229,7 @@ describe.skipIf(!uri)('passages', () => {
           { text: '本', wordIds: ['hsk30-00001', 'hsk30-00002'], count: 1 },
           { text: '书', wordIds: ['hsk30-00003'], count: 1 },
         ],
+        progress: { answered: 0, correct: 0 },
       },
       expect.objectContaining({ _id: 'p1-0002', title: '我的家' }),
     ]);
@@ -241,6 +242,7 @@ describe.skipIf(!uri)('passages', () => {
 
     const one = await agent.get('/api/passages/p1-0001');
     expect(one.body.passage).toEqual(passage('p1-0001'));
+    expect(one.body.progress).toEqual([]);
     expect(one.body.grammarPoints).toEqual([
       expect.objectContaining({ _id: 'g1-001', name: '前缀' }),
     ]);
@@ -256,5 +258,97 @@ describe.skipIf(!uri)('passages', () => {
     expect((await agent.get('/api/passages').query({ level: 0 })).status).toBe(
       400,
     );
+  });
+
+  it('records answers and reports attempts and the best grade', async () => {
+    await write(passage('p1-0001'));
+    await seedPassages({ dir, log: quiet });
+    const answer = (body: object) =>
+      agent.post('/api/passages/p1-0001/answers').send(body);
+
+    const wrong = await answer({
+      questionId: 'c1',
+      method: 'choice',
+      correct: false,
+    });
+    expect(wrong.status).toBe(201);
+    expect(wrong.body.progress).toMatchObject({
+      questionId: 'c1',
+      attempts: 1,
+      correct: false,
+    });
+    await answer({ questionId: 'c1', method: 'choice', correct: true });
+    // A later wrong answer doesn't lower the best grade.
+    const again = await answer({
+      questionId: 'c1',
+      method: 'choice',
+      correct: false,
+    });
+    expect(again.body.progress).toMatchObject({ attempts: 3, correct: true });
+    await answer({ questionId: 'z1', method: 'handwriting', correct: false });
+
+    const one = await agent.get('/api/passages/p1-0001');
+    expect(one.body.progress).toEqual([
+      expect.objectContaining({ questionId: 'c1', attempts: 3, correct: true }),
+      expect.objectContaining({
+        questionId: 'z1',
+        attempts: 1,
+        correct: false,
+      }),
+    ]);
+    const list = await agent.get('/api/passages');
+    expect(list.body.passages[0].progress).toEqual({ answered: 2, correct: 1 });
+
+    // Another user starts fresh.
+    const other = request.agent(createApp());
+    await other
+      .post('/api/auth/sign-up')
+      .send({ email: 'other-reader@example.com', password: 'long enough' });
+    expect((await other.get('/api/passages/p1-0001')).body.progress).toEqual(
+      [],
+    );
+  });
+
+  it('rejects answers to unknown questions or in the wrong way', async () => {
+    await write(passage('p1-0001'));
+    await seedPassages({ dir, log: quiet });
+    const answer = (id: string, body: object) =>
+      agent.post(`/api/passages/${id}/answers`).send(body);
+    expect(
+      (
+        await answer('p9-0001', {
+          questionId: 'c1',
+          method: 'choice',
+          correct: true,
+        })
+      ).status,
+    ).toBe(404);
+    expect(
+      (
+        await answer('p1-0001', {
+          questionId: 'x',
+          method: 'choice',
+          correct: true,
+        })
+      ).status,
+    ).toBe(404);
+    expect(
+      (
+        await answer('p1-0001', {
+          questionId: 'c1',
+          method: 'typed',
+          correct: true,
+        })
+      ).status,
+    ).toBe(400);
+    expect(
+      (
+        await answer('p1-0001', {
+          questionId: 'z1',
+          method: 'typed',
+          correct: 'yes',
+        })
+      ).status,
+    ).toBe(400);
   });
 });
