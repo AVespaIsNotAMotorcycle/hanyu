@@ -1,0 +1,80 @@
+{
+  "_id": "l1-0022",
+  "level": 1,
+  "text": "我在大学学汉语。我喜欢和同学说汉语,老师对我们很好。",
+  "textEnglish": "I study Chinese at university. I like speaking Chinese with my classmates, and the teacher is very good to us.",
+  "topic": "Studying Chinese with classmates",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-022",
+      "example": "和同学说汉语"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "他喜欢和谁说汉语?",
+      "promptEnglish": "Who does he like to speak Chinese with?",
+      "options": [
+        "老师",
+        "同学",
+        "朋友",
+        "妈妈"
+      ],
+      "answer": 1,
+      "explanation": "He says 我喜欢和同学说汉语, meaning he likes speaking Chinese with his classmates. The teacher is mentioned only as being good to them."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "老师对他们怎么样?",
+      "promptEnglish": "How is the teacher to them?",
+      "options": [
+        "很忙",
+        "很好",
+        "很高兴",
+        "很漂亮"
+      ],
+      "answer": 1,
+      "explanation": "The speaker says 老师对我们很好, so the teacher is very good to them."
+    }
+  ],
+  "verification": {
+    "tokens": 37,
+    "atOrBelowLevel": 37,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:52:43.622Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "同学",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "很好",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0031
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:52:41.793Z",
+    "attempts": 1,
+    "costUsd": 0.0139
+  }
+}

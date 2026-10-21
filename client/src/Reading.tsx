@@ -368,7 +368,12 @@ function PassageView({
         {passage.questions.map((q) => (
           <li key={q.id}>
             <Question
-              passageId={passage._id}
+              answersPath={`/passages/${encodeURIComponent(passage._id)}/answers`}
+              clip={
+                q.type === 'choice'
+                  ? audioKeys.prompt(passage._id, q.id)
+                  : audioKeys.cloze(passage._id, q.id)
+              }
               question={q}
               english={english}
               user={user}
@@ -551,17 +556,21 @@ function WordLookup({
 /**
  * A question with the user's record on it (never their earlier answer, so
  * it always starts blank). Each answer is recorded, and Try again asks it
- * afresh.
+ * afresh. Listening exercises use it too.
  */
-function Question({
-  passageId,
+export function Question({
+  answersPath,
+  clip,
   question,
   english,
   user,
   progress,
   onProgress,
 }: {
-  passageId: string;
+  /** Where answers are recorded (POST RecordAnswerRequest). */
+  answersPath: string;
+  /** The recording of the prompt (choice) or filled-in sentence (cloze). */
+  clip: string;
   question: PassageQuestion;
   english: boolean;
   user: AuthUser;
@@ -579,10 +588,7 @@ function Question({
       method,
       correct,
     };
-    postJson<RecordAnswerResponse>(
-      `/passages/${encodeURIComponent(passageId)}/answers`,
-      body,
-    )
+    postJson<RecordAnswerResponse>(answersPath, body)
       .then(({ progress }) => {
         onProgress(progress);
         setSaveError(null);
@@ -598,7 +604,7 @@ function Question({
       {question.type === 'choice' ? (
         <Choice
           key={round}
-          passageId={passageId}
+          clip={clip}
           question={question}
           english={english}
           onAnswer={(correct) => answer(correct, 'choice')}
@@ -606,7 +612,7 @@ function Question({
       ) : (
         <Cloze
           key={round}
-          passageId={passageId}
+          clip={clip}
           question={question}
           user={user}
           onAnswer={answer}
@@ -644,12 +650,12 @@ function QuestionStatus({ progress }: { progress: QuestionProgress | null }) {
 }
 
 function Choice({
-  passageId,
+  clip,
   question,
   english,
   onAnswer,
 }: {
-  passageId: string;
+  clip: string;
   question: ChoiceQuestion;
   english: boolean;
   onAnswer: (correct: boolean) => void;
@@ -660,7 +666,7 @@ function Choice({
       <p lang="zh-Hans">
         <SpeakButton
           text={question.prompt}
-          clip={audioKeys.prompt(passageId, question.id)}
+          clip={clip}
           label="Listen to the question"
         />
         {question.prompt}
@@ -724,12 +730,12 @@ function savedMode(): Mode {
  * choice becomes the default for the next.
  */
 function Cloze({
-  passageId,
+  clip,
   question,
   user,
   onAnswer,
 }: {
-  passageId: string;
+  clip: string;
   question: ClozeQuestion;
   user: AuthUser;
   onAnswer: (correct: boolean, method: 'typed' | 'handwriting') => void;
@@ -767,7 +773,7 @@ function Cloze({
       {result && (
         <SpeakButton
           text={filledCloze(question.sentence, question.answer)}
-          clip={audioKeys.cloze(passageId, question.id)}
+          clip={clip}
           label="Listen to the sentence"
         />
       )}

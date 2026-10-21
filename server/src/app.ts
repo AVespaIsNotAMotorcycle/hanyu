@@ -6,6 +6,7 @@ import { requireAuth } from './auth/requireAuth.js';
 import { audioRouter } from './routes/audio.js';
 import { createAuthRouter } from './routes/auth.js';
 import { healthRouter } from './routes/health.js';
+import { listeningRouter } from './routes/listening.js';
 import { reviewsRouter } from './routes/reviews.js';
 import { settingsRouter } from './routes/settings.js';
 import { contentRouter } from './routes/content.js';
@@ -55,6 +56,7 @@ export function createApp({
   api.use('/settings', settingsRouter);
   api.use(contentRouter);
   api.use('/passages', passagesRouter);
+  api.use('/listening', listeningRouter);
   api.use('/audio', audioRouter);
   api.use('/translations', createTranslationsRouter(grading));
   api.use((_req, res) => {

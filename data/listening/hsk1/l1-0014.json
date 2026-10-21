@@ -1,0 +1,80 @@
+{
+  "_id": "l1-0014",
+  "level": 1,
+  "text": "我女儿今年六岁了,九月一号她要上小学。那天早上七点,我们要起床。",
+  "textEnglish": "My daughter is six years old this year, and on September 1st she will start primary school. That morning we need to get up at seven o'clock.",
+  "topic": "Daughter starting primary school",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-014",
+      "example": "九月一号"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "她几号上小学?",
+      "promptEnglish": "On what date does she start primary school?",
+      "options": [
+        "九月一号",
+        "九月七号",
+        "一月九号",
+        "六月一号"
+      ],
+      "answer": 0,
+      "explanation": "The speaker says 九月一号 (September 1st) is when the daughter starts primary school."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "那天早上几点起床?",
+      "promptEnglish": "What time do they get up that morning?",
+      "options": [
+        "六点",
+        "七点",
+        "八点",
+        "九点"
+      ],
+      "answer": 1,
+      "explanation": "The speaker says 那天早上七点,我们要起床, so they get up at seven o'clock."
+    }
+  ],
+  "verification": {
+    "tokens": 37,
+    "atOrBelowLevel": 37,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:51:15.161Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "九月一号",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "七点",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0031
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:51:13.320Z",
+    "attempts": 1,
+    "costUsd": 0.0171
+  }
+}

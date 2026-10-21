@@ -1,0 +1,80 @@
+{
+  "_id": "l1-0009",
+  "level": 1,
+  "text": "大家好!我家有一只猫,它很小,也很爱睡觉。我们都很喜欢它。",
+  "textEnglish": "Hello everyone! My family has a cat. It is very small, and it also loves to sleep. We all like it very much.",
+  "topic": "Describing my family's pet cat",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-009",
+      "example": "我们都很喜欢它"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "那只猫怎么样?",
+      "promptEnglish": "What is the cat like?",
+      "options": [
+        "很小",
+        "很大",
+        "很贵",
+        "很好看"
+      ],
+      "answer": 0,
+      "explanation": "The speaker says '它很小', meaning the cat is very small. Size is mentioned, but nothing is said about price or looks."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "它爱做什么?",
+      "promptEnglish": "What does it love to do?",
+      "options": [
+        "睡觉",
+        "喝牛奶",
+        "吃鸡蛋",
+        "看电视"
+      ],
+      "answer": 0,
+      "explanation": "The speaker says '也很爱睡觉', so the cat loves to sleep. Milk, eggs and TV are not mentioned."
+    }
+  ],
+  "verification": {
+    "tokens": 36,
+    "atOrBelowLevel": 36,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:50:01.740Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "很小",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "睡觉",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0031
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:50:00.205Z",
+    "attempts": 1,
+    "costUsd": 0.0141
+  }
+}

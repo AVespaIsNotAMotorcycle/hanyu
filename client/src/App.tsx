@@ -3,6 +3,7 @@ import type { AuthResponse, AuthUser, StudyMode } from '@hanyu/shared';
 import { ApiError, getJson, postJson } from './api';
 import { AuthForm } from './AuthForm';
 import { Decks } from './Decks';
+import { Listening } from './Listening';
 import { LocalDataProvider, useLocalData } from './local/LocalData';
 import { LocalStore } from './local/store';
 import { Reading } from './Reading';
@@ -89,7 +90,7 @@ function Home({
 }) {
   const { sync, status } = useLocalData();
   const [studying, setStudying] = useState<StudyMode | null>(null);
-  const [tab, setTab] = useState<'review' | 'read'>('review');
+  const [tab, setTab] = useState<'review' | 'read' | 'listen'>('review');
 
   // The server session ended (expired, or signed out elsewhere). Ask for a
   // sign-in, keeping this device's reviews: the same account picks them up.
@@ -144,10 +145,19 @@ function Home({
           >
             Read
           </button>
+          <button
+            type="button"
+            aria-pressed={tab === 'listen'}
+            onClick={() => setTab('listen')}
+          >
+            Listen
+          </button>
         </nav>
       )}
       {tab === 'read' && !studying ? (
         <Reading user={user} onUserChange={onUserChange} />
+      ) : tab === 'listen' && !studying ? (
+        <Listening user={user} />
       ) : studying ? (
         <StudySession
           user={user}

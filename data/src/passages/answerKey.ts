@@ -77,7 +77,10 @@ interface CheckReply {
   issues: AnswerKeyCheck['issues'];
 }
 
-/** The exercise as the checker sees it: no answers, no explanations. */
+/**
+ * The exercise as the checker sees it: no answers, no explanations. A
+ * listening exercise's text is checked as a passage, as its transcript.
+ */
 export function checkPrompt(
   passage: Pick<Passage, 'title' | 'text' | 'questions'>,
 ) {
@@ -86,7 +89,9 @@ export function checkPrompt(
       ? `${q.id} (multiple choice): ${q.prompt}\n${q.options.map((o, i) => `  ${i}. ${o}`).join('\n')}`
       : `${q.id} (fill in the blank): ${q.sentence}\n  Hint: ${q.hint}`,
   );
-  return `Passage: ${passage.title}\n\n${passage.text}\n\nQuestions:\n\n${questions.join('\n\n')}`;
+  // Listening exercises have no title.
+  const heading = passage.title ? `Passage: ${passage.title}` : 'Passage:';
+  return `${heading}\n\n${passage.text}\n\nQuestions:\n\n${questions.join('\n\n')}`;
 }
 
 /** How a question is named in feedback to the generator. */

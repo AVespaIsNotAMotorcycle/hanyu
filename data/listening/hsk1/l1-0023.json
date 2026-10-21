@@ -1,0 +1,80 @@
+{
+  "_id": "l1-0023",
+  "level": 1,
+  "text": "今天早上我起床很早。我早饭吃了面包和鸡蛋,还喝了牛奶。",
+  "textEnglish": "This morning I got up very early. For breakfast I had bread and eggs, and I also drank milk.",
+  "topic": "What I had for breakfast",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-023",
+      "example": "面包和鸡蛋"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "说话的人早饭吃了什么?",
+      "promptEnglish": "What did the speaker eat for breakfast?",
+      "options": [
+        "面包和鸡蛋",
+        "包子和牛奶",
+        "米饭和鸡蛋",
+        "面条儿和水"
+      ],
+      "answer": 0,
+      "explanation": "The speaker said they ate bread and eggs (面包和鸡蛋) for breakfast."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "说话的人还喝了什么?",
+      "promptEnglish": "What else did the speaker drink?",
+      "options": [
+        "茶",
+        "水",
+        "牛奶",
+        "没有"
+      ],
+      "answer": 2,
+      "explanation": "The speaker said 还喝了牛奶, meaning they also drank milk."
+    }
+  ],
+  "verification": {
+    "tokens": 46,
+    "atOrBelowLevel": 46,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:52:53.774Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "面包和鸡蛋",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "牛奶",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0032
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:52:51.931Z",
+    "attempts": 1,
+    "costUsd": 0.0146
+  }
+}

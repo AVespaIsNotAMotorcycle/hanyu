@@ -1,0 +1,85 @@
+{
+  "_id": "l1-0012",
+  "level": 1,
+  "text": "我今天去书店买书。这本书二十块,那本书三十块,我想买这本。",
+  "textEnglish": "Today I went to the bookstore to buy a book. This book is twenty yuan and that book is thirty yuan. I want to buy this one.",
+  "topic": "Choosing a book at a bookstore",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-012",
+      "example": "这本书二十块"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "这本书多少钱?",
+      "promptEnglish": "How much is this book?",
+      "options": [
+        "十块",
+        "二十块",
+        "三十块",
+        "五十块"
+      ],
+      "answer": 1,
+      "explanation": "The speaker says '这本书二十块', so this book costs twenty yuan. Thirty yuan is the price of the other book."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "他想买哪本书?",
+      "promptEnglish": "Which book does he want to buy?",
+      "options": [
+        "这本书",
+        "那本书",
+        "两本书",
+        "没有书"
+      ],
+      "answer": 0,
+      "explanation": "He says '我想买这本', meaning he wants this book, the twenty-yuan one, not the one that costs thirty."
+    }
+  ],
+  "verification": {
+    "tokens": 34,
+    "atOrBelowLevel": 34,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:50:32.052Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "二十块",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "这本书",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "Question c2 uses 他 although the passage is narrated in the first person (我), so the pronoun does not match; 你 or 我 would be more natural."
+      }
+    ],
+    "costUsd": 0.0037
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:50:29.606Z",
+    "attempts": 1,
+    "costUsd": 0.0136
+  }
+}

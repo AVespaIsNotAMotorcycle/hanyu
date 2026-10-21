@@ -1,0 +1,80 @@
+{
+  "_id": "l1-0015",
+  "level": 1,
+  "text": "今天天气太冷了，还下雪。我想在家看电视，不想去学校。",
+  "textEnglish": "The weather is too cold today, and it's snowing too. I want to stay at home and watch TV; I don't want to go to school.",
+  "topic": "Cold snowy weather and staying home",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-015",
+      "example": "太冷了"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "今天天气怎么样？",
+      "promptEnglish": "What is the weather like today?",
+      "options": [
+        "很热，下雨",
+        "很冷，下雨",
+        "很热，下雪",
+        "很冷，下雪"
+      ],
+      "answer": 3,
+      "explanation": "The speaker says the weather is 太冷了 (too cold) and 还下雪 (it is also snowing)."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "他想做什么？",
+      "promptEnglish": "What does he want to do?",
+      "options": [
+        "去学校",
+        "在家看电视",
+        "去看电影",
+        "在家睡觉"
+      ],
+      "answer": 1,
+      "explanation": "He says 我想在家看电视 (I want to watch TV at home) and that he does not want to go to school."
+    }
+  ],
+  "verification": {
+    "tokens": 39,
+    "atOrBelowLevel": 39,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:51:25.299Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "很冷，下雪",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "在家看电视",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0031
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:51:23.457Z",
+    "attempts": 1,
+    "costUsd": 0.0132
+  }
+}

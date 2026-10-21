@@ -1,0 +1,82 @@
+{
+  "_id": "l1-0001",
+  "level": 1,
+  "text": "大家好，我叫小王。我是大学生，今年是第二年。我很喜欢汉语课。",
+  "textEnglish": "Hello everyone, my name is Xiao Wang. I am a university student, and this year is my second year. I like Chinese class very much.",
+  "topic": "A student introducing himself",
+  "names": [
+    "小王"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g1-001",
+      "example": "第二年"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "小王今年是第几年？",
+      "promptEnglish": "Which year is it for Xiao Wang this year?",
+      "options": [
+        "第一年",
+        "第二年",
+        "第三年",
+        "第四年"
+      ],
+      "answer": 1,
+      "explanation": "He says 今年是第二年, so this is his second year at university."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "小王喜欢什么？",
+      "promptEnglish": "What does Xiao Wang like?",
+      "options": [
+        "电影",
+        "做饭",
+        "汉语课",
+        "电视"
+      ],
+      "answer": 2,
+      "explanation": "He says 我很喜欢汉语课, so he likes Chinese class."
+    }
+  ],
+  "verification": {
+    "tokens": 33,
+    "atOrBelowLevel": 33,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:28:41.894Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "第二年",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "汉语课",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0031
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:28:39.811Z",
+    "attempts": 1,
+    "costUsd": 0.019
+  }
+}

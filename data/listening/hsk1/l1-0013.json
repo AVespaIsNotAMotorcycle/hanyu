@@ -1,0 +1,87 @@
+{
+  "_id": "l1-0013",
+  "level": 1,
+  "text": "你好，我想要一杯茶。我女儿喝牛奶，我朋友喝水，我们都在这儿吃饭。",
+  "textEnglish": "Hello, I'd like a cup of tea. My daughter is drinking milk, my friend is drinking water, and we are all eating here.",
+  "topic": "Ordering drinks at a cafe",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-013",
+      "example": "一杯茶"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "他想要什么？",
+      "promptEnglish": "What does he want?",
+      "options": [
+        "茶",
+        "牛奶",
+        "水",
+        "面包"
+      ],
+      "answer": 0,
+      "explanation": "The speaker says \"我想要一杯茶\", so he wants tea. Milk is for his daughter and water is for his friend."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "谁喝牛奶？",
+      "promptEnglish": "Who is drinking milk?",
+      "options": [
+        "我",
+        "我女儿",
+        "我朋友",
+        "我妈妈"
+      ],
+      "answer": 1,
+      "explanation": "The speaker says \"我女儿喝牛奶\", so his daughter drinks milk. His friend drinks water."
+    }
+  ],
+  "verification": {
+    "tokens": 32,
+    "atOrBelowLevel": 31,
+    "share": 0.96875,
+    "offLevel": [
+      "杯"
+    ]
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:51:01.951Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "茶",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "我女儿",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "Question c1 uses 他 (he) although the passage is narrated in first person by the speaker (我) whose gender is not stated; 他 is slightly inconsistent. Using 说话的人 or 我 would be clearer."
+      }
+    ],
+    "costUsd": 0.004
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:50:59.494Z",
+    "attempts": 3,
+    "costUsd": 0.046
+  }
+}

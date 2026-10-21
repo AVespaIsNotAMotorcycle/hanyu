@@ -1,0 +1,80 @@
+{
+  "_id": "l1-0006",
+  "level": 1,
+  "text": "你现在可以回家了。明天下午两点，你还要来医院。",
+  "textEnglish": "You can go home now. Tomorrow at two in the afternoon, you still need to come to the hospital.",
+  "topic": "A doctor tells a patient what to do",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-006",
+      "example": "你现在可以回家了"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "这个人现在可以做什么？",
+      "promptEnglish": "What can this person do now?",
+      "options": [
+        "回家",
+        "上班",
+        "上学",
+        "看电视"
+      ],
+      "answer": 0,
+      "explanation": "The speaker says '你现在可以回家了', so the person can go home now."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "他什么时候要来医院？",
+      "promptEnglish": "When does he need to come to the hospital?",
+      "options": [
+        "明天上午九点",
+        "明天下午两点",
+        "今天下午两点",
+        "明天下午三点"
+      ],
+      "answer": 1,
+      "explanation": "The speaker says '明天下午两点，你还要来医院', so it is tomorrow at two in the afternoon."
+    }
+  ],
+  "verification": {
+    "tokens": 39,
+    "atOrBelowLevel": 39,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:49:28.154Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "回家",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "明天下午两点",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0031
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:49:26.326Z",
+    "attempts": 1,
+    "costUsd": 0.0145
+  }
+}

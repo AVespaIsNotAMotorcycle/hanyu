@@ -1,8 +1,8 @@
 import { model, Schema } from 'mongoose';
 
-// Every answer to a reading question: whether it was right and how it was
-// given, never the answer itself. Append-only; progress (attempts, best
-// grade) is derived from it.
+// Every answer to a reading or listening question: whether it was right and
+// how it was given, never the answer itself. Append-only; progress
+// (attempts, best grade) is derived from it.
 const questionAnswerSchema = new Schema(
   {
     userId: {
@@ -11,6 +11,8 @@ const questionAnswerSchema = new Schema(
       required: true,
       immutable: true,
     },
+    // A passage (p1-0001) or listening exercise (l1-0001): their IDs never
+    // collide.
     passageId: { type: String, required: true, immutable: true },
     questionId: { type: String, required: true, immutable: true },
     method: {

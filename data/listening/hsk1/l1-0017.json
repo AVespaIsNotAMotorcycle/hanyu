@@ -1,0 +1,80 @@
+{
+  "_id": "l1-0017",
+  "level": 1,
+  "text": "喂,现在我在家。爸爸在看电视,妈妈正在做饭,弟弟在睡觉。",
+  "textEnglish": "Hello, I'm at home right now. Dad is watching TV, Mom is cooking, and my younger brother is sleeping.",
+  "topic": "Telling a friend what the family is doing at home",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-017",
+      "example": "妈妈正在做饭"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "谁在做饭?",
+      "promptEnglish": "Who is cooking?",
+      "options": [
+        "爸爸",
+        "妈妈",
+        "弟弟",
+        "我"
+      ],
+      "answer": 1,
+      "explanation": "The speaker says 妈妈正在做饭, so Mom is cooking."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "弟弟在做什么?",
+      "promptEnglish": "What is the younger brother doing?",
+      "options": [
+        "看电视",
+        "做饭",
+        "睡觉",
+        "看书"
+      ],
+      "answer": 2,
+      "explanation": "The speaker says 弟弟在睡觉, so the younger brother is sleeping. Dad is the one watching TV."
+    }
+  ],
+  "verification": {
+    "tokens": 28,
+    "atOrBelowLevel": 28,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:51:45.253Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "妈妈",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "睡觉",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0031
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:51:43.425Z",
+    "attempts": 1,
+    "costUsd": 0.0143
+  }
+}

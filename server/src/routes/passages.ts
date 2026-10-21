@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import type { Types } from 'mongoose';
 import {
   isHanziToken,
   isHskLevel,
@@ -10,7 +9,6 @@ import {
   type PassagesResponse,
   type PassageSummary,
   type PassageWord,
-  type QuestionProgress,
   type RecordAnswerResponse,
   type WordNote,
 } from '@hanyu/shared';
@@ -20,6 +18,11 @@ import {
   QuestionAnswerModel,
   WordModel,
 } from '../models/index.js';
+import {
+  badRequest,
+  questionProgress,
+  summarize,
+} from '../questionProgress.js';
 
 // Reading passages. They're generated offline and loaded by the seed script;
 // nothing here ever calls an LLM.
@@ -50,51 +53,6 @@ async function wordIdsBySimplified(forms: Iterable<string>) {
     ids.set(simplified, [...(ids.get(simplified) ?? []), _id]);
   }
   return ids;
-}
-
-function badRequest(error: string) {
-  return Object.assign(new Error(error), { status: 400, expose: true });
-}
-
-/** A user's progress on each question answered, by passage. */
-async function questionProgress(
-  userId: Types.ObjectId,
-  passageIds?: string[],
-): Promise<Map<string, QuestionProgress[]>> {
-  const rows = await QuestionAnswerModel.aggregate<{
-    _id: { passageId: string; questionId: string };
-    attempts: number;
-    correct: boolean;
-    lastAnsweredAt: Date;
-  }>([
-    {
-      $match: {
-        userId,
-        ...(passageIds ? { passageId: { $in: passageIds } } : {}),
-      },
-    },
-    {
-      $group: {
-        _id: { passageId: '$passageId', questionId: '$questionId' },
-        attempts: { $sum: 1 },
-        correct: { $max: '$correct' },
-        lastAnsweredAt: { $max: '$createdAt' },
-      },
-    },
-    { $sort: { '_id.passageId': 1, '_id.questionId': 1 } },
-  ]);
-  const byPassage = new Map<string, QuestionProgress[]>();
-  for (const row of rows) {
-    const list = byPassage.get(row._id.passageId) ?? [];
-    list.push({
-      questionId: row._id.questionId,
-      attempts: row.attempts,
-      correct: row.correct,
-      lastAnsweredAt: row.lastAnsweredAt.toISOString(),
-    });
-    byPassage.set(row._id.passageId, list);
-  }
-  return byPassage;
 }
 
 // ?level=N for one level; all passages without it.
@@ -145,19 +103,6 @@ passagesRouter.get('/', async (req, res) => {
   };
   res.json(body);
 });
-
-/** Answered and right, counting only questions the passage still has. */
-function summarize(
-  passage: Pick<Passage, 'questions'>,
-  progress: readonly QuestionProgress[],
-) {
-  const ids = new Set(passage.questions.map((q) => q.id));
-  const current = progress.filter((p) => ids.has(p.questionId));
-  return {
-    answered: current.length,
-    correct: current.filter((p) => p.correct).length,
-  };
-}
 
 passagesRouter.get('/:id', async (req, res) => {
   const passage = await PassageModel.findById(req.params.id).lean<Passage>();

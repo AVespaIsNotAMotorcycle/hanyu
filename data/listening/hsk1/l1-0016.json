@@ -1,0 +1,80 @@
+{
+  "_id": "l1-0016",
+  "level": 1,
+  "text": "今天晚上爸爸做饭。我们家人都喜欢吃饺子,他做的饺子很好吃。",
+  "textEnglish": "Tonight Dad is cooking. Everyone in our family likes eating dumplings, and the dumplings he makes are very tasty.",
+  "topic": "Family dinner with dumplings",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-016",
+      "example": "我们家人都喜欢吃饺子"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "今天晚上谁做饭?",
+      "promptEnglish": "Who is cooking tonight?",
+      "options": [
+        "爸爸",
+        "妈妈",
+        "哥哥",
+        "我"
+      ],
+      "answer": 0,
+      "explanation": "The speaker says 今天晚上爸爸做饭, so Dad is cooking tonight."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "家人都喜欢吃什么?",
+      "promptEnglish": "What does the whole family like to eat?",
+      "options": [
+        "包子",
+        "饺子",
+        "面条儿",
+        "米饭"
+      ],
+      "answer": 1,
+      "explanation": "The speaker says 我们家人都喜欢吃饺子, so everyone in the family likes dumplings."
+    }
+  ],
+  "verification": {
+    "tokens": 32,
+    "atOrBelowLevel": 32,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:51:35.130Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "爸爸",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "饺子",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0031
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:51:33.287Z",
+    "attempts": 1,
+    "costUsd": 0.0144
+  }
+}

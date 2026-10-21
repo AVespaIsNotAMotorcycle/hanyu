@@ -398,7 +398,7 @@ export function SpeechSettings() {
       </span>
       <p className="hint">
         {selected === RECORDED
-          ? `Passages, questions, and HSK words play recordings, kept on this device once played. Anything else is read by ${voice ? 'this device’s voice' : 'nothing: this device has no Mandarin voice'}.`
+          ? `Passages, listening exercises, questions, and HSK words play recordings, kept on this device once played. Anything else is read by ${voice ? 'this device’s voice' : 'nothing: this device has no Mandarin voice'}.`
           : 'For better device voices on iPad or Mac, add a Chinese voice under Settings → Accessibility → Spoken Content → Voices, then reload.'}
       </p>
     </fieldset>

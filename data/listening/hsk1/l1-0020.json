@@ -1,0 +1,80 @@
+{
+  "_id": "l1-0020",
+  "level": 1,
+  "text": "弟弟,现在十点了,你不要玩电脑了,去睡觉吧。明天早上你还要上学。",
+  "textEnglish": "Little brother, it's ten o'clock now. Don't play on the computer anymore, go to bed. You still have school tomorrow morning.",
+  "topic": "Telling a younger brother to stop using the computer at night",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-020",
+      "example": "你不要玩电脑了"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "说话的人不要弟弟做什么?",
+      "promptEnglish": "What does the speaker not want the younger brother to do?",
+      "options": [
+        "看电视",
+        "玩电脑",
+        "做饭",
+        "上学"
+      ],
+      "answer": 1,
+      "explanation": "The speaker says '你不要玩电脑了', meaning 'don't play on the computer anymore'. Going to school is mentioned only as something he must do tomorrow."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "现在几点?",
+      "promptEnglish": "What time is it now?",
+      "options": [
+        "九点",
+        "十点",
+        "十一点",
+        "十二点"
+      ],
+      "answer": 1,
+      "explanation": "The speaker says '现在十点了', so it is ten o'clock."
+    }
+  ],
+  "verification": {
+    "tokens": 33,
+    "atOrBelowLevel": 33,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:52:22.748Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "玩电脑",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "十点",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0031
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:52:20.595Z",
+    "attempts": 1,
+    "costUsd": 0.0161
+  }
+}

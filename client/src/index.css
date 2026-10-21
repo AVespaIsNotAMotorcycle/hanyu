@@ -616,3 +616,17 @@ button.speak[aria-pressed='true'] {
 .badge.minor {
   background: color-mix(in srgb, #b26a00 20%, transparent);
 }
+
+/* Listening: the play button is the main control. */
+.listen-bar {
+  margin: 1.5rem 0 0.25rem;
+}
+
+.listen-bar button.speak {
+  font-size: 1.25rem;
+  padding: 0.5rem 1.25rem;
+}
+
+.transcript {
+  margin: 1.5rem 0 1rem;
+}

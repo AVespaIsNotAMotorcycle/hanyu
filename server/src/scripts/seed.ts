@@ -1,4 +1,4 @@
-// Loads data/seed, data/passages, and data/audio (if recorded) into MongoDB.
+// Loads data/seed, data/passages, data/listening, and data/audio (if recorded) into MongoDB.
 // Usage: npm run seed -w server [-- --force] [-- --prune]
 
 import path from 'node:path';
@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 import { seedAudio } from '../audio.js';
 import { config } from '../config.js';
 import { connectDb } from '../db.js';
-import { seedPassages } from '../passages.js';
+import { seedListening, seedPassages } from '../passages.js';
 import { seedDatabase } from '../seed.js';
 
 // Same relative paths from src/scripts and dist/scripts.
@@ -23,6 +23,7 @@ try {
   const prune = process.argv.includes('--prune');
   await seedDatabase({ seedDir, force, prune });
   await seedPassages({ dir: path.join(dataDir, 'passages'), force, prune });
+  await seedListening({ dir: path.join(dataDir, 'listening'), force, prune });
   await seedAudio({ dir: path.join(dataDir, 'audio'), prune });
 } finally {
   await mongoose.disconnect();

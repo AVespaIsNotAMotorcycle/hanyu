@@ -1,0 +1,80 @@
+{
+  "_id": "l1-0002",
+  "level": 1,
+  "text": "同学们,明天上午我们不上课。请大家八点半到学校外边,我们坐车去电影院。",
+  "textEnglish": "Students, we won't have class tomorrow morning. Everyone, please come to the outside of the school at eight thirty, and we will take a bus to the cinema.",
+  "topic": "Teacher's announcement about a class trip",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-002",
+      "example": "同学们"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "大家在哪儿见?",
+      "promptEnglish": "Where will everyone meet?",
+      "options": [
+        "学校外边",
+        "电影院",
+        "商店",
+        "学校里"
+      ],
+      "answer": 0,
+      "explanation": "The speaker says everyone should come to 学校外边 (outside the school), and from there they will go to the cinema."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "大家几点到?",
+      "promptEnglish": "What time should everyone arrive?",
+      "options": [
+        "八点",
+        "八点半",
+        "九点",
+        "九点半"
+      ],
+      "answer": 1,
+      "explanation": "The speaker says 八点半, which means eight thirty."
+    }
+  ],
+  "verification": {
+    "tokens": 33,
+    "atOrBelowLevel": 33,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:28:54.181Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "学校外边",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "八点半",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0031
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:28:52.179Z",
+    "attempts": 1,
+    "costUsd": 0.0144
+  }
+}

@@ -6,6 +6,7 @@ export * from './content.js';
 export * from './dataset.js';
 export * from './grading.js';
 export * from './handwriting.js';
+export * from './listening.js';
 export * from './llm.js';
 export * from './pinyin.js';
 export * from './passages.js';

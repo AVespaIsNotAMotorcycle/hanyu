@@ -4,6 +4,7 @@
 
 import { CLOZE_BLANK, paragraphs, type Passage } from './passages.js';
 import type { WordNote } from './content.js';
+import type { ListeningExercise } from './listening.js';
 
 /** Azure voice the clips are recorded with (see data/README.md to change it). */
 export const AUDIO_VOICE = 'zh-CN-XiaoxiaoNeural';
@@ -52,6 +53,11 @@ export const audioKeys = {
   /** A cloze sentence with the answer filled in. */
   cloze: (passageId: string, questionId: string) =>
     `passage:${passageId}:c:${questionId}`,
+  /** A listening exercise's text. */
+  listening: (exerciseId: string) => `listening:${exerciseId}`,
+  /** A listening question's prompt. */
+  listeningPrompt: (exerciseId: string, questionId: string) =>
+    `listening:${exerciseId}:q:${questionId}`,
 };
 
 /** A cloze sentence as read aloud: with its answer in the blank. */
@@ -78,6 +84,22 @@ export function passageClips(passage: Passage): ClipSpec[] {
             filledCloze(q.sentence, q.answer),
           ),
     ),
+  ];
+}
+
+/** Every clip a listening exercise has: its text and question prompts. */
+export function listeningClips(exercise: ListeningExercise): ClipSpec[] {
+  return [
+    {
+      key: audioKeys.listening(exercise._id),
+      text: exercise.text,
+      pinyin: null,
+    },
+    ...exercise.questions.map((q) => ({
+      key: audioKeys.listeningPrompt(exercise._id, q.id),
+      text: q.prompt,
+      pinyin: null,
+    })),
   ];
 }
 

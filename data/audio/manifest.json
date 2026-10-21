@@ -1,5 +1,467 @@
 {
   "clips": {
+    "listening:l1-0001": {
+      "hash": "3b23847bb9a18337334f1552637f1efb",
+      "text": "大家好，我叫小王。我是大学生，今年是第二年。我很喜欢汉语课。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 43632
+    },
+    "listening:l1-0001:q:c1": {
+      "hash": "8e0a032c590489aee3649c24a524ef51",
+      "text": "小王今年是第几年？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 13680
+    },
+    "listening:l1-0001:q:c2": {
+      "hash": "6d078b9702396be06e3dd0f294db0e2e",
+      "text": "小王喜欢什么？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "listening:l1-0002": {
+      "hash": "6e64bda6200d62f80b9a7959043a9d55",
+      "text": "同学们,明天上午我们不上课。请大家八点半到学校外边,我们坐车去电影院。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 47520
+    },
+    "listening:l1-0002:q:c1": {
+      "hash": "3ffe1ea23b1619623636e66a54d36c90",
+      "text": "大家在哪儿见?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "listening:l1-0002:q:c2": {
+      "hash": "eac40ff087f773dde683433a86a0a9c8",
+      "text": "大家几点到?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "listening:l1-0003": {
+      "hash": "b5c9b3a940aed73e84392a5df673ede6",
+      "text": "喂，妈妈，我的手机不在桌子上，也不在房间里。我想它在车里，你可以看一下吗？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 46512
+    },
+    "listening:l1-0003:q:c1": {
+      "hash": "73a42dd7686fe9a069614e1c593443e8",
+      "text": "说话的人想手机在哪儿？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 14544
+    },
+    "listening:l1-0004": {
+      "hash": "aed3091a2b1d863abf8a30d20706c7fb",
+      "text": "我妈妈会做饭，她做的饺子很好吃。今天晚上你能来我家吃饭吗？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 38448
+    },
+    "listening:l1-0004:q:c1": {
+      "hash": "9246b6db16b75664403f6aac46714ea6",
+      "text": "谁会做饭？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "listening:l1-0004:q:c2": {
+      "hash": "d23f5b3c503dc35227f5ec2cdcff92ec",
+      "text": "他想请朋友什么时候来他家？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 17280
+    },
+    "listening:l1-0005": {
+      "hash": "f333071eee5987bd2b4668cb6d5c5fb2",
+      "text": "明天是星期日，我不上班。上午我想去书店买书，下午我要在家做饭。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 42336
+    },
+    "listening:l1-0005:q:c1": {
+      "hash": "6fa96289e6a08630728df3bb2504cb81",
+      "text": "他上午想做什么？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 12096
+    },
+    "listening:l1-0005:q:c2": {
+      "hash": "bbb76849dd3fa61d5c27ef2da6e8ea97",
+      "text": "他下午要做什么？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11664
+    },
+    "listening:l1-0006": {
+      "hash": "fa46b75c9e796018ce3133ac52c0cbed",
+      "text": "你现在可以回家了。明天下午两点，你还要来医院。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 30384
+    },
+    "listening:l1-0006:q:c1": {
+      "hash": "e5209a0f22ec59573df1875823f60ff9",
+      "text": "这个人现在可以做什么？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 13824
+    },
+    "listening:l1-0006:q:c2": {
+      "hash": "00eb2845f15ca0f9d2039122fe4eaa34",
+      "text": "他什么时候要来医院？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 13104
+    },
+    "listening:l1-0007": {
+      "hash": "e30c3ef7663f87127192e9686471e012",
+      "text": "我爸爸早上八点上班，下午六点下班，晚上十点睡觉。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 31392
+    },
+    "listening:l1-0007:q:c1": {
+      "hash": "4b66caaafdc94a30841dd50056cf86f5",
+      "text": "爸爸几点下班？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "listening:l1-0007:q:c2": {
+      "hash": "48d5802a214e56aa37a4c9d26d1b092d",
+      "text": "爸爸几点睡觉？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11664
+    },
+    "listening:l1-0008": {
+      "hash": "801483ec86a95fc7d4351e94a57ae30e",
+      "text": "喂，妈妈，我在超市。你要什么水果？苹果六块一个，很好吃。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 42192
+    },
+    "listening:l1-0008:q:c1": {
+      "hash": "41d4937fc15858c3335fadd7b584691b",
+      "text": "他现在在哪儿？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "listening:l1-0008:q:c2": {
+      "hash": "fadd0600a5edc2d3aa8f68c2b9ba8d27",
+      "text": "苹果一个多少钱？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 12240
+    },
+    "listening:l1-0009": {
+      "hash": "5cbc23277b6c8eb19dcf3644349ae71b",
+      "text": "大家好!我家有一只猫,它很小,也很爱睡觉。我们都很喜欢它。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 39168
+    },
+    "listening:l1-0009:q:c1": {
+      "hash": "82cab05ebed3e1c18ddb1a5825bc6b41",
+      "text": "那只猫怎么样?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "listening:l1-0009:q:c2": {
+      "hash": "acb0ebf3c4e78c24a9de4cda38e7241d",
+      "text": "它爱做什么?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "listening:l1-0010": {
+      "hash": "5f1bd7d1d8965ca4e43fca9960c64327",
+      "text": "你好,这些苹果很大,五块一个。那些小一点儿,三块一个。你要哪些?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 44784
+    },
+    "listening:l1-0010:q:c1": {
+      "hash": "301135d02440d19a3725a138e624e172",
+      "text": "那些苹果多少钱一个?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 14112
+    },
+    "listening:l1-0011": {
+      "hash": "5c78124e2b15739dfdacde3f59cc48e9",
+      "text": "这件衣服很漂亮,三百六十块。那件便宜,两百八十块。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 36288
+    },
+    "listening:l1-0011:q:c1": {
+      "hash": "5089dbfc44157b0ddecca68e0762021b",
+      "text": "这件衣服多少钱?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 12384
+    },
+    "listening:l1-0011:q:c2": {
+      "hash": "60cb9de9f9a4ba9ea411fabf51ef788a",
+      "text": "那件衣服多少钱?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 12384
+    },
+    "listening:l1-0012": {
+      "hash": "d929c9ed3c1f2a5396929c123d555d69",
+      "text": "我今天去书店买书。这本书二十块,那本书三十块,我想买这本。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 39744
+    },
+    "listening:l1-0012:q:c1": {
+      "hash": "0e1a3aa32fdc61e0d038344dc5bc68cd",
+      "text": "这本书多少钱?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11952
+    },
+    "listening:l1-0012:q:c2": {
+      "hash": "e79dc9037686e9f78025a9b37d592935",
+      "text": "他想买哪本书?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11808
+    },
+    "listening:l1-0013": {
+      "hash": "e0a306f683dfdd2f1834d7c43578d884",
+      "text": "你好，我想要一杯茶。我女儿喝牛奶，我朋友喝水，我们都在这儿吃饭。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 40464
+    },
+    "listening:l1-0013:q:c1": {
+      "hash": "97b57845f881dcbe02a6fc62cf0f8278",
+      "text": "他想要什么？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "listening:l1-0013:q:c2": {
+      "hash": "3a58ac2a4f0baa1597587dc56136aa3b",
+      "text": "谁喝牛奶？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "listening:l1-0014": {
+      "hash": "9c5402847de6f37dc50dbb966dac6f84",
+      "text": "我女儿今年六岁了,九月一号她要上小学。那天早上七点,我们要起床。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 42480
+    },
+    "listening:l1-0014:q:c1": {
+      "hash": "0f2d7de8a0de08ad435c929cff94c49f",
+      "text": "她几号上小学?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11664
+    },
+    "listening:l1-0014:q:c2": {
+      "hash": "4528a086fff9d68d0ad29de0edbe6586",
+      "text": "那天早上几点起床?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 13824
+    },
+    "listening:l1-0015": {
+      "hash": "5a02cc41f6b7fd2d8e319a8beab15976",
+      "text": "今天天气太冷了，还下雪。我想在家看电视，不想去学校。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 37152
+    },
+    "listening:l1-0015:q:c1": {
+      "hash": "b3cbe8995b862c3bf2d34a7a2d831f67",
+      "text": "今天天气怎么样？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11664
+    },
+    "listening:l1-0015:q:c2": {
+      "hash": "7b1e677d4340712b27cbb3a3477607ee",
+      "text": "他想做什么？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "listening:l1-0016": {
+      "hash": "217dc26f2444034e41d5c321e20fd8b0",
+      "text": "今天晚上爸爸做饭。我们家人都喜欢吃饺子,他做的饺子很好吃。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 38880
+    },
+    "listening:l1-0016:q:c1": {
+      "hash": "7d562b0cdebdf6a48b49513ab20c7dfb",
+      "text": "今天晚上谁做饭?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 12816
+    },
+    "listening:l1-0016:q:c2": {
+      "hash": "f86d01df34f481c829f1e7595d0632b0",
+      "text": "家人都喜欢吃什么?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 12816
+    },
+    "listening:l1-0017": {
+      "hash": "dc4b46a29b38f4c7aa9406976cbe5a5e",
+      "text": "喂,现在我在家。爸爸在看电视,妈妈正在做饭,弟弟在睡觉。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 40752
+    },
+    "listening:l1-0017:q:c1": {
+      "hash": "e9340d3d6547a80bcefeae3f9609000b",
+      "text": "谁在做饭?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "listening:l1-0017:q:c2": {
+      "hash": "4e87481a812311d0bef55ac0d20f7b35",
+      "text": "弟弟在做什么?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "listening:l1-0018": {
+      "hash": "70de91db81b2bea145d455e80e966729",
+      "text": "喂,你好!你现在在上课吧?我下午五点再给你打电话。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 32256
+    },
+    "listening:l1-0018:q:c1": {
+      "hash": "97a9674bf757be59d420b6e7e22c1b9f",
+      "text": "他什么时候再打电话?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 13536
+    },
+    "listening:l1-0019": {
+      "hash": "c55e8d17210fe76bdfe97ebb2f428d0e",
+      "text": "今天我和朋友去电影院看电影。我们看了一个电影，还买了水和包子。我朋友也很高兴。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 50400
+    },
+    "listening:l1-0019:q:c1": {
+      "hash": "08d8b5f6dd50a97889e183124db2f944",
+      "text": "他们今天去哪儿？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "listening:l1-0019:q:c2": {
+      "hash": "e979700126d033510be08218e495bc65",
+      "text": "他们还买了什么？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "listening:l1-0020": {
+      "hash": "39a864a5b10c4b3e2f3b9d4295bba259",
+      "text": "弟弟,现在十点了,你不要玩电脑了,去睡觉吧。明天早上你还要上学。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 43056
+    },
+    "listening:l1-0020:q:c1": {
+      "hash": "45d09f70ff4fa2c94ca3b6fc9c66103c",
+      "text": "说话的人不要弟弟做什么?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 15696
+    },
+    "listening:l1-0020:q:c2": {
+      "hash": "088a9dd33aafd5f715810921a4c90771",
+      "text": "现在几点?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "listening:l1-0021": {
+      "hash": "d5acda0679342ab3a1fd00cb2e026123",
+      "text": "我姐姐在医院工作。她早上七点去医院，下午六点下班，晚上在家做饭。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 43344
+    },
+    "listening:l1-0021:q:c1": {
+      "hash": "4f727b2b544669fc3ef9fd5117045c01",
+      "text": "姐姐在哪儿工作？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11376
+    },
+    "listening:l1-0021:q:c2": {
+      "hash": "e1d6c808292caac7d39bc61409b0c398",
+      "text": "姐姐几点下班？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11376
+    },
+    "listening:l1-0022": {
+      "hash": "2604c06a1ee687cd6a72e131ac072470",
+      "text": "我在大学学汉语。我喜欢和同学说汉语,老师对我们很好。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 35424
+    },
+    "listening:l1-0022:q:c1": {
+      "hash": "ddfde8677e58532dbbf67b05a7dd1385",
+      "text": "他喜欢和谁说汉语?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 13824
+    },
+    "listening:l1-0022:q:c2": {
+      "hash": "9d677bda32e3e5cea647b53d91381437",
+      "text": "老师对他们怎么样?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 12240
+    },
+    "listening:l1-0023": {
+      "hash": "d235499eb8ee358885ce45282b0109df",
+      "text": "今天早上我起床很早。我早饭吃了面包和鸡蛋,还喝了牛奶。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 37296
+    },
+    "listening:l1-0023:q:c1": {
+      "hash": "d20cb341bd117c0d4c02a4ceeaa9a381",
+      "text": "说话的人早饭吃了什么?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 15840
+    },
+    "listening:l1-0023:q:c2": {
+      "hash": "b50ea1cab6382e6a2af5a63f4021c533",
+      "text": "说话的人还喝了什么?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 14832
+    },
     "passage:p1-0001:c:z1": {
       "hash": "3b38ae9e6c212529ddc4e96d17ab06f4",
       "text": "我们去那边喝茶。",
@@ -685,6 +1147,727 @@
       "pinyin": null,
       "voice": "zh-CN-XiaoxiaoNeural",
       "bytes": 11520
+    },
+    "passage:p2-0001:c:z1": {
+      "hash": "f204ce4fba750f06c63738ab22d45ec9",
+      "text": "饭馆在大学旁边，很大。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 17136
+    },
+    "passage:p2-0001:c:z2": {
+      "hash": "3b3f9c96a8795ab7c2ff17e8ff834315",
+      "text": "我的右手有点儿疼，所以我让小明帮我拿杯子。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 25632
+    },
+    "passage:p2-0001:c:z3": {
+      "hash": "a1d90c537e23013228d4c38c3a82ecc9",
+      "text": "外面下雨了，但是饭馆里很热。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 19296
+    },
+    "passage:p2-0001:p0": {
+      "hash": "dddc4df6043e823234464f9ab52ff63a",
+      "text": "今天是星期天，我和小明去一个新饭馆吃午饭。饭馆在大学旁边，很大。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 43344
+    },
+    "passage:p2-0001:p1": {
+      "hash": "7aa32a5853284860cdc0d68cb6185b59",
+      "text": "我们进去的时候，里面人很多。小明说：“你看，左边有一个桌子，没有人。”我说：“好，我们坐那里吧。”",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 60336
+    },
+    "passage:p2-0001:p2": {
+      "hash": "69b48dbfc264e06c5d4d80edfb436b11",
+      "text": "桌子上面有茶和水。我问小明：“你要吃什么？”他说：“我想吃面条儿和鱼。”我喜欢吃饺子。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 56160
+    },
+    "passage:p2-0001:p3": {
+      "hash": "b40e2bbdabd8d9b367522d6b12066d48",
+      "text": "我的右手有点儿疼，所以我让小明帮我拿杯子。外面下雨了，但是饭馆里很热。饭很好吃，我们都很高兴。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 60912
+    },
+    "passage:p2-0001:q:c1": {
+      "hash": "d56ef2855a1ccc3dbee537c8eecf65aa",
+      "text": "饭馆在哪里？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "passage:p2-0001:q:c2": {
+      "hash": "c73ffc5db6bc58f81fba04049fa5aa00",
+      "text": "没有人的桌子在哪儿？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 12096
+    },
+    "passage:p2-0001:q:c3": {
+      "hash": "fc77ca047fae43d3c97206e88c9c9070",
+      "text": "小明为什么帮我拿杯子？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 14976
+    },
+    "passage:p2-0001:title": {
+      "hash": "1367280aaa5d0f28c51c8be80ce0c316",
+      "text": "在新饭馆",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "passage:p2-0002:c:z1": {
+      "hash": "6e798eb8a89f5bf5a5357c80b6277d12",
+      "text": "早上我起床很晚,吃了早饭就在家休息休息。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 26784
+    },
+    "passage:p2-0002:c:z2": {
+      "hash": "1f41e1b3dd1d443bce61fa0c79cd5ad7",
+      "text": "我想买一件红色的衣服,就问问那个女士。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 23184
+    },
+    "passage:p2-0002:c:z3": {
+      "hash": "da59e45237c50b04b115a0b2fac4c793",
+      "text": "下午三点,外面真的下雨了。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 18144
+    },
+    "passage:p2-0002:p0": {
+      "hash": "443602aeb7462c19d5f232042b22867d",
+      "text": "今天是星期天,我很累。早上我起床很晚,吃了早饭就在家休息休息。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 42768
+    },
+    "passage:p2-0002:p1": {
+      "hash": "7e266ee2f6fd2e8f4d95c5aad3ce69c0",
+      "text": "小明给我打电话:“你在做什么?我们一起去商场走走吧!”",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 30096
+    },
+    "passage:p2-0002:p2": {
+      "hash": "b68441a319ec718713c79a3d315a43be",
+      "text": "我说:“好啊,但是天气不太好,下午可能下雨。”",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 28512
+    },
+    "passage:p2-0002:p3": {
+      "hash": "f5c276303e4af8e8e4789c9e57127c06",
+      "text": "小明说:“没关系,商场里面不会下雨。”",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 25056
+    },
+    "passage:p2-0002:p4": {
+      "hash": "3e9fb92a09ef742fab5af14ac671c6aa",
+      "text": "我们到了商场,先去书店,在书店看了看书。我想买一件红色的衣服,就问问那个女士。小明说:“你去那边看一看吧。”",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 66528
+    },
+    "passage:p2-0002:p5": {
+      "hash": "327e3bc24b32b02a97abd7b216348fa9",
+      "text": "下午三点,外面真的下雨了。我们坐在咖啡店里,听听歌。小明笑了笑说:“你说对了!”",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 52272
+    },
+    "passage:p2-0002:q:c1": {
+      "hash": "5faa3e0d412b3608b3b9adf710a0c9bc",
+      "text": "他们今天去哪儿?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "passage:p2-0002:q:c2": {
+      "hash": "cf8c3b9a860037a69bf3306aff79ccf7",
+      "text": "我想买什么?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "passage:p2-0002:q:c3": {
+      "hash": "b66cb0d39c3b73cf2b0a2792ff846ec9",
+      "text": "下午三点,天气怎么样?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 16128
+    },
+    "passage:p2-0002:title": {
+      "hash": "d58282cbf23d6fb4a47e21aa72863b4f",
+      "text": "星期天去商场",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 12240
+    },
+    "passage:p2-0003:c:z1": {
+      "hash": "903ccb5a8771428155ccf70003b5f780",
+      "text": "我从小就喜欢游泳。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 13248
+    },
+    "passage:p2-0003:c:z2": {
+      "hash": "33740e2996c8cb33f00cd410fbb2a8b3",
+      "text": "我跑了半个小时。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11952
+    },
+    "passage:p2-0003:c:z3": {
+      "hash": "6593f85de0f47b63569f90a54a382edf",
+      "text": "下午,小红给我打电话。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 15840
+    },
+    "passage:p2-0003:p0": {
+      "hash": "0a1a47157f9b09c6e10fbd00aa633bc5",
+      "text": "今天是星期日,天气很好。早上六点,我起床去学校跑步。我跑了半个小时。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 48816
+    },
+    "passage:p2-0003:p1": {
+      "hash": "5c9ca4eb9439b739e590aff240e7232a",
+      "text": "下午,小红给我打电话。她说:“我想学游泳,但是我不会。你可以帮忙吗?”我说:“好啊,我们一起去吧。”",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 60336
+    },
+    "passage:p2-0003:p2": {
+      "hash": "acf5e40b76051782887f0dcead37aa29",
+      "text": "小红问我:“你为什么游得这么好?”我说:“我从小就喜欢游泳。”",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 33984
+    },
+    "passage:p2-0003:p3": {
+      "hash": "20529d507fb5a33e3a53fe3c3a443122",
+      "text": "晚上,妈妈问我:“你今天为什么这么累?”我说:“我早上跑步,下午游泳,晚上还要跳舞!”",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 49248
+    },
+    "passage:p2-0003:q:c1": {
+      "hash": "b384606afd70053c742627589c33e5ec",
+      "text": "小红想学什么?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11376
+    },
+    "passage:p2-0003:q:c2": {
+      "hash": "49d5c891d36529dbb3b49c87f3772876",
+      "text": "我早上做什么?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "passage:p2-0003:q:c3": {
+      "hash": "1829f6ac5a786cfc32afe045d43a3d88",
+      "text": "晚上我为什么很累?",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 12528
+    },
+    "passage:p2-0003:title": {
+      "hash": "17e646e72bdfee0eda799b8ffe2682a8",
+      "text": "忙的星期日",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "passage:p2-0004:c:z1": {
+      "hash": "363e91cd6b40037093b9bd9d62fd0be8",
+      "text": "我现在一个人住，每天都自己做饭。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 20448
+    },
+    "passage:p2-0004:c:z2": {
+      "hash": "b8ba6caeabca8d840faf50758c2f07ad",
+      "text": "今天是星期天，我去超市买了鱼和鸡蛋。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 24048
+    },
+    "passage:p2-0004:c:z3": {
+      "hash": "cfd7d2a7d7698fb055be24a94a0fe68b",
+      "text": "去年我不会做饭，每天吃面包。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 19440
+    },
+    "passage:p2-0004:p0": {
+      "hash": "345bda82ec6ad0561248c2f1d1271242",
+      "text": "我叫小明，今年二十岁，是大学生。我现在一个人住，每天都自己做饭。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 42624
+    },
+    "passage:p2-0004:p1": {
+      "hash": "7ae76957a8e0290dec25aec43c75ecbe",
+      "text": "去年我不会做饭，每天吃面包。妈妈说：“这样不好，你要自己学做饭。”",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 41616
+    },
+    "passage:p2-0004:p2": {
+      "hash": "712d72e0e90d532928df3ac1e6b9844a",
+      "text": "今天是星期天，我去超市买了鱼和鸡蛋。做饭没有我想的那么累。我给朋友打电话：“你能来我家吃饭吗？”",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 57888
+    },
+    "passage:p2-0004:p3": {
+      "hash": "3fc9bc8f00744b7dc291f751bea91b95",
+      "text": "朋友来了，看见桌子上的鱼，说：“这么好吃的鱼，是你自己做的吗？”我说：“对，是我自己做的。”他说：“你每天都这样做饭吗？”我说：“不是，我只在星期天这样做。”",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 94032
+    },
+    "passage:p2-0004:q:c1": {
+      "hash": "ae50e13af405ef4fd551d7d5f70ed52b",
+      "text": "小明现在和谁住？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 13248
+    },
+    "passage:p2-0004:q:c2": {
+      "hash": "f6109c4073cd9ff86ec07a3594c5a7ac",
+      "text": "妈妈要小明做什么？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 13248
+    },
+    "passage:p2-0004:q:c3": {
+      "hash": "3876ceff409d9050c8252bcee0749c9c",
+      "text": "小明今天做了什么菜？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 13824
+    },
+    "passage:p2-0004:title": {
+      "hash": "cca73f382a98546e1aac5279b0104410",
+      "text": "我自己做饭",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "passage:p2-0005:c:z1": {
+      "hash": "5982a2fca9394038815e72d0e0a82622",
+      "text": "我买了一个小小的白色书包，一百多块。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 22176
+    },
+    "passage:p2-0005:c:z2": {
+      "hash": "147a365992958555825c7e46f5bd1f5b",
+      "text": "我们还看见一个大电视，要一万多块！",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 21024
+    },
+    "passage:p2-0005:c:z3": {
+      "hash": "34cf2c2ee99738fc871bc0fdfd584d1e",
+      "text": "这件衣服两千多块，太贵了。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 19008
+    },
+    "passage:p2-0005:p0": {
+      "hash": "5d2ef8faabaa34912c312a0462156272",
+      "text": "今天是星期天，天气很好。我和妈妈去商场买东西。商场里人好多，大家都高高兴兴的。我看见一件红色的衣服，长长的，很漂亮。妈妈说：“这件衣服两千多块，太贵了。”我说：“那我们去那边看看吧。”那边有一个小店，里面有很多书包。我买了一个小小的白色书包，一百多块。妈妈也买了一件新衣服，穿上漂漂亮亮的。我们还看见一个大电视，要一万多块！妈妈笑了，说：“我们不买它。”",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 225360
+    },
+    "passage:p2-0005:q:c1": {
+      "hash": "49354777d6d5ff24b418b1bf8d5c5f6e",
+      "text": "星期天我和妈妈去哪儿了？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 15984
+    },
+    "passage:p2-0005:q:c2": {
+      "hash": "9afd01791d83dd70b5058d038035ad96",
+      "text": "妈妈觉得红色的衣服怎么样？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 17280
+    },
+    "passage:p2-0005:q:c3": {
+      "hash": "562471f0e59b9ad02ccf4f254a97b1ff",
+      "text": "我买了什么？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "passage:p2-0005:title": {
+      "hash": "d70ea44313760ea09ac7d5bed96c04de",
+      "text": "在商场",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "passage:p2-0006:c:z1": {
+      "hash": "66bd59f5b3b536b6477cb545e5c17f84",
+      "text": "他买了一条鱼、一包面条儿和一些水果。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 23616
+    },
+    "passage:p2-0006:c:z2": {
+      "hash": "3e1b309ba9d32eaf992062d490d46fc3",
+      "text": "回到家，他就开始做饭。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 15984
+    },
+    "passage:p2-0006:c:z3": {
+      "hash": "5ad4620300a5799dcead497408193237",
+      "text": "小明的房间不大，但是很漂亮。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 19584
+    },
+    "passage:p2-0006:p0": {
+      "hash": "30b113eda1ef91c56b1c23ba1c454e2c",
+      "text": "小明是一名大学生。今天是星期天，他请两位朋友来家里吃饭。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 38448
+    },
+    "passage:p2-0006:p1": {
+      "hash": "e2ac7cb97ef3363493129d4e9ffc29f9",
+      "text": "早上，他去超市买东西。他买了一条鱼、一包面条儿和一些水果。回到家，他就开始做饭。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 54432
+    },
+    "passage:p2-0006:p2": {
+      "hash": "574f00653089b9b39594e7d885cf28be",
+      "text": "小明的房间不大，但是很漂亮。朋友们十二点来了。他们说：“你做的鱼真好吃！”大家一起吃饭，一起说话，非常高兴。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 70848
+    },
+    "passage:p2-0006:p3": {
+      "hash": "2140f0bfac0360e010aa548c2fc6beb8",
+      "text": "下午，朋友说：“明天我们请你去那间新饭馆吃饭吧。”",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 31680
+    },
+    "passage:p2-0006:q:c1": {
+      "hash": "cee51220e3f95c5c9601f50677c98fd6",
+      "text": "小明请几位朋友来家里吃饭？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 18288
+    },
+    "passage:p2-0006:q:c2": {
+      "hash": "ed4545fb177b5206a77fe984e5d3423f",
+      "text": "小明在超市没有买什么？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 15552
+    },
+    "passage:p2-0006:q:c3": {
+      "hash": "90e982e2cdc8e5ed3d724e26a64aa14a",
+      "text": "明天他们想去哪儿吃饭？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 13824
+    },
+    "passage:p2-0006:title": {
+      "hash": "d5676ad4d55e6384bc3ce41533033702",
+      "text": "请朋友吃饭",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "passage:p2-0007:c:z1": {
+      "hash": "046c21278eb1a47e4aa4dd26a68399da",
+      "text": "我一个星期吃三次饺子。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 15984
+    },
+    "passage:p2-0007:c:z2": {
+      "hash": "1cfb97c123e0954bd15a1dcc60aff88f",
+      "text": "明年我还想再去一次。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 14112
+    },
+    "passage:p2-0007:c:z3": {
+      "hash": "50b01e6bff66c208d3d323d8ce38d40e",
+      "text": "有一次，我在饭店看见了我的汉语老师。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 23184
+    },
+    "passage:p2-0007:p0": {
+      "hash": "f27776407b9dd8691e3cb7fc89b9b965",
+      "text": "今年我去了中国旅游。这是我第一次去中国，我好高兴！",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 33264
+    },
+    "passage:p2-0007:p1": {
+      "hash": "697b61401e81173b481794307148aded",
+      "text": "在中国，我最喜欢吃饺子。我一个星期吃三次饺子。饭店里的人很多，饺子也很好吃。中国的东西很便宜，我还给妈妈买了一件红色的衣服。她会很高兴。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 89424
+    },
+    "passage:p2-0007:p2": {
+      "hash": "0b08fae15aed6f3bc4a0e3358b1f039e",
+      "text": "有一次，我在饭店看见了我的汉语老师。我对他说汉语，他说：“你说得多好啊！”我很不好意思，但是也很高兴。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 63792
+    },
+    "passage:p2-0007:p3": {
+      "hash": "1cfb97c123e0954bd15a1dcc60aff88f",
+      "text": "明年我还想再去一次。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 14112
+    },
+    "passage:p2-0007:q:c1": {
+      "hash": "69d8d2a389ca1732b16f333bd51c83cb",
+      "text": "这是我第几次去中国？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 14256
+    },
+    "passage:p2-0007:q:c2": {
+      "hash": "e436ccca797f64d21319b68b9a2c0ea1",
+      "text": "我一个星期吃几次饺子？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 15840
+    },
+    "passage:p2-0007:q:c3": {
+      "hash": "f75f51b2ffbac72987054244329a6309",
+      "text": "老师觉得我的汉语怎么样？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 14976
+    },
+    "passage:p2-0007:title": {
+      "hash": "33721ef7e8f9c1314988975daa908d9b",
+      "text": "我在中国",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "passage:p2-0008:c:z1": {
+      "hash": "3a18ced3659b5a9eafed85eefe9a0aeb",
+      "text": "现在已经九点了，我还在睡觉。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 19872
+    },
+    "passage:p2-0008:c:z2": {
+      "hash": "75af9fe353b22d5ab74e2025f3b362bb",
+      "text": "爷爷住在外国，我有时想他。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 18576
+    },
+    "passage:p2-0008:c:z3": {
+      "hash": "c6df7aa38b2b2068845b29001bcc7668",
+      "text": "我们到机场的时候，爷爷已经在门口了。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 22320
+    },
+    "passage:p2-0008:p0": {
+      "hash": "d8327bcc149d3be836d9936ca9162362",
+      "text": "今天是星期天，天气很好。现在已经九点了，我还在睡觉。妈妈说：“快起来！今天我们一起去机场，爷爷快要到了。”我很高兴。爷爷住在外国，我有时想他。弟弟正在洗手，他说：“我们坐地铁去吧。”我说：“好，地铁很快。”我们到机场的时候，爷爷已经在门口了。他笑着说：“你们好！”他给我一本书。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 181008
+    },
+    "passage:p2-0008:q:c1": {
+      "hash": "e689839f14a1cec05b298c218c923fcb",
+      "text": "谁快要到机场了？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11952
+    },
+    "passage:p2-0008:q:c2": {
+      "hash": "1c81c0a842a043b0187daad90ea145d4",
+      "text": "他们怎么去机场？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "passage:p2-0008:q:c3": {
+      "hash": "09c1107c6703ba422669e707b398762d",
+      "text": "妈妈叫我的时候，我在做什么？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 17568
+    },
+    "passage:p2-0008:title": {
+      "hash": "893a218efa14b2e53e39576f75f76651",
+      "text": "去机场",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "passage:p2-0009:c:z1": {
+      "hash": "083a5a9adf462886eec99532f9cca675",
+      "text": "他家离学校很远，所以他经常坐地铁去上课。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 26784
+    },
+    "passage:p2-0009:c:z2": {
+      "hash": "d7afe5228d6fc4b35d07e46cc6b467b7",
+      "text": "他经常去那里买面包和牛奶。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 17856
+    },
+    "passage:p2-0009:c:z3": {
+      "hash": "c2a0eb9c9d51016aa91f260f4859f34f",
+      "text": "今天天气很冷，你别忘了多穿一件衣服。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 22896
+    },
+    "passage:p2-0009:p0": {
+      "hash": "3fcaf8664204dcabd70690ed693ac4a5",
+      "text": "小明是大学生。他家离学校很远，所以他经常坐地铁去上课。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 37872
+    },
+    "passage:p2-0009:p1": {
+      "hash": "ada49f03325a6aa5df128777d6fef4e1",
+      "text": "今天早上，妈妈给他打电话：“今天天气很冷，你别忘了多穿一件衣服。”小明说：“好，我知道了。谢谢妈妈。”",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 63792
+    },
+    "passage:p2-0009:p2": {
+      "hash": "a0a299795b5d43b3a1dc704880f2221f",
+      "text": "在路上，他看见一家面包店。那里的面包很好吃，也很便宜。他经常去那里买面包和牛奶。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 53856
+    },
+    "passage:p2-0009:p3": {
+      "hash": "099dab7d87795972aa5f2fd1fa930305",
+      "text": "到学校，朋友问他：“你为什么经常吃面包？”小明说：“因为很好吃。”朋友说：“好吃也别吃太多，对身体不好。”",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 64944
+    },
+    "passage:p2-0009:q:c1": {
+      "hash": "e8df0029d8c8ee00110e7007bd0c3299",
+      "text": "小明怎么去上课？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 12240
+    },
+    "passage:p2-0009:q:c2": {
+      "hash": "454b72fd6bdf5009631abe4e971ed356",
+      "text": "妈妈给小明打电话，说什么？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 18144
+    },
+    "passage:p2-0009:q:c3": {
+      "hash": "9af77a7f447ed450ed5a3d1a29d757d9",
+      "text": "朋友说什么？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "passage:p2-0009:title": {
+      "hash": "5d5171ea04cdd047022f4e1e30dd7151",
+      "text": "别忘了穿衣服",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "passage:p2-0010:c:z1": {
+      "hash": "f207739a03167e7a9a3a75923bba9518",
+      "text": "今天是星期天，天气很好。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 18432
+    },
+    "passage:p2-0010:c:z2": {
+      "hash": "7be83709ecd527e204c664b1aec81f77",
+      "text": "他想吃面包，但是妈妈做了鸡蛋和米饭。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 23616
+    },
+    "passage:p2-0010:c:z3": {
+      "hash": "0ff0eecdf3d6d09956d09bdd8811f4af",
+      "text": "超市就在前面，很近。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 15984
+    },
+    "passage:p2-0010:p0": {
+      "hash": "ea5d039147ad7d26f617362cb3fc4152",
+      "text": "今天是星期天，天气很好。现在都十点了，小明还在睡觉。妈妈说：“小明，起床吧！”小明说：“我很累，再睡一会儿吧。”妈妈说：“你起床就可以吃早饭。”十分钟后，小明起来了。他想吃面包，但是妈妈做了鸡蛋和米饭。他说：“我不喜欢米饭。”妈妈说：“米饭很好吃，你吃一点儿吧。”他还是不想吃。妈妈笑了：“那我们去超市买面包。超市就在前面，很近。”小明很高兴。",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 223344
+    },
+    "passage:p2-0010:q:c1": {
+      "hash": "d068800e6cbd3b20a4638c394e06b2e9",
+      "text": "小明为什么还在睡觉？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 14400
+    },
+    "passage:p2-0010:q:c2": {
+      "hash": "7b717131373e2155bf5a0c8750a0466f",
+      "text": "小明不喜欢吃什么？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 13104
+    },
+    "passage:p2-0010:q:c3": {
+      "hash": "4ba7d882f8565a3776b19d0a8d4b10bf",
+      "text": "超市怎么样？",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
+    },
+    "passage:p2-0010:title": {
+      "hash": "9e8a5614fefe2e15140dae6b98442c84",
+      "text": "再睡一会儿",
+      "pinyin": null,
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "bytes": 11232
     },
     "sample": {
       "hash": "e26f49838c9a7d3a28880d164b05b1a5",

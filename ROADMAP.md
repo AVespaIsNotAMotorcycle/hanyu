@@ -115,6 +115,7 @@ Estimated time: 1–2 weeks
 - [ ] Use automated checks first (level verification, an LLM answer-key check), and spot-check a sample by hand (checks and `passages:review` built; first hand spot-check still to do)
 - [x] Add tap-to-look-up on any word, with an "add to SRS" action
 - [x] Recommend passages based on SRS state, favoring passages made mostly of known vocabulary
+- [x] Add listening exercises: 1–3 recorded sentences with the text hidden, multiple-choice questions, and unlimited replays
 
 **Milestone:** a library of verified passages for HSK 1–3.
 

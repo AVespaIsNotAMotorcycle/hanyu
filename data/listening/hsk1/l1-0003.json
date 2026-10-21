@@ -1,0 +1,60 @@
+{
+  "_id": "l1-0003",
+  "level": 1,
+  "text": "喂，妈妈，我的手机不在桌子上，也不在房间里。我想它在车里，你可以看一下吗？",
+  "textEnglish": "Hello, Mom, my phone isn't on the table, and it isn't in the room either. I think it's in the car. Can you take a look?",
+  "topic": "Looking for a lost phone",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-003",
+      "example": "桌子上"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "说话的人想手机在哪儿？",
+      "promptEnglish": "Where does the speaker think the phone is?",
+      "options": [
+        "桌子上",
+        "房间里",
+        "车里",
+        "椅子下"
+      ],
+      "answer": 2,
+      "explanation": "The speaker says the phone is not on the table and not in the room, then says \"我想它在车里\" (I think it's in the car)."
+    }
+  ],
+  "verification": {
+    "tokens": 38,
+    "atOrBelowLevel": 38,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:29:06.827Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "车里",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0028
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:29:04.983Z",
+    "attempts": 1,
+    "costUsd": 0.015
+  }
+}

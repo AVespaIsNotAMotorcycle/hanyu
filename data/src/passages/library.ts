@@ -38,13 +38,17 @@ export function readPassages(
     );
 }
 
-/** The next free ID at a level: p1-0001, p1-0002, … */
-export function nextPassageId(existing: readonly Passage[], level: HskLevel) {
+/** The next free ID at a level: p1-0001, p1-0002, … (l1-0001 for listening) */
+export function nextPassageId(
+  existing: readonly Pick<Passage, '_id'>[],
+  level: HskLevel,
+  prefix = 'p',
+) {
   const used = existing
     .map((p) => Number(p._id.split('-')[1]))
     .filter(Number.isFinite);
   const n = (used.length ? Math.max(...used) : 0) + 1;
-  return `p${level}-${String(n).padStart(4, '0')}`;
+  return `${prefix}${level}-${String(n).padStart(4, '0')}`;
 }
 
 export const passageFile = (passage: Passage, root: string = passagesDir) =>
@@ -90,11 +94,9 @@ export function deletePassage(passage: Passage, root: string = passagesDir) {
  * Up to `n` passages to spot-check by hand: chosen at random among those
  * that passed the answer-key check and haven't been reviewed.
  */
-export function pickSample(
-  passages: readonly Passage[],
-  n: number,
-  random: () => number = Math.random,
-): Passage[] {
+export function pickSample<
+  T extends Pick<Passage, 'answerKeyCheck' | 'review'>,
+>(passages: readonly T[], n: number, random: () => number = Math.random): T[] {
   const pool = passages.filter((p) => p.answerKeyCheck?.passed && !p.review);
   // Fisher–Yates, stopping once n are drawn.
   for (let i = 0; i < Math.min(n, pool.length); i++) {
@@ -114,7 +116,9 @@ export interface LibraryStatus {
   reviewed: number;
 }
 
-export function libraryStatus(passages: readonly Passage[]): LibraryStatus {
+export function libraryStatus(
+  passages: readonly Pick<Passage, 'answerKeyCheck' | 'review'>[],
+): LibraryStatus {
   return {
     passages: passages.length,
     checked: passages.filter((p) => p.answerKeyCheck?.passed).length,
@@ -132,7 +136,7 @@ export interface Coverage {
 /** How many passages exercise each of a level's grammar points, least covered first. */
 export function grammarCoverage(
   grammar: readonly GrammarPoint[],
-  passages: readonly Passage[],
+  passages: readonly Pick<Passage, 'grammar'>[],
   level: HskLevel,
 ): Coverage[] {
   const counts = new Map<string, number>();

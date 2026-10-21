@@ -1,0 +1,60 @@
+{
+  "_id": "l1-0010",
+  "level": 1,
+  "text": "你好,这些苹果很大,五块一个。那些小一点儿,三块一个。你要哪些?",
+  "textEnglish": "Hello, these apples are big, five yuan each. Those are a bit smaller, three yuan each. Which ones do you want?",
+  "topic": "Choosing apples at a fruit stall",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-010",
+      "example": "这些苹果很大"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "那些苹果多少钱一个?",
+      "promptEnglish": "How much is each of those apples?",
+      "options": [
+        "两块",
+        "三块",
+        "五块",
+        "八块"
+      ],
+      "answer": 1,
+      "explanation": "The speaker says the big apples (这些) are five yuan each, and the smaller ones (那些) are three yuan each, so the answer is 三块."
+    }
+  ],
+  "verification": {
+    "tokens": 23,
+    "atOrBelowLevel": 23,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:50:11.981Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "三块",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0041
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:50:09.427Z",
+    "attempts": 1,
+    "costUsd": 0.0133
+  }
+}

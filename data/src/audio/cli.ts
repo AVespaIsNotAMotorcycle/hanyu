@@ -1,7 +1,7 @@
 // Recorded audio CLI (Azure neural text-to-speech).
 //
 //   npm run audio:generate [-- --levels 1,2] [--no-words] [--no-passages]
-//                          [--max-cost 2] [--concurrency 4] [--dry-run]
+//                          [--no-listening] [--max-cost 2] [--concurrency 4] [--dry-run]
 //   npm run audio:sample -- 你好 [--voice zh-CN-YunxiNeural] [--pinyin 'ni3 hao3']
 //   npm run audio:status
 //
@@ -17,12 +17,14 @@ import {
   audioKeys,
   HSK_LEVELS,
   isHskLevel,
+  listeningClips,
   passageClips,
   wordClips,
   type ClipSpec,
   type HskLevel,
 } from '@hanyu/shared';
 import { loadSeedContent } from '../passages/content.js';
+import { readExercises } from '../listening/library.js';
 import { readPassages } from '../passages/library.js';
 import {
   billedCharacters,
@@ -40,6 +42,7 @@ const { positionals, values } = parseArgs({
     levels: { type: 'string' },
     'no-words': { type: 'boolean', default: false },
     'no-passages': { type: 'boolean', default: false },
+    'no-listening': { type: 'boolean', default: false },
     'max-cost': { type: 'string', default: '2' },
     concurrency: { type: 'string', default: '4' },
     'dry-run': { type: 'boolean', default: false },
@@ -70,7 +73,7 @@ function levelsArg(): HskLevel[] {
   return levels as HskLevel[];
 }
 
-/** Every clip for the chosen levels: passages, then words. */
+/** Every clip for the chosen levels: passages, listening, then words. */
 function allClips(levels: readonly HskLevel[]): ClipSpec[] {
   const clips: ClipSpec[] = [
     { key: audioKeys.sample, text: AUDIO_SAMPLE, pinyin: null },
@@ -79,6 +82,13 @@ function allClips(levels: readonly HskLevel[]): ClipSpec[] {
     for (const level of levels) {
       for (const passage of readPassages(level)) {
         clips.push(...passageClips(passage));
+      }
+    }
+  }
+  if (!values['no-listening']) {
+    for (const level of levels) {
+      for (const exercise of readExercises(level)) {
+        clips.push(...listeningClips(exercise));
       }
     }
   }

@@ -17,6 +17,10 @@
     "grader:learner-set": "tsx --env-file-if-exists=../.env src/grader/cli.ts learner-set",
     "grader:eval": "tsx --env-file-if-exists=../.env src/grader/cli.ts eval",
     "grader:consistency": "tsx --env-file-if-exists=../.env src/grader/cli.ts consistency",
+    "listening:generate": "tsx --env-file-if-exists=../.env src/listening/cli.ts generate",
+    "listening:check": "tsx --env-file-if-exists=../.env src/listening/cli.ts check",
+    "listening:review": "tsx src/listening/cli.ts review",
+    "listening:coverage": "tsx src/listening/cli.ts coverage",
     "audio:generate": "tsx --env-file-if-exists=../.env src/audio/cli.ts generate",
     "audio:sample": "tsx --env-file-if-exists=../.env src/audio/cli.ts sample",
     "audio:status": "tsx src/audio/cli.ts status"

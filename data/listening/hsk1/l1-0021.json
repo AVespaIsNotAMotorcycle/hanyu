@@ -1,0 +1,80 @@
+{
+  "_id": "l1-0021",
+  "level": 1,
+  "text": "我姐姐在医院工作。她早上七点去医院，下午六点下班，晚上在家做饭。",
+  "textEnglish": "My older sister works at a hospital. She goes to the hospital at seven in the morning, finishes work at six in the afternoon, and cooks at home in the evening.",
+  "topic": "Where my sister works and her day",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-021",
+      "example": "在医院工作"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "姐姐在哪儿工作？",
+      "promptEnglish": "Where does the older sister work?",
+      "options": [
+        "学校",
+        "医院",
+        "商店",
+        "公司"
+      ],
+      "answer": 1,
+      "explanation": "The speaker says \"我姐姐在医院工作\", so she works at a hospital."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "姐姐几点下班？",
+      "promptEnglish": "What time does the older sister finish work?",
+      "options": [
+        "下午四点",
+        "下午五点",
+        "下午六点",
+        "晚上七点"
+      ],
+      "answer": 2,
+      "explanation": "The speaker says she finishes work at \"下午六点\", which is six in the afternoon."
+    }
+  ],
+  "verification": {
+    "tokens": 35,
+    "atOrBelowLevel": 35,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:52:32.883Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "医院",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "下午六点",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0031
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:52:31.042Z",
+    "attempts": 1,
+    "costUsd": 0.0136
+  }
+}

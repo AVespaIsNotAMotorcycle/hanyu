@@ -1,0 +1,93 @@
+{
+  "_id": "l1-0019",
+  "level": 1,
+  "text": "今天我和朋友去电影院看电影。我们看了一个电影，还买了水和包子。我朋友也很高兴。",
+  "textEnglish": "Today my friend and I went to the cinema to watch a movie. We watched a movie, and also bought water and baozi. My friend was happy too.",
+  "topic": "A trip to the cinema with a friend",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-019",
+      "example": "还买了水和包子"
+    },
+    {
+      "grammarId": "g1-019",
+      "example": "我朋友也很高兴"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "他们今天去哪儿？",
+      "promptEnglish": "Where did they go today?",
+      "options": [
+        "书店",
+        "超市",
+        "电影院",
+        "饭店"
+      ],
+      "answer": 2,
+      "explanation": "The speaker says they went to the cinema (去电影院看电影)."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "他们还买了什么？",
+      "promptEnglish": "What else did they buy?",
+      "options": [
+        "茶和面包",
+        "水和包子",
+        "牛奶和苹果",
+        "水和鸡蛋"
+      ],
+      "answer": 1,
+      "explanation": "The speaker says 还买了水和包子: they also bought water and baozi."
+    }
+  ],
+  "verification": {
+    "tokens": 49,
+    "atOrBelowLevel": 49,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:52:10.458Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "电影院",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "水和包子",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The sentence 我朋友也很高兴 uses 也 (also), but the passage never says that the narrator was happy, so 也 has no antecedent. Adding something like 我很高兴 first would fix this."
+      },
+      {
+        "severity": "minor",
+        "description": "我们看了一个电影 is slightly unnatural. 一部电影 is the more natural measure word for a film."
+      }
+    ],
+    "costUsd": 0.0044
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:52:07.711Z",
+    "attempts": 1,
+    "costUsd": 0.017
+  }
+}

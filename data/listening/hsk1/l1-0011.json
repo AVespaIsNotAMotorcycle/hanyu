@@ -1,0 +1,80 @@
+{
+  "_id": "l1-0011",
+  "level": 1,
+  "text": "这件衣服很漂亮,三百六十块。那件便宜,两百八十块。",
+  "textEnglish": "This piece of clothing is very pretty; it is 360 yuan. That one is cheaper, 280 yuan.",
+  "topic": "Prices at a clothes shop",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-011",
+      "example": "三百六十块"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "这件衣服多少钱?",
+      "promptEnglish": "How much is this piece of clothing?",
+      "options": [
+        "两百六十块",
+        "三百六十块",
+        "三百八十块",
+        "两百八十块"
+      ],
+      "answer": 1,
+      "explanation": "The speaker says the pretty one is 三百六十块, which is 360 yuan."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "那件衣服多少钱?",
+      "promptEnglish": "How much is that piece of clothing?",
+      "options": [
+        "两百八十块",
+        "三百八十块",
+        "两百六十块",
+        "三百六十块"
+      ],
+      "answer": 0,
+      "explanation": "The speaker says that one is cheaper, 两百八十块, which is 280 yuan."
+    }
+  ],
+  "verification": {
+    "tokens": 35,
+    "atOrBelowLevel": 35,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:50:21.093Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "三百六十块",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "两百八十块",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0031
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:50:19.879Z",
+    "attempts": 1,
+    "costUsd": 0.0129
+  }
+}

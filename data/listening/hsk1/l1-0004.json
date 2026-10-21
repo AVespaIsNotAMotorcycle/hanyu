@@ -1,0 +1,89 @@
+{
+  "_id": "l1-0004",
+  "level": 1,
+  "text": "我妈妈会做饭，她做的饺子很好吃。今天晚上你能来我家吃饭吗？",
+  "textEnglish": "My mom can cook, and the dumplings she makes are delicious. Can you come to my home for dinner this evening?",
+  "topic": "Inviting a friend to dinner",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-004",
+      "example": "我妈妈会做饭"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "谁会做饭？",
+      "promptEnglish": "Who can cook?",
+      "options": [
+        "他妈妈",
+        "他爸爸",
+        "他朋友",
+        "他姐姐"
+      ],
+      "answer": 0,
+      "explanation": "The speaker says '我妈妈会做饭', so his mom can cook."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "他想请朋友什么时候来他家？",
+      "promptEnglish": "When does he want his friend to come to his home?",
+      "options": [
+        "今天中午",
+        "今天晚上",
+        "明天晚上",
+        "明天中午"
+      ],
+      "answer": 1,
+      "explanation": "He asks '今天晚上你能来我家吃饭吗？', so he means this evening."
+    }
+  ],
+  "verification": {
+    "tokens": 45,
+    "atOrBelowLevel": 45,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:49:08.596Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "他妈妈",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "今天晚上",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "Question c1 and option 0 use 他妈妈 (his mother), but the passage uses first person 我妈妈 (my mother). The speaker's gender is not stated, so 他 is an unmotivated assumption; a neutral phrasing such as 说话人的妈妈 or 我妈妈 would fit the passage better."
+      },
+      {
+        "severity": "minor",
+        "description": "Question c2 says 他想请朋友..., but the passage never states that the addressee is a friend; it only says 你. This is a minor inference, and the pronoun 他 for the speaker has the same gender-assumption issue as in c1."
+      }
+    ],
+    "costUsd": 0.0052
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:49:05.228Z",
+    "attempts": 1,
+    "costUsd": 0.0226
+  }
+}

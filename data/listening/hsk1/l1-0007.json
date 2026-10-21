@@ -1,0 +1,80 @@
+{
+  "_id": "l1-0007",
+  "level": 1,
+  "text": "我爸爸早上八点上班，下午六点下班，晚上十点睡觉。",
+  "textEnglish": "My dad goes to work at eight in the morning, finishes work at six in the afternoon, and goes to sleep at ten in the evening.",
+  "topic": "Describing dad's daily schedule",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-007",
+      "example": "早上八点上班"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "爸爸几点下班？",
+      "promptEnglish": "What time does Dad finish work?",
+      "options": [
+        "五点",
+        "六点",
+        "七点",
+        "八点"
+      ],
+      "answer": 1,
+      "explanation": "The speaker says Dad finishes work at six in the afternoon (下午六点下班). Eight o'clock is when he starts work."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "爸爸几点睡觉？",
+      "promptEnglish": "What time does Dad go to sleep?",
+      "options": [
+        "九点",
+        "十点",
+        "十一点",
+        "十二点"
+      ],
+      "answer": 1,
+      "explanation": "The speaker says he goes to sleep at ten in the evening (晚上十点睡觉)."
+    }
+  ],
+  "verification": {
+    "tokens": 25,
+    "atOrBelowLevel": 25,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:49:39.623Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "六点",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "十点",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0031
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:49:37.370Z",
+    "attempts": 1,
+    "costUsd": 0.0139
+  }
+}

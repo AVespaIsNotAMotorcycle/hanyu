@@ -71,6 +71,24 @@ Generation and checking need `ANTHROPIC_API_KEY` in `.env`. Each passage:
 
 Costs come from the API's reported usage at Sonnet 5.5 prices (`PRICING` in `src/passages/llm.ts`). A run stops before any call that could pass `--max-cost` (default $5 for generation, $1 for checks). Answer-key checks cost under a cent each. Bump `PROMPT_VERSION` when the generation prompt or schema changes, and `CHECK_PROMPT_VERSION` when the check's does.
 
+## Listening Exercises
+
+`src/listening/` generates listening exercises with Claude (`claude-sonnet-5-5`), offline: one to three sentences, read aloud by the recorded voice with the text hidden, and one or two multiple-choice questions that learners read on screen.
+
+```sh
+npm run listening:coverage [-- --level 1]       # exercises, checks, reviews, and grammar coverage
+npm run listening:generate -- --level 1 --count 10 --max-cost 2
+npm run listening:generate -- --level 1 --dry-run   # print the prompts; no API call
+npm run listening:check                         # missing answer-key checks (--force, --max-cost 1)
+npm run listening:review -- --sample 3          # spot-check by hand
+npm run audio:generate                          # record them (Azure)
+npm run db:seed                                 # load data/listening into MongoDB
+```
+
+Each exercise targets the level's least-covered grammar point (`--grammar` picks one) and a situation unlike the level's last 40 (their `topic`s go into the prompt). It must be one paragraph of 1–3 sentences (`countSentences`) in the level's length range, by one speaker, with 4 distinct options per question and the same 95% level check as passages (text, prompts, and options). The passages' answer-key check then answers the questions from the transcript without the key, and failures go back to the model (at most 3 attempts). Files go to `data/listening/hsk<level>/l<level>-<n>.json`, with an English translation (shown as the transcript once every question is answered). `db:seed` refuses exercises under the level threshold or without a passed check. Each costs about $0.015. Bump `PROMPT_VERSION` in `src/listening/generate.ts` when its prompt or schema changes.
+
+Clips are `listening:<id>` (the text) and `listening:<id>:q:<question>` (each prompt). `audio:generate` records them with everything else; `--no-listening` skips them.
+
 ## Translation Grader Evals
 
 The web app grades learners' Chinese → English translations with `gradeTranslation` (`shared/src/grading.ts`, Sonnet 5.5): per-criterion scores (accuracy, completeness, grammar handling, naturalness), errors with quoted spans, and the source words the learner misunderstood. `src/grader/` checks that grader against two sets:
@@ -90,7 +108,7 @@ Results for `claude-sonnet-5-5`, prompt v1 (October 2026, $0.74): calibration pe
 
 ## Recorded Audio
 
-`npm run audio:generate` records read-aloud clips with Azure neural text-to-speech (voice `AUDIO_VOICE` in `shared/src/audio.ts`, `zh-CN-XiaoxiaoNeural`): every passage's title, paragraphs, and question sentences, every HSK word, and the settings page's sample. It needs `AZURE_SPEECH_KEY` and `AZURE_SPEECH_REGION` in `.env`. Clips go to `data/audio/clips/<hash>.mp3` with `data/audio/manifest.json`, both committed (about 125 MB) so any checkout can seed them; `npm run db:seed` loads them into MongoDB, writing only clips that changed. They're left out of the Heroku slug (`.slugignore`), so seed production from a checkout with `MONGODB_URI` set to Atlas. Re-recording everything (a new voice) adds the whole set to git history again, so switch voices sparingly.
+`npm run audio:generate` records read-aloud clips with Azure neural text-to-speech (voice `AUDIO_VOICE` in `shared/src/audio.ts`, `zh-CN-XiaoxiaoNeural`): every passage's title, paragraphs, and question sentences, every listening exercise's text and questions, every HSK word, and the settings page's sample. It needs `AZURE_SPEECH_KEY` and `AZURE_SPEECH_REGION` in `.env`. Clips go to `data/audio/clips/<hash>.mp3` with `data/audio/manifest.json`, both committed (about 125 MB) so any checkout can seed them; `npm run db:seed` loads them into MongoDB, writing only clips that changed. They're left out of the Heroku slug (`.slugignore`), so seed production from a checkout with `MONGODB_URI` set to Atlas. Re-recording everything (a new voice) adds the whole set to git history again, so switch voices sparingly.
 
 - **What gets recorded again:** a clip whose text, forced pinyin, voice, or format changed, or whose file is missing. Runs save as they go, so an interrupted run resumes. `--levels 1,2` narrows it, and `--no-words`/`--no-passages` skip a kind. `--dry-run` prints the count and cost estimate.
 - **Cost:** Azure bills each Chinese character as two. Everything is about 47,000 billed characters, under $1 at list price and within the free tier's monthly allowance. Runs stop above `--max-cost` (default $2).

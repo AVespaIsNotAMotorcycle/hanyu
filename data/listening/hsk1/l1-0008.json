@@ -1,0 +1,80 @@
+{
+  "_id": "l1-0008",
+  "level": 1,
+  "text": "喂，妈妈，我在超市。你要什么水果？苹果六块一个，很好吃。",
+  "textEnglish": "Hello, Mom, I'm at the supermarket. What fruit do you want? Apples are six yuan each, and they're very tasty.",
+  "topic": "Voicemail to mom from the supermarket",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g1-008",
+      "example": "你要什么水果"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "他现在在哪儿？",
+      "promptEnglish": "Where is he now?",
+      "options": [
+        "超市",
+        "书店",
+        "饭店",
+        "学校"
+      ],
+      "answer": 0,
+      "explanation": "He says \"我在超市\", so he is at the supermarket."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "苹果一个多少钱？",
+      "promptEnglish": "How much is one apple?",
+      "options": [
+        "三块",
+        "六块",
+        "八块",
+        "十块"
+      ],
+      "answer": 1,
+      "explanation": "He says \"苹果六块一个\", so one apple costs six yuan."
+    }
+  ],
+  "verification": {
+    "tokens": 30,
+    "atOrBelowLevel": 30,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:49:51.846Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "超市",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "六块",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0031
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:49:49.761Z",
+    "attempts": 1,
+    "costUsd": 0.0147
+  }
+}
