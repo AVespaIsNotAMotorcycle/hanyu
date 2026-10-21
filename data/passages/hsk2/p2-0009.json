@@ -1,0 +1,295 @@
+{
+  "_id": "p2-0009",
+  "level": 2,
+  "title": "别忘了穿衣服",
+  "titleEnglish": "Don't Forget to Wear Clothes",
+  "text": "小明是大学生。他家离学校很远，所以他经常坐地铁去上课。\n\n今天早上，妈妈给他打电话：“今天天气很冷，你别忘了多穿一件衣服。”小明说：“好，我知道了。谢谢妈妈。”\n\n在路上，他看见一家面包店。那里的面包很好吃，也很便宜。他经常去那里买面包和牛奶。\n\n到学校，朋友问他：“你为什么经常吃面包？”小明说：“因为很好吃。”朋友说：“好吃也别吃太多，对身体不好。”",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-017",
+      "example": "他经常坐地铁去上课"
+    },
+    {
+      "grammarId": "g2-018",
+      "example": "你别忘了多穿一件衣服"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "小明怎么去上课？",
+      "promptEnglish": "How does Xiaoming go to class?",
+      "options": [
+        "坐地铁",
+        "开车",
+        "走路",
+        "坐飞机"
+      ],
+      "answer": 0,
+      "explanation": "The passage says 他经常坐地铁去上课, so he usually takes the subway."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "妈妈给小明打电话，说什么？",
+      "promptEnglish": "Mom called Xiaoming. What did she say?",
+      "options": [
+        "别忘了吃早饭",
+        "别忘了多穿一件衣服",
+        "别忘了买牛奶",
+        "别忘了给她打电话"
+      ],
+      "answer": 1,
+      "explanation": "Mom said 今天天气很冷，你别忘了多穿一件衣服 because it is cold today."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "朋友说什么？",
+      "promptEnglish": "What did the friend say?",
+      "options": [
+        "面包很贵",
+        "小明应该多吃面包",
+        "别吃太多面包",
+        "他也喜欢面包店"
+      ],
+      "answer": 2,
+      "explanation": "The friend said 好吃也别吃太多，对身体不好, meaning don't eat too much bread because it isn't good for the body."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "他家离学校很远，所以他经常坐＿＿去上课。",
+      "answer": "地铁",
+      "alsoAccepted": [],
+      "hint": "subway"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "他经常去那里买面包和＿＿。",
+      "answer": "牛奶",
+      "alsoAccepted": [],
+      "hint": "milk"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "今天天气很＿＿，你别忘了多穿一件衣服。",
+      "answer": "冷",
+      "alsoAccepted": [],
+      "hint": "cold"
+    }
+  ],
+  "tokens": [
+    [
+      "小明",
+      "是",
+      "大学生",
+      "。",
+      "他",
+      "家",
+      "离",
+      "学校",
+      "很",
+      "远",
+      "，",
+      "所以",
+      "他",
+      "经常",
+      "坐",
+      "地铁",
+      "去",
+      "上课",
+      "。"
+    ],
+    [
+      "今天",
+      "早上",
+      "，",
+      "妈妈",
+      "给",
+      "他",
+      "打电话",
+      "：",
+      "“",
+      "今天",
+      "天气",
+      "很",
+      "冷",
+      "，",
+      "你",
+      "别",
+      "忘",
+      "了",
+      "多",
+      "穿",
+      "一",
+      "件",
+      "衣服",
+      "。",
+      "”",
+      "小明",
+      "说",
+      "：",
+      "“",
+      "好",
+      "，",
+      "我",
+      "知道",
+      "了",
+      "。",
+      "谢谢",
+      "妈妈",
+      "。",
+      "”"
+    ],
+    [
+      "在",
+      "路上",
+      "，",
+      "他",
+      "看见",
+      "一",
+      "家",
+      "面包",
+      "店",
+      "。",
+      "那里",
+      "的",
+      "面包",
+      "很",
+      "好吃",
+      "，",
+      "也",
+      "很",
+      "便宜",
+      "。",
+      "他",
+      "经常",
+      "去",
+      "那里",
+      "买",
+      "面包",
+      "和",
+      "牛奶",
+      "。"
+    ],
+    [
+      "到",
+      "学校",
+      "，",
+      "朋友",
+      "问",
+      "他",
+      "：",
+      "“",
+      "你",
+      "为什么",
+      "经常",
+      "吃",
+      "面包",
+      "？",
+      "”",
+      "小明",
+      "说",
+      "：",
+      "“",
+      "因为",
+      "很",
+      "好吃",
+      "。",
+      "”",
+      "朋友",
+      "说",
+      "：",
+      "“",
+      "好吃",
+      "也",
+      "别",
+      "吃",
+      "太",
+      "多",
+      "，",
+      "对",
+      "身体",
+      "不",
+      "好",
+      "。",
+      "”"
+    ]
+  ],
+  "translation": [
+    "Xiaoming is a university student. His home is far from school, so he often takes the subway to class.",
+    "This morning, his mom called him: \"It's very cold today. Don't forget to wear an extra layer of clothing.\" Xiaoming said, \"OK, I know. Thanks, Mom.\"",
+    "On the way, he saw a bakery. The bread there is delicious and also very cheap. He often goes there to buy bread and milk.",
+    "When he got to school, a friend asked him, \"Why do you eat bread so often?\" Xiaoming said, \"Because it's delicious.\" His friend said, \"Even if it's delicious, don't eat too much. It's not good for your health.\""
+  ],
+  "verification": {
+    "tokens": 134,
+    "atOrBelowLevel": 131,
+    "share": 0.9776119402985075,
+    "offLevel": [
+      "明",
+      "应该"
+    ]
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:14:53.797Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "坐地铁",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "别忘了多穿一件衣服",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "别吃太多面包",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "地铁",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "牛奶",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "冷",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.005
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:14:51.573Z",
+    "attempts": 2,
+    "costUsd": 0.0488
+  }
+}

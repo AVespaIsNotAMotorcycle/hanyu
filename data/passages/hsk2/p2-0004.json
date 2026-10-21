@@ -1,0 +1,344 @@
+{
+  "_id": "p2-0004",
+  "level": 2,
+  "title": "我自己做饭",
+  "titleEnglish": "I Cook for Myself",
+  "text": "我叫小明，今年二十岁，是大学生。我现在一个人住，每天都自己做饭。\n\n去年我不会做饭，每天吃面包。妈妈说：“这样不好，你要自己学做饭。”\n\n今天是星期天，我去超市买了鱼和鸡蛋。做饭没有我想的那么累。我给朋友打电话：“你能来我家吃饭吗？”\n\n朋友来了，看见桌子上的鱼，说：“这么好吃的鱼，是你自己做的吗？”我说：“对，是我自己做的。”他说：“你每天都这样做饭吗？”我说：“不是，我只在星期天这样做。”",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-007",
+      "example": "每天都自己做饭"
+    },
+    {
+      "grammarId": "g2-007",
+      "example": "是你自己做的吗"
+    },
+    {
+      "grammarId": "g2-008",
+      "example": "每天都自己做饭"
+    },
+    {
+      "grammarId": "g2-008",
+      "example": "这样不好"
+    },
+    {
+      "grammarId": "g2-008",
+      "example": "没有我想的那么累"
+    },
+    {
+      "grammarId": "g2-008",
+      "example": "这么好吃的鱼"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "小明现在和谁住？",
+      "promptEnglish": "Who does Xiaoming live with now?",
+      "options": [
+        "一个人住",
+        "和妈妈住",
+        "和朋友住",
+        "和哥哥住"
+      ],
+      "answer": 0,
+      "explanation": "The passage says '我现在一个人住', so he lives alone."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "妈妈要小明做什么？",
+      "promptEnglish": "What does his mother want Xiaoming to do?",
+      "options": [
+        "去超市买东西",
+        "自己学做饭",
+        "每天吃面包",
+        "给她打电话"
+      ],
+      "answer": 1,
+      "explanation": "His mother says '你要自己学做饭', meaning he should learn to cook for himself."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "小明今天做了什么菜？",
+      "promptEnglish": "What dish did Xiaoming make today?",
+      "options": [
+        "饺子",
+        "面条儿",
+        "鱼",
+        "包子"
+      ],
+      "answer": 2,
+      "explanation": "He bought fish, and his friend says '这么好吃的鱼，是你自己做的吗？', so he cooked fish."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "我现在一个人＿＿，每天都自己做饭。",
+      "answer": "住",
+      "alsoAccepted": [],
+      "hint": "to live (somewhere)"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "今天是星期天，我去超市＿＿了鱼和鸡蛋。",
+      "answer": "买",
+      "alsoAccepted": [],
+      "hint": "to buy"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "去年我不会做饭，每天吃＿＿。",
+      "answer": "面包",
+      "alsoAccepted": [],
+      "hint": "bread"
+    }
+  ],
+  "tokens": [
+    [
+      "我",
+      "叫",
+      "小明",
+      "，",
+      "今年",
+      "二",
+      "十",
+      "岁",
+      "，",
+      "是",
+      "大学生",
+      "。",
+      "我",
+      "现在",
+      "一",
+      "个",
+      "人",
+      "住",
+      "，",
+      "每",
+      "天",
+      "都",
+      "自己",
+      "做饭",
+      "。"
+    ],
+    [
+      "去年",
+      "我",
+      "不",
+      "会",
+      "做饭",
+      "，",
+      "每",
+      "天",
+      "吃",
+      "面包",
+      "。",
+      "妈妈",
+      "说",
+      "：",
+      "“",
+      "这样",
+      "不",
+      "好",
+      "，",
+      "你",
+      "要",
+      "自己",
+      "学",
+      "做饭",
+      "。",
+      "”"
+    ],
+    [
+      "今天",
+      "是",
+      "星期天",
+      "，",
+      "我",
+      "去",
+      "超市",
+      "买",
+      "了",
+      "鱼",
+      "和",
+      "鸡蛋",
+      "。",
+      "做饭",
+      "没有",
+      "我",
+      "想",
+      "的",
+      "那么",
+      "累",
+      "。",
+      "我",
+      "给",
+      "朋友",
+      "打电话",
+      "：",
+      "“",
+      "你",
+      "能",
+      "来",
+      "我",
+      "家",
+      "吃",
+      "饭",
+      "吗",
+      "？",
+      "”"
+    ],
+    [
+      "朋友",
+      "来",
+      "了",
+      "，",
+      "看见",
+      "桌子",
+      "上",
+      "的",
+      "鱼",
+      "，",
+      "说",
+      "：",
+      "“",
+      "这么",
+      "好吃",
+      "的",
+      "鱼",
+      "，",
+      "是",
+      "你",
+      "自己",
+      "做",
+      "的",
+      "吗",
+      "？",
+      "”",
+      "我",
+      "说",
+      "：",
+      "“",
+      "对",
+      "，",
+      "是",
+      "我",
+      "自己",
+      "做",
+      "的",
+      "。",
+      "”",
+      "他",
+      "说",
+      "：",
+      "“",
+      "你",
+      "每",
+      "天",
+      "都",
+      "这样",
+      "做饭",
+      "吗",
+      "？",
+      "”",
+      "我",
+      "说",
+      "：",
+      "“",
+      "不",
+      "是",
+      "，",
+      "我",
+      "只",
+      "在",
+      "星期天",
+      "这样",
+      "做",
+      "。",
+      "”"
+    ]
+  ],
+  "translation": [
+    "My name is Xiaoming. I'm twenty years old and a university student. I live alone now, and I cook for myself every day.",
+    "Last year I couldn't cook, so I ate bread every day. My mother said, \"That's not good. You need to learn to cook for yourself.\"",
+    "Today is Sunday. I went to the supermarket and bought fish and eggs. Cooking wasn't as tiring as I had thought. I called a friend: \"Can you come to my place for dinner?\"",
+    "My friend came, saw the fish on the table, and said, \"Such delicious fish! Did you make it yourself?\" I said, \"Yes, I made it myself.\" He said, \"Do you cook like this every day?\" I said, \"No, I only cook like this on Sundays.\""
+  ],
+  "verification": {
+    "tokens": 146,
+    "atOrBelowLevel": 146,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:12:21.660Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "一个人住",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "自己学做饭",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "鱼",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "住",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "买",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "面包",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The passage says 每天都自己做饭, but at the end Xiaoming says he only cooks \"like this\" on Sundays. Read as \"cooking such an elaborate meal\", this is consistent, but a learner may see it as a contradiction."
+      },
+      {
+        "severity": "minor",
+        "description": "Question c1 asks 和谁住 (who with), but option 0 is 一个人住 (live alone), which doesn't grammatically answer the question. The answer is still clear."
+      }
+    ],
+    "costUsd": 0.0101
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:12:15.021Z",
+    "attempts": 1,
+    "costUsd": 0.0432
+  }
+}

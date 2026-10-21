@@ -1,0 +1,307 @@
+{
+  "_id": "p2-0003",
+  "level": 2,
+  "title": "忙的星期日",
+  "titleEnglish": "A Busy Sunday",
+  "text": "今天是星期日,天气很好。早上六点,我起床去学校跑步。我跑了半个小时。\n\n下午,小红给我打电话。她说:“我想学游泳,但是我不会。你可以帮忙吗?”我说:“好啊,我们一起去吧。”\n\n小红问我:“你为什么游得这么好?”我说:“我从小就喜欢游泳。”\n\n晚上,妈妈问我:“你今天为什么这么累?”我说:“我早上跑步,下午游泳,晚上还要跳舞!”",
+  "names": [
+    "小红"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-005",
+      "example": "你可以帮忙吗"
+    },
+    {
+      "grammarId": "g2-006",
+      "example": "你为什么游得这么好"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "小红想学什么?",
+      "promptEnglish": "What does Xiaohong want to learn?",
+      "options": [
+        "游泳",
+        "跳舞",
+        "跑步",
+        "做饭"
+      ],
+      "answer": 0,
+      "explanation": "Xiaohong says, '我想学游泳,但是我不会', so she wants to learn swimming."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "我早上做什么?",
+      "promptEnglish": "What do I do in the morning?",
+      "options": [
+        "跑步",
+        "游泳",
+        "跳舞",
+        "看电视"
+      ],
+      "answer": 0,
+      "explanation": "The passage says '早上六点,我起床去学校跑步', so the narrator goes running in the morning."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "晚上我为什么很累?",
+      "promptEnglish": "Why am I very tired in the evening?",
+      "options": [
+        "因为我生病了",
+        "因为我早上跑步,下午游泳",
+        "因为我没睡觉",
+        "因为我工作很忙"
+      ],
+      "answer": 1,
+      "explanation": "When Mom asks why the narrator is so tired, the narrator replies that they ran in the morning, swam in the afternoon and still have to dance in the evening."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "我从小就＿＿游泳。",
+      "answer": "喜欢",
+      "alsoAccepted": [
+        "爱"
+      ],
+      "hint": "to like"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "我跑了半个＿＿。",
+      "answer": "小时",
+      "alsoAccepted": [],
+      "hint": "hour"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "下午,小红给我打＿＿。",
+      "answer": "电话",
+      "alsoAccepted": [],
+      "hint": "telephone"
+    }
+  ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期日",
+      ",",
+      "天气",
+      "很",
+      "好",
+      "。",
+      "早上",
+      "六",
+      "点",
+      ",",
+      "我",
+      "起床",
+      "去",
+      "学校",
+      "跑步",
+      "。",
+      "我",
+      "跑",
+      "了",
+      "半",
+      "个",
+      "小时",
+      "。"
+    ],
+    [
+      "下午",
+      ",",
+      "小红",
+      "给",
+      "我",
+      "打电话",
+      "。",
+      "她",
+      "说",
+      ":",
+      "“",
+      "我",
+      "想",
+      "学",
+      "游泳",
+      ",",
+      "但是",
+      "我",
+      "不",
+      "会",
+      "。",
+      "你",
+      "可以",
+      "帮忙",
+      "吗",
+      "?",
+      "”",
+      "我",
+      "说",
+      ":",
+      "“",
+      "好",
+      "啊",
+      ",",
+      "我们",
+      "一起",
+      "去",
+      "吧",
+      "。",
+      "”"
+    ],
+    [
+      "小红",
+      "问",
+      "我",
+      ":",
+      "“",
+      "你",
+      "为什么",
+      "游",
+      "得",
+      "这么",
+      "好",
+      "?",
+      "”",
+      "我",
+      "说",
+      ":",
+      "“",
+      "我",
+      "从小",
+      "就",
+      "喜欢",
+      "游泳",
+      "。",
+      "”"
+    ],
+    [
+      "晚上",
+      ",",
+      "妈妈",
+      "问",
+      "我",
+      ":",
+      "“",
+      "你",
+      "今天",
+      "为什么",
+      "这么",
+      "累",
+      "?",
+      "”",
+      "我",
+      "说",
+      ":",
+      "“",
+      "我",
+      "早上",
+      "跑步",
+      ",",
+      "下午",
+      "游泳",
+      ",",
+      "晚上",
+      "还",
+      "要",
+      "跳舞",
+      "!",
+      "”"
+    ]
+  ],
+  "translation": [
+    "Today is Sunday, and the weather is very nice. At six o'clock in the morning, I got up and went to school to run. I ran for half an hour.",
+    "In the afternoon, Xiaohong called me. She said, \"I want to learn to swim, but I can't. Can you help?\" I said, \"Sure, let's go together.\"",
+    "Xiaohong asked me, \"Why do you swim so well?\" I said, \"I've liked swimming since I was little.\"",
+    "In the evening, Mom asked me, \"Why are you so tired today?\" I said, \"I ran in the morning, swam in the afternoon, and I still have to dance tonight!\""
+  ],
+  "verification": {
+    "tokens": 112,
+    "atOrBelowLevel": 111,
+    "share": 0.9910714285714286,
+    "offLevel": [
+      "没"
+    ]
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:11:51.554Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "游泳",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "跑步",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "因为我早上跑步,下午游泳",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "喜欢",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "小时",
+        "agrees": true,
+        "alternatives": [
+          "钟头"
+        ]
+      },
+      {
+        "questionId": "z3",
+        "given": "电话",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The passage says the narrator goes swimming in the afternoon, but Xiao Hong asks the narrator to help her learn and then asks why the narrator swims so well. The question about 'why' comes right after Xiao Hong says she cannot swim, so the dialogue reads as if the swimming session already happened, though the timeline is not clear. It would be better to add a line such as '我们一起去游泳了'."
+      },
+      {
+        "severity": "minor",
+        "description": "The narrator says 'I still have to dance in the evening' (晚上还要跳舞), but the dancing is only mentioned in the final line and is never set up earlier. The sentence is also a bit odd with 还要 after the narrator is already tired and talking to Mom in the evening; it is not clear whether the dancing happens later or is already done."
+      },
+      {
+        "severity": "minor",
+        "description": "The title '忙的星期日' is unnatural. A more natural title would be '忙碌的星期日' or '很忙的星期日'."
+      },
+      {
+        "severity": "minor",
+        "description": "Question c3 is not fully answered by the passage because the narrator says they are tired from running, swimming and dancing. Option 1 only mentions running and swimming, but it is still the best option."
+      }
+    ],
+    "costUsd": 0.0088
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:11:46.348Z",
+    "attempts": 1,
+    "costUsd": 0.0433
+  }
+}

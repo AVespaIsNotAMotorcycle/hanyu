@@ -1,0 +1,307 @@
+{
+  "_id": "p2-0001",
+  "level": 2,
+  "title": "在新饭馆",
+  "titleEnglish": "At the New Restaurant",
+  "text": "今天是星期天，我和小明去一个新饭馆吃午饭。饭馆在大学旁边，很大。\n\n我们进去的时候，里面人很多。小明说：“你看，左边有一个桌子，没有人。”我说：“好，我们坐那里吧。”\n\n桌子上面有茶和水。我问小明：“你要吃什么？”他说：“我想吃面条儿和鱼。”我喜欢吃饺子。\n\n我的右手有点儿疼，所以我让小明帮我拿杯子。外面下雨了，但是饭馆里很热。饭很好吃，我们都很高兴。",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-001",
+      "example": "桌子上面有茶和水"
+    },
+    {
+      "grammarId": "g2-002",
+      "example": "左边有一个桌子"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "饭馆在哪里？",
+      "promptEnglish": "Where is the restaurant?",
+      "options": [
+        "大学旁边",
+        "医院旁边",
+        "学校里面",
+        "超市旁边"
+      ],
+      "answer": 0,
+      "explanation": "The passage says 饭馆在大学旁边，很大 (the restaurant is next to the university)."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "没有人的桌子在哪儿？",
+      "promptEnglish": "Where is the table with nobody at it?",
+      "options": [
+        "左边",
+        "右边",
+        "外面",
+        "后面"
+      ],
+      "answer": 0,
+      "explanation": "小明 says 左边有一个桌子，没有人 (on the left there is a table with no one)."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "小明为什么帮我拿杯子？",
+      "promptEnglish": "Why does Xiaoming help me hold the cup?",
+      "options": [
+        "我的左手疼",
+        "我的右手疼",
+        "我很忙",
+        "我不喜欢茶"
+      ],
+      "answer": 1,
+      "explanation": "The passage says 我的右手有点儿疼，所以我让小明帮我拿杯子 (my right hand hurts a bit, so I asked him to help)."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "饭馆在大学＿＿，很大。",
+      "answer": "旁边",
+      "alsoAccepted": [],
+      "hint": "next to; beside"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "我的＿＿有点儿疼，所以我让小明帮我拿杯子。",
+      "answer": "右手",
+      "alsoAccepted": [],
+      "hint": "right hand"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "外面＿＿了，但是饭馆里很热。",
+      "answer": "下雨",
+      "alsoAccepted": [],
+      "hint": "to rain"
+    }
+  ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期天",
+      "，",
+      "我",
+      "和",
+      "小明",
+      "去",
+      "一",
+      "个",
+      "新",
+      "饭馆",
+      "吃",
+      "午饭",
+      "。",
+      "饭馆",
+      "在",
+      "大学",
+      "旁边",
+      "，",
+      "很",
+      "大",
+      "。"
+    ],
+    [
+      "我们",
+      "进去",
+      "的",
+      "时候",
+      "，",
+      "里面",
+      "人",
+      "很",
+      "多",
+      "。",
+      "小明",
+      "说",
+      "：",
+      "“",
+      "你",
+      "看",
+      "，",
+      "左边",
+      "有",
+      "一",
+      "个",
+      "桌子",
+      "，",
+      "没有",
+      "人",
+      "。",
+      "”",
+      "我",
+      "说",
+      "：",
+      "“",
+      "好",
+      "，",
+      "我们",
+      "坐",
+      "那里",
+      "吧",
+      "。",
+      "”"
+    ],
+    [
+      "桌子",
+      "上面",
+      "有",
+      "茶",
+      "和",
+      "水",
+      "。",
+      "我",
+      "问",
+      "小明",
+      "：",
+      "“",
+      "你",
+      "要",
+      "吃",
+      "什么",
+      "？",
+      "”",
+      "他",
+      "说",
+      "：",
+      "“",
+      "我",
+      "想",
+      "吃",
+      "面条儿",
+      "和",
+      "鱼",
+      "。",
+      "”",
+      "我",
+      "喜欢",
+      "吃",
+      "饺子",
+      "。"
+    ],
+    [
+      "我",
+      "的",
+      "右",
+      "手",
+      "有点儿",
+      "疼",
+      "，",
+      "所以",
+      "我",
+      "让",
+      "小明",
+      "帮",
+      "我",
+      "拿",
+      "杯子",
+      "。",
+      "外面",
+      "下雨",
+      "了",
+      "，",
+      "但是",
+      "饭馆",
+      "里",
+      "很",
+      "热",
+      "。",
+      "饭",
+      "很",
+      "好吃",
+      "，",
+      "我们",
+      "都",
+      "很",
+      "高兴",
+      "。"
+    ]
+  ],
+  "translation": [
+    "Today is Sunday. Xiaoming and I went to a new restaurant for lunch. The restaurant is next to the university, and it is very big.",
+    "When we went in, there were a lot of people inside. Xiaoming said, \"Look, there's a table on the left with nobody at it.\" I said, \"Great, let's sit there.\"",
+    "There was tea and water on the table. I asked Xiaoming, \"What would you like to eat?\" He said, \"I'd like noodles and fish.\" I like eating dumplings.",
+    "My right hand hurt a little, so I asked Xiaoming to help me get the cup. It had started raining outside, but it was very hot in the restaurant. The food was delicious, and we were both very happy."
+  ],
+  "verification": {
+    "tokens": 134,
+    "atOrBelowLevel": 133,
+    "share": 0.9925373134328358,
+    "offLevel": [
+      "明"
+    ]
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:10:49.808Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "大学旁边",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "左边",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "我的右手疼",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "旁边",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "右手",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "下雨",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The passage uses 一个桌子; the standard measure word for 桌子 is 张 (一张桌子). This is a minor unnaturalness."
+      },
+      {
+        "severity": "minor",
+        "description": "In z3, the blank is followed by 了, and the hint is only 'to rain'. The answer must be 下雨, a two-character verb-object compound, so the blank is slightly ambiguous in length. It is still clear from the passage."
+      }
+    ],
+    "costUsd": 0.0064
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:10:45.201Z",
+    "attempts": 2,
+    "costUsd": 0.0644
+  }
+}

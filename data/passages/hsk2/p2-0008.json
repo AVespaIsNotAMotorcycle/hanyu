@@ -1,0 +1,286 @@
+{
+  "_id": "p2-0008",
+  "level": 2,
+  "title": "去机场",
+  "titleEnglish": "Going to the Airport",
+  "text": "今天是星期天，天气很好。现在已经九点了，我还在睡觉。妈妈说：“快起来！今天我们一起去机场，爷爷快要到了。”我很高兴。爷爷住在外国，我有时想他。弟弟正在洗手，他说：“我们坐地铁去吧。”我说：“好，地铁很快。”我们到机场的时候，爷爷已经在门口了。他笑着说：“你们好！”他给我一本书。",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g2-015",
+      "example": "今天我们一起去机场"
+    },
+    {
+      "grammarId": "g2-016",
+      "example": "现在已经九点了"
+    },
+    {
+      "grammarId": "g2-016",
+      "example": "我还在睡觉"
+    },
+    {
+      "grammarId": "g2-016",
+      "example": "我有时想他"
+    },
+    {
+      "grammarId": "g2-016",
+      "example": "快起来"
+    },
+    {
+      "grammarId": "g2-016",
+      "example": "爷爷快要到了"
+    },
+    {
+      "grammarId": "g2-016",
+      "example": "弟弟正在洗手"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "谁快要到机场了？",
+      "promptEnglish": "Who is about to arrive at the airport?",
+      "options": [
+        "爸爸",
+        "爷爷",
+        "弟弟",
+        "妈妈"
+      ],
+      "answer": 1,
+      "explanation": "Mom says \"爷爷快要到了\", so Grandpa is about to arrive."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "他们怎么去机场？",
+      "promptEnglish": "How do they go to the airport?",
+      "options": [
+        "开车",
+        "坐火车",
+        "坐地铁",
+        "打车"
+      ],
+      "answer": 2,
+      "explanation": "The younger brother says \"我们坐地铁去吧\" and the narrator agrees: \"好，地铁很快\"."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "妈妈叫我的时候，我在做什么？",
+      "promptEnglish": "What was I doing when Mom called me?",
+      "options": [
+        "吃饭",
+        "看电视",
+        "洗手",
+        "睡觉"
+      ],
+      "answer": 3,
+      "explanation": "The text says \"现在已经九点了，我还在睡觉\", so the narrator was still sleeping."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "现在已经九点了，我还在＿＿。",
+      "answer": "睡觉",
+      "alsoAccepted": [],
+      "hint": "to sleep"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "爷爷住在＿＿，我有时想他。",
+      "answer": "外国",
+      "alsoAccepted": [],
+      "hint": "foreign country"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "我们到＿＿的时候，爷爷已经在门口了。",
+      "answer": "机场",
+      "alsoAccepted": [],
+      "hint": "airport"
+    }
+  ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期天",
+      "，",
+      "天气",
+      "很",
+      "好",
+      "。",
+      "现在",
+      "已经",
+      "九",
+      "点",
+      "了",
+      "，",
+      "我",
+      "还",
+      "在",
+      "睡觉",
+      "。",
+      "妈妈",
+      "说",
+      "：",
+      "“",
+      "快",
+      "起来",
+      "！",
+      "今天",
+      "我们",
+      "一起",
+      "去",
+      "机场",
+      "，",
+      "爷爷",
+      "快要",
+      "到",
+      "了",
+      "。",
+      "”",
+      "我",
+      "很",
+      "高兴",
+      "。",
+      "爷爷",
+      "住",
+      "在",
+      "外国",
+      "，",
+      "我",
+      "有时",
+      "想",
+      "他",
+      "。",
+      "弟弟",
+      "正在",
+      "洗",
+      "手",
+      "，",
+      "他",
+      "说",
+      "：",
+      "“",
+      "我们",
+      "坐",
+      "地铁",
+      "去",
+      "吧",
+      "。",
+      "”",
+      "我",
+      "说",
+      "：",
+      "“",
+      "好",
+      "，",
+      "地铁",
+      "很",
+      "快",
+      "。",
+      "”",
+      "我们",
+      "到",
+      "机场",
+      "的",
+      "时候",
+      "，",
+      "爷爷",
+      "已经",
+      "在",
+      "门口",
+      "了",
+      "。",
+      "他",
+      "笑",
+      "着",
+      "说",
+      "：",
+      "“",
+      "你们",
+      "好",
+      "！",
+      "”",
+      "他",
+      "给",
+      "我",
+      "一",
+      "本",
+      "书",
+      "。"
+    ]
+  ],
+  "translation": [
+    "Today is Sunday, and the weather is very nice. It is already nine o'clock now, and I am still sleeping. Mom says, \"Get up quickly! Today we're going to the airport together. Grandpa is about to arrive.\" I am very happy. Grandpa lives abroad, and I sometimes miss him. My younger brother is washing his hands. He says, \"Let's take the subway.\" I say, \"OK, the subway is fast.\" When we get to the airport, Grandpa is already at the door. He says with a smile, \"Hello, everyone!\" He gives me a book."
+  ],
+  "verification": {
+    "tokens": 102,
+    "atOrBelowLevel": 102,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:14:23.633Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "爷爷",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "坐地铁",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "睡觉",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "睡觉",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "外国",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "机场",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The passage has a small logic oddity: Grandpa is said to be \"快要到了\" (about to arrive) yet he is already at the gate when the family arrives, which is fine, but 'I' is still sleeping at nine while mom says to leave now; this is plausible. Also, the question c1 says \"快要到机场了\" while the passage says only \"爷爷快要到了\" (arriving, not specifically at the airport) — a trivial wording difference."
+      }
+    ],
+    "costUsd": 0.0064
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:14:19.933Z",
+    "attempts": 1,
+    "costUsd": 0.04
+  }
+}

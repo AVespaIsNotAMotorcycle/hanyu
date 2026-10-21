@@ -1,0 +1,310 @@
+{
+  "_id": "p2-0007",
+  "level": 2,
+  "title": "我在中国",
+  "titleEnglish": "My Time in China",
+  "text": "今年我去了中国旅游。这是我第一次去中国，我好高兴！\n\n在中国，我最喜欢吃饺子。我一个星期吃三次饺子。饭店里的人很多，饺子也很好吃。中国的东西很便宜，我还给妈妈买了一件红色的衣服。她会很高兴。\n\n有一次，我在饭店看见了我的汉语老师。我对他说汉语，他说：“你说得多好啊！”我很不好意思，但是也很高兴。\n\n明年我还想再去一次。",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g2-013",
+      "example": "吃三次饺子"
+    },
+    {
+      "grammarId": "g2-014",
+      "example": "最喜欢吃饺子"
+    },
+    {
+      "grammarId": "g2-014",
+      "example": "多好啊"
+    },
+    {
+      "grammarId": "g2-014",
+      "example": "好高兴"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "这是我第几次去中国？",
+      "promptEnglish": "Which time going to China is this for me?",
+      "options": [
+        "第一次",
+        "第二次",
+        "第三次",
+        "第四次"
+      ],
+      "answer": 0,
+      "explanation": "The passage says 这是我第一次去中国, so it is the first time."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "我一个星期吃几次饺子？",
+      "promptEnglish": "How many times a week do I eat dumplings?",
+      "options": [
+        "一次",
+        "两次",
+        "三次",
+        "五次"
+      ],
+      "answer": 2,
+      "explanation": "The passage says 我一个星期吃三次饺子, so three times a week."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "老师觉得我的汉语怎么样？",
+      "promptEnglish": "What does the teacher think of my Chinese?",
+      "options": [
+        "很好",
+        "不好",
+        "太快",
+        "太慢"
+      ],
+      "answer": 0,
+      "explanation": "The teacher says 你说得多好啊！, which means my Chinese is very good."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "我一个＿＿吃三次饺子。",
+      "answer": "星期",
+      "alsoAccepted": [],
+      "hint": "week"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "明年我还＿＿再去一次。",
+      "answer": "想",
+      "alsoAccepted": [
+        "要"
+      ],
+      "hint": "want to"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "有一次，我在饭店看见了我的汉语＿＿。",
+      "answer": "老师",
+      "alsoAccepted": [],
+      "hint": "teacher"
+    }
+  ],
+  "tokens": [
+    [
+      "今年",
+      "我",
+      "去",
+      "了",
+      "中国",
+      "旅游",
+      "。",
+      "这",
+      "是",
+      "我",
+      "第",
+      "一",
+      "次",
+      "去",
+      "中国",
+      "，",
+      "我",
+      "好",
+      "高兴",
+      "！"
+    ],
+    [
+      "在",
+      "中国",
+      "，",
+      "我",
+      "最",
+      "喜欢",
+      "吃",
+      "饺子",
+      "。",
+      "我",
+      "一",
+      "个",
+      "星期",
+      "吃",
+      "三",
+      "次",
+      "饺子",
+      "。",
+      "饭店",
+      "里",
+      "的",
+      "人",
+      "很",
+      "多",
+      "，",
+      "饺子",
+      "也",
+      "很",
+      "好吃",
+      "。",
+      "中国",
+      "的",
+      "东西",
+      "很",
+      "便宜",
+      "，",
+      "我",
+      "还",
+      "给",
+      "妈妈",
+      "买",
+      "了",
+      "一",
+      "件",
+      "红色",
+      "的",
+      "衣服",
+      "。",
+      "她",
+      "会",
+      "很",
+      "高兴",
+      "。"
+    ],
+    [
+      "有",
+      "一",
+      "次",
+      "，",
+      "我",
+      "在",
+      "饭店",
+      "看见",
+      "了",
+      "我",
+      "的",
+      "汉语",
+      "老师",
+      "。",
+      "我",
+      "对",
+      "他",
+      "说",
+      "汉语",
+      "，",
+      "他",
+      "说",
+      "：",
+      "“",
+      "你",
+      "说",
+      "得",
+      "多",
+      "好",
+      "啊",
+      "！",
+      "”",
+      "我",
+      "很",
+      "不好意思",
+      "，",
+      "但是",
+      "也",
+      "很",
+      "高兴",
+      "。"
+    ],
+    [
+      "明年",
+      "我",
+      "还",
+      "想",
+      "再",
+      "去",
+      "一",
+      "次",
+      "。"
+    ]
+  ],
+  "translation": [
+    "This year I went to China on a trip. It was my first time in China, and I was so happy!",
+    "In China, my favorite food was dumplings. I ate dumplings three times a week. There were a lot of people in the restaurants, and the dumplings were delicious. Things in China are very cheap, and I also bought a red piece of clothing for my mom. She will be very happy.",
+    "Once, I saw my Chinese teacher in a restaurant. I spoke Chinese to him, and he said, \"How well you speak!\" I felt very embarrassed, but I was also very happy.",
+    "Next year, I want to go again."
+  ],
+  "verification": {
+    "tokens": 123,
+    "atOrBelowLevel": 123,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:13:54.757Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "第一次",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "三次",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "很好",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "星期",
+        "agrees": true,
+        "alternatives": [
+          "礼拜"
+        ]
+      },
+      {
+        "questionId": "z2",
+        "given": "想",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "老师",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The teacher's line “你说得多好啊！” is slightly unnatural; “你说得真好啊！” or “你说得多好啊” as an exclamation is acceptable but may confuse learners about 多 as an exclamatory adverb."
+      },
+      {
+        "severity": "minor",
+        "description": "The sentence “饭店里的人很多，饺子也很好吃” is loosely connected to the previous idea, and “我好高兴” / “她会很高兴” repeat the same word, so the passage reads a bit choppy."
+      },
+      {
+        "severity": "minor",
+        "description": "Question c3 relies on inferring the teacher's opinion from an exclamation (你说得多好啊), which is reasonable but the exclamation could be read as ironic by some learners."
+      }
+    ],
+    "costUsd": 0.0073
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:13:50.765Z",
+    "attempts": 1,
+    "costUsd": 0.0463
+  }
+}

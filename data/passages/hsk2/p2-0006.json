@@ -1,0 +1,300 @@
+{
+  "_id": "p2-0006",
+  "level": 2,
+  "title": "请朋友吃饭",
+  "titleEnglish": "Inviting Friends to Dinner",
+  "text": "小明是一名大学生。今天是星期天，他请两位朋友来家里吃饭。\n\n早上，他去超市买东西。他买了一条鱼、一包面条儿和一些水果。回到家，他就开始做饭。\n\n小明的房间不大，但是很漂亮。朋友们十二点来了。他们说：“你做的鱼真好吃！”大家一起吃饭，一起说话，非常高兴。\n\n下午，朋友说：“明天我们请你去那间新饭馆吃饭吧。”",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-011",
+      "example": "一名大学生"
+    },
+    {
+      "grammarId": "g2-011",
+      "example": "两位朋友"
+    },
+    {
+      "grammarId": "g2-011",
+      "example": "一条鱼"
+    },
+    {
+      "grammarId": "g2-011",
+      "example": "那间新饭馆"
+    },
+    {
+      "grammarId": "g2-012",
+      "example": "一包面条儿"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "小明请几位朋友来家里吃饭？",
+      "promptEnglish": "How many friends did Xiaoming invite to eat at his home?",
+      "options": [
+        "一位",
+        "两位",
+        "三位",
+        "四位"
+      ],
+      "answer": 1,
+      "explanation": "The passage says 他请两位朋友来家里吃饭, so he invited two friends."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "小明在超市没有买什么？",
+      "promptEnglish": "What did Xiaoming not buy at the supermarket?",
+      "options": [
+        "鱼",
+        "面条儿",
+        "水果",
+        "牛奶"
+      ],
+      "answer": 3,
+      "explanation": "He bought 一条鱼、一包面条儿和一些水果. Milk is not mentioned."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "明天他们想去哪儿吃饭？",
+      "promptEnglish": "Where do they want to eat tomorrow?",
+      "options": [
+        "小明家",
+        "超市",
+        "那间新饭馆",
+        "学校"
+      ],
+      "answer": 2,
+      "explanation": "The friend says 明天我们请你去那间新饭馆吃饭吧, so they will go to the new restaurant."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "他买了一条鱼、一包面条儿和一些＿＿。",
+      "answer": "水果",
+      "alsoAccepted": [],
+      "hint": "fruit"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "回到家，他就开始＿＿。",
+      "answer": "做饭",
+      "alsoAccepted": [],
+      "hint": "cook a meal"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "小明的房间不大，但是很＿＿。",
+      "answer": "漂亮",
+      "alsoAccepted": [
+        "好看"
+      ],
+      "hint": "beautiful, nice-looking"
+    }
+  ],
+  "tokens": [
+    [
+      "小明",
+      "是",
+      "一",
+      "名",
+      "大学生",
+      "。",
+      "今天",
+      "是",
+      "星期天",
+      "，",
+      "他",
+      "请",
+      "两",
+      "位",
+      "朋友",
+      "来",
+      "家",
+      "里",
+      "吃",
+      "饭",
+      "。"
+    ],
+    [
+      "早上",
+      "，",
+      "他",
+      "去",
+      "超市",
+      "买",
+      "东西",
+      "。",
+      "他",
+      "买",
+      "了",
+      "一",
+      "条",
+      "鱼",
+      "、",
+      "一",
+      "包",
+      "面条儿",
+      "和",
+      "一些",
+      "水果",
+      "。",
+      "回",
+      "到",
+      "家",
+      "，",
+      "他",
+      "就",
+      "开始",
+      "做饭",
+      "。"
+    ],
+    [
+      "小明",
+      "的",
+      "房间",
+      "不",
+      "大",
+      "，",
+      "但是",
+      "很",
+      "漂亮",
+      "。",
+      "朋友",
+      "们",
+      "十",
+      "二",
+      "点",
+      "来",
+      "了",
+      "。",
+      "他们",
+      "说",
+      "：",
+      "“",
+      "你",
+      "做",
+      "的",
+      "鱼",
+      "真",
+      "好吃",
+      "！",
+      "”",
+      "大家",
+      "一起",
+      "吃",
+      "饭",
+      "，",
+      "一起",
+      "说话",
+      "，",
+      "非常",
+      "高兴",
+      "。"
+    ],
+    [
+      "下午",
+      "，",
+      "朋友",
+      "说",
+      "：",
+      "“",
+      "明天",
+      "我们",
+      "请",
+      "你",
+      "去",
+      "那",
+      "间",
+      "新",
+      "饭馆",
+      "吃",
+      "饭",
+      "吧",
+      "。",
+      "”"
+    ]
+  ],
+  "translation": [
+    "Xiaoming is a university student. Today is Sunday, and he has invited two friends to his home for a meal.",
+    "In the morning, he went to the supermarket to buy some things. He bought a fish, a pack of noodles and some fruit. When he got back home, he started cooking.",
+    "Xiaoming's room is not big, but it is very nice. His friends arrived at twelve o'clock. They said, \"The fish you made is delicious!\" Everyone ate together and chatted together, and they were very happy.",
+    "In the afternoon, his friends said, \"Tomorrow, let us treat you to a meal at that new restaurant.\""
+  ],
+  "verification": {
+    "tokens": 108,
+    "atOrBelowLevel": 108,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:13:20.439Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "两位",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "牛奶",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "那间新饭馆",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "水果",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "做饭",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "漂亮",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The passage uses 那间新饭馆 (\"that new restaurant\") although the restaurant was not mentioned earlier. 那 is slightly odd, and 一间/家 would be more natural. The measure word 间 for 饭馆 is acceptable but 家 is more common."
+      },
+      {
+        "severity": "minor",
+        "description": "Pairing 今天 and 星期天 with 早上 and 下午 is fine, but the passage says the friends came at twelve and then jumps to 下午, with 朋友 saying \"tomorrow we'll treat you\". The 朋友 in the last line should be 朋友们, a small point of naturalness."
+      }
+    ],
+    "costUsd": 0.007
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:13:16.752Z",
+    "attempts": 2,
+    "costUsd": 0.0545
+  }
+}

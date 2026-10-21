@@ -1,0 +1,300 @@
+{
+  "_id": "p2-0010",
+  "level": 2,
+  "title": "再睡一会儿",
+  "titleEnglish": "Sleep a Little Longer",
+  "text": "今天是星期天，天气很好。现在都十点了，小明还在睡觉。妈妈说：“小明，起床吧！”小明说：“我很累，再睡一会儿吧。”妈妈说：“你起床就可以吃早饭。”十分钟后，小明起来了。他想吃面包，但是妈妈做了鸡蛋和米饭。他说：“我不喜欢米饭。”妈妈说：“米饭很好吃，你吃一点儿吧。”他还是不想吃。妈妈笑了：“那我们去超市买面包。超市就在前面，很近。”小明很高兴。",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-019",
+      "example": "再睡一会儿"
+    },
+    {
+      "grammarId": "g2-019",
+      "example": "起床就可以吃早饭"
+    },
+    {
+      "grammarId": "g2-020",
+      "example": "现在都十点了"
+    },
+    {
+      "grammarId": "g2-020",
+      "example": "超市就在前面"
+    },
+    {
+      "grammarId": "g2-020",
+      "example": "他还是不想吃"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "小明为什么还在睡觉？",
+      "promptEnglish": "Why is Xiaoming still sleeping?",
+      "options": [
+        "他很累",
+        "他生病了",
+        "他要上课",
+        "他不喜欢妈妈"
+      ],
+      "answer": 0,
+      "explanation": "Xiaoming says '我很累，再睡一会儿吧' (I'm tired, let me sleep a bit more), so he is still in bed because he is tired."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "小明不喜欢吃什么？",
+      "promptEnglish": "What does Xiaoming not like to eat?",
+      "options": [
+        "鸡蛋",
+        "米饭",
+        "面包",
+        "水果"
+      ],
+      "answer": 1,
+      "explanation": "He says '我不喜欢米饭' (I don't like rice), and he still doesn't want to eat it after his mother urges him."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "超市怎么样？",
+      "promptEnglish": "What is the supermarket like?",
+      "options": [
+        "很远",
+        "很大",
+        "很近",
+        "很贵"
+      ],
+      "answer": 2,
+      "explanation": "His mother says '超市就在前面，很近', meaning the supermarket is right ahead and close."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "今天是星期天，＿＿很好。",
+      "answer": "天气",
+      "alsoAccepted": [],
+      "hint": "weather"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "他想吃＿＿，但是妈妈做了鸡蛋和米饭。",
+      "answer": "面包",
+      "alsoAccepted": [],
+      "hint": "bread"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "超市就在＿＿，很近。",
+      "answer": "前面",
+      "alsoAccepted": [],
+      "hint": "ahead / in front"
+    }
+  ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期天",
+      "，",
+      "天气",
+      "很",
+      "好",
+      "。",
+      "现在",
+      "都",
+      "十",
+      "点",
+      "了",
+      "，",
+      "小明",
+      "还",
+      "在",
+      "睡觉",
+      "。",
+      "妈妈",
+      "说",
+      "：",
+      "“",
+      "小明",
+      "，",
+      "起床",
+      "吧",
+      "！",
+      "”",
+      "小明",
+      "说",
+      "：",
+      "“",
+      "我",
+      "很",
+      "累",
+      "，",
+      "再",
+      "睡",
+      "一会儿",
+      "吧",
+      "。",
+      "”",
+      "妈妈",
+      "说",
+      "：",
+      "“",
+      "你",
+      "起床",
+      "就",
+      "可以",
+      "吃",
+      "早饭",
+      "。",
+      "”",
+      "十分",
+      "钟",
+      "后",
+      "，",
+      "小明",
+      "起来",
+      "了",
+      "。",
+      "他",
+      "想",
+      "吃",
+      "面包",
+      "，",
+      "但是",
+      "妈妈",
+      "做",
+      "了",
+      "鸡蛋",
+      "和",
+      "米饭",
+      "。",
+      "他",
+      "说",
+      "：",
+      "“",
+      "我",
+      "不",
+      "喜欢",
+      "米饭",
+      "。",
+      "”",
+      "妈妈",
+      "说",
+      "：",
+      "“",
+      "米饭",
+      "很",
+      "好吃",
+      "，",
+      "你",
+      "吃",
+      "一点儿",
+      "吧",
+      "。",
+      "”",
+      "他",
+      "还是",
+      "不",
+      "想",
+      "吃",
+      "。",
+      "妈妈",
+      "笑",
+      "了",
+      "：",
+      "“",
+      "那",
+      "我们",
+      "去",
+      "超市",
+      "买",
+      "面包",
+      "。",
+      "超市",
+      "就",
+      "在",
+      "前面",
+      "，",
+      "很",
+      "近",
+      "。",
+      "”",
+      "小明",
+      "很",
+      "高兴",
+      "。"
+    ]
+  ],
+  "translation": [
+    "Today is Sunday, and the weather is nice. It's already ten o'clock, and Xiaoming is still sleeping. His mom says, \"Xiaoming, get up!\" Xiaoming says, \"I'm very tired. Let me sleep a little longer.\" His mom says, \"If you get up, you can have breakfast.\" Ten minutes later, Xiaoming gets up. He wants to eat bread, but his mom has made eggs and rice. He says, \"I don't like rice.\" His mom says, \"The rice is very good. Have a little.\" He still doesn't want to eat it. His mom laughs and says, \"Then let's go to the supermarket and buy some bread. The supermarket is just up ahead, very close.\" Xiaoming is very happy."
+  ],
+  "verification": {
+    "tokens": 123,
+    "atOrBelowLevel": 122,
+    "share": 0.991869918699187,
+    "offLevel": [
+      "明"
+    ]
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:15:21.987Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "他很累",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "米饭",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "很近",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "天气",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "面包",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "前面",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0049
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:15:19.529Z",
+    "attempts": 1,
+    "costUsd": 0.04
+  }
+}

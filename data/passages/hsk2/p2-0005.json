@@ -1,0 +1,309 @@
+{
+  "_id": "p2-0005",
+  "level": 2,
+  "title": "在商场",
+  "titleEnglish": "At the Mall",
+  "text": "今天是星期天，天气很好。我和妈妈去商场买东西。商场里人好多，大家都高高兴兴的。我看见一件红色的衣服，长长的，很漂亮。妈妈说：“这件衣服两千多块，太贵了。”我说：“那我们去那边看看吧。”那边有一个小店，里面有很多书包。我买了一个小小的白色书包，一百多块。妈妈也买了一件新衣服，穿上漂漂亮亮的。我们还看见一个大电视，要一万多块！妈妈笑了，说：“我们不买它。”",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g2-009",
+      "example": "高高兴兴"
+    },
+    {
+      "grammarId": "g2-009",
+      "example": "小小的"
+    },
+    {
+      "grammarId": "g2-010",
+      "example": "人好多"
+    },
+    {
+      "grammarId": "g2-010",
+      "example": "一万多块"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "星期天我和妈妈去哪儿了？",
+      "promptEnglish": "Where did I go with my mom on Sunday?",
+      "options": [
+        "学校",
+        "商场",
+        "电影院",
+        "饭店"
+      ],
+      "answer": 1,
+      "explanation": "The passage says 我和妈妈去商场买东西 (I went to the mall with my mom to buy things)."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "妈妈觉得红色的衣服怎么样？",
+      "promptEnglish": "What did Mom think of the red clothes?",
+      "options": [
+        "太小了",
+        "不好看",
+        "太贵了",
+        "很便宜"
+      ],
+      "answer": 2,
+      "explanation": "Mom said the piece of clothing was over 2,000 yuan: 这件衣服两千多块，太贵了。"
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "我买了什么？",
+      "promptEnglish": "What did I buy?",
+      "options": [
+        "一个大电视",
+        "一件红色的衣服",
+        "一杯奶茶",
+        "一个白色书包"
+      ],
+      "answer": 3,
+      "explanation": "The passage says 我买了一个小小的白色书包 (I bought a small white schoolbag)."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "我买了一个小小的白色＿＿，一百多块。",
+      "answer": "书包",
+      "alsoAccepted": [],
+      "hint": "schoolbag"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "我们还看见一个大＿＿，要一万多块！",
+      "answer": "电视",
+      "alsoAccepted": [],
+      "hint": "television"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "这件衣服两千多块，太＿＿了。",
+      "answer": "贵",
+      "alsoAccepted": [],
+      "hint": "expensive"
+    }
+  ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期天",
+      "，",
+      "天气",
+      "很",
+      "好",
+      "。",
+      "我",
+      "和",
+      "妈妈",
+      "去",
+      "商场",
+      "买",
+      "东西",
+      "。",
+      "商场",
+      "里",
+      "人",
+      "好多",
+      "，",
+      "大家",
+      "都",
+      "高高兴兴",
+      "的",
+      "。",
+      "我",
+      "看见",
+      "一",
+      "件",
+      "红色",
+      "的",
+      "衣服",
+      "，",
+      "长",
+      "长",
+      "的",
+      "，",
+      "很",
+      "漂亮",
+      "。",
+      "妈妈",
+      "说",
+      "：",
+      "“",
+      "这",
+      "件",
+      "衣服",
+      "两",
+      "千",
+      "多",
+      "块",
+      "，",
+      "太",
+      "贵",
+      "了",
+      "。",
+      "”",
+      "我",
+      "说",
+      "：",
+      "“",
+      "那",
+      "我们",
+      "去",
+      "那边",
+      "看",
+      "看",
+      "吧",
+      "。",
+      "”",
+      "那边",
+      "有",
+      "一",
+      "个",
+      "小",
+      "店",
+      "，",
+      "里面",
+      "有",
+      "很",
+      "多",
+      "书包",
+      "。",
+      "我",
+      "买",
+      "了",
+      "一",
+      "个",
+      "小",
+      "小",
+      "的",
+      "白色",
+      "书包",
+      "，",
+      "一",
+      "百",
+      "多",
+      "块",
+      "。",
+      "妈妈",
+      "也",
+      "买",
+      "了",
+      "一",
+      "件",
+      "新",
+      "衣服",
+      "，",
+      "穿",
+      "上",
+      "漂",
+      "漂亮",
+      "亮",
+      "的",
+      "。",
+      "我们",
+      "还",
+      "看见",
+      "一",
+      "个",
+      "大",
+      "电视",
+      "，",
+      "要",
+      "一",
+      "万",
+      "多",
+      "块",
+      "！",
+      "妈妈",
+      "笑",
+      "了",
+      "，",
+      "说",
+      "：",
+      "“",
+      "我们",
+      "不",
+      "买",
+      "它",
+      "。",
+      "”"
+    ]
+  ],
+  "translation": [
+    "Today is Sunday, and the weather is very nice. My mom and I went to the mall to buy some things. There were lots of people in the mall, and everyone looked happy. I saw a red dress. It was long and very pretty. Mom said, \"This dress costs more than two thousand yuan. It's too expensive.\" I said, \"Then let's go and look over there.\" Over there was a small shop with lots of school bags. I bought a small white school bag for a little over a hundred yuan. Mom bought a new piece of clothing too, and she looked lovely in it. We also saw a big TV that cost more than ten thousand yuan! Mom laughed and said, \"We're not buying that.\""
+  ],
+  "verification": {
+    "tokens": 127,
+    "atOrBelowLevel": 124,
+    "share": 0.9763779527559056,
+    "offLevel": [
+      "兴",
+      "漂",
+      "亮",
+      "杯"
+    ]
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:12:46.850Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "商场",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "太贵了",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "一个白色书包",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "书包",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "电视",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "贵",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0049
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:12:44.495Z",
+    "attempts": 1,
+    "costUsd": 0.0322
+  }
+}

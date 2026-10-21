@@ -1,0 +1,349 @@
+{
+  "_id": "p2-0002",
+  "level": 2,
+  "title": "星期天去商场",
+  "titleEnglish": "Going to the Mall on Sunday",
+  "text": "今天是星期天,我很累。早上我起床很晚,吃了早饭就在家休息休息。\n\n小明给我打电话:“你在做什么?我们一起去商场走走吧!”\n\n我说:“好啊,但是天气不太好,下午可能下雨。”\n\n小明说:“没关系,商场里面不会下雨。”\n\n我们到了商场,先去书店,在书店看了看书。我想买一件红色的衣服,就问问那个女士。小明说:“你去那边看一看吧。”\n\n下午三点,外面真的下雨了。我们坐在咖啡店里,听听歌。小明笑了笑说:“你说对了!”",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-003",
+      "example": "休息休息"
+    },
+    {
+      "grammarId": "g2-003",
+      "example": "看一看"
+    },
+    {
+      "grammarId": "g2-003",
+      "example": "看了看书"
+    },
+    {
+      "grammarId": "g2-004",
+      "example": "下午可能下雨"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "他们今天去哪儿?",
+      "promptEnglish": "Where do they go today?",
+      "options": [
+        "学校",
+        "医院",
+        "商场",
+        "车站"
+      ],
+      "answer": 2,
+      "explanation": "Xiao Ming invites the narrator to go to the mall (去商场走走), and the text says they arrived at the mall (我们到了商场)."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "我想买什么?",
+      "promptEnglish": "What does the narrator want to buy?",
+      "options": [
+        "一本书",
+        "一件红色的衣服",
+        "一杯咖啡",
+        "一个手机"
+      ],
+      "answer": 1,
+      "explanation": "The passage says 我想买一件红色的衣服 (I want to buy a red piece of clothing)."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "下午三点,天气怎么样?",
+      "promptEnglish": "What is the weather like at 3 p.m.?",
+      "options": [
+        "很热",
+        "下雪了",
+        "很好",
+        "下雨了"
+      ],
+      "answer": 3,
+      "explanation": "The passage says 下午三点,外面真的下雨了, so it was raining, just as the narrator predicted."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "早上我起床很晚,吃了＿＿就在家休息休息。",
+      "answer": "早饭",
+      "alsoAccepted": [],
+      "hint": "breakfast"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "我想买一件红色的＿＿,就问问那个女士。",
+      "answer": "衣服",
+      "alsoAccepted": [],
+      "hint": "clothes"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "下午三点,外面真的＿＿了。",
+      "answer": "下雨",
+      "alsoAccepted": [],
+      "hint": "to rain"
+    }
+  ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期天",
+      ",",
+      "我",
+      "很",
+      "累",
+      "。",
+      "早上",
+      "我",
+      "起床",
+      "很",
+      "晚",
+      ",",
+      "吃",
+      "了",
+      "早饭",
+      "就",
+      "在",
+      "家",
+      "休息",
+      "休息",
+      "。"
+    ],
+    [
+      "小明",
+      "给",
+      "我",
+      "打电话",
+      ":",
+      "“",
+      "你",
+      "在",
+      "做",
+      "什么",
+      "?",
+      "我们",
+      "一起",
+      "去",
+      "商场",
+      "走",
+      "走",
+      "吧",
+      "!",
+      "”"
+    ],
+    [
+      "我",
+      "说",
+      ":",
+      "“",
+      "好",
+      "啊",
+      ",",
+      "但是",
+      "天气",
+      "不",
+      "太",
+      "好",
+      ",",
+      "下午",
+      "可能",
+      "下雨",
+      "。",
+      "”"
+    ],
+    [
+      "小明",
+      "说",
+      ":",
+      "“",
+      "没关系",
+      ",",
+      "商场",
+      "里面",
+      "不",
+      "会",
+      "下雨",
+      "。",
+      "”"
+    ],
+    [
+      "我们",
+      "到",
+      "了",
+      "商场",
+      ",",
+      "先",
+      "去",
+      "书店",
+      ",",
+      "在",
+      "书店",
+      "看",
+      "了",
+      "看",
+      "书",
+      "。",
+      "我",
+      "想",
+      "买",
+      "一",
+      "件",
+      "红色",
+      "的",
+      "衣服",
+      ",",
+      "就",
+      "问",
+      "问",
+      "那个",
+      "女士",
+      "。",
+      "小明",
+      "说",
+      ":",
+      "“",
+      "你",
+      "去",
+      "那边",
+      "看",
+      "一",
+      "看",
+      "吧",
+      "。",
+      "”"
+    ],
+    [
+      "下午",
+      "三",
+      "点",
+      ",",
+      "外面",
+      "真",
+      "的",
+      "下雨",
+      "了",
+      "。",
+      "我们",
+      "坐",
+      "在",
+      "咖啡",
+      "店",
+      "里",
+      ",",
+      "听",
+      "听",
+      "歌",
+      "。",
+      "小明",
+      "笑",
+      "了",
+      "笑",
+      "说",
+      ":",
+      "“",
+      "你",
+      "说",
+      "对",
+      "了",
+      "!",
+      "”"
+    ]
+  ],
+  "translation": [
+    "Today is Sunday, and I'm very tired. I got up very late this morning, and after eating breakfast I just rested at home for a while.",
+    "Xiaoming called me and said, \"What are you doing? Let's go for a walk at the mall together!\"",
+    "I said, \"Sure, but the weather isn't very good. It might rain this afternoon.\"",
+    "Xiaoming said, \"It doesn't matter. It won't rain inside the mall.\"",
+    "We got to the mall and went to the bookstore first, where we looked at some books for a while. I wanted to buy a red piece of clothing, so I asked that lady. Xiaoming said, \"Why don't you go over there and take a look?\"",
+    "At three o'clock in the afternoon, it really did start to rain outside. We sat in a coffee shop and listened to some songs. Xiaoming smiled and said, \"You were right!\""
+  ],
+  "verification": {
+    "tokens": 132,
+    "atOrBelowLevel": 128,
+    "share": 0.9696969696969697,
+    "offLevel": [
+      "明",
+      "先",
+      "杯"
+    ]
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-10-21T00:11:21.142Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "商场",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "一件红色的衣服",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "下雨了",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "早饭",
+        "agrees": true,
+        "alternatives": [
+          "早餐"
+        ]
+      },
+      {
+        "questionId": "z2",
+        "given": "衣服",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "下雨",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The passage says 'Xiao Ming said: 你去那边看一看吧' right after the narrator asks the female staff; it is unclear who is speaking, since the narrator asked the woman, so the dialogue flow is slightly unnatural (the reply would more naturally come from the woman)."
+      },
+      {
+        "severity": "minor",
+        "description": "Xiao Ming's closing line '你说对了!' is slightly odd because he earlier said the mall wouldn't rain; it is understandable but the logic is mildly unclear. Also, 'It is raining outside' is only inferred while sitting in a coffee shop, which is fine."
+      },
+      {
+        "severity": "minor",
+        "description": "Cloze z3: the sentence 外面真的＿＿了 with answer 下雨 is fine, but the hint 'to rain' maps to 下雨 (a verb-object compound), so the blank takes two characters; learners might try just 雨, which would not fit grammatically."
+      }
+    ],
+    "costUsd": 0.0081
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-10-21T00:11:15.935Z",
+    "attempts": 1,
+    "costUsd": 0.0421
+  }
+}
