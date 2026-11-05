@@ -258,8 +258,12 @@ export function parseSchedule(json: SerializedSchedule): CardSchedule {
 
 // --- Building the queue and decks -------------------------------------------
 
-/** `regular`: due cards, then today's new cards. `flagged`: leeches only. */
-export type StudyMode = 'regular' | 'flagged';
+/**
+ * `regular`: due cards, then today's new cards. `review`: due cards only.
+ * `new`: today's new cards only, so learning needn't wait for the reviews.
+ * `flagged`: leeches only.
+ */
+export type StudyMode = 'regular' | 'review' | 'new' | 'flagged';
 
 export interface QueueItem {
   key: string;
@@ -277,9 +281,11 @@ export interface QueueItem {
 }
 
 export interface StudyQueue {
-  /** Due cards first ((re)learning, then review), then today's new cards. */
+  /** The cards to study in this mode, in order. */
   cards: QueueItem[];
+  /** Cards due now, whatever the mode. */
   dueCount: number;
+  /** New cards left today, whatever the mode. */
   newCount: number;
   /** Cards introduced today, all kinds. */
   introducedToday: number;
@@ -453,7 +459,8 @@ export function buildQueue({
 
   const fresh = [...newWords, ...newCharacters];
   return {
-    cards: [...due, ...fresh],
+    cards:
+      mode === 'review' ? due : mode === 'new' ? fresh : [...due, ...fresh],
     dueCount: due.length,
     newCount: fresh.length,
     introducedToday,

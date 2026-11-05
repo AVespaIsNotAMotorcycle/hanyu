@@ -187,6 +187,7 @@ export function StudySession({
         </button>
         <span>
           {mode === 'flagged' && 'Flagged · '}
+          {mode === 'new' && 'New · '}
           {done} reviewed · {remaining} left
         </span>
       </p>

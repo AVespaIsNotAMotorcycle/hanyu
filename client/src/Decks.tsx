@@ -88,12 +88,22 @@ export function Decks({
         <button
           type="button"
           className="study"
-          onClick={() => onStudy('regular')}
-          disabled={queue.cards.length === 0}
+          onClick={() => onStudy('review')}
+          disabled={queue.dueCount === 0}
         >
-          {queue.cards.length === 0
-            ? 'All done for today'
-            : `Study · ${queue.dueCount} due, ${queue.newCount} new`}
+          {queue.dueCount === 0
+            ? 'No reviews due'
+            : `Review · ${queue.dueCount} due`}
+        </button>
+        <button
+          type="button"
+          className="study"
+          onClick={() => onStudy('new')}
+          disabled={queue.newCount === 0}
+        >
+          {queue.newCount === 0
+            ? 'No new cards left today'
+            : `Learn new · ${queue.newCount}`}
         </button>
         {flagged > 0 && (
           <button

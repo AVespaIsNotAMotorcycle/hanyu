@@ -247,6 +247,24 @@ describe('buildQueue and buildDecks', () => {
       ...overrides,
     });
 
+  it('studies due and new cards separately', () => {
+    const logs = [log('w1', new Date(now.getTime() - 40 * DAY))];
+    const both = build(logs);
+    expect(both.dueCount).toBe(1);
+    expect(both.newCount).toBe(2);
+    expect(both.cards.map((c) => c.word._id)).toEqual(['w1', 'w3', 'w2']);
+
+    const review = build(logs, { mode: 'review' });
+    expect(review.cards.map((c) => c.word._id)).toEqual(['w1']);
+    const fresh = build(logs, { mode: 'new' });
+    expect(fresh.cards.map((c) => c.word._id)).toEqual(['w3', 'w2']);
+
+    // The counts don't depend on the mode.
+    for (const queue of [review, fresh]) {
+      expect(queue).toMatchObject({ dueCount: 1, newCount: 2 });
+    }
+  });
+
   it('introduces new cards from enabled levels in frequency order', () => {
     const queue = build([]);
     expect(queue.cards.map((c) => c.word._id)).toEqual(['w3', 'w1', 'w2']);
