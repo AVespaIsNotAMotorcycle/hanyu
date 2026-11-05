@@ -6,6 +6,7 @@ import { GearIcon, HourglassIcon, ThemeIcon } from './icons';
 import { Listening } from './Listening';
 import { useActivity } from './local/activity';
 import { LocalDataProvider, useLocalData } from './local/LocalData';
+import { disableReminders } from './local/push';
 import { LocalStore } from './local/store';
 import { Progress } from './Progress';
 import { Reading } from './Reading';
@@ -131,6 +132,8 @@ function Home({
     ) {
       return;
     }
+    // While the session lasts, so the server can forget this device.
+    await disableReminders().catch(() => {});
     try {
       await postJson('/auth/sign-out');
     } catch {

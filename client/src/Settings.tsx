@@ -12,6 +12,7 @@ import {
 } from '@hanyu/shared';
 import { putJson } from './api';
 import { useStudyData } from './local/LocalData';
+import { ReminderSettings } from './ReminderSettings';
 import { SpeechSettings } from './Speak';
 
 /** What to study and how: levels, the daily limit, handwriting, read-aloud. */
@@ -154,6 +155,7 @@ export function Settings({
           </>
         )}
       </fieldset>
+      <ReminderSettings />
       <SpeechSettings />
       {saveError && (
         <p className="error" role="alert">

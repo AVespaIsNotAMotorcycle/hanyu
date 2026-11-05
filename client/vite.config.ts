@@ -33,6 +33,8 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // Shows the daily reminders.
+        importScripts: ['push-sw.js'],
         globPatterns: ['**/*.{js,css,html,svg,png,webmanifest}'],
         navigateFallback: '/index.html',
         navigateFallbackDenylist: [/^\/api\//, /^\/licenses\//],

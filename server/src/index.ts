@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { createApp } from './app.js';
 import { config } from './config.js';
 import { connectDb } from './db.js';
+import { createPushOptions, startReminders } from './reminders.js';
 
 await connectDb(config.mongodbUri);
 
@@ -11,6 +12,10 @@ const anthropic = config.anthropicApiKey
   : null;
 if (!anthropic) console.warn('ANTHROPIC_API_KEY is not set: grading is off.');
 
+const push = config.vapid && createPushOptions(config.vapid);
+if (push) startReminders(push.send);
+else console.warn('VAPID keys are not set: reminders are off.');
+
 const app = createApp({
   serveClient: config.isProduction,
   trustProxy: config.isProduction,
@@ -18,6 +23,7 @@ const app = createApp({
     llm: anthropic && { create: (params) => anthropic.messages.create(params) },
     ...config.grading,
   },
+  push,
 });
 
 app.listen(config.port, () => {

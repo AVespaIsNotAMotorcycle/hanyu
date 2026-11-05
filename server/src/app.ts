@@ -3,11 +3,13 @@ import { fileURLToPath } from 'node:url';
 import compression from 'compression';
 import express, { type ErrorRequestHandler } from 'express';
 import { requireAuth } from './auth/requireAuth.js';
+import type { PushOptions } from './reminders.js';
 import { activityRouter } from './routes/activity.js';
 import { audioRouter } from './routes/audio.js';
 import { createAuthRouter } from './routes/auth.js';
 import { healthRouter } from './routes/health.js';
 import { listeningRouter } from './routes/listening.js';
+import { createPushRouter } from './routes/push.js';
 import { reviewsRouter } from './routes/reviews.js';
 import { settingsRouter } from './routes/settings.js';
 import { contentRouter } from './routes/content.js';
@@ -33,12 +35,15 @@ export interface AppOptions {
   trustProxy?: boolean;
   /** Translation grading. Off (no LLM) unless given. */
   grading?: GradingOptions;
+  /** Daily reminders. Off unless given. */
+  push?: PushOptions | null;
 }
 
 export function createApp({
   serveClient = false,
   trustProxy = false,
   grading = { llm: null, dailyLimit: 20, monthlyBudgetUsd: 10 },
+  push = null,
 }: AppOptions = {}) {
   const app = express();
 
@@ -54,6 +59,7 @@ export function createApp({
   api.use(requireAuth);
   api.use('/health', healthRouter);
   api.use('/activity', activityRouter);
+  api.use('/push', createPushRouter(push));
   api.use('/reviews', reviewsRouter);
   api.use('/settings', settingsRouter);
   api.use(contentRouter);

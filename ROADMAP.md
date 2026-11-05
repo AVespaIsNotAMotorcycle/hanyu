@@ -95,6 +95,7 @@ Estimated time: 1–2 weeks
 - [x] Add daily streaks and a history of what was done each day
 - [x] Add a daily checklist: review, new words, reading, listening
 - [x] Estimate readiness for each HSK exam from vocabulary, recall, and recent exercises
+- [x] Send a daily practice reminder by web push
 - [ ] Begin daily use and log UX friction
 
 **Milestone:** usable daily for HSK 1 vocabulary review.

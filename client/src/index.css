@@ -833,6 +833,14 @@ progress::-moz-progress-bar {
   width: 5rem;
 }
 
+.settings .inline input[type='time'] {
+  width: 8rem;
+}
+
+.settings .speak-bar {
+  margin: 0;
+}
+
 .settings select {
   max-width: 100%;
 }
