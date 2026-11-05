@@ -24,8 +24,16 @@ import { sha256File } from './hash.js';
 import {
   citationFromSyllabus,
   composeFromParts,
+  characterUsage,
+  everydayFirst,
   matchCedict,
 } from './match.js';
+import {
+  checkOverrides,
+  GLOSSES,
+  overrideKey,
+  TRADITIONAL,
+} from './overrides.js';
 import { cedictHeader, parseCedict, type CedictEntry } from './parse/cedict.js';
 import { parseGrammar } from './parse/grammar.js';
 import { parseCharacterList, parseHskWords, parseLevel } from './parse/hsk.js';
@@ -52,6 +60,7 @@ const cedictText = gunzipSync(await readFile(raw('cc-cedict'))).toString(
   'utf8',
 );
 const cedict = parseCedict(cedictText);
+const usage = characterUsage(cedict);
 const zipfByWord = parseWordfreq(await readFile(raw('wordfreq-zh')));
 
 const GRAMMAR_LEVELS = ['1', '2', '3', '4', '5', '6', '7-9'];
@@ -149,7 +158,7 @@ interface Reading {
 function lookUp(simplified: string, pinyin: string): Reading | null {
   const nasal = syllabicNasal(pinyin);
   if (nasal) return nasal.lookUp(simplified);
-  const result = matchCedict(pinyin, cedict.get(simplified) ?? []);
+  const result = matchCedict(pinyin, cedict.get(simplified) ?? [], usage);
   let entries = result.entries;
   if (result.match === 'none') {
     const parts = composeFromParts(simplified, pinyin, cedict);
@@ -188,6 +197,7 @@ function syllabicNasal(pinyin: string) {
       const result = matchCedict(
         numberedToMarked(`en${tone}`),
         cedict.get(simplified) ?? [],
+        usage,
       );
       if (result.match === 'none') return null;
       const entries = result.entries;
@@ -226,7 +236,14 @@ const words: WordNote[] = hskWords.map((row) => {
   if (!reading) {
     report.unmatched.push(`${row.simplified} ${row.pinyin}`);
   } else {
-    traditional = reading.traditional;
+    const key = overrideKey(row.hskId, row.simplified);
+    traditional = TRADITIONAL[key] ?? reading.traditional;
+    if (
+      TRADITIONAL[key] &&
+      !reading.entries.some((e) => e.traditional === traditional)
+    ) {
+      throw new Error(`${key}: no CC-CEDICT entry for ${traditional}`);
+    }
     citationPinyin = reading.citationPinyin;
     if (reading.match === 'none') {
       // Built from parts: keep the forms and readings, but leave definitions
@@ -240,11 +257,15 @@ const words: WordNote[] = hskWords.map((row) => {
       traditionalVariants = unique(
         reading.entries.map((e) => e.traditional),
       ).filter((t) => t !== traditional);
-      definitions = unique(
-        reading.entries
-          .filter((e) => e.traditional === traditional)
-          .flatMap((e) => e.definitions),
-      );
+      const gloss = GLOSSES[key];
+      definitions = unique([
+        ...(gloss ? [gloss] : []),
+        ...everydayFirst(
+          reading.entries
+            .filter((e) => e.traditional === traditional)
+            .flatMap((e) => e.definitions),
+        ),
+      ]);
     }
   }
   if (traditionalVariants.length) report.traditionalVariants++;
@@ -281,6 +302,8 @@ const words: WordNote[] = hskWords.map((row) => {
     cedictMatch: match,
   };
 });
+
+checkOverrides(words);
 
 // New cards within a level are introduced most frequent first.
 const introductionOrder = [...words].sort(

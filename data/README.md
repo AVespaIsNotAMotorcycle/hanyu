@@ -29,6 +29,8 @@ To spot-check another page: `pdftoppm -f N -l N -r 90 -png data/raw/hsk-syllabus
 ## How Records Are Built
 
 - **Words** are matched to CC-CEDICT by pinyin, which picks the right reading for 多音字 (行 háng in 银行, xíng in 行). Citation pinyin (`citationPinyin`) takes its syllables from CC-CEDICT and its tones from the syllabus, except that printed 一/不 sandhi is undone (bú kèqi → `bu4 ke4 qi5`). Where the two disagree on a tone, the syllabus wins (下载 `xia4 zai4`).
+- **Choosing among forms**: one simplified word can match several CC-CEDICT entries with different traditional forms (只 is 隻 or 秖). The most common form wins, measured by how many multi-character headwords use its rarest character (`characterUsage`). Definitions then lead with everyday senses (`everydayFirst`).
+- **Overrides** ([`src/overrides.ts`](src/overrides.ts)): hand-reviewed corrections for what no rule can settle, because a syllabus entry means one sense of a word and only its part of speech and level say which (被 here is a preposition, not "quilt"; 花 has a noun entry and a verb entry). `TRADITIONAL` picks the form and `GLOSSES` the definition that leads, which is what cards show. Keys are the syllabus number and word, and the build fails if they don't match. All of HSK 1–3 has been reviewed, plus single-character words above that with competing forms.
 - **Words missing from CC-CEDICT** (口哨儿, 精彩纷呈) are built from dictionary parts, with empty definitions.
 - **Frequency** is wordfreq's Zipf value. For the ~30 words wordfreq lacks, it's estimated from jieba segments the way wordfreq combines tokens.
 - **Ordering**: `levelOrder` ranks words within a level by frequency. A character note is introduced by the first word, in that order, that contains it.

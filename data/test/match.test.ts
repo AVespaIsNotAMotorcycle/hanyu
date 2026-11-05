@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import {
   citationFromSyllabus,
   composeFromParts,
+  characterUsage,
+  everydayFirst,
   matchCedict,
 } from '../src/match.js';
 import type { CedictEntry } from '../src/parse/cedict.js';
@@ -16,6 +18,61 @@ const entry = (
   simplified,
   pinyin,
   definitions: definitions.length ? definitions : ['(definition)'],
+});
+
+describe('choosing among forms', () => {
+  const entry = (traditional: string, definitions: string[]) => ({
+    traditional,
+    simplified: '年',
+    pinyin: 'nian2',
+    definitions,
+  });
+  const common = entry('年', ['year']);
+  const obscure = entry('秊', ['grain', 'harvest (old)', 'variant of 年']);
+  // 年 is used in other headwords and 秊 isn't.
+  const usage = characterUsage(
+    new Map([
+      ['今年', [{ ...common, traditional: '今年' }]],
+      ['年', [common, obscure]],
+    ]),
+  );
+
+  it('counts characters in multi-character headwords', () => {
+    expect(usage.get('年')).toBe(1);
+    expect(usage.has('秊')).toBe(false);
+  });
+
+  it('prefers the common form over the one with more definitions', () => {
+    const { entries } = matchCedict('nián', [obscure, common], usage);
+    expect(entries[0]!.traditional).toBe('年');
+  });
+
+  it('ranks a cross-reference below a real entry, however common', () => {
+    const { entries } = matchCedict(
+      'nián',
+      [entry('年', ['variant of 秊']), entry('秊', ['grain'])],
+      usage,
+    );
+    expect(entries[0]!.traditional).toBe('秊');
+  });
+});
+
+describe('everydayFirst', () => {
+  it('moves marginal senses behind everyday ones, keeping their order', () => {
+    expect(
+      everydayFirst([
+        '(literary) to call out',
+        'number',
+        'surname Hao',
+        '(bound form) bugle',
+      ]),
+    ).toEqual([
+      'number',
+      '(bound form) bugle',
+      '(literary) to call out',
+      'surname Hao',
+    ]);
+  });
 });
 
 describe('matchCedict', () => {

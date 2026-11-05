@@ -32,14 +32,58 @@ function toneDifferences(a: string, b: string): number {
   return diff;
 }
 
+const MINOR =
+  /^(surname |(old |archaic )?variant of |used in |see |abbr\. for )/;
+
 /** Prefers ordinary entries over surnames, variants, and cross-references. */
 function entryScore(entry: CedictEntry): number {
-  const minor =
-    /^(surname |(old |archaic )?variant of |used in |see |abbr\. for )/;
-  const useful = entry.definitions.filter((d) => !minor.test(d)).length;
+  const useful = entry.definitions.filter((d) => !MINOR.test(d)).length;
   // Lowercase pinyin = common noun; capitalized = proper noun.
   const proper = /^[A-Z]/.test(entry.pinyin) ? 1 : 0;
   return useful * 10 - proper * 5 + entry.definitions.length;
+}
+
+/** An entry that only points elsewhere, or only gives a surname. */
+const isMinor = (entry: CedictEntry) =>
+  entry.definitions.every((d) => MINOR.test(d));
+
+/**
+ * How many multi-character CC-CEDICT headwords use each traditional character:
+ * 年 is in thousands and its old variant 秊 in almost none. It tells a common
+ * form from an obscure one, which the number of definitions can't.
+ */
+export function characterUsage(
+  cedict: ReadonlyMap<string, readonly CedictEntry[]>,
+): Map<string, number> {
+  const usage = new Map<string, number>();
+  for (const entries of cedict.values()) {
+    for (const { traditional } of entries) {
+      const characters = [...traditional];
+      if (characters.length < 2) continue;
+      for (const c of characters) usage.set(c, (usage.get(c) ?? 0) + 1);
+    }
+  }
+  return usage;
+}
+
+/** How common an entry's form is: the use of its rarest character. */
+function commonness(
+  entry: CedictEntry,
+  usage: ReadonlyMap<string, number>,
+): number {
+  return Math.min(...[...entry.traditional].map((c) => usage.get(c) ?? 0));
+}
+
+// Senses a dictionary lists but a learner's gloss shouldn't lead with.
+const MARGINAL =
+  /^(\((literary|archaic|classical|old|dialect|obsolete|Taiwan pr\.)[^)]*\)|surname |(old |archaic )?variant of |used in |see |CL:)/i;
+
+/** Definitions with marginal senses moved behind the everyday ones. */
+export function everydayFirst(definitions: readonly string[]): string[] {
+  return [
+    ...definitions.filter((d) => !MARGINAL.test(d)),
+    ...definitions.filter((d) => MARGINAL.test(d)),
+  ];
 }
 
 /**
@@ -51,9 +95,12 @@ function entryScore(entry: CedictEntry): number {
 export function matchCedict(
   pinyin: string,
   candidates: CedictEntry[],
+  usage: ReadonlyMap<string, number> = new Map(),
 ): MatchResult {
   const target = comparablePinyin(pinyin);
   const byScore = (a: CedictEntry, b: CedictEntry) =>
+    Number(isMinor(a)) - Number(isMinor(b)) ||
+    commonness(b, usage) - commonness(a, usage) ||
     entryScore(b) - entryScore(a);
 
   const exact = candidates.filter((e) => comparableCedict(e.pinyin) === target);
