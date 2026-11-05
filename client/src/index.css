@@ -1,11 +1,11 @@
 /* Design tokens. Warm paper and ink, with cinnabar as the one accent. */
 :root {
   color-scheme: light dark;
-  --bg: #f7f3ea;
-  --surface: #fffdf8;
+  --bg: #fdfdfc;
+  --surface: #ffffff;
   --ink: #2a2420;
   --muted: #6e6459;
-  --line: #e4dccd;
+  --line: #e5e2db;
   --accent: #b3261e;
   --accent-ink: #ffffff;
   --accent-soft: #f6e1da;
@@ -17,7 +17,7 @@
   --bad-soft: #f8e0dc;
   --gold: #c26a05;
   /* Calendar shades: one hue, light to dark. */
-  --heat-0: #ece5d8;
+  --heat-0: #eeebe5;
   --heat-1: #f0c4b4;
   --heat-2: #e08e78;
   --heat-3: #c7503f;
@@ -36,11 +36,11 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --bg: #171412;
-    --surface: #221e1a;
+    --bg: #0b0a09;
+    --surface: #151412;
     --ink: #efe8dc;
     --muted: #a99e90;
-    --line: #38322b;
+    --line: #2d2a26;
     --accent: #ef7a6a;
     --accent-ink: #2a100c;
     --accent-soft: #46231d;
@@ -51,7 +51,7 @@
     --bad: #f28b7d;
     --bad-soft: #472320;
     --gold: #e7a14a;
-    --heat-0: #2d2823;
+    --heat-0: #242220;
     --heat-1: #5a2b24;
     --heat-2: #8f3b30;
     --heat-3: #c9594a;
@@ -65,11 +65,11 @@
 
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --bg: #171412;
-  --surface: #221e1a;
+  --bg: #0b0a09;
+  --surface: #151412;
   --ink: #efe8dc;
   --muted: #a99e90;
-  --line: #38322b;
+  --line: #2d2a26;
   --accent: #ef7a6a;
   --accent-ink: #2a100c;
   --accent-soft: #46231d;
@@ -80,7 +80,7 @@
   --bad: #f28b7d;
   --bad-soft: #472320;
   --gold: #e7a14a;
-  --heat-0: #2d2823;
+  --heat-0: #242220;
   --heat-1: #5a2b24;
   --heat-2: #8f3b30;
   --heat-3: #c9594a;
@@ -231,7 +231,7 @@ progress::-moz-progress-bar {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.5rem max(1rem, calc((100% - 44rem) / 2 + 1rem));
+  padding: 0.5rem 1rem;
   padding-top: max(0.5rem, env(safe-area-inset-top));
   background: color-mix(in srgb, var(--bg) 88%, transparent);
   backdrop-filter: blur(10px);
@@ -246,6 +246,7 @@ progress::-moz-progress-bar {
 
 .tabs {
   display: flex;
+  justify-content: space-evenly;
   gap: 0.25rem;
   flex: 1;
 }
