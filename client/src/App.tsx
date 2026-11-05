@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type { AuthResponse, AuthUser, StudyMode } from '@hanyu/shared';
 import { ApiError, getJson, postJson } from './api';
 import { AuthForm } from './AuthForm';
+import { GearIcon, HourglassIcon, ThemeIcon } from './icons';
 import { Listening } from './Listening';
 import { useActivity } from './local/activity';
 import { LocalDataProvider, useLocalData } from './local/LocalData';
@@ -11,6 +12,7 @@ import { Reading } from './Reading';
 import { Settings } from './Settings';
 import { StudySession } from './StudySession';
 import { SyncIndicator } from './SyncIndicator';
+import { useTheme } from './theme';
 import { Today } from './Today';
 
 // The last signed-in user, so the app can start without the server (offline).
@@ -42,7 +44,6 @@ const TABS: readonly { id: Tab; label: string; glyph: string }[] = [
   { id: 'read', label: 'Read', glyph: '读' },
   { id: 'listen', label: 'Listen', glyph: '听' },
   { id: 'progress', label: 'Progress', glyph: '进' },
-  { id: 'settings', label: 'Settings', glyph: '设' },
 ];
 
 export function App() {
@@ -142,6 +143,7 @@ function Home({
   }
 
   const streak = activity?.streaks;
+  const [theme, toggleTheme] = useTheme();
   return (
     <div className="app">
       {!studying && (
@@ -161,23 +163,44 @@ function Home({
                   {glyph}
                 </span>
                 {label}
+                {id === 'progress' && streak && streak.current > 0 && (
+                  <span
+                    className={`streak ${streak.activeToday ? 'lit' : ''}`}
+                    title={
+                      streak.activeToday
+                        ? `${streak.current}-day streak`
+                        : `${streak.current}-day streak: study today to keep it`
+                    }
+                  >
+                    <HourglassIcon />
+                    <span className="visually-hidden">Streak: </span>
+                    {streak.current}
+                  </span>
+                )}
               </button>
             ))}
           </nav>
-          {streak && streak.current > 0 && (
-            <span
-              className={`streak-chip ${streak.activeToday ? 'lit' : ''}`}
-              title={
-                streak.activeToday
-                  ? `${streak.current}-day streak`
-                  : `${streak.current}-day streak: study today to keep it`
-              }
+          <div className="topbar-actions">
+            <button
+              type="button"
+              className="icon-button"
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+              title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+              onClick={toggleTheme}
             >
-              <span aria-hidden="true">🔥</span>
-              <span className="visually-hidden">Streak: </span>
-              {streak.current}
-            </span>
-          )}
+              <ThemeIcon />
+            </button>
+            <button
+              type="button"
+              className="icon-button"
+              aria-label="Settings"
+              aria-current={tab === 'settings' ? 'page' : undefined}
+              title="Settings"
+              onClick={() => setTab('settings')}
+            >
+              <GearIcon />
+            </button>
+          </div>
         </header>
       )}
       <main>

@@ -22,24 +22,20 @@
   --heat-2: #e08e78;
   --heat-3: #c7503f;
   --heat-4: #8f1f18;
-  --shadow: 0 1px 2px rgb(60 40 20 / 8%), 0 4px 16px rgb(60 40 20 / 6%);
-  --radius: 0.875rem;
-  --radius-small: 0.5rem;
   --nav-height: 4rem;
-  --font-hanzi:
-    'Kaiti SC', 'STKaiti', 'KaiTi', 'Noto Serif CJK SC', 'Source Han Serif SC',
-    'Songti SC', serif;
   font-family:
     system-ui,
     -apple-system,
     'PingFang SC',
     'Noto Sans SC',
+    'Noto Sans CJK SC',
+    'Microsoft YaHei',
     sans-serif;
   line-height: 1.5;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme='light']) {
     --bg: #171412;
     --surface: #221e1a;
     --ink: #efe8dc;
@@ -60,8 +56,35 @@
     --heat-2: #8f3b30;
     --heat-3: #c9594a;
     --heat-4: #f39281;
-    --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 4px 16px rgb(0 0 0 / 25%);
   }
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #171412;
+  --surface: #221e1a;
+  --ink: #efe8dc;
+  --muted: #a99e90;
+  --line: #38322b;
+  --accent: #ef7a6a;
+  --accent-ink: #2a100c;
+  --accent-soft: #46231d;
+  --good: #84c98c;
+  --good-soft: #233527;
+  --warn: #e0ae5a;
+  --warn-soft: #3a2e19;
+  --bad: #f28b7d;
+  --bad-soft: #472320;
+  --gold: #e7a14a;
+  --heat-0: #2d2823;
+  --heat-1: #5a2b24;
+  --heat-2: #8f3b30;
+  --heat-3: #c9594a;
+  --heat-4: #f39281;
 }
 
 *,
@@ -110,7 +133,6 @@ button {
   color: var(--ink);
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--radius-small);
   cursor: pointer;
   transition:
     background-color 120ms,
@@ -162,7 +184,6 @@ textarea {
   color: var(--ink);
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--radius-small);
   padding: 0.5rem 0.625rem;
 }
 
@@ -184,7 +205,6 @@ progress {
   height: 0.5rem;
   appearance: none;
   border: none;
-  border-radius: 1rem;
   overflow: hidden;
   background: var(--line);
 }
@@ -195,13 +215,11 @@ progress::-webkit-progress-bar {
 
 progress::-webkit-progress-value {
   background: var(--accent);
-  border-radius: 1rem;
   transition: width 200ms;
 }
 
 progress::-moz-progress-bar {
   background: var(--accent);
-  border-radius: 1rem;
 }
 
 /* App shell --------------------------------------------------------------- */
@@ -221,7 +239,6 @@ progress::-moz-progress-bar {
 }
 
 .brand {
-  font-family: var(--font-hanzi);
   font-size: 1.625rem;
   font-weight: 700;
   color: var(--accent);
@@ -254,28 +271,48 @@ progress::-moz-progress-bar {
 }
 
 .tabs .glyph {
-  font-family: var(--font-hanzi);
   font-size: 1.125rem;
   line-height: 1;
 }
 
-.streak-chip {
-  margin-left: auto;
+/* The streak, on the Progress tab: an icon and number in the text color. */
+.tabs .streak {
   display: inline-flex;
-  gap: 0.25rem;
   align-items: center;
-  padding: 0.125rem 0.625rem;
-  border-radius: 1rem;
-  border: 1px solid var(--line);
-  color: var(--muted);
-  font-weight: 600;
+  gap: 0.125rem;
+  margin-left: 0.25rem;
   font-variant-numeric: tabular-nums;
+  opacity: 0.6;
 }
 
-.streak-chip.lit {
+.tabs .streak.lit {
+  opacity: 1;
+}
+
+.topbar-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 0.125rem;
+}
+
+.icon-button {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  padding: 0;
+  font-size: 1.25rem;
+  color: var(--muted);
+  background: none;
+  border-color: transparent;
+}
+
+.icon-button:hover:not([aria-current='page']) {
   color: var(--ink);
   border-color: transparent;
-  background: var(--warn-soft);
+}
+
+.icon-button[aria-current='page'] {
+  color: var(--accent);
 }
 
 /* Phones: the sections move to a bar at the thumb. */
@@ -301,12 +338,23 @@ progress::-moz-progress-bar {
 
   .tabs button {
     flex: 1;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: auto auto;
     justify-content: center;
-    gap: 0.125rem;
+    justify-items: center;
+    align-items: center;
+    gap: 0 0.25rem;
     padding: 0.125rem;
     font-size: 0.6875rem;
     background: none;
+  }
+
+  .tabs .glyph {
+    grid-column: 1 / -1;
+  }
+
+  .tabs .streak {
+    margin-left: 0;
   }
 
   .tabs button[aria-current='page'] {
@@ -339,7 +387,6 @@ progress::-moz-progress-bar {
 }
 
 .welcome h1 {
-  font-family: var(--font-hanzi);
   font-size: 5rem;
   line-height: 1.1;
   margin: 0;
@@ -360,8 +407,6 @@ progress::-moz-progress-bar {
   text-align: left;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
 }
 
 .auth h2 {
@@ -400,7 +445,6 @@ progress::-moz-progress-bar {
 .notice {
   font-size: 0.875rem;
   padding: 0.5rem 0.75rem;
-  border-radius: var(--radius-small);
   background: var(--warn-soft);
 }
 
@@ -453,7 +497,6 @@ progress::-moz-progress-bar {
   padding: 0.75rem 1rem;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
 }
 
 .streak-card p {
@@ -485,7 +528,6 @@ progress::-moz-progress-bar {
   place-items: center;
   width: 1.5rem;
   height: 1.5rem;
-  border-radius: 50%;
   background: var(--heat-0);
   font-size: 0.75rem;
 }
@@ -520,12 +562,9 @@ progress::-moz-progress-bar {
   align-items: center;
   padding: 0.75rem 1rem;
   text-align: left;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
 }
 
 .checklist button.done {
-  box-shadow: none;
   background: transparent;
 }
 
@@ -538,7 +577,6 @@ progress::-moz-progress-bar {
   place-items: center;
   width: 1.75rem;
   height: 1.75rem;
-  border-radius: 50%;
   border: 2px solid var(--line);
   font-weight: 700;
 }
@@ -584,7 +622,6 @@ progress::-moz-progress-bar {
   padding: 0.625rem 0.875rem;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
 }
 
 .stats dt {
@@ -616,7 +653,6 @@ progress::-moz-progress-bar {
   min-height: 0;
   padding: 0;
   border: none;
-  border-radius: 3px;
   background: var(--heat-0);
   transition: none;
 }
@@ -655,7 +691,6 @@ progress::-moz-progress-bar {
 .calendar-legend i {
   width: 0.75rem;
   height: 0.75rem;
-  border-radius: 3px;
   background: var(--heat-0);
 }
 
@@ -695,7 +730,6 @@ progress::-moz-progress-bar {
   padding: 0;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
 }
 
 .deck-list li,
@@ -758,7 +792,6 @@ progress::-moz-progress-bar {
   position: relative;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
 }
 
 .settings legend {
@@ -798,7 +831,6 @@ progress::-moz-progress-bar {
 
 .level-picker button {
   padding: 0.25rem 0.75rem;
-  border-radius: 1rem;
   color: var(--muted);
 }
 
@@ -848,8 +880,6 @@ progress::-moz-progress-bar {
   text-align: center;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
 }
 
 .card p {
@@ -865,7 +895,6 @@ progress::-moz-progress-bar {
 }
 
 .card-word {
-  font-family: var(--font-hanzi);
   font-size: 3.5rem;
   line-height: 1.2;
 }
@@ -886,7 +915,6 @@ progress::-moz-progress-bar {
   justify-self: center;
   font-size: 0.75rem;
   padding: 0 0.5rem;
-  border-radius: 1rem;
   background: var(--good-soft);
   color: var(--good);
 }
@@ -903,7 +931,6 @@ progress::-moz-progress-bar {
 }
 
 .feedback {
-  border-radius: var(--radius-small);
 }
 
 .card .feedback {
@@ -965,7 +992,6 @@ progress::-moz-progress-bar {
 /* A 田字格 practice grid: border plus dashed center lines. */
 .writing-grid {
   border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
-  border-radius: 2px;
   background:
     linear-gradient(
       to right,
@@ -1018,7 +1044,6 @@ progress::-moz-progress-bar {
   gap: 0.125rem;
   text-align: left;
   padding: 0.625rem 0.875rem;
-  border-radius: var(--radius);
 }
 
 .passage-list .title {
@@ -1029,9 +1054,18 @@ progress::-moz-progress-bar {
   font-size: 0.875rem;
 }
 
-.passage-list .read {
-  font-size: 1rem;
-  color: var(--good);
+.passage-item {
+  grid-template-columns: 1fr auto;
+}
+
+.passage-item > .hint {
+  grid-column: 1 / -1;
+}
+
+.passage-item .completion {
+  align-self: center;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
 .reading h2 {
@@ -1070,7 +1104,6 @@ progress::-moz-progress-bar {
   padding: 0;
   margin: 0;
   cursor: pointer;
-  border-radius: 0.125rem;
   transition: none;
 }
 
@@ -1096,7 +1129,6 @@ button.speak {
   margin: 0 0.375rem 0 0;
   background: none;
   border-color: var(--line);
-  border-radius: var(--radius-small);
 }
 
 button.speak[aria-pressed='true'] {
@@ -1123,9 +1155,7 @@ button.speak[aria-pressed='true'] {
   gap: 0.5rem;
   padding: 0.625rem 2rem 0.625rem 0.875rem;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: var(--shadow);
 }
 
 .lookup p {
@@ -1215,7 +1245,6 @@ button.speak[aria-pressed='true'] {
 .mode-switch button {
   min-height: 2rem;
   padding: 0.125rem 0.875rem;
-  border-radius: 1rem;
   color: var(--muted);
 }
 

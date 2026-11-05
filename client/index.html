@@ -20,6 +20,13 @@
       content="Learn to read and write Chinese with spaced repetition."
     />
     <title>汉语 Hanyu</title>
+    <script>
+      // Before first paint, so a chosen theme never flashes the other one.
+      try {
+        const theme = localStorage.getItem('hanyu.theme');
+        if (theme) document.documentElement.dataset.theme = theme;
+      } catch {}
+    </script>
   </head>
   <body>
     <div id="root"></div>
