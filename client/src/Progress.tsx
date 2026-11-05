@@ -2,8 +2,11 @@ import { useState } from 'react';
 import {
   addDays,
   buildDecks,
+  buildReadiness,
+  FIRST_TRY_TARGET,
   type AuthUser,
   type DayActivity,
+  type LevelReadiness,
 } from '@hanyu/shared';
 import type { Activity } from './local/activity';
 import { useStudyData } from './local/LocalData';
@@ -59,6 +62,31 @@ export function describeDay(day: DayActivity): string {
   );
 }
 
+const percent = (share: number) => `${Math.round(share * 100)}%`;
+
+function ReadinessRow({ level }: { level: LevelReadiness }) {
+  const parts = [
+    `Words ${percent(level.started)}`,
+    level.recall !== null && `Recall ${percent(level.recall)}`,
+    `Reading ${level.reading === null ? 'none this week' : percent(level.reading)}`,
+    `Listening ${level.listening === null ? 'none this week' : percent(level.listening)}`,
+  ];
+  return (
+    <li>
+      <span className="deck-name">HSK {level.label}</span>
+      <progress
+        value={level.score}
+        max={100}
+        aria-label={`HSK ${level.label} exam readiness`}
+      />
+      <span className="deck-count readiness-score">{level.score}%</span>
+      <span className="hint deck-detail">
+        {parts.filter(Boolean).join(' · ')}
+      </span>
+    </li>
+  );
+}
+
 /** Streaks, a calendar of recent study days, and progress through each level. */
 export function Progress({
   user,
@@ -102,6 +130,22 @@ export function Progress({
         now: new Date(),
       })
     : null;
+  const readiness = data?.dataset
+    ? buildReadiness({
+        ...data,
+        dataset: data.dataset,
+        recall: activity.recall,
+        answers: activity.answers,
+        questionCounts: activity.questionCounts,
+        now: new Date(),
+      }).filter(
+        (level) =>
+          level.started > 0 ||
+          level.reading !== null ||
+          level.listening !== null ||
+          user.settings.levels.includes(level.level),
+      )
+    : null;
   const shown = selected ?? today;
   const shownDay = byDay.get(shown);
 
@@ -115,6 +159,22 @@ export function Progress({
           </div>
         ))}
       </dl>
+      {readiness && (
+        <>
+          <h2>Exam readiness</h2>
+          <ul className="deck-list readiness">
+            {readiness.map((level) => (
+              <ReadinessRow key={level.level} level={level} />
+            ))}
+          </ul>
+          <p className="hint readiness-note">
+            An estimate. Words count pinyin and handwriting for the level.
+            Reading and listening count your first try at exercises finished at
+            that level in the last 7 days, with {percent(FIRST_TRY_TARGET)}{' '}
+            earning full marks and none counting as zero.
+          </p>
+        </>
+      )}
       <h2>Last {WEEKS} weeks</h2>
       <div className="calendar" role="group" aria-label="Study calendar">
         {calendar.map((day) => {

@@ -94,6 +94,7 @@ Estimated time: 1–2 weeks
 - [x] Study due cards and new cards separately, so new words don't wait behind reviews
 - [x] Add daily streaks and a history of what was done each day
 - [x] Add a daily checklist: review, new words, reading, listening
+- [x] Estimate readiness for each HSK exam from vocabulary, recall, and recent exercises
 - [ ] Begin daily use and log UX friction
 
 **Milestone:** usable daily for HSK 1 vocabulary review.

@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import {
   buildActivity,
+  cardRecall,
   computeStreaks,
   studyDayKey,
+  type ActivityAnswer,
   type ActivityResponse,
   type DayActivity,
   type Streaks,
@@ -19,6 +21,11 @@ export interface Activity {
   /** The current study day, as YYYY-MM-DD. */
   today: string;
   streaks: Streaks;
+  /** Reading and listening answers, oldest first. */
+  answers: ActivityAnswer[];
+  questionCounts: Record<string, number>;
+  /** How well each card is recalled, from `cardRecall`. */
+  recall: Map<string, number>;
 }
 
 /**
@@ -33,14 +40,18 @@ export function useActivity(refresh?: unknown): Activity | null {
   useEffect(() => {
     let cancelled = false;
     const show = async (server: ActivityResponse | undefined) => {
-      const days = buildActivity({
-        ...server,
-        reviews: await store.allLogs(),
-        timeZone,
-      });
+      const reviews = await store.allLogs();
+      const days = buildActivity({ ...server, reviews, timeZone });
       const today = studyDayKey(new Date(), timeZone);
       if (!cancelled) {
-        setActivity({ days, today, streaks: computeStreaks(days, today) });
+        setActivity({
+          days,
+          today,
+          streaks: computeStreaks(days, today),
+          answers: server?.answers ?? [],
+          questionCounts: server?.questionCounts ?? {},
+          recall: cardRecall(reviews),
+        });
       }
     };
     (async () => {
