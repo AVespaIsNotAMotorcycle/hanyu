@@ -630,3 +630,58 @@ button.speak[aria-pressed='true'] {
 .transcript {
   margin: 1.5rem 0 1rem;
 }
+
+.progress {
+  width: min(36rem, 100%);
+  margin: 1.5rem auto;
+  text-align: left;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 0.5rem;
+}
+
+.stats dd {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.calendar {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.calendar button {
+  aspect-ratio: 1;
+  padding: 0;
+  border: none;
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.calendar .shade-1 {
+  background: color-mix(in srgb, #b91c1c 30%, transparent);
+}
+.calendar .shade-2 {
+  background: color-mix(in srgb, #b91c1c 55%, transparent);
+}
+.calendar .shade-3 {
+  background: color-mix(in srgb, #b91c1c 80%, transparent);
+}
+.calendar .shade-4 {
+  background: #b91c1c;
+}
+
+.day-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.day-list li {
+  display: grid;
+}

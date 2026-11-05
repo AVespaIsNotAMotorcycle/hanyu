@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import compression from 'compression';
 import express, { type ErrorRequestHandler } from 'express';
 import { requireAuth } from './auth/requireAuth.js';
+import { activityRouter } from './routes/activity.js';
 import { audioRouter } from './routes/audio.js';
 import { createAuthRouter } from './routes/auth.js';
 import { healthRouter } from './routes/health.js';
@@ -52,6 +53,7 @@ export function createApp({
   // Everything below requires a signed-in user.
   api.use(requireAuth);
   api.use('/health', healthRouter);
+  api.use('/activity', activityRouter);
   api.use('/reviews', reviewsRouter);
   api.use('/settings', settingsRouter);
   api.use(contentRouter);

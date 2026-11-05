@@ -4,8 +4,10 @@ import { ApiError, getJson, postJson } from './api';
 import { AuthForm } from './AuthForm';
 import { Decks } from './Decks';
 import { Listening } from './Listening';
+import { useActivity } from './local/activity';
 import { LocalDataProvider, useLocalData } from './local/LocalData';
 import { LocalStore } from './local/store';
+import { Progress } from './Progress';
 import { Reading } from './Reading';
 import { StudySession } from './StudySession';
 import { SyncIndicator } from './SyncIndicator';
@@ -90,7 +92,12 @@ function Home({
 }) {
   const { sync, status } = useLocalData();
   const [studying, setStudying] = useState<StudyMode | null>(null);
-  const [tab, setTab] = useState<'review' | 'read' | 'listen'>('review');
+  const [tab, setTab] = useState<'review' | 'read' | 'listen' | 'progress'>(
+    'review',
+  );
+
+  // Refetched on changing view, to pick up what was just done there.
+  const activity = useActivity(`${tab}:${studying}`);
 
   // The server session ended (expired, or signed out elsewhere). Ask for a
   // sign-in, keeping this device's reviews: the same account picks them up.
@@ -152,12 +159,21 @@ function Home({
           >
             Listen
           </button>
+          <button
+            type="button"
+            aria-pressed={tab === 'progress'}
+            onClick={() => setTab('progress')}
+          >
+            Progress
+          </button>
         </nav>
       )}
       {tab === 'read' && !studying ? (
         <Reading user={user} onUserChange={onUserChange} />
       ) : tab === 'listen' && !studying ? (
         <Listening user={user} />
+      ) : tab === 'progress' && !studying ? (
+        <Progress activity={activity} />
       ) : studying ? (
         <StudySession
           user={user}

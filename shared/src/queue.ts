@@ -128,6 +128,21 @@ export function studyDayStart(
   return new Date(start);
 }
 
+/**
+ * The study day `date` falls in, as YYYY-MM-DD. Study days start at the same
+ * hour as studyDayStart, and each has a stable key for telling days apart.
+ */
+export function studyDayKey(
+  date: Date,
+  timeZone: string,
+  dayStartHour: number = DAY_START_HOUR,
+): string {
+  const shifted = new Date(date.getTime() - dayStartHour * 60 * 60 * 1000);
+  return new Date(shifted.getTime() + utcOffset(timeZone, shifted))
+    .toISOString()
+    .slice(0, 10);
+}
+
 // --- Cards from logs ----------------------------------------------------------
 
 /** A card is a leech once it has lapsed this many times… */
