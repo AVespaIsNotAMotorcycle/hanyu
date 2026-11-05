@@ -191,6 +191,12 @@ export function StudySession({
           {done} reviewed · {remaining} left
         </span>
       </p>
+      <progress
+        className="session-progress"
+        value={done}
+        max={Math.max(done + remaining, 1)}
+        aria-label="Session progress"
+      />
       {error && (
         <p className="error" role="alert">
           {error}
@@ -253,13 +259,13 @@ export function StudySession({
           )}
         </form>
       ) : (
-        <div className="card">
+        <div className="card session-done">
           <p>
             {done === 0 && mode === 'flagged'
               ? 'No flagged cards right now.'
               : `Done for now. ${done} reviewed.`}
           </p>
-          <button type="button" onClick={onExit}>
+          <button type="button" className="primary" onClick={onExit}>
             Back to today
           </button>
         </div>

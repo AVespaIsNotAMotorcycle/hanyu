@@ -73,7 +73,7 @@ export function AuthForm({
           {error}
         </p>
       )}
-      <button type="submit" disabled={pending}>
+      <button type="submit" className="primary" disabled={pending}>
         {signingUp ? 'Sign up' : 'Sign in'}
       </button>
       <button

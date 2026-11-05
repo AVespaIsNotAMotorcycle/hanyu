@@ -857,7 +857,9 @@ function ClozeKeyboard({
         autoComplete="off"
         spellCheck={false}
       />
-      <button type="submit">Check</button>
+      <button type="submit" className="primary">
+        Check
+      </button>
     </form>
   );
 }

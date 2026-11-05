@@ -363,10 +363,10 @@ export function SpeechSettings() {
       ? choice
       : DEVICE;
   return (
-    <fieldset className="speech-settings">
+    <fieldset>
       <legend>Read aloud</legend>
-      <label>
-        Voice{' '}
+      <label className="inline">
+        Voice
         <select
           value={selected}
           onChange={(event) => setPrefs({ voice: event.target.value })}

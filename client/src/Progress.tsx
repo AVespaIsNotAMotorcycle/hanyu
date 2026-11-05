@@ -1,6 +1,12 @@
 import { useState } from 'react';
-import { addDays, type DayActivity } from '@hanyu/shared';
+import {
+  addDays,
+  buildDecks,
+  type AuthUser,
+  type DayActivity,
+} from '@hanyu/shared';
 import type { Activity } from './local/activity';
+import { useStudyData } from './local/LocalData';
 
 /** Weeks shown in the calendar. */
 const WEEKS = 20;
@@ -53,22 +59,32 @@ export function describeDay(day: DayActivity): string {
   );
 }
 
-/** Streaks, a calendar of recent study days, and what was done on each. */
-export function Progress({ activity }: { activity: Activity | null }) {
+/** Streaks, a calendar of recent study days, and progress through each level. */
+export function Progress({
+  user,
+  activity,
+}: {
+  user: AuthUser;
+  activity: Activity | null;
+}) {
+  const { data } = useStudyData(user.settings);
   const [selected, setSelected] = useState<string | null>(null);
   if (!activity) return <p className="status">Loading your history…</p>;
   const { days, today, streaks } = activity;
   const byDay = new Map(days.map((d) => [d.day, d]));
   const answers = days.reduce((n, d) => n + d.answers, 0);
   const correct = days.reduce((n, d) => n + d.correct, 0);
+  const started = days.reduce((n, d) => n + d.newCards, 0);
   const stats = [
     ['Current streak', plural(streaks.current, 'day')],
     ['Longest streak', plural(streaks.longest, 'day')],
     ['Days studied', String(streaks.activeDays)],
+    ['Cards started', started.toLocaleString()],
     ['Cards answered', answers.toLocaleString()],
-    ...(answers > 0
-      ? [['Answered right', `${Math.round((correct / answers) * 100)}%`]]
-      : []),
+    [
+      'Answered right',
+      answers ? `${Math.round((correct / answers) * 100)}%` : '–',
+    ],
   ] as const;
 
   // Whole weeks, Monday first, ending with the week of today.
@@ -78,6 +94,14 @@ export function Progress({ activity }: { activity: Activity | null }) {
     { length: (WEEKS - 1) * 7 + todayIndex + 1 },
     (_, i) => addDays(first, i),
   );
+  const decks = data?.dataset
+    ? buildDecks({
+        ...data,
+        dataset: data.dataset,
+        settings: user.settings,
+        now: new Date(),
+      })
+    : null;
   const shown = selected ?? today;
   const shownDay = byDay.get(shown);
 
@@ -111,6 +135,13 @@ export function Progress({ activity }: { activity: Activity | null }) {
           );
         })}
       </div>
+      <p className="calendar-legend" aria-hidden="true">
+        <span>Less</span>
+        {[0, 1, 2, 3, 4].map((n) => (
+          <i key={n} className={`shade-${n}`} />
+        ))}
+        <span>More</span>
+      </p>
       <p className="calendar-detail" role="status">
         <strong>
           {dateLabel(shown, {
@@ -121,6 +152,37 @@ export function Progress({ activity }: { activity: Activity | null }) {
         </strong>
         : {shownDay ? describeDay(shownDay) : 'nothing studied'}
       </p>
+      {decks && (
+        <>
+          <h2>HSK levels</h2>
+          <ul className="deck-list">
+            {decks.map((deck) => (
+              <li key={deck.level}>
+                <span className="deck-name">HSK {deck.label}</span>
+                <progress
+                  value={deck.started}
+                  max={deck.total || 1}
+                  aria-label={`HSK ${deck.label} cards started`}
+                />
+                <span className="deck-count">
+                  {deck.started.toLocaleString()} /{' '}
+                  {deck.total.toLocaleString()}
+                </span>
+                {(deck.due > 0 || deck.flagged > 0) && (
+                  <span className="hint deck-detail">
+                    {[
+                      deck.due > 0 && `${deck.due} due`,
+                      deck.flagged > 0 && `${deck.flagged} flagged`,
+                    ]
+                      .filter(Boolean)
+                      .join(' · ')}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
       <h2>Recent days</h2>
       {days.length === 0 ? (
         <p className="hint">Nothing yet. Your study days will show up here.</p>

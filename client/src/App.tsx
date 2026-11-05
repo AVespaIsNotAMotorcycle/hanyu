@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import type { AuthResponse, AuthUser, StudyMode } from '@hanyu/shared';
 import { ApiError, getJson, postJson } from './api';
 import { AuthForm } from './AuthForm';
-import { Decks } from './Decks';
 import { Listening } from './Listening';
 import { useActivity } from './local/activity';
 import { LocalDataProvider, useLocalData } from './local/LocalData';
 import { LocalStore } from './local/store';
 import { Progress } from './Progress';
 import { Reading } from './Reading';
+import { Settings } from './Settings';
 import { StudySession } from './StudySession';
 import { SyncIndicator } from './SyncIndicator';
 import { Today } from './Today';
@@ -34,7 +34,16 @@ function cacheUser(user: AuthUser | null) {
   }
 }
 
-type Tab = 'today' | 'decks' | 'read' | 'listen' | 'progress';
+type Tab = 'today' | 'read' | 'listen' | 'progress' | 'settings';
+
+// Each section's icon is the character for it.
+const TABS: readonly { id: Tab; label: string; glyph: string }[] = [
+  { id: 'today', label: 'Today', glyph: '今' },
+  { id: 'read', label: 'Read', glyph: '读' },
+  { id: 'listen', label: 'Listen', glyph: '听' },
+  { id: 'progress', label: 'Progress', glyph: '进' },
+  { id: 'settings', label: 'Settings', glyph: '设' },
+];
 
 export function App() {
   // undefined: still checking for an existing session.
@@ -61,24 +70,27 @@ export function App() {
       });
   }, []);
 
+  if (user) {
+    return (
+      <LocalDataProvider userId={user.id}>
+        <Home
+          user={user}
+          onUserChange={setUser}
+          onSignedOut={() => setUser(null)}
+        />
+      </LocalDataProvider>
+    );
+  }
   return (
-    <main>
-      <h1>汉语</h1>
-      <p>Learning to read Chinese, one review at a time.</p>
+    <main className="welcome">
+      <h1 lang="zh-Hans">汉语</h1>
+      <p className="tagline">Learning to read Chinese, one review at a time.</p>
       {error ? (
         <p className="status">Can’t reach the server: {error}</p>
       ) : user === undefined ? (
         <p className="status">Loading…</p>
-      ) : user === null ? (
-        <AuthForm onSignedIn={setUser} />
       ) : (
-        <LocalDataProvider userId={user.id}>
-          <Home
-            user={user}
-            onUserChange={setUser}
-            onSignedOut={() => setUser(null)}
-          />
-        </LocalDataProvider>
+        <AuthForm onSignedIn={setUser} />
       )}
     </main>
   );
@@ -129,76 +141,74 @@ function Home({
     setTimeout(() => void LocalStore.destroy(user.id).catch(() => {}), 0);
   }
 
+  const streak = activity?.streaks;
   return (
-    <>
-      <p>
-        Signed in as {user.displayName ?? user.email}.{' '}
-        <button type="button" className="link" onClick={() => void signOut()}>
-          Sign out
-        </button>
-      </p>
+    <div className="app">
       {!studying && (
-        <nav className="tabs" aria-label="Sections">
-          <button
-            type="button"
-            aria-pressed={tab === 'today'}
-            onClick={() => setTab('today')}
-          >
-            Today
-          </button>
-          <button
-            type="button"
-            aria-pressed={tab === 'decks'}
-            onClick={() => setTab('decks')}
-          >
-            Decks
-          </button>
-          <button
-            type="button"
-            aria-pressed={tab === 'read'}
-            onClick={() => setTab('read')}
-          >
-            Read
-          </button>
-          <button
-            type="button"
-            aria-pressed={tab === 'listen'}
-            onClick={() => setTab('listen')}
-          >
-            Listen
-          </button>
-          <button
-            type="button"
-            aria-pressed={tab === 'progress'}
-            onClick={() => setTab('progress')}
-          >
-            Progress
-          </button>
-        </nav>
+        <header className="topbar">
+          <span className="brand" lang="zh-Hans">
+            汉语
+          </span>
+          <nav className="tabs" aria-label="Sections">
+            {TABS.map(({ id, label, glyph }) => (
+              <button
+                key={id}
+                type="button"
+                aria-current={tab === id ? 'page' : undefined}
+                onClick={() => setTab(id)}
+              >
+                <span className="glyph" lang="zh-Hans" aria-hidden="true">
+                  {glyph}
+                </span>
+                {label}
+              </button>
+            ))}
+          </nav>
+          {streak && streak.current > 0 && (
+            <span
+              className={`streak-chip ${streak.activeToday ? 'lit' : ''}`}
+              title={
+                streak.activeToday
+                  ? `${streak.current}-day streak`
+                  : `${streak.current}-day streak: study today to keep it`
+              }
+            >
+              <span aria-hidden="true">🔥</span>
+              <span className="visually-hidden">Streak: </span>
+              {streak.current}
+            </span>
+          )}
+        </header>
       )}
-      {tab === 'read' && !studying ? (
-        <Reading user={user} onUserChange={onUserChange} />
-      ) : tab === 'listen' && !studying ? (
-        <Listening user={user} />
-      ) : tab === 'progress' && !studying ? (
-        <Progress activity={activity} />
-      ) : tab === 'today' && !studying ? (
-        <Today
-          user={user}
-          activity={activity}
-          onStudy={setStudying}
-          onOpen={setTab}
-        />
-      ) : studying ? (
-        <StudySession
-          user={user}
-          mode={studying}
-          onExit={() => setStudying(null)}
-        />
-      ) : (
-        <Decks user={user} onUserChange={onUserChange} onStudy={setStudying} />
-      )}
-      <SyncIndicator />
-    </>
+      <main>
+        {studying ? (
+          <StudySession
+            user={user}
+            mode={studying}
+            onExit={() => setStudying(null)}
+          />
+        ) : tab === 'read' ? (
+          <Reading user={user} onUserChange={onUserChange} />
+        ) : tab === 'listen' ? (
+          <Listening user={user} />
+        ) : tab === 'progress' ? (
+          <Progress user={user} activity={activity} />
+        ) : tab === 'settings' ? (
+          <Settings
+            user={user}
+            onUserChange={onUserChange}
+            onSignOut={() => void signOut()}
+          />
+        ) : (
+          <Today
+            user={user}
+            activity={activity}
+            onStudy={setStudying}
+            onOpen={setTab}
+          />
+        )}
+        <SyncIndicator />
+      </main>
+    </div>
   );
 }

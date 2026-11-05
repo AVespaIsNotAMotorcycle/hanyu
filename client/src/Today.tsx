@@ -1,4 +1,5 @@
 import {
+  addDays,
   buildQueue,
   dailyChecklist,
   parseCardKey,
@@ -76,15 +77,73 @@ export function Today({
     listening: () => onOpen('listen'),
   };
   const done = items.filter((item) => item.done).length;
+  const active = new Set(activity.days.map((d) => d.day));
+  const week = Array.from({ length: 7 }, (_, i) =>
+    addDays(activity.today, i - 6),
+  );
+  const { current, activeToday } = activity.streaks;
 
   return (
     <section className="today">
-      <h2>Today</h2>
-      <p className="hint">
-        {done === items.length
-          ? 'Everything’s done. See you tomorrow!'
-          : `${done} of ${items.length} done`}
-      </p>
+      <header className="today-head">
+        <h2>
+          {new Date().toLocaleDateString(undefined, {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric',
+          })}
+        </h2>
+        <p className="hint">
+          {done === items.length
+            ? 'Everything’s done. See you tomorrow!'
+            : `${done} of ${items.length} done`}
+        </p>
+        <progress value={done} max={items.length} aria-label="Today’s goals" />
+      </header>
+      <div className="streak-card">
+        <p>
+          <strong>
+            {current} {current === 1 ? 'day' : 'days'}
+          </strong>{' '}
+          <span className="hint">
+            {current === 0
+              ? 'Study today to start a streak'
+              : activeToday
+                ? 'streak'
+                : 'streak: study today to keep it'}
+          </span>
+        </p>
+        <ol className="week" aria-label="Last seven days">
+          {week.map((day) => {
+            const date = new Date(`${day}T12:00:00Z`);
+            const weekday = date.toLocaleDateString(undefined, {
+              weekday: 'narrow',
+              timeZone: 'UTC',
+            });
+            const name = date.toLocaleDateString(undefined, {
+              weekday: 'long',
+              timeZone: 'UTC',
+            });
+            return (
+              <li
+                key={day}
+                className={[
+                  active.has(day) ? 'active' : '',
+                  day === activity.today ? 'now' : '',
+                ].join(' ')}
+              >
+                <span aria-hidden="true">{weekday}</span>
+                <span className="dot" aria-hidden="true">
+                  {active.has(day) ? '✓' : ''}
+                </span>
+                <span className="visually-hidden">
+                  {name}: {active.has(day) ? 'studied' : 'not studied'}
+                </span>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
       <ul className="checklist">
         {items.map((item) => (
           <li key={item.id}>
@@ -102,8 +161,11 @@ export function Today({
                 <span className="visually-hidden">
                   {item.done ? ' (done)' : ''}
                 </span>
+                <span className="detail">{detail(item)}</span>
               </span>
-              <span className="detail">{detail(item)}</span>
+              <span className="chevron" aria-hidden="true">
+                {open[item.id] ? '›' : ''}
+              </span>
             </button>
           </li>
         ))}

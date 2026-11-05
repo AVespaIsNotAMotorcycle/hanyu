@@ -101,7 +101,7 @@ Every API route requires a session except these:
 
 The client is a PWA: install it from the browser (Add to Home Screen on iPad and Android). After one visit online it starts without a connection. Reviews are saved on the device first (IndexedDB) and sync when the connection returns.
 
-Read-aloud (🔊 buttons on passages, questions, word lookups, and answered pinyin cards) plays recordings made offline with an Azure neural voice (`npm run audio:generate`; see [data/README.md](data/README.md)), kept on the device once played. Text without a recording is read by the device's own Mandarin voice through the Web Speech API. The voice and speed are chosen per device under "Read aloud" on the decks page. Recordings give each reading of words like 行 (xíng, háng) correctly; the device voice can't, so it doesn't read those.
+Read-aloud (🔊 buttons on passages, questions, word lookups, and answered pinyin cards) plays recordings made offline with an Azure neural voice (`npm run audio:generate`; see [data/README.md](data/README.md)), kept on the device once played. Text without a recording is read by the device's own Mandarin voice through the Web Speech API. The voice and speed are chosen per device under "Read aloud" in Settings. Recordings give each reading of words like 行 (xíng, háng) correctly; the device voice can't, so it doesn't read those.
 
 ## Deploying to Heroku
 
