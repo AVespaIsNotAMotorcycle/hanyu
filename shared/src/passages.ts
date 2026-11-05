@@ -143,10 +143,42 @@ export interface PassageSummary {
   questionCount: number;
   /** Paragraphs that have a reference translation (translation exercises). */
   translatable: boolean;
+  /** How many paragraphs have one. */
+  translationCount: number;
   /** The words in the text (names left out), for recommendations. */
   vocabulary: PassageWord[];
-  /** The signed-in user's questions answered so far, and answered right. */
-  progress: { answered: number; correct: number };
+  /**
+   * The signed-in user's questions answered so far, answered right, and
+   * paragraphs with a graded translation.
+   */
+  progress: { answered: number; correct: number; translated: number };
+}
+
+/** Paragraphs with a translation exercise: those with a reference translation. */
+export function translationCount(
+  passage: Pick<Passage, 'text' | 'translation'>,
+): number {
+  return Math.min(
+    paragraphs(passage.text).length,
+    passage.translation?.length ?? 0,
+  );
+}
+
+/**
+ * How much of a passage is finished, from 0 to 100: every question answered
+ * and every paragraph translated. Rounds down, so 100 means all of it.
+ */
+export function passageCompletion({
+  questionCount,
+  translationCount,
+  progress,
+}: Pick<
+  PassageSummary,
+  'questionCount' | 'translationCount' | 'progress'
+>): number {
+  const total = questionCount + translationCount;
+  if (total === 0) return 0;
+  return Math.floor(((progress.answered + progress.translated) / total) * 100);
 }
 
 /** A distinct token in a passage and the HSK words it could be. */

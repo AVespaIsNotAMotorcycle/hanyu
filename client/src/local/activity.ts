@@ -11,7 +11,7 @@ import { getJson, timeZone } from '../api';
 import { useLocalData } from './LocalData';
 
 // The server's part of the history, kept so streaks still show offline.
-const CACHE = 'activity';
+const CACHE = 'activity-v2';
 
 export interface Activity {
   /** Each active study day, oldest first. */

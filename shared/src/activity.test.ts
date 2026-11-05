@@ -142,13 +142,55 @@ describe('buildActivity', () => {
     expect(days.map((d) => d.readingExercises)).toEqual([0, 0]);
   });
 
-  it('counts translations', () => {
-    const [day] = buildActivity({
+  describe('passages with translations', () => {
+    const at = '2026-03-09T12:00:00Z';
+    const base = {
       timeZone: 'UTC',
       reviews: [],
-      translations: ['2026-03-09T12:00:00Z'],
+      answers: [{ exerciseId: 'p1-0001', questionId: 'q1', correct: true, at }],
+      questionCounts: { 'p1-0001': 1 },
+      translationCounts: { 'p1-0001': 2 },
+    };
+    const translated = (paragraph: number, when = at) => ({
+      exerciseId: 'p1-0001',
+      paragraph,
+      at: when,
     });
-    expect(day!.translations).toBe(1);
+
+    it('needs every paragraph translated as well', () => {
+      const [partial] = buildActivity({
+        ...base,
+        translations: [translated(0), translated(0)],
+      });
+      expect(partial).toMatchObject({ translations: 2, readingExercises: 0 });
+      const [full] = buildActivity({
+        ...base,
+        translations: [translated(0), translated(1)],
+      });
+      expect(full).toMatchObject({ translations: 2, readingExercises: 1 });
+    });
+
+    it('needs the questions as well', () => {
+      const [day] = buildActivity({
+        ...base,
+        answers: [],
+        translations: [translated(0), translated(1)],
+      });
+      expect(day!.readingExercises).toBe(0);
+    });
+
+    it('does not finish a passage across days', () => {
+      const days = buildActivity({
+        ...base,
+        translations: [translated(0), translated(1, '2026-03-10T12:00:00Z')],
+      });
+      expect(days.map((d) => d.readingExercises)).toEqual([0, 0]);
+    });
+
+    it('needs no translation from a passage without exercises', () => {
+      const [day] = buildActivity({ ...base, translationCounts: {} });
+      expect(day!.readingExercises).toBe(1);
+    });
   });
 });
 

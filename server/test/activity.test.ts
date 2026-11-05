@@ -55,6 +55,8 @@ describe.skipIf(!uri)('GET /api/activity', () => {
     await PassageModel.collection.insertOne({
       _id: 'p1-0001' as never,
       questions: [question, { id: 'q2' }],
+      text: '第一段。\n\n第二段。',
+      translation: ['One.', 'Two.'],
     });
     await ListeningExerciseModel.collection.insertOne({
       _id: 'l1-0001' as never,
@@ -110,8 +112,11 @@ describe.skipIf(!uri)('GET /api/activity', () => {
       correct: expect.any(Boolean),
       at: expect.any(String),
     });
-    expect(body.translations).toHaveLength(1);
+    expect(body.translations).toEqual([
+      { exerciseId: 'p1-0001', paragraph: 0, at: expect.any(String) },
+    ]);
     expect(body.questionCounts).toEqual({ 'p1-0001': 2, 'l1-0001': 1 });
+    expect(body.translationCounts).toEqual({ 'p1-0001': 2 });
   });
 
   it('is empty for a new user', async () => {
@@ -124,6 +129,7 @@ describe.skipIf(!uri)('GET /api/activity', () => {
       answers: [],
       translations: [],
       questionCounts: {},
+      translationCounts: {},
     });
   });
 });

@@ -9,6 +9,7 @@ import { createApp } from '../src/app.js';
 import {
   GrammarPointModel,
   PassageModel,
+  TranslationGradingModel,
   WordModel,
 } from '../src/models/index.js';
 import { seedPassages } from '../src/passages.js';
@@ -218,6 +219,7 @@ describe.skipIf(!uri)('passages', () => {
         grammarIds: ['g1-001'],
         questionCount: 2,
         translatable: true,
+        translationCount: expect.any(Number),
         // Names left out; homographs list every word with the form.
         vocabulary: [
           { text: '是', wordIds: [], count: 1 },
@@ -229,7 +231,7 @@ describe.skipIf(!uri)('passages', () => {
           { text: '本', wordIds: ['hsk30-00001', 'hsk30-00002'], count: 1 },
           { text: '书', wordIds: ['hsk30-00003'], count: 1 },
         ],
-        progress: { answered: 0, correct: 0 },
+        progress: { answered: 0, correct: 0, translated: 0 },
       },
       expect.objectContaining({ _id: 'p1-0002', title: '我的家' }),
     ]);
@@ -297,7 +299,11 @@ describe.skipIf(!uri)('passages', () => {
       }),
     ]);
     const list = await agent.get('/api/passages');
-    expect(list.body.passages[0].progress).toEqual({ answered: 2, correct: 1 });
+    expect(list.body.passages[0].progress).toEqual({
+      answered: 2,
+      correct: 1,
+      translated: 0,
+    });
 
     // Another user starts fresh.
     const other = request.agent(createApp());
@@ -307,6 +313,38 @@ describe.skipIf(!uri)('passages', () => {
     expect((await other.get('/api/passages/p1-0001')).body.progress).toEqual(
       [],
     );
+  });
+
+  it('counts paragraphs with a graded translation', async () => {
+    await write({
+      ...passage('p1-0001'),
+      text: '第一段。\n\n第二段。',
+      translation: ['One.', 'Two.'],
+    });
+    await seedPassages({ dir, log: quiet });
+    const { user } = (await agent.get('/api/auth/me')).body;
+    const grading = (paragraph: number, status: string) => ({
+      userId: user.id,
+      passageId: 'p1-0001',
+      paragraph,
+      source: '你好',
+      reference: 'Hello',
+      translation: 'Hi',
+      status,
+      model: 'test',
+      promptVersion: 'test',
+    });
+    await TranslationGradingModel.create([
+      grading(0, 'graded'),
+      // A retry of the same paragraph, one that failed, and one out of range.
+      grading(0, 'graded'),
+      grading(1, 'failed'),
+      grading(99, 'graded'),
+    ]);
+    const list = await agent.get('/api/passages');
+    const [summary] = list.body.passages;
+    expect(summary.translationCount).toBe(2);
+    expect(summary.progress.translated).toBe(1);
   });
 
   it('rejects answers to unknown questions or in the wrong way', async () => {

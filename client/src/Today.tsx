@@ -22,7 +22,9 @@ const LABELS: Record<ChecklistId, string> = {
 
 function detail({ id, done, count, goal }: ChecklistItem): string {
   if (id === 'reading') {
-    return done ? 'Passage finished' : 'Answer every question in a passage';
+    return done
+      ? 'Passage finished'
+      : 'Answer the questions and translate a passage';
   }
   if (id === 'listening') {
     return done ? 'Exercise finished' : 'Answer every question in an exercise';

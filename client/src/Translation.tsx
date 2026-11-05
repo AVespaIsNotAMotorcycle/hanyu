@@ -55,10 +55,10 @@ export function TranslationExercises({
     <section className="translations">
       <h3>Translate</h3>
       <p className="hint">
-        Translate each paragraph into English; it’s graded for accuracy,
-        completeness, grammar, and naturalness. Words you misread are added to
-        your new cards. {limits.dailyLimit - limits.used} of {limits.dailyLimit}{' '}
-        gradings left in the last 24 hours.
+        To finish the passage, translate each paragraph into English; it’s
+        graded for accuracy, completeness, grammar, and naturalness. Words you
+        misread are added to your new cards. {limits.dailyLimit - limits.used}{' '}
+        of {limits.dailyLimit} gradings left in the last 24 hours.
       </p>
       {limits.unavailable && <p className="notice">{limits.unavailable}</p>}
       <ol className="translation-list">

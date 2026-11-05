@@ -10,6 +10,7 @@ import {
   HSK_LEVELS,
   isHanziToken,
   paragraphs,
+  passageCompletion,
   passageFamiliarity,
   pendingAddedWords,
   ratingForHandwriting,
@@ -114,7 +115,6 @@ export function Reading({
         familiarity={
           data ? passageFamiliarity(passage.vocabulary, summaries) : null
         }
-        read={read.has(passage._id)}
         onOpen={() => setOpen(passage._id)}
       />
     </li>
@@ -165,12 +165,10 @@ const percent = (n: number, total: number) =>
 function PassageItem({
   passage,
   familiarity,
-  read,
   onOpen,
 }: {
   passage: PassageSummary;
   familiarity: Familiarity | null;
-  read: boolean;
   onOpen: () => void;
 }) {
   const known = familiarity?.total
@@ -183,30 +181,35 @@ function PassageItem({
         .filter(Boolean)
         .join(', ')
     : null;
+  const completion = passageCompletion(passage);
   return (
-    <button type="button" onClick={onOpen}>
+    <button type="button" className="passage-item" onClick={onOpen}>
       <span lang="zh-Hans" className="title">
         {passage.title}
-        {read && (
-          <span className="read" aria-label="read">
-            {' '}
-            ✓
-          </span>
-        )}
+      </span>
+      <span className="completion">
+        {completion}%<span className="visually-hidden"> complete</span>
       </span>
       <span className="hint">
         HSK {HSK_LEVEL_LABELS[passage.level]} · {passage.titleEnglish} ·{' '}
         {passage.length} characters · {passage.questionCount} questions
-        {passage.translatable && ' · translation'}
+        {passage.translatable &&
+          ` · ${passage.translationCount} ${passage.translationCount === 1 ? 'translation' : 'translations'}`}
       </span>
       {passage.progress.answered > 0 && (
         <span className="hint">
           {passage.progress.correct === passage.questionCount
-            ? '✓ All questions answered right'
+            ? 'All questions answered right'
             : `${passage.progress.correct} of ${passage.questionCount} questions answered right` +
               (passage.progress.answered > passage.progress.correct
                 ? `, ${passage.progress.answered - passage.progress.correct} not yet`
                 : '')}
+        </span>
+      )}
+      {passage.progress.translated > 0 && (
+        <span className="hint">
+          {passage.progress.translated} of {passage.translationCount} paragraphs
+          translated
         </span>
       )}
       {known && <span className="hint">{known}</span>}

@@ -1,6 +1,9 @@
 import type { Types } from 'mongoose';
 import type { QuestionProgress } from '@hanyu/shared';
-import { QuestionAnswerModel } from './models/index.js';
+import {
+  QuestionAnswerModel,
+  TranslationGradingModel,
+} from './models/index.js';
 
 // Progress on reading and listening questions, derived from the
 // questionanswers log.
@@ -61,4 +64,18 @@ export function summarize(
     answered: current.length,
     correct: current.filter((p) => p.correct).length,
   };
+}
+
+/** The paragraphs a user has a graded translation of, by passage. */
+export async function translatedParagraphs(
+  userId: Types.ObjectId,
+): Promise<Map<string, number[]>> {
+  const rows = await TranslationGradingModel.aggregate<{
+    _id: string;
+    paragraphs: number[];
+  }>([
+    { $match: { userId, status: 'graded' } },
+    { $group: { _id: '$passageId', paragraphs: { $addToSet: '$paragraph' } } },
+  ]);
+  return new Map(rows.map((row) => [row._id, row.paragraphs]));
 }

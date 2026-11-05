@@ -3,6 +3,7 @@ import {
   isHanziToken,
   isHskLevel,
   paragraphs,
+  translationCount,
   type GrammarPoint,
   type Passage,
   type PassageResponse,
@@ -22,6 +23,7 @@ import {
   badRequest,
   questionProgress,
   summarize,
+  translatedParagraphs,
 } from '../questionProgress.js';
 
 // Reading passages. They're generated offline and loaded by the seed script;
@@ -79,27 +81,36 @@ passagesRouter.get('/', async (req, res) => {
     .sort({ _id: 1 })
     .lean<Passage[]>();
   const tokens = passages.map(wordTokens);
-  const [ids, progress] = await Promise.all([
+  const [ids, progress, translated] = await Promise.all([
     wordIdsBySimplified(tokens.flatMap((t) => [...t.keys()])),
     questionProgress(req.user!._id),
+    translatedParagraphs(req.user!._id),
   ]);
   const body: PassagesResponse = {
-    passages: passages.map((p, i): PassageSummary => ({
-      _id: p._id,
-      level: p.level,
-      title: p.title,
-      titleEnglish: p.titleEnglish,
-      length: [...paragraphs(p.text).join('')].length,
-      grammarIds: [...new Set(p.grammar.map((g) => g.grammarId))],
-      questionCount: p.questions.length,
-      translatable: Boolean(p.translation?.length),
-      vocabulary: [...tokens[i]!].map(([text, count]): PassageWord => ({
-        text,
-        wordIds: ids.get(text) ?? [],
-        count,
-      })),
-      progress: summarize(p, progress.get(p._id) ?? []),
-    })),
+    passages: passages.map((p, i): PassageSummary => {
+      const exercises = translationCount(p);
+      return {
+        _id: p._id,
+        level: p.level,
+        title: p.title,
+        titleEnglish: p.titleEnglish,
+        length: [...paragraphs(p.text).join('')].length,
+        grammarIds: [...new Set(p.grammar.map((g) => g.grammarId))],
+        questionCount: p.questions.length,
+        translatable: exercises > 0,
+        translationCount: exercises,
+        vocabulary: [...tokens[i]!].map(([text, count]): PassageWord => ({
+          text,
+          wordIds: ids.get(text) ?? [],
+          count,
+        })),
+        progress: {
+          ...summarize(p, progress.get(p._id) ?? []),
+          translated: (translated.get(p._id) ?? []).filter((n) => n < exercises)
+            .length,
+        },
+      };
+    }),
   };
   res.json(body);
 });

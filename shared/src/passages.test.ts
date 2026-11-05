@@ -4,11 +4,52 @@ import {
   checkClozeAnswer,
   normalizeHanziAnswer,
   paragraphs,
+  passageCompletion,
   passageFamiliarity,
   recommendPassages,
   type PassageSummary,
 } from './passages.js';
 import { summarizeCards } from './queue.js';
+
+describe('passageCompletion', () => {
+  const passage = {
+    questionCount: 6,
+    translationCount: 4,
+    progress: { answered: 0, correct: 0, translated: 0 },
+  };
+  const at = (answered: number, translated: number) =>
+    passageCompletion({
+      ...passage,
+      progress: { answered, correct: 0, translated },
+    });
+
+  it('counts questions and translated paragraphs alike', () => {
+    expect(at(0, 0)).toBe(0);
+    expect(at(6, 0)).toBe(60);
+    expect(at(6, 2)).toBe(80);
+    expect(at(6, 4)).toBe(100);
+  });
+
+  it('only says 100 when everything is done', () => {
+    expect(
+      passageCompletion({
+        questionCount: 200,
+        translationCount: 1,
+        progress: { answered: 200, correct: 0, translated: 0 },
+      }),
+    ).toBe(99);
+  });
+
+  it('counts a passage without translations by its questions', () => {
+    expect(
+      passageCompletion({
+        questionCount: 2,
+        translationCount: 0,
+        progress: { answered: 1, correct: 0, translated: 0 },
+      }),
+    ).toBe(50);
+  });
+});
 
 describe('checkClozeAnswer', () => {
   const question = { answer: '喜欢', alsoAccepted: ['爱'] };
@@ -76,6 +117,7 @@ describe('passageFamiliarity and recommendPassages', () => {
     grammarIds: [],
     questionCount: 0,
     translatable: false,
+    translationCount: 0,
     vocabulary,
   });
 

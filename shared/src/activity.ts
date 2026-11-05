@@ -18,13 +18,22 @@ export interface ActivityAnswer {
   at: string;
 }
 
+/** One graded translation of a passage's paragraph. */
+export interface ActivityTranslation {
+  exerciseId: string;
+  paragraph: number;
+  /** ISO timestamp. */
+  at: string;
+}
+
 /** GET /api/activity: what only the server knows. Reviews come from local logs. */
 export interface ActivityResponse {
   answers: ActivityAnswer[];
-  /** When each graded translation was graded, as ISO timestamps. */
-  translations: string[];
-  /** How many questions each answered exercise has. */
+  translations: ActivityTranslation[];
+  /** How many questions each exercise worked on has. */
   questionCounts: Record<string, number>;
+  /** How many paragraphs of each passage worked on must be translated. */
+  translationCounts: Record<string, number>;
 }
 
 export interface DayActivity {
@@ -41,7 +50,7 @@ export interface DayActivity {
   /** Time on cards, each capped at MAX_COUNTED_CARD_MS. */
   durationMs: number;
   readingQuestions: number;
-  /** Passages with every question answered that day. */
+  /** Passages with every question answered and paragraph translated that day. */
   readingExercises: number;
   listeningQuestions: number;
   /** Listening exercises with every question answered that day. */
@@ -58,6 +67,8 @@ export interface ActivityInput extends Partial<ActivityResponse> {
   }[];
   timeZone: string;
 }
+
+const isListening = (exerciseId: string) => exerciseId.startsWith('l');
 
 const emptyDay = (day: string): DayActivity => ({
   day,
@@ -79,6 +90,7 @@ export function buildActivity({
   answers = [],
   translations = [],
   questionCounts = {},
+  translationCounts = {},
   timeZone,
 }: ActivityInput): DayActivity[] {
   const days = new Map<string, DayActivity>();
@@ -113,29 +125,53 @@ export function buildActivity({
     }
   }
 
-  // Which questions of each exercise were answered, by day.
-  const answered = new Map<string, Set<string>>();
-  for (const answer of answers) {
-    const day = dayOf(answer.at);
-    const listening = answer.exerciseId.startsWith('l');
-    if (listening) day.listeningQuestions++;
-    else day.readingQuestions++;
-
-    const key = `${day.day}:${answer.exerciseId}`;
-    const questions = answered.get(key) ?? new Set();
-    const before = questions.size;
-    questions.add(answer.questionId);
-    answered.set(key, questions);
-    if (
-      questions.size > before &&
-      questions.size === questionCounts[answer.exerciseId]
-    ) {
-      if (listening) day.listeningExercises++;
-      else day.readingExercises++;
+  // What was done on each exercise, by day.
+  const worked = new Map<
+    string,
+    {
+      day: DayActivity;
+      exerciseId: string;
+      questions: Set<string>;
+      paragraphs: Set<number>;
     }
-  }
+  >();
+  const workOn = (exerciseId: string, at: string) => {
+    const day = dayOf(at);
+    const key = `${day.day}:${exerciseId}`;
+    let work = worked.get(key);
+    if (!work) {
+      work = {
+        day,
+        exerciseId,
+        questions: new Set(),
+        paragraphs: new Set(),
+      };
+      worked.set(key, work);
+    }
+    return work;
+  };
 
-  for (const at of translations) dayOf(at).translations++;
+  for (const { exerciseId, questionId, at } of answers) {
+    const work = workOn(exerciseId, at);
+    work.questions.add(questionId);
+    if (isListening(exerciseId)) work.day.listeningQuestions++;
+    else work.day.readingQuestions++;
+  }
+  for (const { exerciseId, paragraph, at } of translations) {
+    const work = workOn(exerciseId, at);
+    work.paragraphs.add(paragraph);
+    work.day.translations++;
+  }
+  for (const { day, exerciseId, questions, paragraphs } of worked.values()) {
+    if (
+      questions.size !== questionCounts[exerciseId] ||
+      paragraphs.size < (translationCounts[exerciseId] ?? 0)
+    ) {
+      continue;
+    }
+    if (isListening(exerciseId)) day.listeningExercises++;
+    else day.readingExercises++;
+  }
 
   return [...days.values()].sort((a, b) => a.day.localeCompare(b.day));
 }
@@ -195,7 +231,8 @@ export interface ChecklistItem {
 
 /**
  * Today's checklist: clear the due cards, learn today's new words, and finish
- * one reading passage and one listening exercise. Nothing due counts as done.
+ * one reading passage (questions and translation) and one listening exercise.
+ * Nothing due counts as done.
  */
 export function dailyChecklist(
   today: DayActivity | undefined,
