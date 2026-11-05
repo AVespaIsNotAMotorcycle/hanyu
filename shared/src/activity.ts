@@ -3,7 +3,7 @@
 // from GET /api/activity), never stored.
 
 import type { Rating } from './content.js';
-import { studyDayKey } from './queue.js';
+import { studyDayKey, type StudyQueue } from './queue.js';
 
 /** Longest a single card counts for, so walking away doesn't inflate study time. */
 export const MAX_COUNTED_CARD_MS = 2 * 60 * 1000;
@@ -180,4 +180,49 @@ export function computeStreaks(
     day = addDays(day, -1);
   }
   return { current, longest, activeDays: active.size, activeToday };
+}
+
+export type ChecklistId = 'review' | 'new' | 'reading' | 'listening';
+
+export interface ChecklistItem {
+  id: ChecklistId;
+  done: boolean;
+  /** How much of today's goal is done. */
+  count: number;
+  /** Today's goal; 0 when there was nothing to do. */
+  goal: number;
+}
+
+/**
+ * Today's checklist: clear the due cards, learn today's new words, and finish
+ * one reading passage and one listening exercise. Nothing due counts as done.
+ */
+export function dailyChecklist(
+  today: DayActivity | undefined,
+  queue: Pick<StudyQueue, 'dueCount' | 'newWordCount' | 'wordsIntroducedToday'>,
+): ChecklistItem[] {
+  const reviewed = today?.reviewedCards ?? 0;
+  const reading = today?.readingExercises ?? 0;
+  const listening = today?.listeningExercises ?? 0;
+  return [
+    {
+      id: 'review',
+      done: queue.dueCount === 0,
+      count: reviewed,
+      goal: reviewed + queue.dueCount,
+    },
+    {
+      id: 'new',
+      done: queue.newWordCount === 0,
+      count: queue.wordsIntroducedToday,
+      goal: queue.wordsIntroducedToday + queue.newWordCount,
+    },
+    { id: 'reading', done: reading >= 1, count: Math.min(reading, 1), goal: 1 },
+    {
+      id: 'listening',
+      done: listening >= 1,
+      count: Math.min(listening, 1),
+      goal: 1,
+    },
+  ];
 }

@@ -3,6 +3,8 @@ import {
   addDays,
   buildActivity,
   computeStreaks,
+  dailyChecklist,
+  type DayActivity,
   MAX_COUNTED_CARD_MS,
 } from './activity.js';
 import { cardKey, type Rating } from './content.js';
@@ -199,5 +201,59 @@ describe('computeStreaks', () => {
       activeDays: 0,
       activeToday: false,
     });
+  });
+});
+
+describe('dailyChecklist', () => {
+  const [today] = buildActivity({
+    timeZone: 'UTC',
+    reviews: [
+      review('a', '2026-03-09T12:00:00Z'),
+      review('a', '2026-03-10T12:00:00Z'),
+      review('b', '2026-03-09T12:00:00Z'),
+      review('b', '2026-03-10T12:00:00Z'),
+    ],
+  }).slice(-1);
+  const byId = (
+    day: DayActivity | undefined,
+    queue: Parameters<typeof dailyChecklist>[1],
+  ) => Object.fromEntries(dailyChecklist(day, queue).map((i) => [i.id, i]));
+
+  it('counts progress toward the day’s reviews and new words', () => {
+    const items = byId(today, {
+      dueCount: 3,
+      newWordCount: 6,
+      wordsIntroducedToday: 4,
+    });
+    expect(items.review).toMatchObject({ done: false, count: 2, goal: 5 });
+    expect(items.new).toMatchObject({ done: false, count: 4, goal: 10 });
+  });
+
+  it('is done when nothing is left, even if nothing was due', () => {
+    const items = byId(undefined, {
+      dueCount: 0,
+      newWordCount: 0,
+      wordsIntroducedToday: 0,
+    });
+    expect(items.review).toMatchObject({ done: true, goal: 0 });
+    expect(items.new).toMatchObject({ done: true, goal: 0 });
+    expect(items.reading!.done).toBe(false);
+    expect(items.listening!.done).toBe(false);
+  });
+
+  it('needs one finished passage and listening exercise', () => {
+    const queue = { dueCount: 0, newWordCount: 0, wordsIntroducedToday: 0 };
+    const partial = {
+      ...today!,
+      readingQuestions: 2,
+      listeningQuestions: 1,
+    };
+    expect(byId(partial, queue).reading!.done).toBe(false);
+    const items = byId(
+      { ...partial, readingExercises: 2, listeningExercises: 1 },
+      queue,
+    );
+    expect(items.reading).toMatchObject({ done: true, count: 1, goal: 1 });
+    expect(items.listening!.done).toBe(true);
   });
 });

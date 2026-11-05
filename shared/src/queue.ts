@@ -302,8 +302,12 @@ export interface StudyQueue {
   dueCount: number;
   /** New cards left today, whatever the mode. */
   newCount: number;
+  /** New word (pinyin) cards left today, whatever the mode. */
+  newWordCount: number;
   /** Cards introduced today, all kinds. */
   introducedToday: number;
+  /** Word (pinyin) cards introduced today. */
+  wordsIntroducedToday: number;
 }
 
 export interface StudySettings {
@@ -413,7 +417,14 @@ export function buildQueue({
       .filter((s) => s.leech)
       .sort((a, b) => a.schedule.due.getTime() - b.schedule.due.getTime())
       .flatMap(item);
-    return { cards, dueCount: cards.length, newCount: 0, introducedToday };
+    return {
+      cards,
+      dueCount: cards.length,
+      newCount: 0,
+      newWordCount: 0,
+      introducedToday,
+      wordsIntroducedToday: introducedTodayOf('pinyin'),
+    };
   }
 
   const due = dueCards(studied, now).flatMap(item);
@@ -478,7 +489,9 @@ export function buildQueue({
       mode === 'review' ? due : mode === 'new' ? fresh : [...due, ...fresh],
     dueCount: due.length,
     newCount: fresh.length,
+    newWordCount: newWords.length,
     introducedToday,
+    wordsIntroducedToday: introducedTodayOf('pinyin'),
   };
 }
 

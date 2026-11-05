@@ -11,6 +11,7 @@ import { Progress } from './Progress';
 import { Reading } from './Reading';
 import { StudySession } from './StudySession';
 import { SyncIndicator } from './SyncIndicator';
+import { Today } from './Today';
 
 // The last signed-in user, so the app can start without the server (offline).
 const USER_KEY = 'hanyu.user';
@@ -32,6 +33,8 @@ function cacheUser(user: AuthUser | null) {
     // Storage unavailable: the app just can't start offline.
   }
 }
+
+type Tab = 'today' | 'decks' | 'read' | 'listen' | 'progress';
 
 export function App() {
   // undefined: still checking for an existing session.
@@ -92,9 +95,7 @@ function Home({
 }) {
   const { sync, status } = useLocalData();
   const [studying, setStudying] = useState<StudyMode | null>(null);
-  const [tab, setTab] = useState<'review' | 'read' | 'listen' | 'progress'>(
-    'review',
-  );
+  const [tab, setTab] = useState<Tab>('today');
 
   // Refetched on changing view, to pick up what was just done there.
   const activity = useActivity(`${tab}:${studying}`);
@@ -140,10 +141,17 @@ function Home({
         <nav className="tabs" aria-label="Sections">
           <button
             type="button"
-            aria-pressed={tab === 'review'}
-            onClick={() => setTab('review')}
+            aria-pressed={tab === 'today'}
+            onClick={() => setTab('today')}
           >
-            Review
+            Today
+          </button>
+          <button
+            type="button"
+            aria-pressed={tab === 'decks'}
+            onClick={() => setTab('decks')}
+          >
+            Decks
           </button>
           <button
             type="button"
@@ -174,6 +182,13 @@ function Home({
         <Listening user={user} />
       ) : tab === 'progress' && !studying ? (
         <Progress activity={activity} />
+      ) : tab === 'today' && !studying ? (
+        <Today
+          user={user}
+          activity={activity}
+          onStudy={setStudying}
+          onOpen={setTab}
+        />
       ) : studying ? (
         <StudySession
           user={user}

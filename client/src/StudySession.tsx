@@ -183,7 +183,7 @@ export function StudySession({
     <section className="session">
       <p className="session-bar">
         <button type="button" className="link" onClick={onExit}>
-          ← Decks
+          ← Today
         </button>
         <span>
           {mode === 'flagged' && 'Flagged · '}
@@ -260,7 +260,7 @@ export function StudySession({
               : `Done for now. ${done} reviewed.`}
           </p>
           <button type="button" onClick={onExit}>
-            Back to decks
+            Back to today
           </button>
         </div>
       )}

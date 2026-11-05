@@ -91,6 +91,9 @@ Estimated time: 1–2 weeks
 - [x] Record each review as an immutable log entry, and recompute card state from the logs
 - [x] Sync logs between IndexedDB and MongoDB
 - [x] Flag leeches and add a flagged-cards-only study mode
+- [x] Study due cards and new cards separately, so new words don't wait behind reviews
+- [x] Add daily streaks and a history of what was done each day
+- [x] Add a daily checklist: review, new words, reading, listening
 - [ ] Begin daily use and log UX friction
 
 **Milestone:** usable daily for HSK 1 vocabulary review.
