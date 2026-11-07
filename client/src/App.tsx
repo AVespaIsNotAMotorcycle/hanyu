@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type { AuthResponse, AuthUser, StudyMode } from '@hanyu/shared';
 import { ApiError, getJson, postJson } from './api';
 import { AuthForm } from './AuthForm';
+import { Grammar } from './Grammar';
 import { GearIcon, HourglassIcon, ThemeIcon } from './icons';
 import { Listening } from './Listening';
 import { useActivity } from './local/activity';
@@ -37,13 +38,14 @@ function cacheUser(user: AuthUser | null) {
   }
 }
 
-type Tab = 'today' | 'read' | 'listen' | 'progress' | 'settings';
+type Tab = 'today' | 'read' | 'listen' | 'grammar' | 'progress' | 'settings';
 
 // Each section's icon is the character for it.
 const TABS: readonly { id: Tab; label: string; glyph: string }[] = [
   { id: 'today', label: 'Today', glyph: '今' },
   { id: 'read', label: 'Read', glyph: '读' },
   { id: 'listen', label: 'Listen', glyph: '听' },
+  { id: 'grammar', label: 'Grammar', glyph: '语' },
   { id: 'progress', label: 'Progress', glyph: '进' },
 ];
 
@@ -217,6 +219,8 @@ function Home({
           <Reading user={user} onUserChange={onUserChange} />
         ) : tab === 'listen' ? (
           <Listening user={user} />
+        ) : tab === 'grammar' ? (
+          <Grammar user={user} onUserChange={onUserChange} />
         ) : tab === 'progress' ? (
           <Progress user={user} activity={activity} />
         ) : tab === 'settings' ? (

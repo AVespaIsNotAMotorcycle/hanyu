@@ -195,6 +195,11 @@ export interface PassagesResponse {
   passages: PassageSummary[];
 }
 
+/** GET /api/grammar: the grammar points reading passages exercise. */
+export interface GrammarResponse {
+  points: GrammarPoint[];
+}
+
 /** GET /api/passages/:id */
 export interface PassageResponse {
   passage: Passage;
@@ -335,4 +340,55 @@ export function recommendPassages(
         a.passage._id.localeCompare(b.passage._id),
     )
     .slice(0, limit);
+}
+
+/** The share of a text's words that are known, from 0 to 1. */
+export function knownShare({ known, total }: Familiarity): number {
+  return total ? known / total : 0;
+}
+
+export interface GrammarIndexEntry {
+  point: GrammarPoint;
+  /** The passages that exercise it, the highest share of known words first. */
+  passages: PassageSummary[];
+  /** The highest share of known words among them, from 0 to 1. */
+  bestKnown: number;
+}
+
+/**
+ * The grammar points passages exercise, by each point's best passage for this
+ * learner: the highest share of known words first, then lower levels.
+ */
+export function grammarIndex(
+  points: readonly GrammarPoint[],
+  passages: readonly PassageSummary[],
+  summaries: ReadonlyMap<string, CardSummary>,
+): GrammarIndexEntry[] {
+  const known = new Map(
+    passages.map((p) => [
+      p._id,
+      knownShare(passageFamiliarity(p.vocabulary, summaries)),
+    ]),
+  );
+  return points
+    .map((point): GrammarIndexEntry => {
+      const using = passages
+        .filter((p) => p.grammarIds.includes(point._id))
+        .sort(
+          (a, b) =>
+            known.get(b._id)! - known.get(a._id)! || a._id.localeCompare(b._id),
+        );
+      return {
+        point,
+        passages: using,
+        bestKnown: using[0] ? known.get(using[0]._id)! : 0,
+      };
+    })
+    .filter((entry) => entry.passages.length > 0)
+    .sort(
+      (a, b) =>
+        b.bestKnown - a.bestKnown ||
+        a.point.level - b.point.level ||
+        a.point.order - b.point.order,
+    );
 }

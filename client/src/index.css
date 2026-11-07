@@ -1090,6 +1090,23 @@ progress::-moz-progress-bar {
   font-variant-numeric: tabular-nums;
 }
 
+.grammar-list {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.grammar-list h3 {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.grammar-list p {
+  margin: 0.25rem 0;
+}
+
 .reading h2 {
   font-size: 1.125rem;
   margin: 1.5rem 0 0;

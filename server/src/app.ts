@@ -7,6 +7,7 @@ import type { PushOptions } from './reminders.js';
 import { activityRouter } from './routes/activity.js';
 import { audioRouter } from './routes/audio.js';
 import { createAuthRouter } from './routes/auth.js';
+import { grammarRouter } from './routes/grammar.js';
 import { healthRouter } from './routes/health.js';
 import { listeningRouter } from './routes/listening.js';
 import { createPushRouter } from './routes/push.js';
@@ -64,6 +65,7 @@ export function createApp({
   api.use('/settings', settingsRouter);
   api.use(contentRouter);
   api.use('/passages', passagesRouter);
+  api.use('/grammar', grammarRouter);
   api.use('/listening', listeningRouter);
   api.use('/audio', audioRouter);
   api.use('/translations', createTranslationsRouter(grading));

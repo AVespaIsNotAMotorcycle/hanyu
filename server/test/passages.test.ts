@@ -15,7 +15,7 @@ import {
 import { seedPassages } from '../src/passages.js';
 
 describe('passage routes without a session', () => {
-  it.each(['/api/passages?level=1', '/api/passages/p1-0001'])(
+  it.each(['/api/passages?level=1', '/api/passages/p1-0001', '/api/grammar'])(
     'GET %s requires a session',
     async (url) => {
       expect((await request(createApp()).get(url)).status).toBe(401);
@@ -262,6 +262,25 @@ describe.skipIf(!uri)('passages', () => {
     expect((await agent.get('/api/passages').query({ level: 0 })).status).toBe(
       400,
     );
+  });
+
+  it('lists only the grammar points passages exercise', async () => {
+    await write(passage('p1-0001'));
+    await seedPassages({ dir, log: quiet });
+    const point = (id: string, order: number) => ({
+      _id: id,
+      level: 1,
+      order,
+      category: '语素',
+      title: id,
+      explanation: 'An explanation.',
+    });
+    await GrammarPointModel.deleteMany({});
+    await GrammarPointModel.create([point('g1-001', 1), point('g1-002', 2)]);
+
+    const { status, body } = await agent.get('/api/grammar');
+    expect(status).toBe(200);
+    expect(body.points.map((p: { _id: string }) => p._id)).toEqual(['g1-001']);
   });
 
   it('records answers and reports attempts and the best grade', async () => {

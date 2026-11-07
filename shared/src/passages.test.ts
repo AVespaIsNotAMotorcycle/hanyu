@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { cardKey } from './content.js';
+import { cardKey, type GrammarPoint } from './content.js';
 import {
   checkClozeAnswer,
+  grammarIndex,
+  knownShare,
   normalizeHanziAnswer,
   paragraphs,
   passageCompletion,
@@ -119,6 +121,73 @@ describe('passageFamiliarity and recommendPassages', () => {
     translatable: false,
     translationCount: 0,
     vocabulary,
+  });
+
+  describe('grammarIndex', () => {
+    const point = (id: string, level: 1 | 2, order: number) =>
+      ({
+        _id: id,
+        level,
+        order,
+        category: '',
+        name: '',
+        item: '',
+        content: '',
+        title: id,
+        explanation: '',
+      }) satisfies GrammarPoint;
+    const word = (wordId: string, count: number) => ({
+      text: wordId,
+      wordIds: [wordId],
+      count,
+    });
+    const using = (
+      id: string,
+      grammarIds: string[],
+      vocabulary: PassageSummary['vocabulary'],
+    ) => ({ ...summary(id, 1, vocabulary), grammarIds });
+
+    const half = using(
+      'half',
+      ['a', 'b'],
+      [word('w-known', 1), word('w-new', 1)],
+    );
+    const most = using('most', ['b'], [word('w-known', 3), word('w-new', 1)]);
+    const none = using('none', ['c', 'd'], [word('w-new', 1)]);
+    const passages = [half, most, none];
+
+    it('ranks a point by its best passage, listing that passage first', () => {
+      const entries = grammarIndex(
+        [
+          point('a', 1, 1),
+          point('b', 1, 2),
+          point('c', 1, 3),
+          point('unused', 1, 4),
+        ],
+        passages,
+        summaries,
+      );
+      expect(entries.map((e) => e.point._id)).toEqual(['b', 'a', 'c']);
+      expect(entries[0]!.passages.map((p) => p._id)).toEqual(['most', 'half']);
+      expect(entries.map((e) => e.bestKnown)).toEqual([0.75, 0.5, 0]);
+    });
+
+    it('counts learning words as not known', () => {
+      const learning = using('l', ['a'], [word('w-learning', 1)]);
+      expect(
+        grammarIndex([point('a', 1, 1)], [learning], summaries)[0]!.bestKnown,
+      ).toBe(0);
+      expect(knownShare({ known: 0, learning: 0, total: 0, score: 0 })).toBe(0);
+    });
+
+    it('breaks ties by level, then syllabus order', () => {
+      const entries = grammarIndex(
+        [point('d', 2, 1), point('c', 1, 9)],
+        passages,
+        summaries,
+      );
+      expect(entries.map((e) => e.point._id)).toEqual(['c', 'd']);
+    });
   });
 
   it('weights known and learning words by occurrence', () => {

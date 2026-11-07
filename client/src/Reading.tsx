@@ -162,7 +162,7 @@ export function Reading({
 const percent = (n: number, total: number) =>
   `${Math.round((n / total) * 100)}%`;
 
-function PassageItem({
+export function PassageItem({
   passage,
   familiarity,
   onOpen,
@@ -217,18 +217,21 @@ function PassageItem({
   );
 }
 
-function PassageView({
+export function PassageView({
   id,
   user,
   summaries,
   onUserChange,
   onBack,
+  backLabel = 'Passages',
 }: {
   id: string;
   user: AuthUser;
   summaries: ReadonlyMap<string, CardSummary>;
   onUserChange: (user: AuthUser) => void;
   onBack: () => void;
+  /** Where the back link goes. */
+  backLabel?: string;
 }) {
   const { store } = useLocalData();
   const [data, setData] = useState<PassageResponse | null>(null);
@@ -257,7 +260,7 @@ function PassageView({
     <article className="passage">
       <p className="session-bar">
         <button type="button" className="link" onClick={onBack}>
-          ← Passages
+          ← {backLabel}
         </button>
         <span>HSK {HSK_LEVEL_LABELS[passage.level]}</span>
       </p>
