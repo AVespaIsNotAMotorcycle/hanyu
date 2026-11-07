@@ -344,8 +344,8 @@ function PassageView({
           <ul>
             {grammarPoints.map((g) => (
               <li key={g._id}>
-                <strong>{[g.name, g.item].filter(Boolean).join(' · ')}</strong>
-                {g.content && <span lang="zh-Hans"> {g.content}</span>}
+                <strong>{g.title}</strong>
+                <p>{g.explanation}</p>
                 {passage.grammar
                   .filter((use) => use.grammarId === g._id)
                   .map((use) => (

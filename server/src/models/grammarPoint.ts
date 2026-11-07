@@ -10,6 +10,8 @@ const grammarPointSchema = new Schema<GrammarPoint>(
     name: { type: String, default: '' },
     item: { type: String, default: '' },
     content: { type: String, default: '' },
+    title: { type: String, required: true },
+    explanation: { type: String, required: true },
   },
   { versionKey: false },
 );

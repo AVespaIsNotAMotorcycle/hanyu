@@ -39,6 +39,7 @@
     "grader:learner-set": "npm run build -w shared && npm run grader:learner-set -w data --",
     "grader:eval": "npm run build -w shared && npm run grader:eval -w data --",
     "grader:consistency": "npm run build -w shared && npm run grader:consistency -w data --",
+    "grammar:translate": "npm run build -w shared && npm run grammar:translate -w data --",
     "audio:generate": "npm run build -w shared && npm run audio:generate -w data --",
     "audio:sample": "npm run build -w shared && npm run audio:sample -w data --",
     "audio:status": "npm run build -w shared && npm run audio:status -w data --"

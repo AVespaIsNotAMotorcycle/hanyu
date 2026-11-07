@@ -1203,8 +1203,12 @@ button.speak[aria-pressed='true'] {
   padding: 0.125rem 0.75rem;
 }
 
+.grammar p {
+  margin: 0.125rem 0;
+}
+
 .grammar q {
-  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .question-status {

@@ -55,6 +55,8 @@ const grammar: GrammarPoint = {
   name: '前缀',
   item: '',
   content: '小—、第—',
+  title: 'Prefixes',
+  explanation: '小 (xiǎo, little) and 第 (dì, ordinal) go before a word.',
 };
 
 async function writeDataset(

@@ -184,6 +184,8 @@ describe.skipIf(!uri)('passages', () => {
       name: '前缀',
       item: '',
       content: '小—、第—',
+      title: 'Prefixes',
+      explanation: '小 (xiǎo, little) and 第 (dì, ordinal) go before a word.',
     });
     const word = (id: string, simplified: string, level: 1 | 2) =>
       ({
@@ -246,7 +248,7 @@ describe.skipIf(!uri)('passages', () => {
     expect(one.body.passage).toEqual(passage('p1-0001'));
     expect(one.body.progress).toEqual([]);
     expect(one.body.grammarPoints).toEqual([
-      expect.objectContaining({ _id: 'g1-001', name: '前缀' }),
+      expect.objectContaining({ _id: 'g1-001', title: 'Prefixes' }),
     ]);
     // Every word a token could be, for tap-to-look-up.
     expect(one.body.words.map((w: WordNote) => w._id)).toEqual([

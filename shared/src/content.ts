@@ -102,6 +102,10 @@ export interface GrammarPoint {
   item: string;
   /** 语法内容, e.g. 非常、很、太 (empty when the item is the whole point, e.g. 陈述句) */
   content: string;
+  /** English name, e.g. Degree adverbs. The Chinese fields are for the pipeline. */
+  title: string;
+  /** What the point means and how to spot it, in English. */
+  explanation: string;
 }
 
 export interface DatasetSource {

@@ -34,7 +34,19 @@ To spot-check another page: `pdftoppm -f N -l N -r 90 -png data/raw/hsk-syllabus
 - **Words missing from CC-CEDICT** (口哨儿, 精彩纷呈) are built from dictionary parts, with empty definitions.
 - **Frequency** is wordfreq's Zipf value. For the ~30 words wordfreq lacks, it's estimated from jieba segments the way wordfreq combines tokens.
 - **Ordering**: `levelOrder` ranks words within a level by frequency. A character note is introduced by the first word, in that order, that contains it.
-- **Grammar points** keep the syllabus's category, name, item, and content columns.
+- **Grammar points** keep the syllabus's category, name, item, and content columns, and add an English `title` and `explanation` from `grammar-english.json`, which is what the reading view shows. The build fails if a point has none.
+
+## Grammar in English
+
+The syllabus lists grammar points in Chinese only, so `src/grammar/` has Claude (`claude-sonnet-5-5`) write an English title and a short explanation for each, offline, into [`grammar-english.json`](grammar-english.json):
+
+```sh
+npm run grammar:translate   # points without English (--level N, --force, --max-cost 2)
+npm run data:build          # merge them into seed/grammar.json
+npm run db:seed
+```
+
+A reply is rejected if it isn't mostly English or skips a form the point lists, and rerunning retries those points. Bump `GRAMMAR_PROMPT_VERSION` when the prompt or schema changes, then rerun with `--force`.
 
 ## Segmenter
 

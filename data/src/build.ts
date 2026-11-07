@@ -15,7 +15,6 @@ import {
   type CedictMatch,
   type CharacterNote,
   type DatasetManifest,
-  type GrammarPoint,
   type HskLevel,
   type WordNote,
   type WordSyllable,
@@ -35,7 +34,8 @@ import {
   TRADITIONAL,
 } from './overrides.js';
 import { cedictHeader, parseCedict, type CedictEntry } from './parse/cedict.js';
-import { parseGrammar } from './parse/grammar.js';
+import { readEnglish, withEnglish } from './grammar/english.js';
+import { GRAMMAR_LEVELS, readGrammar } from './parse/grammar.js';
 import { parseCharacterList, parseHskWords, parseLevel } from './parse/hsk.js';
 import { parseMmahDictionary, parseMmahGraphics } from './parse/mmah.js';
 import { parseWordfreq } from './parse/wordfreq.js';
@@ -63,13 +63,7 @@ const cedict = parseCedict(cedictText);
 const usage = characterUsage(cedict);
 const zipfByWord = parseWordfreq(await readFile(raw('wordfreq-zh')));
 
-const GRAMMAR_LEVELS = ['1', '2', '3', '4', '5', '6', '7-9'];
-const grammar: GrammarPoint[] = [];
-for (const label of GRAMMAR_LEVELS) {
-  grammar.push(
-    ...parseGrammar(await readText(`hsk-grammar-${label}`), parseLevel(label)),
-  );
-}
+const grammar = withEnglish(readGrammar(), readEnglish());
 
 async function characterLevels(
   prefix: string,
