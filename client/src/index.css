@@ -349,8 +349,12 @@ progress::-moz-progress-bar {
     z-index: 2;
     justify-content: space-around;
     gap: 0;
-    height: calc(var(--nav-height) + env(safe-area-inset-bottom));
-    padding: 0.25rem 0.25rem calc(0.25rem + env(safe-area-inset-bottom));
+    /*
+     * No safe-area inset: the page doesn't use viewport-fit=cover, so it stops
+     * above the system bars, yet Chrome on Android still reports their height.
+     */
+    height: var(--nav-height);
+    padding: 0.25rem;
     background: var(--surface);
     border-top: 1px solid var(--line);
   }
@@ -386,13 +390,11 @@ progress::-moz-progress-bar {
   }
 
   .topbar + main {
-    padding-bottom: calc(
-      var(--nav-height) + env(safe-area-inset-bottom) + 1rem
-    );
+    padding-bottom: calc(var(--nav-height) + 1rem);
   }
 
   .topbar + main .lookup {
-    bottom: calc(var(--nav-height) + env(safe-area-inset-bottom) + 0.5rem);
+    bottom: calc(var(--nav-height) + 0.5rem);
   }
 }
 
