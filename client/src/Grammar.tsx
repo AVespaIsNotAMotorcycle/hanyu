@@ -14,22 +14,25 @@ import {
 import { getJson } from './api';
 import { useStudyData } from './local/LocalData';
 import { PassageItem, PassageView } from './Reading';
+import { navigate, navigateUp } from './route';
 
 const NO_CARDS: ReadonlyMap<string, CardSummary> = new Map();
 
 /** The grammar in reading passages, easiest passages to read first. */
 export function Grammar({
   user,
+  passage: open,
   onUserChange,
 }: {
   user: AuthUser;
+  /** The passage opened from here, from the URL. */
+  passage: string | null;
   onUserChange: (user: AuthUser) => void;
 }) {
   const { data, error: cardsError } = useStudyData(user.settings);
   const summaries = data?.summaries ?? NO_CARDS;
   const [points, setPoints] = useState<GrammarPoint[] | null>(null);
   const [passages, setPassages] = useState<PassageSummary[] | null>(null);
-  const [open, setOpen] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // Reloaded on returning from a passage, for its progress.
@@ -50,11 +53,12 @@ export function Grammar({
   if (open) {
     return (
       <PassageView
+        key={open}
         id={open}
         user={user}
         summaries={summaries}
         onUserChange={onUserChange}
-        onBack={() => setOpen(null)}
+        onBack={() => navigateUp({ name: 'grammar' })}
         backLabel="Grammar"
       />
     );
@@ -96,7 +100,9 @@ export function Grammar({
                           ? passageFamiliarity(passage.vocabulary, summaries)
                           : null
                       }
-                      onOpen={() => setOpen(passage._id)}
+                      onOpen={() =>
+                        navigate({ name: 'grammar', passage: passage._id })
+                      }
                     />
                   </li>
                 ))}

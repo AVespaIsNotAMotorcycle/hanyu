@@ -11,15 +11,22 @@ import {
 } from '@hanyu/shared';
 import { getJson } from './api';
 import { Question } from './Reading';
+import { navigate, navigateUp } from './route';
 import { SpeakButton, SpeakSlowlyToggle } from './Speak';
 
 const done = (e: ListeningSummary) => e.progress.correct === e.questionCount;
 
 /** Listening exercises by level, and the one being done. */
-export function Listening({ user }: { user: AuthUser }) {
+export function Listening({
+  user,
+  exercise: open,
+}: {
+  user: AuthUser;
+  /** The exercise being done, from the URL. */
+  exercise: string | null;
+}) {
   const [level, setLevel] = useState<HskLevel>(user.settings.levels[0] ?? 1);
   const [all, setAll] = useState<ListeningSummary[] | null>(null);
-  const [open, setOpen] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // Reloaded on returning from an exercise, for its question progress.
@@ -49,8 +56,16 @@ export function Listening({ user }: { user: AuthUser }) {
         key={open}
         id={open}
         user={user}
-        onNext={next ? () => setOpen(next._id) : null}
-        onBack={() => setOpen(null)}
+        onNext={
+          next
+            ? () =>
+                navigate(
+                  { name: 'listen', exercise: next._id },
+                  { replace: true },
+                )
+            : null
+        }
+        onBack={() => navigateUp({ name: 'listen' })}
       />
     );
   }
@@ -87,7 +102,10 @@ export function Listening({ user }: { user: AuthUser }) {
         <>
           {next && (
             <p>
-              <button type="button" onClick={() => setOpen(next._id)}>
+              <button
+                type="button"
+                onClick={() => navigate({ name: 'listen', exercise: next._id })}
+              >
                 {list.some((e) => e.progress.answered > 0)
                   ? 'Continue'
                   : 'Start'}{' '}
@@ -98,7 +116,12 @@ export function Listening({ user }: { user: AuthUser }) {
           <ul className="passage-list">
             {list.map((exercise, i) => (
               <li key={exercise._id}>
-                <button type="button" onClick={() => setOpen(exercise._id)}>
+                <button
+                  type="button"
+                  onClick={() =>
+                    navigate({ name: 'listen', exercise: exercise._id })
+                  }
+                >
                   <span className="title">
                     Exercise {i + 1}
                     {done(exercise) && (

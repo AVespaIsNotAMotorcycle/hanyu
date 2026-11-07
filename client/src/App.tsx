@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { AuthResponse, AuthUser, StudyMode } from '@hanyu/shared';
+import type { AuthResponse, AuthUser } from '@hanyu/shared';
 import { ApiError, getJson, postJson } from './api';
 import { AuthForm } from './AuthForm';
 import { Grammar } from './Grammar';
@@ -11,6 +11,7 @@ import { disableReminders } from './local/push';
 import { LocalStore } from './local/store';
 import { Progress } from './Progress';
 import { Reading } from './Reading';
+import { navigate, navigateUp, useRoute, type Route } from './route';
 import { Settings } from './Settings';
 import { StudySession } from './StudySession';
 import { SyncIndicator } from './SyncIndicator';
@@ -38,10 +39,12 @@ function cacheUser(user: AuthUser | null) {
   }
 }
 
-type Tab = 'today' | 'read' | 'listen' | 'grammar' | 'progress' | 'settings';
-
 // Each section's icon is the character for it.
-const TABS: readonly { id: Tab; label: string; glyph: string }[] = [
+const TABS: readonly {
+  id: Exclude<Route['name'], 'study' | 'settings'>;
+  label: string;
+  glyph: string;
+}[] = [
   { id: 'today', label: 'Today', glyph: '今' },
   { id: 'read', label: 'Read', glyph: '读' },
   { id: 'listen', label: 'Listen', glyph: '听' },
@@ -110,8 +113,9 @@ function Home({
   onSignedOut: () => void;
 }) {
   const { sync, status } = useLocalData();
-  const [studying, setStudying] = useState<StudyMode | null>(null);
-  const [tab, setTab] = useState<Tab>('today');
+  const route = useRoute();
+  const tab = route.name;
+  const studying = route.name === 'study' ? route.mode : null;
 
   // Refetched on changing view, to pick up what was just done there.
   const activity = useActivity(`${tab}:${studying}`);
@@ -142,6 +146,7 @@ function Home({
       // Offline: the server session expires on its own.
     }
     sync.stop();
+    navigate({ name: 'today' }, { replace: true });
     onSignedOut();
     // After the provider unmounts and closes the database.
     setTimeout(() => void LocalStore.destroy(user.id).catch(() => {}), 0);
@@ -162,7 +167,7 @@ function Home({
                 key={id}
                 type="button"
                 aria-current={tab === id ? 'page' : undefined}
-                onClick={() => setTab(id)}
+                onClick={() => navigate({ name: id })}
               >
                 <span className="glyph" lang="zh-Hans" aria-hidden="true">
                   {glyph}
@@ -201,7 +206,7 @@ function Home({
               aria-label="Settings"
               aria-current={tab === 'settings' ? 'page' : undefined}
               title="Settings"
-              onClick={() => setTab('settings')}
+              onClick={() => navigate({ name: 'settings' })}
             >
               <GearIcon />
             </button>
@@ -213,14 +218,22 @@ function Home({
           <StudySession
             user={user}
             mode={studying}
-            onExit={() => setStudying(null)}
+            onExit={() => navigateUp({ name: 'today' })}
           />
-        ) : tab === 'read' ? (
-          <Reading user={user} onUserChange={onUserChange} />
-        ) : tab === 'listen' ? (
-          <Listening user={user} />
-        ) : tab === 'grammar' ? (
-          <Grammar user={user} onUserChange={onUserChange} />
+        ) : route.name === 'read' ? (
+          <Reading
+            user={user}
+            passage={route.passage ?? null}
+            onUserChange={onUserChange}
+          />
+        ) : route.name === 'listen' ? (
+          <Listening user={user} exercise={route.exercise ?? null} />
+        ) : route.name === 'grammar' ? (
+          <Grammar
+            user={user}
+            passage={route.passage ?? null}
+            onUserChange={onUserChange}
+          />
         ) : tab === 'progress' ? (
           <Progress user={user} activity={activity} />
         ) : tab === 'settings' ? (
@@ -233,8 +246,8 @@ function Home({
           <Today
             user={user}
             activity={activity}
-            onStudy={setStudying}
-            onOpen={setTab}
+            onStudy={(mode) => navigate({ name: 'study', mode })}
+            onOpen={(name) => navigate({ name })}
           />
         )}
         <SyncIndicator />

@@ -40,6 +40,7 @@ import { HandwritingQuiz } from './HandwritingQuiz';
 import { loadCharacters } from './local/content';
 import { useLocalData, useStudyData } from './local/LocalData';
 import type { LocalStore } from './local/store';
+import { navigate, navigateUp } from './route';
 import { SpeakButton, SpeakSlowlyToggle } from './Speak';
 import { TranslationExercises } from './Translation';
 
@@ -61,9 +62,12 @@ const NO_CARDS: ReadonlyMap<string, CardSummary> = new Map();
 /** Recommended passages, then passages by level, and the passage being read. */
 export function Reading({
   user,
+  passage: open,
   onUserChange,
 }: {
   user: AuthUser;
+  /** The passage being read, from the URL. */
+  passage: string | null;
   onUserChange: (user: AuthUser) => void;
 }) {
   const { store } = useLocalData();
@@ -73,7 +77,6 @@ export function Reading({
   const [level, setLevel] = useState<HskLevel>(user.settings.levels[0] ?? 1);
   const [all, setAll] = useState<PassageSummary[] | null>(null);
   const [read, setRead] = useState<Set<string>>(new Set());
-  const [open, setOpen] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // Reloaded on returning from a passage, for its question progress.
@@ -95,11 +98,12 @@ export function Reading({
   if (open) {
     return (
       <PassageView
+        key={open}
         id={open}
         user={user}
         summaries={summaries}
         onUserChange={onUserChange}
-        onBack={() => setOpen(null)}
+        onBack={() => navigateUp({ name: 'read' })}
       />
     );
   }
@@ -115,7 +119,7 @@ export function Reading({
         familiarity={
           data ? passageFamiliarity(passage.vocabulary, summaries) : null
         }
-        onOpen={() => setOpen(passage._id)}
+        onOpen={() => navigate({ name: 'read', passage: passage._id })}
       />
     </li>
   );
