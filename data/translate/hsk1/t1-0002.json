@@ -1,0 +1,71 @@
+{
+  "_id": "t1-0002",
+  "level": 1,
+  "english": "Today my friends are coming to my home to eat. My mom is cooking over there, and my friends are sitting over here.",
+  "reference": "今天朋友们来我家吃饭。妈妈在那边做饭，朋友们在这边坐。",
+  "topic": "Friends coming for dinner",
+  "tokens": [
+    "今天",
+    "朋友",
+    "们",
+    "来",
+    "我",
+    "家",
+    "吃",
+    "饭",
+    "。",
+    "妈妈",
+    "在",
+    "那边",
+    "做饭",
+    "，",
+    "朋友",
+    "们",
+    "在",
+    "这边",
+    "坐",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g1-002",
+      "example": "朋友们在这边坐"
+    }
+  ],
+  "verification": {
+    "tokens": 15,
+    "atOrBelowLevel": 15,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:12:55.736Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The English says \"my friends\", but the reference has 朋友们 with no 我的. This is natural in Chinese, yet the grader may mark a learner who writes 我的朋友们 as wrong. The possessive is dropped without being flagged as optional."
+      },
+      {
+        "severity": "minor",
+        "description": "\"are sitting over here\" is rendered as 在这边坐. For a present state, 坐着 or 坐在这边 is more natural. The bare verb 坐 at the end of the clause sounds slightly incomplete."
+      },
+      {
+        "severity": "minor",
+        "description": "这边/那边 are slightly above HSK 1 for \"over here/over there\". HSK 1 learners are more likely to write 这儿/那儿, and the grader should accept those as alternatives."
+      }
+    ],
+    "costUsd": 0.0098
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:12:47.750Z",
+    "attempts": 2,
+    "costUsd": 0.0365
+  }
+}

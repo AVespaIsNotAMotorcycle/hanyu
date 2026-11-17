@@ -1,0 +1,76 @@
+{
+  "_id": "t1-0004",
+  "level": 1,
+  "english": "My younger brother can cook rice and noodles. Today he is sick, so he can't cook dinner. I can cook too, so I am making dinner for him.",
+  "reference": "我弟弟会做米饭和面条儿。今天他生病了,不能做晚饭。我也会做饭,我给他做晚饭。",
+  "topic": "Cooking dinner for a sick brother",
+  "tokens": [
+    "我",
+    "弟弟",
+    "会",
+    "做",
+    "米饭",
+    "和",
+    "面条儿",
+    "。",
+    "今天",
+    "他",
+    "生病",
+    "了",
+    ",",
+    "不",
+    "能",
+    "做",
+    "晚饭",
+    "。",
+    "我",
+    "也",
+    "会",
+    "做饭",
+    ",",
+    "我",
+    "给",
+    "他",
+    "做",
+    "晚饭",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g1-004",
+      "example": "不能做晚饭"
+    }
+  ],
+  "verification": {
+    "tokens": 23,
+    "atOrBelowLevel": 23,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:13:24.422Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "Several words in the reference go beyond HSK 1 vocabulary: 弟弟, 生病, 给, 晚饭 and especially 面条. This is a level mismatch for the exercise, though learners can still handle it."
+      },
+      {
+        "severity": "minor",
+        "description": "面条儿 uses erhua, which is a regional or colloquial form. Learners will most likely write 面条, and the grader may mark that as wrong. The reference should use 面条 or accept both."
+      }
+    ],
+    "costUsd": 0.0085
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:13:18.163Z",
+    "attempts": 1,
+    "costUsd": 0.0165
+  }
+}

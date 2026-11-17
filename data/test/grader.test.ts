@@ -1,7 +1,9 @@
 import { existsSync } from 'node:fs';
 import {
+  findSpan,
   GRADER_MODEL,
   GRADER_PROMPT_VERSION,
+  GRADER_PROMPT_VERSIONS,
   parseGraderReply,
   type GradingResult,
 } from '@hanyu/shared';
@@ -15,7 +17,11 @@ import {
   spearman,
 } from '../src/grader/metrics.js';
 import { calibrationSample, mqmItems, parseMqm } from '../src/grader/mqm.js';
-import { readLearnerSet, resultsFile } from '../src/grader/results.js';
+import {
+  learnerSetPath,
+  readLearnerSet,
+  resultsFile,
+} from '../src/grader/results.js';
 
 describe('grader evals', () => {
   it('have results for the current grader model and prompt version', () => {
@@ -33,6 +39,34 @@ describe('grader evals', () => {
         expect(item.source, item.id).toContain(error.sourceSpan);
       }
       if (item.kind === 'paraphrase') expect(item.injected).toEqual([]);
+    }
+  });
+
+  it('have results for the current English → Chinese prompt version', () => {
+    // Changed the en-zh prompt? Run `npm run grader:eval -- --direction en-zh`.
+    expect(
+      existsSync(
+        resultsFile(
+          GRADER_MODEL,
+          GRADER_PROMPT_VERSIONS['en-zh'],
+          undefined,
+          'en-zh',
+        ),
+      ),
+    ).toBe(true);
+  });
+
+  it('have an English → Chinese learner set whose answer keys quote their texts', () => {
+    const items = readLearnerSet(learnerSetPath('en-zh'));
+    expect(items.length).toBeGreaterThan(0);
+    for (const item of items) {
+      expect(item.direction).toBe('en-zh');
+      for (const error of item.injected) {
+        expect(findSpan(item.source, error.sourceSpan), item.id).not.toBeNull();
+        if (error.translationSpan) {
+          expect(item.translation, item.id).toContain(error.translationSpan);
+        }
+      }
     }
   });
 });

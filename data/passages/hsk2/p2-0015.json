@@ -1,0 +1,313 @@
+{
+  "_id": "p2-0015",
+  "level": 2,
+  "title": "下雨的足球天",
+  "titleEnglish": "A Soccer Day with Rain",
+  "text": "今天是星期天，天气很好。我和朋友小明去踢足球。虽然我踢得不太好，但是我很喜欢踢球。小明跑得很快，他踢得最好。我们高兴地踢了一个小时。\n\n一会儿，天阴了，下雨了。因为雨很大，所以我们不能再踢了。小明问我：“我们回家还是去饭馆？”我想了想，说：“那我们去饭馆吧。”\n\n在饭馆，我们点了面条儿和饺子。小明吃得很多，他笑着说：“踢完球，饭真好吃！”",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-029",
+      "example": "虽然我踢得不太好，但是我很喜欢踢球"
+    },
+    {
+      "grammarId": "g2-029",
+      "example": "因为雨很大，所以我们不能再踢了"
+    },
+    {
+      "grammarId": "g2-029",
+      "example": "我们回家还是去饭馆"
+    },
+    {
+      "grammarId": "g2-029",
+      "example": "那我们去饭馆吧"
+    },
+    {
+      "grammarId": "g2-030",
+      "example": "我踢得不太好"
+    },
+    {
+      "grammarId": "g2-030",
+      "example": "我们高兴地踢了一个小时"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "今天他们做什么？",
+      "promptEnglish": "What did they do today?",
+      "options": [
+        "看电影",
+        "踢足球",
+        "去学校",
+        "买东西"
+      ],
+      "answer": 1,
+      "explanation": "The passage says \"我和朋友小明去踢足球\", so they played soccer."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "他们为什么不踢了？",
+      "promptEnglish": "Why did they stop playing?",
+      "options": [
+        "因为很累",
+        "因为下雨了",
+        "因为小明病了",
+        "因为很冷"
+      ],
+      "answer": 1,
+      "explanation": "The passage says \"因为雨很大，所以我们不能再踢了\", so they stopped because of the heavy rain."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "谁踢得最好？",
+      "promptEnglish": "Who played best?",
+      "options": [
+        "我",
+        "小明",
+        "老师",
+        "爸爸"
+      ],
+      "answer": 1,
+      "explanation": "The passage says \"小明跑得很快，他踢得最好\", so Xiaoming played best."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "因为雨很大，＿＿我们不能再踢了。",
+      "answer": "所以",
+      "alsoAccepted": [],
+      "hint": "so, therefore"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "小明跑得很＿＿，他踢得最好。",
+      "answer": "快",
+      "alsoAccepted": [],
+      "hint": "fast"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "在＿＿，我们点了面条儿和饺子。",
+      "answer": "饭馆",
+      "alsoAccepted": [
+        "饭店"
+      ],
+      "hint": "restaurant"
+    }
+  ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期天",
+      "，",
+      "天气",
+      "很",
+      "好",
+      "。",
+      "我",
+      "和",
+      "朋友",
+      "小明",
+      "去",
+      "踢",
+      "足球",
+      "。",
+      "虽然",
+      "我",
+      "踢",
+      "得",
+      "不",
+      "太",
+      "好",
+      "，",
+      "但是",
+      "我",
+      "很",
+      "喜欢",
+      "踢",
+      "球",
+      "。",
+      "小明",
+      "跑",
+      "得",
+      "很",
+      "快",
+      "，",
+      "他",
+      "踢",
+      "得",
+      "最好",
+      "。",
+      "我们",
+      "高兴",
+      "地",
+      "踢",
+      "了",
+      "一",
+      "个",
+      "小时",
+      "。"
+    ],
+    [
+      "一会儿",
+      "，",
+      "天",
+      "阴",
+      "了",
+      "，",
+      "下雨",
+      "了",
+      "。",
+      "因为",
+      "雨",
+      "很",
+      "大",
+      "，",
+      "所以",
+      "我们",
+      "不",
+      "能",
+      "再",
+      "踢",
+      "了",
+      "。",
+      "小明",
+      "问",
+      "我",
+      "：",
+      "“",
+      "我们",
+      "回",
+      "家",
+      "还是",
+      "去",
+      "饭馆",
+      "？",
+      "”",
+      "我",
+      "想",
+      "了",
+      "想",
+      "，",
+      "说",
+      "：",
+      "“",
+      "那",
+      "我们",
+      "去",
+      "饭馆",
+      "吧",
+      "。",
+      "”"
+    ],
+    [
+      "在",
+      "饭馆",
+      "，",
+      "我们",
+      "点",
+      "了",
+      "面条儿",
+      "和",
+      "饺子",
+      "。",
+      "小明",
+      "吃",
+      "得",
+      "很",
+      "多",
+      "，",
+      "他",
+      "笑",
+      "着",
+      "说",
+      "：",
+      "“",
+      "踢",
+      "完",
+      "球",
+      "，",
+      "饭",
+      "真",
+      "好吃",
+      "！",
+      "”"
+    ]
+  ],
+  "translation": [
+    "Today is Sunday, and the weather is very nice. My friend Xiaoming and I went to play soccer. Although I don't play very well, I like playing very much. Xiaoming runs fast, and he plays the best. We happily played for an hour.",
+    "After a while, the sky clouded over and it started to rain. Because the rain was heavy, we couldn't play any more. Xiaoming asked me, \"Shall we go home or go to a restaurant?\" I thought for a moment and said, \"Then let's go to a restaurant.\"",
+    "At the restaurant, we ordered noodles and dumplings. Xiaoming ate a lot. He said with a smile, \"After playing soccer, the food tastes really good!\""
+  ],
+  "verification": {
+    "tokens": 124,
+    "atOrBelowLevel": 124,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:14:50.261Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "踢足球",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "因为下雨了",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "小明",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "所以",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "快",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "饭馆",
+        "agrees": true,
+        "alternatives": [
+          "餐厅"
+        ]
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.005
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:14:47.868Z",
+    "attempts": 2,
+    "costUsd": 0.0547
+  }
+}

@@ -5,6 +5,7 @@ import {
   gradeTranslation,
   GRADER_MODEL,
   GraderError,
+  EN_ZH_GRADER_PROMPT_VERSION,
   overallScore,
   parseGraderReply,
 } from './grading.js';
@@ -72,6 +73,22 @@ describe('parseGraderReply', () => {
     expect(errorPenalty(result.errors)).toBe(7);
   });
 
+  it('takes English → Chinese missed words from the reference', () => {
+    const enZh = {
+      source: 'I bought two books yesterday.',
+      reference: '我昨天买了两本书。',
+      translation: '我今天买两书。',
+    };
+    const result = parseGraderReply(
+      { ...reply(), mistranslatedWords: ['本', '今天', '昨天'] },
+      enZh,
+      'en-zh',
+    );
+    expect(result.mistranslatedWords).toEqual(['本', '昨天']);
+    expect(result.errors[0]!.translationStart).toBe(null);
+    expect(result.errors[0]!.sourceStart).toBe(null);
+  });
+
   it('rejects a reply without every score', () => {
     const bad = reply();
     delete (bad.scores as Partial<typeof bad.scores>).naturalness;
@@ -112,6 +129,22 @@ describe('gradeTranslation', () => {
     expect(calls[0]!.output_config.format.type).toBe('json_schema');
     expect(out.costUsd).toBeCloseTo(0.007);
     expect(out.result.summary).toBe('Close!');
+  });
+
+  it('uses the English → Chinese prompt for that direction', async () => {
+    const calls: JsonCall[] = [];
+    const out = await gradeTranslation(
+      {
+        source: 'I bought two books yesterday.',
+        reference: '我昨天买了两本书。',
+        translation: '我昨天买了两本书。',
+      },
+      llm(JSON.stringify(reply()), calls),
+      'en-zh',
+    );
+    expect(calls[0]!.system).toMatch(/Chinese translations of short English/);
+    expect(calls[0]!.messages[0]!.content).toMatch(/^English source:/);
+    expect(out.promptVersion).toBe(EN_ZH_GRADER_PROMPT_VERSION);
   });
 
   it('reports a cut-off reply with its cost', async () => {

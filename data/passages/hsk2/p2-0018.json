@@ -1,0 +1,285 @@
+{
+  "_id": "p2-0018",
+  "level": 2,
+  "title": "星期天的早上",
+  "titleEnglish": "Sunday Morning",
+  "text": "今天是星期天，天气很好。小明早上起床，想去超市买东西。妈妈说：“你去买吃的和喝的吧。”\n\n小明坐地铁去超市。超市里人很多。他买了面包、牛奶和水果。他想买苹果，但是红色的太贵，绿色的便宜，所以他买了绿色的。\n\n小明坐公交车回家。妈妈在家做饭。小明说：“我买的东西都在这儿。”妈妈很高兴，说：“谢谢你！我们一起吃饭吧。”",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-035",
+      "example": "吃的和喝的"
+    },
+    {
+      "grammarId": "g2-036",
+      "example": "去超市买东西"
+    },
+    {
+      "grammarId": "g2-036",
+      "example": "坐地铁去超市"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "小明去超市做什么？",
+      "promptEnglish": "What does Xiaoming go to the supermarket to do?",
+      "options": [
+        "看电影",
+        "买东西",
+        "上班",
+        "看病"
+      ],
+      "answer": 1,
+      "explanation": "The passage says 小明早上起床，想去超市买东西 — he goes to the supermarket to buy things."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "小明为什么买绿色的？",
+      "promptEnglish": "Why does Xiaoming buy the green ones?",
+      "options": [
+        "他喜欢绿色",
+        "妈妈要绿色的",
+        "红色的太贵，绿色的便宜",
+        "超市里没有红色的"
+      ],
+      "answer": 2,
+      "explanation": "The passage says 红色的太贵，绿色的便宜，所以他买了绿色的 — the red ones are too expensive and the green ones are cheap."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "小明怎么回家？",
+      "promptEnglish": "How does Xiaoming get home?",
+      "options": [
+        "坐地铁",
+        "坐公交车",
+        "坐出租车",
+        "走路"
+      ],
+      "answer": 1,
+      "explanation": "The passage says 小明坐公交车回家. He took the subway to the supermarket, but the bus home."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "小明坐＿＿去超市。",
+      "answer": "地铁",
+      "alsoAccepted": [],
+      "hint": "subway"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "妈妈在家＿＿。",
+      "answer": "做饭",
+      "alsoAccepted": [],
+      "hint": "cook a meal"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "今天是星期天，＿＿很好。",
+      "answer": "天气",
+      "alsoAccepted": [],
+      "hint": "weather"
+    }
+  ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期天",
+      "，",
+      "天气",
+      "很",
+      "好",
+      "。",
+      "小明",
+      "早",
+      "上",
+      "起床",
+      "，",
+      "想",
+      "去",
+      "超市",
+      "买",
+      "东西",
+      "。",
+      "妈妈",
+      "说",
+      "：",
+      "“",
+      "你",
+      "去",
+      "买",
+      "吃",
+      "的",
+      "和",
+      "喝",
+      "的",
+      "吧",
+      "。",
+      "”"
+    ],
+    [
+      "小明",
+      "坐",
+      "地铁",
+      "去",
+      "超市",
+      "。",
+      "超市",
+      "里",
+      "人",
+      "很",
+      "多",
+      "。",
+      "他",
+      "买",
+      "了",
+      "面包",
+      "、",
+      "牛奶",
+      "和",
+      "水果",
+      "。",
+      "他",
+      "想",
+      "买",
+      "苹果",
+      "，",
+      "但是",
+      "红色",
+      "的",
+      "太",
+      "贵",
+      "，",
+      "绿色",
+      "的",
+      "便宜",
+      "，",
+      "所以",
+      "他",
+      "买",
+      "了",
+      "绿色",
+      "的",
+      "。"
+    ],
+    [
+      "小明",
+      "坐",
+      "公交车",
+      "回",
+      "家",
+      "。",
+      "妈妈",
+      "在",
+      "家",
+      "做饭",
+      "。",
+      "小明",
+      "说",
+      "：",
+      "“",
+      "我",
+      "买",
+      "的",
+      "东西",
+      "都",
+      "在",
+      "这儿",
+      "。",
+      "”",
+      "妈妈",
+      "很",
+      "高兴",
+      "，",
+      "说",
+      "：",
+      "“",
+      "谢谢",
+      "你",
+      "！",
+      "我们",
+      "一起",
+      "吃",
+      "饭",
+      "吧",
+      "。",
+      "”"
+    ]
+  ],
+  "translation": [
+    "Today is Sunday, and the weather is very nice. Xiaoming gets up in the morning and wants to go to the supermarket to buy some things. His mother says, \"Go and buy some things to eat and drink.\"",
+    "Xiaoming takes the subway to the supermarket. There are a lot of people in the supermarket. He buys bread, milk and fruit. He wants to buy apples, but the red ones are too expensive and the green ones are cheap, so he buys the green ones.",
+    "Xiaoming takes the bus home. His mother is cooking at home. Xiaoming says, \"Everything I bought is here.\" His mother is very happy and says, \"Thank you! Let's eat together.\""
+  ],
+  "verification": {
+    "tokens": 127,
+    "atOrBelowLevel": 125,
+    "share": 0.984251968503937,
+    "offLevel": [
+      "明"
+    ]
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:16:20.653Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "买东西",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "红色的太贵，绿色的便宜",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "坐公交车",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "地铁",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "做饭",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "天气",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.0049
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:16:18.285Z",
+    "attempts": 1,
+    "costUsd": 0.036
+  }
+}

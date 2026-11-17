@@ -4,6 +4,7 @@
 
 import type { Rating } from './content.js';
 import { studyDayKey, type StudyQueue } from './queue.js';
+import { isTranslateExercise } from './translate.js';
 
 /** Longest a single card counts for, so walking away doesn't inflate study time. */
 export const MAX_COUNTED_CARD_MS = 2 * 60 * 1000;
@@ -18,8 +19,9 @@ export interface ActivityAnswer {
   at: string;
 }
 
-/** One graded translation of a passage's paragraph. */
+/** One graded translation: a passage's paragraph, or a Translate exercise. */
 export interface ActivityTranslation {
+  /** A passage (p1-0001) or Translate exercise (t1-0001). */
   exerciseId: string;
   paragraph: number;
   /** ISO timestamp. */
@@ -55,7 +57,10 @@ export interface DayActivity {
   listeningQuestions: number;
   /** Listening exercises with every question answered that day. */
   listeningExercises: number;
+  /** Graded translations: passage paragraphs and Translate exercises. */
   translations: number;
+  /** Different Translate exercises (English → Chinese) graded that day. */
+  translateExercises: number;
 }
 
 export interface ActivityInput extends Partial<ActivityResponse> {
@@ -82,6 +87,7 @@ const emptyDay = (day: string): DayActivity => ({
   listeningQuestions: 0,
   listeningExercises: 0,
   translations: 0,
+  translateExercises: 0,
 });
 
 /** Each study day with any activity, oldest first. */
@@ -163,6 +169,11 @@ export function buildActivity({
     work.day.translations++;
   }
   for (const { day, exerciseId, questions, paragraphs } of worked.values()) {
+    // One paragraph each: any grading finishes it.
+    if (isTranslateExercise(exerciseId)) {
+      day.translateExercises++;
+      continue;
+    }
     if (
       questions.size !== questionCounts[exerciseId] ||
       paragraphs.size < (translationCounts[exerciseId] ?? 0)
@@ -218,7 +229,8 @@ export function computeStreaks(
   return { current, longest, activeDays: active.size, activeToday };
 }
 
-export type ChecklistId = 'review' | 'new' | 'reading' | 'listening';
+export type ChecklistId =
+  'review' | 'new' | 'reading' | 'listening' | 'translate';
 
 export interface ChecklistItem {
   id: ChecklistId;
@@ -231,7 +243,8 @@ export interface ChecklistItem {
 
 /**
  * Today's checklist: clear the due cards, learn today's new words, and finish
- * one reading passage (questions and translation) and one listening exercise.
+ * one reading passage (questions and translation), one listening exercise,
+ * and one Translate exercise.
  * Nothing due counts as done.
  */
 export function dailyChecklist(
@@ -241,6 +254,7 @@ export function dailyChecklist(
   const reviewed = today?.reviewedCards ?? 0;
   const reading = today?.readingExercises ?? 0;
   const listening = today?.listeningExercises ?? 0;
+  const translate = today?.translateExercises ?? 0;
   return [
     {
       id: 'review',
@@ -259,6 +273,12 @@ export function dailyChecklist(
       id: 'listening',
       done: listening >= 1,
       count: Math.min(listening, 1),
+      goal: 1,
+    },
+    {
+      id: 'translate',
+      done: translate >= 1,
+      count: Math.min(translate, 1),
       goal: 1,
     },
   ];

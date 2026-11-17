@@ -1,0 +1,61 @@
+{
+  "_id": "t2-0003",
+  "level": 2,
+  "english": "I'm very tired today. After work, I want to go home and rest for a while, then watch a bit of TV and listen to some songs.",
+  "reference": "今天我很累。下班后我想回家休息休息,再看看电视,听听歌。",
+  "topic": "Resting after a tired day at work",
+  "tokens": [
+    "今天",
+    "我",
+    "很",
+    "累",
+    "。",
+    "下班",
+    "后",
+    "我",
+    "想",
+    "回",
+    "家",
+    "休息",
+    "休息",
+    ",",
+    "再",
+    "看",
+    "看",
+    "电视",
+    ",",
+    "听",
+    "听",
+    "歌",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-003",
+      "example": "休息休息"
+    }
+  ],
+  "verification": {
+    "tokens": 16,
+    "atOrBelowLevel": 16,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:15:59.134Z",
+    "passed": true,
+    "answers": [],
+    "issues": [],
+    "costUsd": 0.0046
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:15:54.731Z",
+    "attempts": 1,
+    "costUsd": 0.0111
+  }
+}

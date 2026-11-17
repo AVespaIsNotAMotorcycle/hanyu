@@ -140,7 +140,7 @@ Estimated time: 1–2 weeks
 - [x] Run the eval set whenever the grading prompt or model changes
 - [x] Re-grade a fixed sample set periodically to check grader consistency
 - [x] Send mistranslated words directly into the SRS queue
-- [ ] Later: add English → Chinese for production practice
+- [x] Later: add English → Chinese for production practice (the Translate page: short English paragraphs generated offline with level-checked reference translations, graded by its own prompt and eval set)
 
 **Milestone:** consistent, actionable feedback on HSK 1–3 translation exercises.
 

@@ -1,0 +1,73 @@
+{
+  "_id": "t2-0009",
+  "level": 2,
+  "english": "Tomorrow is my daughter's birthday, and I bought her a new red schoolbag. I hope she gets up early and has a proper breakfast.",
+  "reference": "明天是我女儿的生日,我给她买了一个新的红色书包。我希望她早早起床,好好吃早饭。",
+  "topic": "My daughter's birthday",
+  "tokens": [
+    "明天",
+    "是",
+    "我",
+    "女儿",
+    "的",
+    "生日",
+    ",",
+    "我",
+    "给",
+    "她",
+    "买",
+    "了",
+    "一",
+    "个",
+    "新",
+    "的",
+    "红色",
+    "书包",
+    "。",
+    "我",
+    "希望",
+    "她",
+    "早",
+    "早",
+    "起床",
+    ",",
+    "好",
+    "好吃",
+    "早饭",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-009",
+      "example": "早早起床"
+    }
+  ],
+  "verification": {
+    "tokens": 24,
+    "atOrBelowLevel": 24,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:17:25.953Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "\"A proper breakfast\" is somewhat idiomatic and open to several renderings, such as 好好吃早饭, 吃好早饭 or 吃一顿好的早饭. The reference 好好吃早饭 is natural, but the grader may mark other valid answers wrong. Likewise, \"gets up early\" could be 早点起床 or 早起床 as well as 早早起床. Accept these variants."
+      }
+    ],
+    "costUsd": 0.0078
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:17:20.242Z",
+    "attempts": 2,
+    "costUsd": 0.0296
+  }
+}

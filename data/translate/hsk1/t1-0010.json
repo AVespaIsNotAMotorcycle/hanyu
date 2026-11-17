@@ -1,0 +1,70 @@
+{
+  "_id": "t1-0010",
+  "level": 1,
+  "english": "I am at a store with my younger sister. These clothes are very pretty, but some are too expensive. That one is cheap, so I want to buy that one.",
+  "reference": "我和妹妹在商店。这些衣服很漂亮,有些太贵了。那件很便宜,我想买那件。",
+  "topic": "Shopping for clothes with my sister",
+  "tokens": [
+    "我",
+    "和",
+    "妹妹",
+    "在",
+    "商店",
+    "。",
+    "这些",
+    "衣服",
+    "很",
+    "漂亮",
+    ",",
+    "有些",
+    "太",
+    "贵",
+    "了",
+    "。",
+    "那",
+    "件",
+    "很",
+    "便宜",
+    ",",
+    "我",
+    "想",
+    "买",
+    "那",
+    "件",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g1-010",
+      "example": "这些衣服很漂亮"
+    }
+  ],
+  "verification": {
+    "tokens": 18,
+    "atOrBelowLevel": 18,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:15:22.875Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The reference is accurate and natural, but it uses vocabulary above HSK 1: 便宜, 贵, 商店 and 有些 are generally HSK 2 or 3. A strict HSK 1 learner may not know them. The English also drops \"so\" in the Chinese, which is natural and harmless."
+      }
+    ],
+    "costUsd": 0.0072
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:15:17.062Z",
+    "attempts": 1,
+    "costUsd": 0.0164
+  }
+}

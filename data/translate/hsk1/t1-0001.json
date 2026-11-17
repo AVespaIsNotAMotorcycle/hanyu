@@ -1,0 +1,69 @@
+{
+  "_id": "t1-0001",
+  "level": 1,
+  "english": "Today is my daughter's first day of school. She is a primary school student now. Her teacher is very nice.",
+  "reference": "今天是我女儿上学的第一天。她现在是小学生了。她的老师很好。",
+  "topic": "My daughter's first day of school",
+  "tokens": [
+    "今天",
+    "是",
+    "我",
+    "女儿",
+    "上学",
+    "的",
+    "第",
+    "一",
+    "天",
+    "。",
+    "她",
+    "现在",
+    "是",
+    "小学生",
+    "了",
+    "。",
+    "她",
+    "的",
+    "老师",
+    "很",
+    "好",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g1-001",
+      "example": "第一天"
+    },
+    {
+      "grammarId": "g1-001",
+      "example": "小学生"
+    }
+  ],
+  "verification": {
+    "tokens": 17,
+    "atOrBelowLevel": 17,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:12:20.248Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "Several words and structures in the reference go beyond strict HSK 1: 上学 and 第一 are usually HSK 2 or higher, and 小学生 is a compound of HSK 1 characters that learners may not know as a unit. The 'first day of school' construction (上学的第一天) is also somewhat complex for HSK 1. A simpler English sentence, or a glossary hint, would make the grading fairer."
+      }
+    ],
+    "costUsd": 0.007
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:12:14.279Z",
+    "attempts": 1,
+    "costUsd": 0.0168
+  }
+}

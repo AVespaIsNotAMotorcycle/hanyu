@@ -1,0 +1,78 @@
+{
+  "_id": "t2-0008",
+  "level": 2,
+  "english": "My grandmother is seventy years old this year, but she goes running every morning. She runs so fast! I can't run as fast as she does.",
+  "reference": "我奶奶今年七十岁了，但是她每天早上都去跑步。她跑得这么快！我跑得没有她那么快。",
+  "topic": "My grandmother's morning run",
+  "tokens": [
+    "我",
+    "奶奶",
+    "今年",
+    "七",
+    "十",
+    "岁",
+    "了",
+    "，",
+    "但是",
+    "她",
+    "每",
+    "天",
+    "早上",
+    "都",
+    "去",
+    "跑步",
+    "。",
+    "她",
+    "跑",
+    "得",
+    "这么",
+    "快",
+    "！",
+    "我",
+    "跑",
+    "得",
+    "没有",
+    "她",
+    "那么",
+    "快",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-008",
+      "example": "每天早上"
+    }
+  ],
+  "verification": {
+    "tokens": 24,
+    "atOrBelowLevel": 24,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:17:05.797Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "“她跑得这么快！”：“这么”指示的是眼前可见的程度，用来翻译叙述中的 “She runs so fast!” 不太自然。“她跑得真快！”或“她跑得很快！”更自然，也更适合 HSK 2。"
+      },
+      {
+        "severity": "minor",
+        "description": "“我跑得没有她那么快”是“没有……那么”的比较句，大致在 HSK 3，对 HSK 2 学习者偏难。它也把 “can't” 译成了“没有”，语气稍有不同。学习者可能写出“我跑不过她”或“我跑得没有她快”，自动评分可能误判，建议提供替代答案。"
+      }
+    ],
+    "costUsd": 0.0086
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:16:58.735Z",
+    "attempts": 1,
+    "costUsd": 0.0187
+  }
+}

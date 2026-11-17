@@ -1,0 +1,79 @@
+{
+  "_id": "t1-0009",
+  "level": 1,
+  "english": "I have a dog and a cat. They are both very small, and everyone likes them. My younger sister is at my home today, and she is playing with them.",
+  "reference": "我有一只狗和一只猫。它们都很小，大家都喜欢它们。今天妹妹在我家，她正在和它们玩。",
+  "topic": "My dog and cat at home",
+  "tokens": [
+    "我",
+    "有",
+    "一",
+    "只",
+    "狗",
+    "和",
+    "一",
+    "只",
+    "猫",
+    "。",
+    "它们",
+    "都",
+    "很",
+    "小",
+    "，",
+    "大家",
+    "都",
+    "喜欢",
+    "它们",
+    "。",
+    "今天",
+    "妹妹",
+    "在",
+    "我",
+    "家",
+    "，",
+    "她",
+    "正在",
+    "和",
+    "它们",
+    "玩",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g1-009",
+      "example": "大家都喜欢它们"
+    }
+  ],
+  "verification": {
+    "tokens": 23,
+    "atOrBelowLevel": 23,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:15:09.982Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The reference uses several words above HSK 1: 只 (measure word), 它们, 大家 and 正在. HSK 1 learners would probably write 个 and 他们 instead, and the grader could mark those answers wrong. Simpler wording would fit better, such as 在…玩 without 正, 个 as the measure word, and 他们 or 很多人 where possible. Alternatively, raise the level."
+      },
+      {
+        "severity": "minor",
+        "description": "The English says \"my younger sister\", but the reference has only 妹妹 and drops \"my\". The meaning is the same, but 我妹妹 would be more faithful, and learners who write 我妹妹 could be penalised."
+      }
+    ],
+    "costUsd": 0.0124
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:15:00.151Z",
+    "attempts": 1,
+    "costUsd": 0.0197
+  }
+}

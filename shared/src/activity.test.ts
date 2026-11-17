@@ -192,6 +192,21 @@ describe('buildActivity', () => {
       expect(day!.readingExercises).toBe(1);
     });
   });
+
+  it('counts each Translate exercise graded that day once', () => {
+    const at = '2026-03-09T12:00:00Z';
+    const graded = (exerciseId: string) => ({ exerciseId, paragraph: 0, at });
+    const [day] = buildActivity({
+      timeZone: 'UTC',
+      reviews: [],
+      translations: [graded('t1-0001'), graded('t1-0001'), graded('t2-0003')],
+    });
+    expect(day).toMatchObject({
+      translations: 3,
+      translateExercises: 2,
+      readingExercises: 0,
+    });
+  });
 });
 
 describe('addDays', () => {
@@ -297,5 +312,17 @@ describe('dailyChecklist', () => {
     );
     expect(items.reading).toMatchObject({ done: true, count: 1, goal: 1 });
     expect(items.listening!.done).toBe(true);
+  });
+
+  it('needs one Translate exercise', () => {
+    const queue = { dueCount: 0, newWordCount: 0, wordsIntroducedToday: 0 };
+    expect(byId(today, queue).translate).toMatchObject({
+      done: false,
+      count: 0,
+      goal: 1,
+    });
+    expect(
+      byId({ ...today!, translateExercises: 2 }, queue).translate,
+    ).toMatchObject({ done: true, count: 1, goal: 1 });
   });
 });

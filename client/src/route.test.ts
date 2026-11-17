@@ -8,6 +8,8 @@ describe('routes', () => {
     ['/read/p1-0001', { name: 'read', passage: 'p1-0001' }],
     ['/listen', { name: 'listen' }],
     ['/listen/l1-0001', { name: 'listen', exercise: 'l1-0001' }],
+    ['/translate', { name: 'translate' }],
+    ['/translate/t1-0001', { name: 'translate', exercise: 't1-0001' }],
     ['/grammar', { name: 'grammar' }],
     ['/grammar/p1-0001', { name: 'grammar', passage: 'p1-0001' }],
     ['/progress', { name: 'progress' }],

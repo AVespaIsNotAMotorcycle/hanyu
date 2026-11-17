@@ -1,0 +1,75 @@
+{
+  "_id": "t2-0007",
+  "level": 2,
+  "english": "My mom is at work today, so I made lunch by myself. I made rice and eggs. I thought it was very tasty, and my younger brother liked it too.",
+  "reference": "今天妈妈上班,所以我自己做了午饭。我做了米饭和鸡蛋,我觉得很好吃,弟弟也很喜欢。",
+  "topic": "Making lunch by myself",
+  "tokens": [
+    "今天",
+    "妈妈",
+    "上班",
+    ",",
+    "所以",
+    "我",
+    "自己",
+    "做",
+    "了",
+    "午饭",
+    "。",
+    "我",
+    "做",
+    "了",
+    "米饭",
+    "和",
+    "鸡蛋",
+    ",",
+    "我",
+    "觉得",
+    "很",
+    "好吃",
+    ",",
+    "弟弟",
+    "也",
+    "很",
+    "喜欢",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-007",
+      "example": "我自己做了午饭"
+    }
+  ],
+  "verification": {
+    "tokens": 23,
+    "atOrBelowLevel": 23,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:16:49.633Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The reference uses 自己 for \"by myself\". This word is generally listed at HSK 3, so it is slightly above HSK 2. Learners may reasonably write 我一个人做了午饭, and the grader should accept that."
+      },
+      {
+        "severity": "minor",
+        "description": "The final clause 弟弟也很喜欢 leaves out the object \"it\" (这个/它). This is acceptable in natural Chinese, but a learner who adds 喜欢这个 or 喜欢吃 might be marked down by an automatic grader."
+      }
+    ],
+    "costUsd": 0.0081
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:16:43.484Z",
+    "attempts": 1,
+    "costUsd": 0.0153
+  }
+}

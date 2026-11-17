@@ -1,0 +1,296 @@
+{
+  "_id": "p2-0014",
+  "level": 2,
+  "title": "小明生病了",
+  "titleEnglish": "Xiaoming Is Sick",
+  "text": "今天是星期天，天气很好。我跟小明是同学，也是好朋友。我们都喜欢踢足球。\n\n早上八点，我在学校外边等他。九点了，他还没有来。我给他打电话，他说他不能去踢球，因为他生病了。\n\n我有点儿不高兴，但是我知道他身体不好。下午，我跟哥哥去看他。我们给他买了一些水果和药。因为小明病了，所以我们没有踢球。他的妈妈说：“谢谢你们。”小明很高兴，我也很高兴。",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-027",
+      "example": "因为他生病了"
+    },
+    {
+      "grammarId": "g2-028",
+      "example": "我跟小明是同学"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "小明为什么没有来？",
+      "promptEnglish": "Why didn't Xiaoming come?",
+      "options": [
+        "他生病了",
+        "他在学校",
+        "他不喜欢足球",
+        "他去买药了"
+      ],
+      "answer": 0,
+      "explanation": "The passage says he told the narrator on the phone that he could not go to play, \"因为他生病了\" (because he was sick)."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "他们喜欢做什么？",
+      "promptEnglish": "What do they like to do?",
+      "options": [
+        "看电影",
+        "踢足球",
+        "游泳",
+        "唱歌"
+      ],
+      "answer": 1,
+      "explanation": "The passage says \"我们都喜欢踢足球\" (we all like playing football)."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "下午我跟谁去看小明？",
+      "promptEnglish": "Who did the narrator go to see Xiaoming with in the afternoon?",
+      "options": [
+        "妈妈",
+        "老师",
+        "哥哥",
+        "弟弟"
+      ],
+      "answer": 2,
+      "explanation": "The passage says \"下午，我跟哥哥去看他\" (in the afternoon, I went to see him with my older brother)."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "我们都喜欢踢＿＿。",
+      "answer": "足球",
+      "alsoAccepted": [],
+      "hint": "football (soccer)"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "早上八点，我在学校外边＿＿他。",
+      "answer": "等",
+      "alsoAccepted": [],
+      "hint": "to wait for"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "我们给他买了一些水果和＿＿。",
+      "answer": "药",
+      "alsoAccepted": [],
+      "hint": "medicine"
+    }
+  ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期天",
+      "，",
+      "天气",
+      "很",
+      "好",
+      "。",
+      "我",
+      "跟",
+      "小明",
+      "是",
+      "同学",
+      "，",
+      "也",
+      "是",
+      "好",
+      "朋友",
+      "。",
+      "我们",
+      "都",
+      "喜欢",
+      "踢",
+      "足球",
+      "。"
+    ],
+    [
+      "早上",
+      "八",
+      "点",
+      "，",
+      "我",
+      "在",
+      "学校",
+      "外边",
+      "等",
+      "他",
+      "。",
+      "九",
+      "点",
+      "了",
+      "，",
+      "他",
+      "还",
+      "没有",
+      "来",
+      "。",
+      "我",
+      "给",
+      "他",
+      "打电话",
+      "，",
+      "他",
+      "说",
+      "他",
+      "不",
+      "能",
+      "去",
+      "踢",
+      "球",
+      "，",
+      "因为",
+      "他",
+      "生病",
+      "了",
+      "。"
+    ],
+    [
+      "我",
+      "有点儿",
+      "不",
+      "高兴",
+      "，",
+      "但是",
+      "我",
+      "知道",
+      "他",
+      "身体",
+      "不",
+      "好",
+      "。",
+      "下午",
+      "，",
+      "我",
+      "跟",
+      "哥哥",
+      "去",
+      "看",
+      "他",
+      "。",
+      "我们",
+      "给",
+      "他",
+      "买",
+      "了",
+      "一些",
+      "水果",
+      "和",
+      "药",
+      "。",
+      "因为",
+      "小明",
+      "病",
+      "了",
+      "，",
+      "所以",
+      "我们",
+      "没有",
+      "踢",
+      "球",
+      "。",
+      "他",
+      "的",
+      "妈妈",
+      "说",
+      "：",
+      "“",
+      "谢谢",
+      "你们",
+      "。",
+      "”",
+      "小明",
+      "很",
+      "高兴",
+      "，",
+      "我",
+      "也",
+      "很",
+      "高兴",
+      "。"
+    ]
+  ],
+  "translation": [
+    "Today is Sunday, and the weather is nice. Xiaoming and I are classmates, and we are also good friends. We both like playing soccer.",
+    "At eight o'clock in the morning, I waited for him outside the school. By nine o'clock, he still hadn't come. I called him, and he said he couldn't go play soccer because he was sick.",
+    "I was a little unhappy, but I knew he wasn't in good health. In the afternoon, I went to see him with my older brother. We bought him some fruit and medicine. Because Xiaoming was sick, we didn't play soccer. His mother said, \"Thank you.\" Xiaoming was very happy, and I was happy too."
+  ],
+  "verification": {
+    "tokens": 129,
+    "atOrBelowLevel": 129,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:14:17.576Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "他生病了",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "踢足球",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "哥哥",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "足球",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "等",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "药",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The passage says 我们给他买了…, where 我们 means the narrator and the brother, but the last sentence 小明很高兴，我也很高兴 is slightly abrupt. Not a real error."
+      },
+      {
+        "severity": "minor",
+        "description": "Question c1 says 没有来 (didn't come), but the passage says he couldn't go play football (不能去踢球). This is slightly imprecise but understandable."
+      }
+    ],
+    "costUsd": 0.0062
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:14:14.395Z",
+    "attempts": 1,
+    "costUsd": 0.0353
+  }
+}

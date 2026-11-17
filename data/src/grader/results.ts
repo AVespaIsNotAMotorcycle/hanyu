@@ -1,9 +1,12 @@
 // Eval files: data/grader-evals/learner.json (the learner-style set),
 // results/<model>-v<prompt version>.json (one eval run per grader version),
-// and consistency/<date>-<model>-v<version>.json (re-grading runs).
+// and consistency/<date>-<model>-v<version>.json (re-grading runs). The
+// English → Chinese grader's files add `-en-zh`: learner-en-zh.json,
+// results/<model>-en-zh-v<version>.json, and so on.
 
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
+import type { TranslationDirection } from '@hanyu/shared';
 import { dataDir } from '../paths.js';
 import type { LearnerItem } from './learnerSet.js';
 import type {
@@ -14,14 +17,23 @@ import type {
 } from './metrics.js';
 
 export const evalsDir = path.join(dataDir, 'grader-evals');
-export const learnerSetFile = path.join(evalsDir, 'learner.json');
+/** '' for Chinese → English (the original files), '-en-zh' otherwise. */
+const suffix = (direction: TranslationDirection = 'zh-en') =>
+  direction === 'zh-en' ? '' : `-${direction}`;
+
+export const learnerSetPath = (direction?: TranslationDirection) =>
+  path.join(evalsDir, `learner${suffix(direction)}.json`);
+export const learnerSetFile = learnerSetPath('zh-en');
 
 export interface EvalResults {
   model: string;
+  /** Absent in Chinese → English results. */
+  direction?: TranslationDirection;
   promptVersion: string;
   ranAt: string;
   costUsd: number;
-  calibration: ReturnType<typeof calibrationMetrics>;
+  /** MQM calibration: Chinese → English only. */
+  calibration: ReturnType<typeof calibrationMetrics> | null;
   learner: ReturnType<typeof learnerMetrics>;
   /** Calibration items: IDs and numbers only (the TED text isn't republished). */
   calibrationItems: CalibrationOutcome[];
@@ -32,7 +44,13 @@ export const resultsFile = (
   model: string,
   promptVersion: string,
   root = evalsDir,
-) => path.join(root, 'results', `${model}-v${promptVersion}.json`);
+  direction?: TranslationDirection,
+) =>
+  path.join(
+    root,
+    'results',
+    `${model}${suffix(direction)}-v${promptVersion}.json`,
+  );
 
 function writeJson(file: string, value: unknown) {
   mkdirSync(path.dirname(file), { recursive: true });
@@ -62,10 +80,11 @@ export function readResults(
   model: string,
   promptVersion: string,
   root = evalsDir,
+  direction?: TranslationDirection,
 ): EvalResults | null {
   try {
     return JSON.parse(
-      readFileSync(resultsFile(model, promptVersion, root), 'utf8'),
+      readFileSync(resultsFile(model, promptVersion, root, direction), 'utf8'),
     ) as EvalResults;
   } catch {
     return null;
@@ -74,13 +93,14 @@ export function readResults(
 
 export function writeResults(results: EvalResults, root = evalsDir) {
   return writeJson(
-    resultsFile(results.model, results.promptVersion, root),
+    resultsFile(results.model, results.promptVersion, root, results.direction),
     results,
   );
 }
 
 export interface ConsistencyRun {
   model: string;
+  direction?: TranslationDirection;
   promptVersion: string;
   ranAt: string;
   costUsd: number;
@@ -100,7 +120,7 @@ export function writeConsistency(run: ConsistencyRun, root = evalsDir) {
     path.join(
       root,
       'consistency',
-      `${run.ranAt.slice(0, 10)}-${run.model}-v${run.promptVersion}.json`,
+      `${run.ranAt.slice(0, 10)}-${run.model}${suffix(run.direction)}-v${run.promptVersion}.json`,
     ),
     run,
   );

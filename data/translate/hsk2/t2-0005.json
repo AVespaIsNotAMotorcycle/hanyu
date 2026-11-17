@@ -1,0 +1,81 @@
+{
+  "_id": "t2-0005",
+  "level": 2,
+  "english": "My older brother is very busy today, so I am going to help him. Tomorrow afternoon I want to go swimming with a friend. Do you want to go with us?",
+  "reference": "我哥哥今天很忙，我去帮他的忙。明天下午我想和朋友去游泳，你想和我们一起去吗？",
+  "topic": "Helping my brother and going swimming",
+  "tokens": [
+    "我",
+    "哥哥",
+    "今天",
+    "很",
+    "忙",
+    "，",
+    "我",
+    "去",
+    "帮",
+    "他",
+    "的",
+    "忙",
+    "。",
+    "明天",
+    "下午",
+    "我",
+    "想",
+    "和",
+    "朋友",
+    "去",
+    "游泳",
+    "，",
+    "你",
+    "想",
+    "和",
+    "我们",
+    "一起",
+    "去",
+    "吗",
+    "？"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-005",
+      "example": "帮他的忙"
+    }
+  ],
+  "verification": {
+    "tokens": 26,
+    "atOrBelowLevel": 26,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:16:28.012Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The English \"so\" (cause and result) has no equivalent in the reference. Chinese often leaves out 所以, so this is acceptable, but a learner who writes 所以 would be marked differently from the reference."
+      },
+      {
+        "severity": "minor",
+        "description": "The reference uses 帮他的忙 (a separable verb-object phrase from 帮忙), which is above HSK 2. HSK 2 learners are more likely to write 帮助他, so the automatic grader may mark a correct answer as wrong."
+      },
+      {
+        "severity": "minor",
+        "description": "\"I am going to help him\" is translated as 我去帮…, which sounds more like \"I'm going over to help\" than a plan. 我要帮他 would be closer to \"am going to\"."
+      }
+    ],
+    "costUsd": 0.0085
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:16:21.664Z",
+    "attempts": 1,
+    "costUsd": 0.0171
+  }
+}

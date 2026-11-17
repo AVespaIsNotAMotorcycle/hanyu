@@ -9,6 +9,7 @@ export type Route =
   | { name: 'today' }
   | { name: 'read'; passage?: string }
   | { name: 'listen'; exercise?: string }
+  | { name: 'translate'; exercise?: string }
   | { name: 'grammar'; passage?: string }
   | { name: 'progress' }
   | { name: 'settings' }
@@ -41,9 +42,10 @@ export function parseRoute(pathname: string): Route {
         ? { name: 'read' }
         : { name: 'read', passage: id };
     case 'listen':
+    case 'translate':
       return id === undefined
-        ? { name: 'listen' }
-        : { name: 'listen', exercise: id };
+        ? { name: section }
+        : { name: section, exercise: id };
     case 'grammar':
       return id === undefined
         ? { name: 'grammar' }
@@ -70,6 +72,7 @@ export function routePath(route: Route): string {
     case 'grammar':
       return under(route.name, route.passage);
     case 'listen':
+    case 'translate':
       return under(route.name, route.exercise);
     case 'study':
       return under(route.name, route.mode);

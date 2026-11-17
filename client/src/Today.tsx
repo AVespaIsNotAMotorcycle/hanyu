@@ -18,6 +18,7 @@ const LABELS: Record<ChecklistId, string> = {
   new: 'New words',
   reading: 'Reading exercise',
   listening: 'Listening exercise',
+  translate: 'Translation into Chinese',
 };
 
 function detail({ id, done, count, goal }: ChecklistItem): string {
@@ -28,6 +29,9 @@ function detail({ id, done, count, goal }: ChecklistItem): string {
   }
   if (id === 'listening') {
     return done ? 'Exercise finished' : 'Answer every question in an exercise';
+  }
+  if (id === 'translate') {
+    return done ? 'Translation graded' : 'Write a short paragraph in Chinese';
   }
   if (id === 'review') {
     if (goal === 0) return 'Nothing due';
@@ -47,7 +51,7 @@ export function Today({
   user: AuthUser;
   activity: Activity | null;
   onStudy: (mode: StudyMode) => void;
-  onOpen: (tab: 'read' | 'listen') => void;
+  onOpen: (tab: 'read' | 'listen' | 'translate') => void;
 }) {
   const { data, error } = useStudyData(user.settings);
   if (error) return <p className="error">{error}</p>;
@@ -77,6 +81,7 @@ export function Today({
     new: queue.newCount > 0 ? () => onStudy('new') : null,
     reading: () => onOpen('read'),
     listening: () => onOpen('listen'),
+    translate: () => onOpen('translate'),
   };
   const done = items.filter((item) => item.done).length;
   const active = new Set(activity.days.map((d) => d.day));

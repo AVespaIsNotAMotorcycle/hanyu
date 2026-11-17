@@ -5,16 +5,18 @@ import {
   MIN_LEVEL_SHARE,
   type ListeningExercise,
   type Passage,
+  type TranslateExercise,
 } from '@hanyu/shared';
 import type { Model } from 'mongoose';
 import {
   DatasetMetaModel,
   ListeningExerciseModel,
   PassageModel,
+  TranslateExerciseModel,
 } from './models/index.js';
 
 export interface SeedPassagesOptions {
-  /** data/passages or data/listening: one hsk<level>/ directory per level. */
+  /** data/passages, data/listening, or data/translate: one hsk<level>/ directory per level. */
   dir: string;
   force?: boolean;
   /** Delete documents that are no longer in the directory. */
@@ -67,7 +69,7 @@ async function seedGenerated<T extends Checked>(
     // Any virtuals (Mongoose adds `id`); only the document shape matters here.
     model: Model<any, any, any, any>;
     metaId: string;
-    /** Plural, for the log: passages, listening exercises. */
+    /** Plural, for the log: passages, listening exercises, translate exercises. */
     noun: string;
     checkCommand: string;
     /** Throws for anything else that makes a file unloadable. */
@@ -164,5 +166,15 @@ export function seedListening(options: SeedPassagesOptions) {
     metaId: 'listening',
     noun: 'listening exercises',
     checkCommand: 'npm run listening:check',
+  });
+}
+
+/** Loads data/translate into MongoDB (see seedGenerated). */
+export function seedTranslate(options: SeedPassagesOptions) {
+  return seedGenerated<TranslateExercise>(options, {
+    model: TranslateExerciseModel,
+    metaId: 'translate',
+    noun: 'translate exercises',
+    checkCommand: 'npm run translate:check',
   });
 }

@@ -1,0 +1,285 @@
+{
+  "_id": "p2-0012",
+  "level": 2,
+  "title": "去机场送哥哥",
+  "titleEnglish": "Seeing My Brother Off at the Airport",
+  "text": "今天是星期天，我哥哥要去中国工作。我和妈妈一起去机场送他。\n\n我们从家里坐出租车去机场，路上有点儿慢。哥哥从包里拿出手机，给爸爸打电话。他说：“爸爸，我们快到机场了。”\n\n到了机场，妈妈给哥哥一件新衣服，还给他一本书。哥哥很高兴，他说：“谢谢妈妈！到了中国，我会给你们打电话。”\n\n我从门口看着他走进去，我有点儿累，但是也很高兴。",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g2-023",
+      "example": "我们从家里坐出租车去机场"
+    },
+    {
+      "grammarId": "g2-024",
+      "example": "给爸爸打电话"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "哥哥要去哪儿工作？",
+      "promptEnglish": "Where is the older brother going to work?",
+      "options": [
+        "机场",
+        "中国",
+        "学校",
+        "医院"
+      ],
+      "answer": 1,
+      "explanation": "The first sentence says 我哥哥要去中国工作, so he is going to work in China."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "他们怎么去机场？",
+      "promptEnglish": "How do they get to the airport?",
+      "options": [
+        "坐地铁",
+        "坐火车",
+        "坐出租车",
+        "坐公交车"
+      ],
+      "answer": 2,
+      "explanation": "The text says 我们从家里坐出租车去机场, so they take a taxi."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "妈妈给哥哥什么？",
+      "promptEnglish": "What does Mom give to the older brother?",
+      "options": [
+        "一件新衣服和一本书",
+        "一个手机和一本书",
+        "一些水果和一件衣服",
+        "一些钱"
+      ],
+      "answer": 0,
+      "explanation": "The text says 妈妈给哥哥一件新衣服，还给他一本书: a new piece of clothing and a book."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "哥哥从包里拿出＿＿，给爸爸打电话。",
+      "answer": "手机",
+      "alsoAccepted": [],
+      "hint": "mobile phone"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "我和妈妈一起去机场＿＿他。",
+      "answer": "送",
+      "alsoAccepted": [],
+      "hint": "to see (someone) off"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "妈妈给哥哥一件新衣服，还给他一本＿＿。",
+      "answer": "书",
+      "alsoAccepted": [],
+      "hint": "book"
+    }
+  ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期天",
+      "，",
+      "我",
+      "哥哥",
+      "要",
+      "去",
+      "中国",
+      "工作",
+      "。",
+      "我",
+      "和",
+      "妈妈",
+      "一起",
+      "去",
+      "机场",
+      "送",
+      "他",
+      "。"
+    ],
+    [
+      "我们",
+      "从",
+      "家",
+      "里",
+      "坐",
+      "出租车",
+      "去",
+      "机场",
+      "，",
+      "路上",
+      "有点儿",
+      "慢",
+      "。",
+      "哥哥",
+      "从",
+      "包",
+      "里",
+      "拿",
+      "出",
+      "手机",
+      "，",
+      "给",
+      "爸爸",
+      "打电话",
+      "。",
+      "他",
+      "说",
+      "：",
+      "“",
+      "爸爸",
+      "，",
+      "我们",
+      "快",
+      "到",
+      "机场",
+      "了",
+      "。",
+      "”"
+    ],
+    [
+      "到",
+      "了",
+      "机场",
+      "，",
+      "妈妈",
+      "给",
+      "哥哥",
+      "一",
+      "件",
+      "新",
+      "衣服",
+      "，",
+      "还",
+      "给",
+      "他",
+      "一",
+      "本",
+      "书",
+      "。",
+      "哥哥",
+      "很",
+      "高兴",
+      "，",
+      "他",
+      "说",
+      "：",
+      "“",
+      "谢谢",
+      "妈妈",
+      "！",
+      "到",
+      "了",
+      "中国",
+      "，",
+      "我",
+      "会",
+      "给",
+      "你们",
+      "打电话",
+      "。",
+      "”"
+    ],
+    [
+      "我",
+      "从",
+      "门口",
+      "看",
+      "着",
+      "他",
+      "走",
+      "进",
+      "去",
+      "，",
+      "我",
+      "有点儿",
+      "累",
+      "，",
+      "但是",
+      "也",
+      "很",
+      "高兴",
+      "。"
+    ]
+  ],
+  "translation": [
+    "Today is Sunday. My older brother is going to China to work. My mother and I went to the airport together to see him off.",
+    "We took a taxi from home to the airport, and the trip was a little slow. My brother took his phone out of his bag and called Dad. He said, \"Dad, we're almost at the airport.\"",
+    "When we got to the airport, Mom gave my brother a new piece of clothing and also a book. My brother was very happy. He said, \"Thanks, Mom! When I get to China, I'll call you.\"",
+    "I watched him walk inside from the doorway. I was a little tired, but I was also very happy."
+  ],
+  "verification": {
+    "tokens": 124,
+    "atOrBelowLevel": 124,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:13:29.534Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "中国",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "坐出租车",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "一件新衣服和一本书",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "手机",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "送",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "书",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The passage says 哥哥 will call '你们' (mom and the narrator), while he is also calling 爸爸 earlier; this is fine, but 爸爸 is never explained (not at the airport), which is slightly unclear. Also '我从门口看着他走进去，我有点儿累' has no stated reason for being tired; the 'tired but happy' ending is slightly unmotivated."
+      }
+    ],
+    "costUsd": 0.0063
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:13:25.536Z",
+    "attempts": 1,
+    "costUsd": 0.0391
+  }
+}

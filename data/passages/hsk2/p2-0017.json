@@ -1,0 +1,354 @@
+{
+  "_id": "p2-0017",
+  "level": 2,
+  "title": "书店里的电话",
+  "titleEnglish": "A Phone Call from the Bookstore",
+  "text": "妈妈:喂,小明,你在哪儿啊?\n\n小明:我在书店呢。我想买一本汉语书。\n\n妈妈:你找到了吗?\n\n小明:找到了。这本是红色的,很好看。我还看见了一本新的,但是有点儿贵。\n\n妈妈:你买红色的吧。\n\n小明:好啊。妈妈,你在做什么呢?\n\n妈妈:我在做饭呢。你回来吃晚饭吧。你爱吃的饺子做好了。\n\n小明:太好了!我现在就回去。\n\n妈妈:路上慢一点儿。你的手机呢?我打电话,你没听见。\n\n小明:对不起,我的手机在书包里。",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-033",
+      "example": "我在书店呢"
+    },
+    {
+      "grammarId": "g2-033",
+      "example": "你买红色的吧"
+    },
+    {
+      "grammarId": "g2-033",
+      "example": "这本是红色的"
+    },
+    {
+      "grammarId": "g2-033",
+      "example": "好啊"
+    },
+    {
+      "grammarId": "g2-034",
+      "example": "做好了"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "小明现在在哪儿?",
+      "promptEnglish": "Where is Xiaoming now?",
+      "options": [
+        "学校",
+        "书店",
+        "超市",
+        "家"
+      ],
+      "answer": 1,
+      "explanation": "Xiaoming says '我在书店呢', so he is in the bookstore."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "小明想买什么?",
+      "promptEnglish": "What does Xiaoming want to buy?",
+      "options": [
+        "汉语书",
+        "新手机",
+        "红茶",
+        "饺子"
+      ],
+      "answer": 0,
+      "explanation": "He says '我想买一本汉语书', so he wants a Chinese book."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "妈妈做好了什么?",
+      "promptEnglish": "What has Mom finished making?",
+      "options": [
+        "面条儿",
+        "包子",
+        "饺子",
+        "米饭"
+      ],
+      "answer": 2,
+      "explanation": "Mom says '你爱吃的饺子做好了', so the dumplings are ready."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "我想买一本＿＿书。",
+      "answer": "汉语",
+      "alsoAccepted": [
+        "中文"
+      ],
+      "hint": "Chinese (language)"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "喂,小明,你在＿＿啊?",
+      "answer": "哪儿",
+      "alsoAccepted": [
+        "哪里"
+      ],
+      "hint": "where"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "我还看见了一本新的,但是有点儿＿＿。",
+      "answer": "贵",
+      "alsoAccepted": [],
+      "hint": "expensive"
+    }
+  ],
+  "tokens": [
+    [
+      "妈妈",
+      ":",
+      "喂",
+      ",",
+      "小明",
+      ",",
+      "你",
+      "在",
+      "哪儿",
+      "啊",
+      "?"
+    ],
+    [
+      "小明",
+      ":",
+      "我",
+      "在",
+      "书店",
+      "呢",
+      "。",
+      "我",
+      "想",
+      "买",
+      "一",
+      "本",
+      "汉语",
+      "书",
+      "。"
+    ],
+    [
+      "妈妈",
+      ":",
+      "你",
+      "找",
+      "到",
+      "了",
+      "吗",
+      "?"
+    ],
+    [
+      "小明",
+      ":",
+      "找",
+      "到",
+      "了",
+      "。",
+      "这",
+      "本",
+      "是",
+      "红色",
+      "的",
+      ",",
+      "很",
+      "好看",
+      "。",
+      "我",
+      "还",
+      "看见",
+      "了",
+      "一",
+      "本",
+      "新",
+      "的",
+      ",",
+      "但是",
+      "有点儿",
+      "贵",
+      "。"
+    ],
+    [
+      "妈妈",
+      ":",
+      "你",
+      "买",
+      "红色",
+      "的",
+      "吧",
+      "。"
+    ],
+    [
+      "小明",
+      ":",
+      "好",
+      "啊",
+      "。",
+      "妈妈",
+      ",",
+      "你",
+      "在",
+      "做",
+      "什么",
+      "呢",
+      "?"
+    ],
+    [
+      "妈妈",
+      ":",
+      "我",
+      "在",
+      "做饭",
+      "呢",
+      "。",
+      "你",
+      "回来",
+      "吃",
+      "晚饭",
+      "吧",
+      "。",
+      "你",
+      "爱",
+      "吃",
+      "的",
+      "饺子",
+      "做",
+      "好",
+      "了",
+      "。"
+    ],
+    [
+      "小明",
+      ":",
+      "太",
+      "好",
+      "了",
+      "!",
+      "我",
+      "现在",
+      "就",
+      "回去",
+      "。"
+    ],
+    [
+      "妈妈",
+      ":",
+      "路上",
+      "慢",
+      "一点儿",
+      "。",
+      "你",
+      "的",
+      "手机",
+      "呢",
+      "?",
+      "我",
+      "打电话",
+      ",",
+      "你",
+      "没",
+      "听见",
+      "。"
+    ],
+    [
+      "小明",
+      ":",
+      "对不起",
+      ",",
+      "我",
+      "的",
+      "手机",
+      "在",
+      "书包",
+      "里",
+      "。"
+    ]
+  ],
+  "translation": [
+    "Mom: Hello, Xiaoming, where are you?",
+    "Xiaoming: I'm at the bookstore. I want to buy a Chinese book.",
+    "Mom: Did you find one?",
+    "Xiaoming: Yes, I did. This one is red, and it looks really nice. I also saw a new one, but it's a bit expensive.",
+    "Mom: Buy the red one.",
+    "Xiaoming: OK. Mom, what are you doing?",
+    "Mom: I'm cooking. Come home for dinner. The dumplings you love are ready.",
+    "Xiaoming: Great! I'll head back right now.",
+    "Mom: Take it easy on the way. Where is your phone? I called you, and you didn't hear it.",
+    "Xiaoming: Sorry, my phone is in my schoolbag."
+  ],
+  "verification": {
+    "tokens": 125,
+    "atOrBelowLevel": 124,
+    "share": 0.992,
+    "offLevel": [
+      "没"
+    ]
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:15:55.755Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "书店",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "汉语书",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "饺子",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "汉语",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "哪儿",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "贵",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "Mom's line '我打电话,你没听见' is slightly abrupt/unnatural; '我给你打电话,你没听见' would be more natural."
+      },
+      {
+        "severity": "minor",
+        "description": "Xiao Ming says he found a red book, and the 'new' book is a different one, but the passage never states which book is the Chinese book; the dialogue is slightly ambiguous but not misleading."
+      }
+    ],
+    "costUsd": 0.0063
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:15:52.279Z",
+    "attempts": 2,
+    "costUsd": 0.0682
+  }
+}

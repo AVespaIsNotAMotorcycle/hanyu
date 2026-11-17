@@ -17,6 +17,7 @@ export * from './queue.js';
 export * from './readiness.js';
 export * from './reviews.js';
 export * from './scheduling.js';
+export * from './translate.js';
 
 export interface HealthResponse {
   status: 'ok';

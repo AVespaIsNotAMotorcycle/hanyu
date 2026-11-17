@@ -2,7 +2,7 @@ import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import {
   audioKeys,
   CRITERIA,
-  CRITERION_LABELS,
+  CRITERION_LABELS_BY_DIRECTION,
   MAX_TRANSLATION_LENGTH,
   overallScore,
   paragraphs,
@@ -10,6 +10,7 @@ import {
   type GradeTranslationResponse,
   type GradingLimits,
   type Passage,
+  type TranslationDirection,
   type TranslationError,
   type TranslationGrading,
   type TranslationGradingsResponse,
@@ -68,7 +69,6 @@ export function TranslationExercises({
               passageId={passage._id}
               paragraph={i}
               source={source}
-              reference={passage.translation![i] ?? ''}
               latest={gradings.find((g) => g.paragraph === i) ?? null}
               words={words}
               unavailable={limits.unavailable}
@@ -89,7 +89,6 @@ function Exercise({
   passageId,
   paragraph,
   source,
-  reference,
   latest,
   words,
   unavailable,
@@ -98,7 +97,6 @@ function Exercise({
   passageId: string;
   paragraph: number;
   source: string;
-  reference: string;
   latest: TranslationGrading | null;
   words: WordNote[];
   unavailable: string | null;
@@ -185,7 +183,6 @@ function Exercise({
       ) : (
         <GradingView
           grading={latest}
-          reference={reference}
           words={words}
           onRetry={() => {
             setDraft(latest.translation);
@@ -198,7 +195,7 @@ function Exercise({
 }
 
 /** Text with the quoted spans underlined (overlapping spans merge into the first). */
-function Highlighted({
+export function Highlighted({
   text,
   spans,
 }: {
@@ -222,24 +219,26 @@ function Highlighted({
   return <>{parts}</>;
 }
 
-function GradingView({
+/** A grading's scores and errors, the reference, and the words sent to the SRS. */
+export function GradingView({
   grading,
-  reference,
   words,
   onRetry,
 }: {
   grading: TranslationGrading;
-  reference: string;
   words: WordNote[];
   onRetry: () => void;
 }) {
-  const { result } = grading;
+  const { result, direction } = grading;
+  const labels = CRITERION_LABELS_BY_DIRECTION[direction];
+  // The language each side is written in.
+  const target = direction === 'zh-en' ? 'en' : 'zh-Hans';
   const added = grading.addedWords.map(
     (id) => words.find((w) => w._id === id)?.simplified ?? id,
   );
   return (
     <div className="grading">
-      <p className="your-translation">
+      <p className="your-translation" lang={target}>
         <Highlighted
           text={grading.translation}
           spans={result.errors.map((e) => [
@@ -254,7 +253,7 @@ function GradingView({
       <dl className="scores">
         {CRITERIA.map((c) => (
           <div key={c}>
-            <dt>{CRITERION_LABELS[c]}</dt>
+            <dt>{labels[c]}</dt>
             <dd>
               <span className="score">{result.scores[c].score}</span>{' '}
               {result.scores[c].comment}
@@ -265,7 +264,7 @@ function GradingView({
       {result.errors.length > 0 && (
         <ul className="translation-errors">
           {result.errors.map((e, i) => (
-            <ErrorItem key={i} error={e} />
+            <ErrorItem key={i} error={e} direction={direction} />
           ))}
         </ul>
       )}
@@ -277,7 +276,7 @@ function GradingView({
       )}
       <details>
         <summary>Reference translation</summary>
-        <p>{reference}</p>
+        <p lang={target}>{grading.reference}</p>
       </details>
       <button type="button" className="link" onClick={onRetry}>
         Try again
@@ -286,23 +285,35 @@ function GradingView({
   );
 }
 
-function ErrorItem({ error }: { error: TranslationError }) {
+function ErrorItem({
+  error,
+  direction,
+}: {
+  error: TranslationError;
+  direction: TranslationDirection;
+}) {
+  const [source, target] =
+    direction === 'zh-en' ? ['zh-Hans', 'en'] : ['en', 'zh-Hans'];
   return (
     <li>
       <span className={`badge ${error.severity}`}>{error.severity}</span>{' '}
-      <span className="hint">{CRITERION_LABELS[error.criterion]}</span>{' '}
-      {error.translationSpan && <q>{error.translationSpan}</q>}
+      <span className="hint">
+        {CRITERION_LABELS_BY_DIRECTION[direction][error.criterion]}
+      </span>{' '}
+      {error.translationSpan && <q lang={target}>{error.translationSpan}</q>}
       {error.sourceSpan && (
         <>
           {' '}
-          (<span lang="zh-Hans">{error.sourceSpan}</span>)
+          (<span lang={source}>{error.sourceSpan}</span>)
         </>
       )}
       : {error.explanation}
       {error.suggestion && (
         <>
           {' '}
-          <em>Try: {error.suggestion}</em>
+          <em>
+            Try: <span lang={target}>{error.suggestion}</span>
+          </em>
         </>
       )}
     </li>

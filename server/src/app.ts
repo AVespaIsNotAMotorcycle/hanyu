@@ -15,6 +15,7 @@ import { reviewsRouter } from './routes/reviews.js';
 import { settingsRouter } from './routes/settings.js';
 import { contentRouter } from './routes/content.js';
 import { passagesRouter } from './routes/passages.js';
+import { createTranslateRouter } from './routes/translate.js';
 import {
   createTranslationsRouter,
   type GradingOptions,
@@ -69,6 +70,7 @@ export function createApp({
   api.use('/listening', listeningRouter);
   api.use('/audio', audioRouter);
   api.use('/translations', createTranslationsRouter(grading));
+  api.use('/translate', createTranslateRouter(grading));
   api.use((_req, res) => {
     res.status(404).json({ error: 'Not found' });
   });

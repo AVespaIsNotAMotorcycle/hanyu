@@ -1,0 +1,277 @@
+{
+  "_id": "p2-0016",
+  "level": 2,
+  "title": "新饭馆",
+  "titleEnglish": "The New Restaurant",
+  "text": "昨天我和朋友小明去了一家新饭馆。饭馆的门开着，里面坐着很多人。我没来过这里，但是小明来过。他说这里的饺子非常好吃。\n\n我们坐在桌子旁边。旁边站着一个小孩儿，手里拿着一个包子。他看着我们笑。我没吃过这里的鱼，所以要了一条鱼。小明要了饺子。鱼很好吃，我觉得这家饭馆很不错。我们明天还想再来。",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-031",
+      "example": "我没来过这里"
+    },
+    {
+      "grammarId": "g2-032",
+      "example": "里面坐着很多人"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "谁来过这个饭馆？",
+      "promptEnglish": "Who had been to this restaurant before?",
+      "options": [
+        "我",
+        "小明",
+        "小孩儿",
+        "老师"
+      ],
+      "answer": 1,
+      "explanation": "The passage says '我没来过这里，但是小明来过', so Xiaoming had been there before and the narrator had not."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "小孩儿手里拿着什么？",
+      "promptEnglish": "What was the child holding in his hand?",
+      "options": [
+        "一杯茶",
+        "一个苹果",
+        "一个包子",
+        "一本书"
+      ],
+      "answer": 2,
+      "explanation": "The passage says '旁边站着一个小孩儿，手里拿着一个包子', so the child was holding a baozi."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "我要了什么？",
+      "promptEnglish": "What did the narrator order?",
+      "options": [
+        "饺子",
+        "一条鱼",
+        "面条儿",
+        "米饭"
+      ],
+      "answer": 1,
+      "explanation": "The narrator says '我没吃过这里的鱼，所以要了一条鱼'. Xiaoming is the one who ordered dumplings."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "饭馆的＿＿开着，里面坐着很多人。",
+      "answer": "门",
+      "alsoAccepted": [],
+      "hint": "door"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "我没吃过这里的鱼，＿＿要了一条鱼。",
+      "answer": "所以",
+      "alsoAccepted": [],
+      "hint": "so, therefore"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "我们＿＿还想再来。",
+      "answer": "明天",
+      "alsoAccepted": [],
+      "hint": "tomorrow"
+    }
+  ],
+  "tokens": [
+    [
+      "昨天",
+      "我",
+      "和",
+      "朋友",
+      "小明",
+      "去",
+      "了",
+      "一",
+      "家",
+      "新",
+      "饭馆",
+      "。",
+      "饭馆",
+      "的",
+      "门",
+      "开",
+      "着",
+      "，",
+      "里面",
+      "坐",
+      "着",
+      "很",
+      "多",
+      "人",
+      "。",
+      "我",
+      "没来",
+      "过",
+      "这里",
+      "，",
+      "但是",
+      "小明",
+      "来",
+      "过",
+      "。",
+      "他",
+      "说",
+      "这里",
+      "的",
+      "饺子",
+      "非常",
+      "好吃",
+      "。"
+    ],
+    [
+      "我们",
+      "坐",
+      "在",
+      "桌子",
+      "旁边",
+      "。",
+      "旁边",
+      "站",
+      "着",
+      "一",
+      "个",
+      "小孩儿",
+      "，",
+      "手",
+      "里",
+      "拿",
+      "着",
+      "一",
+      "个",
+      "包子",
+      "。",
+      "他",
+      "看",
+      "着",
+      "我们",
+      "笑",
+      "。",
+      "我",
+      "没吃过",
+      "这里",
+      "的",
+      "鱼",
+      "，",
+      "所以",
+      "要",
+      "了",
+      "一",
+      "条",
+      "鱼",
+      "。",
+      "小明",
+      "要",
+      "了",
+      "饺子",
+      "。",
+      "鱼",
+      "很",
+      "好吃",
+      "，",
+      "我",
+      "觉得",
+      "这",
+      "家",
+      "饭馆",
+      "很",
+      "不错",
+      "。",
+      "我们",
+      "明天",
+      "还",
+      "想",
+      "再",
+      "来",
+      "。"
+    ]
+  ],
+  "translation": [
+    "Yesterday my friend Xiaoming and I went to a new restaurant. The door of the restaurant was open, and there were a lot of people sitting inside. I had never been here before, but Xiaoming had. He said the dumplings here are really delicious.",
+    "We sat down at a table. A little child was standing nearby, holding a baozi in his hand. He looked at us and smiled. I had never tried the fish here, so I ordered a fish. Xiaoming ordered dumplings. The fish was delicious, and I thought this was a very good restaurant. We want to come again tomorrow."
+  ],
+  "verification": {
+    "tokens": 110,
+    "atOrBelowLevel": 107,
+    "share": 0.9727272727272728,
+    "offLevel": [
+      "没",
+      "杯"
+    ]
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:15:15.819Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "小明",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "一个包子",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "一条鱼",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "门",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "所以",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "明天",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "“我们明天还想再来” uses both 还 and 再, which is slightly redundant; 还想再来 is acceptable but a bit wordy for learners."
+      },
+      {
+        "severity": "minor",
+        "description": "The passage says 小明 recommended the dumplings, but the narrator ordered fish because they had not tried the fish before; this is slightly odd logic (“没吃过鱼所以要了鱼”) though not contradictory."
+      }
+    ],
+    "costUsd": 0.0063
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:15:12.134Z",
+    "attempts": 1,
+    "costUsd": 0.035
+  }
+}

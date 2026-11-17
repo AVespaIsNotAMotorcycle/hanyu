@@ -1,0 +1,667 @@
+[
+  {
+    "id": "t1-0001/0/injected",
+    "direction": "en-zh",
+    "passageId": "t1-0001",
+    "paragraph": 0,
+    "source": "Today is my daughter's first day of school. She is a primary school student now. Her teacher is very nice.",
+    "reference": "今天是我女儿上学的第一天。她现在是小学生了。她的老师很好。",
+    "translation": "今天是我女儿上学的第一天。她现在是一本小学生了。她的老师好很。",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong measure word",
+        "translationSpan": "一本小学生",
+        "sourceSpan": "a primary school student",
+        "description": "The measure word 本 is used for books and cannot be used for a person. The correct measure word is 名 or 个, as in 一名小学生."
+      },
+      {
+        "type": "wrong word order",
+        "translationSpan": "好很",
+        "sourceSpan": "very nice",
+        "description": "The degree adverb 很 must come before the adjective. The correct form is 很好, not 好很."
+      }
+    ]
+  },
+  {
+    "id": "t1-0001/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t1-0001",
+    "paragraph": 0,
+    "source": "Today is my daughter's first day of school. She is a primary school student now. Her teacher is very nice.",
+    "reference": "今天是我女儿上学的第一天。她现在是小学生了。她的老师很好。",
+    "translation": "今天是女儿第一天上学。她现在已经是一名小学生了。她的老师人很好。",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t1-0002/0/injected",
+    "direction": "en-zh",
+    "passageId": "t1-0002",
+    "paragraph": 0,
+    "source": "Today my friends are coming to my home to eat. My mom is cooking over there, and my friends are sitting over here.",
+    "reference": "今天朋友们来我家吃饭。妈妈在那边做饭，朋友们在这边坐。",
+    "translation": "今天朋友们来吃饭我家。妈妈在那边做饭，朋友们在这边没坐。",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong word order",
+        "translationSpan": "来吃饭我家",
+        "sourceSpan": "are coming to my home to eat",
+        "description": "The place phrase 我家 is wrongly placed after 吃饭. It should be 来我家吃饭, with the place before the second verb."
+      },
+      {
+        "type": "wrong aspect or negation",
+        "translationSpan": "没坐",
+        "sourceSpan": "my friends are sitting over here",
+        "description": "没 is wrongly used to negate the verb. This changes the meaning to 'are not sitting'. The English describes an ongoing, affirmative action, so 在这边坐 is correct."
+      }
+    ]
+  },
+  {
+    "id": "t1-0002/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t1-0002",
+    "paragraph": 0,
+    "source": "Today my friends are coming to my home to eat. My mom is cooking over there, and my friends are sitting over here.",
+    "reference": "今天朋友们来我家吃饭。妈妈在那边做饭，朋友们在这边坐。",
+    "translation": "今天我的朋友要来我家吃饭。妈妈正在那边烧菜，朋友们则坐在这边。",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t1-0003/0/injected",
+    "direction": "en-zh",
+    "passageId": "t1-0003",
+    "paragraph": 0,
+    "source": "I am looking for my phone. It is not on the table, and it is not in my room. My younger sister says it is on the chair outside.",
+    "reference": "我正在找手机。手机不在桌子上，也不在房间里。妹妹说它在外边的椅子上。",
+    "translation": "我正在找手机。手机没在桌子上，也不在房间里。姐姐说它在外边的椅子上。",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong aspect or negation",
+        "translationSpan": "没在桌子上",
+        "sourceSpan": "It is not on the table",
+        "description": "English present-tense state \"is not\" should be 不在; 没在 changes it to a negation of an event/progress, which is a misuse of negation for this stative sentence."
+      },
+      {
+        "type": "wrong word",
+        "translationSpan": "姐姐",
+        "sourceSpan": "younger sister",
+        "description": "\"younger sister\" is 妹妹; 姐姐 means older sister, so the content word is wrong."
+      }
+    ]
+  },
+  {
+    "id": "t1-0003/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t1-0003",
+    "paragraph": 0,
+    "source": "I am looking for my phone. It is not on the table, and it is not in my room. My younger sister says it is on the chair outside.",
+    "reference": "我正在找手机。手机不在桌子上，也不在房间里。妹妹说它在外边的椅子上。",
+    "translation": "我在找我的手机。它既不在桌子上，也不在我的房间里。我妹妹说手机放在外面的椅子上。",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t1-0004/0/injected",
+    "direction": "en-zh",
+    "passageId": "t1-0004",
+    "paragraph": 0,
+    "source": "My younger brother can cook rice and noodles. Today he is sick, so he can't cook dinner. I can cook too, so I am making dinner for him.",
+    "reference": "我弟弟会做米饭和面条儿。今天他生病了,不能做晚饭。我也会做饭,我给他做晚饭。",
+    "translation": "我哥哥会做米饭和面条儿。今天他生病了,不能做晚饭。我给他做晚饭。",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong word",
+        "translationSpan": "哥哥",
+        "sourceSpan": "younger brother",
+        "description": "\"younger brother\" should be 弟弟; 哥哥 means older brother, a plausible but wrong word."
+      },
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "I can cook too, so",
+        "description": "The clause \"I can cook too\" (我也会做饭) and its connector \"so\" are left untranslated, so the reason for the speaker making dinner is missing."
+      }
+    ]
+  },
+  {
+    "id": "t1-0004/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t1-0004",
+    "paragraph": 0,
+    "source": "My younger brother can cook rice and noodles. Today he is sick, so he can't cook dinner. I can cook too, so I am making dinner for him.",
+    "reference": "我弟弟会做米饭和面条儿。今天他生病了,不能做晚饭。我也会做饭,我给他做晚饭。",
+    "translation": "我弟弟会煮米饭和做面条。他今天病了,没法做晚饭,而我也会做饭,所以由我来给他做晚饭。",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t1-0005/0/injected",
+    "direction": "en-zh",
+    "passageId": "t1-0005",
+    "paragraph": 0,
+    "source": "Tomorrow is Sunday. I want to go to the bookstore with my younger sister. I want to buy a Chinese book, and she wants to buy a cup.",
+    "reference": "明天是星期天。我想和妹妹去书店。我想买一本汉语书,她要买一个杯子。",
+    "translation": "明天是星期天。我想和妹妹去书店。我想买一个汉语书。",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "and she wants to buy a cup",
+        "description": "The final clause 'and she wants to buy a cup' is not translated; the sentence about the younger sister buying a cup is omitted."
+      },
+      {
+        "type": "wrong measure word",
+        "translationSpan": "一个汉语书",
+        "sourceSpan": "a Chinese book",
+        "description": "The measure word for books should be 本 (一本汉语书), not the general measure word 个."
+      }
+    ]
+  },
+  {
+    "id": "t1-0005/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t1-0005",
+    "paragraph": 0,
+    "source": "Tomorrow is Sunday. I want to go to the bookstore with my younger sister. I want to buy a Chinese book, and she wants to buy a cup.",
+    "reference": "明天是星期天。我想和妹妹去书店。我想买一本汉语书,她要买一个杯子。",
+    "translation": "明天是周日。我打算跟妹妹一起去书店。我想买一本中文书,而她想买一只杯子。",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t1-0006/0/injected",
+    "direction": "en-zh",
+    "passageId": "t1-0006",
+    "paragraph": 0,
+    "source": "Teacher, may I ask you a question? I don't know this character. Can you write it for me?",
+    "reference": "老师,我可以问您一个问题吗?我不认识这个字,您可以给我写一下吗?",
+    "translation": "老师,我可以问您一本问题吗?我不认识这个字,您可以写一下给我吗?",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong measure word",
+        "translationSpan": "一本问题",
+        "sourceSpan": "a question",
+        "description": "\"问题\" takes the measure word 个, not 本 (本 is for books). The correct form is 一个问题."
+      },
+      {
+        "type": "wrong word order",
+        "translationSpan": "写一下给我",
+        "sourceSpan": "write it for me",
+        "description": "The beneficiary phrase \"给我\" should come before the verb, as in 给我写一下. Placing it after the verb is unnatural in Chinese."
+      }
+    ]
+  },
+  {
+    "id": "t1-0006/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t1-0006",
+    "paragraph": 0,
+    "source": "Teacher, may I ask you a question? I don't know this character. Can you write it for me?",
+    "reference": "老师,我可以问您一个问题吗?我不认识这个字,您可以给我写一下吗?",
+    "translation": "老师,我想请教您一个问题,可以吗?这个字我不认识,能请您帮我写出来吗?",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t1-0007/0/injected",
+    "direction": "en-zh",
+    "passageId": "t1-0007",
+    "paragraph": 0,
+    "source": "My mother is a doctor. She goes to work at eight in the morning and finishes work at six. At night she goes to bed very early.",
+    "reference": "我妈妈是医生。她早上八点上班,六点下班。晚上她很早睡觉。",
+    "translation": "我妈妈是医生。她上班早上八点,六点下班。晚上她很早没睡觉。",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong word order",
+        "translationSpan": "她上班早上八点",
+        "sourceSpan": "She goes to work at eight in the morning",
+        "description": "The time phrase \"早上八点\" is placed after the verb \"上班\". In Chinese, time expressions must come before the verb, so it should be \"她早上八点上班\"."
+      },
+      {
+        "type": "wrong aspect or negation",
+        "translationSpan": "很早没睡觉",
+        "sourceSpan": "At night she goes to bed very early.",
+        "description": "\"没\" is used to negate a habitual action, which changes the meaning to \"she did not go to bed early\" and is wrong in this context. The English describes a regular habit, so no negation is needed: \"很早睡觉\"."
+      }
+    ]
+  },
+  {
+    "id": "t1-0007/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t1-0007",
+    "paragraph": 0,
+    "source": "My mother is a doctor. She goes to work at eight in the morning and finishes work at six. At night she goes to bed very early.",
+    "reference": "我妈妈是医生。她早上八点上班,六点下班。晚上她很早睡觉。",
+    "translation": "我母亲是一名医生。她每天早晨八点去上班,下午六点结束工作。到了晚上,她很早就上床睡觉了。",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t1-0008/0/injected",
+    "direction": "en-zh",
+    "passageId": "t1-0008",
+    "paragraph": 0,
+    "source": "Today I went to a store with my mother. I asked how much these apples were. They were five yuan each. I bought two.",
+    "reference": "今天我和妈妈去商店。我问这些苹果多少钱。五块钱一个。我买了两个。",
+    "translation": "今天我和妈妈去商店了。我问这些苹果多少钱。五块钱一个。我卖了两个。",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong aspect or negation",
+        "translationSpan": "去商店了",
+        "sourceSpan": "Today I went to a store with my mother",
+        "description": "Misuses 了 after 去商店 in a sequence of narrated past events; it makes the sentence sound incomplete and does not fit the original narration. Also the learner could have dropped 了 elsewhere, but here 了 is wrongly added."
+      },
+      {
+        "type": "wrong word",
+        "translationSpan": "卖",
+        "sourceSpan": "I bought two",
+        "description": "买 (buy) replaced by 卖 (sell), reversing the meaning: the speaker bought two apples, not sold them."
+      }
+    ]
+  },
+  {
+    "id": "t1-0008/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t1-0008",
+    "paragraph": 0,
+    "source": "Today I went to a store with my mother. I asked how much these apples were. They were five yuan each. I bought two.",
+    "reference": "今天我和妈妈去商店。我问这些苹果多少钱。五块钱一个。我买了两个。",
+    "translation": "今天我陪妈妈逛了一家商店。我打听了一下这些苹果的价钱,得知每个五元。我买下了两个。",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t1-0009/0/injected",
+    "direction": "en-zh",
+    "passageId": "t1-0009",
+    "paragraph": 0,
+    "source": "I have a dog and a cat. They are both very small, and everyone likes them. My younger sister is at my home today, and she is playing with them.",
+    "reference": "我有一只狗和一只猫。它们都很小，大家都喜欢它们。今天妹妹在我家，她正在和它们玩。",
+    "translation": "我有一只狗和一只猫。它们都很大，大家都喜欢它们。今天妹妹在我家。",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong word",
+        "translationSpan": "大",
+        "sourceSpan": "small",
+        "description": "“small”应译为“小”，误译为“大”，意思相反。"
+      },
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "and she is playing with them",
+        "description": "漏译了“她正在和它们玩”这一分句。"
+      }
+    ]
+  },
+  {
+    "id": "t1-0009/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t1-0009",
+    "paragraph": 0,
+    "source": "I have a dog and a cat. They are both very small, and everyone likes them. My younger sister is at my home today, and she is playing with them.",
+    "reference": "我有一只狗和一只猫。它们都很小，大家都喜欢它们。今天妹妹在我家，她正在和它们玩。",
+    "translation": "我养了一条狗和一只猫。它们个头都很小，大家都很喜爱它们。我妹妹今天来我家了，此刻正和它们一起玩耍。",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t1-0010/0/injected",
+    "direction": "en-zh",
+    "passageId": "t1-0010",
+    "paragraph": 0,
+    "source": "I am at a store with my younger sister. These clothes are very pretty, but some are too expensive. That one is cheap, so I want to buy that one.",
+    "reference": "我和妹妹在商店。这些衣服很漂亮,有些太贵了。那件很便宜,我想买那件。",
+    "translation": "我和妹妹在商店。这些衣服很漂亮。那个很便宜,我想买那件。",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "but some are too expensive",
+        "description": "The clause \"but some are too expensive\" (有些太贵了) is omitted from the translation."
+      },
+      {
+        "type": "wrong measure word",
+        "translationSpan": "那个很便宜",
+        "sourceSpan": "That one is cheap",
+        "description": "Clothes take the measure word 件, not the general 个; 那个 is used instead of 那件."
+      }
+    ]
+  },
+  {
+    "id": "t1-0010/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t1-0010",
+    "paragraph": 0,
+    "source": "I am at a store with my younger sister. These clothes are very pretty, but some are too expensive. That one is cheap, so I want to buy that one.",
+    "reference": "我和妹妹在商店。这些衣服很漂亮,有些太贵了。那件很便宜,我想买那件。",
+    "translation": "我跟妹妹正在一家商店里。这些衣服都很好看,不过有几件价格太高。那一件很便宜,所以我打算买它。",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t2-0001/0/injected",
+    "direction": "en-zh",
+    "passageId": "t2-0001",
+    "paragraph": 0,
+    "source": "My school is not big. There is a bookstore in front of the school and a supermarket behind it. After class, I often go inside the bookstore to read.",
+    "reference": "我的学校不大。学校前面有一个书店，后面有一个超市。下课后我经常去书店里面看书。",
+    "translation": "我的学校不大。学校前面有一条书店，后面有一个超市。下课后我经常看书去书店里面。",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong measure word",
+        "translationSpan": "一条书店",
+        "sourceSpan": "a bookstore",
+        "description": "书店应使用量词“家”（或通用量词“个”），“条”用于细长的东西，用在书店上是错误的。"
+      },
+      {
+        "type": "wrong word order",
+        "translationSpan": "我经常看书去书店里面",
+        "sourceSpan": "I often go inside the bookstore to read",
+        "description": "语序错误：地点和动作“去书店里面”应在“看书”之前（连动句），应为“去书店里面看书”，而不是“看书去书店里面”，这样改变了原意（变成先看书再去书店）。"
+      }
+    ]
+  },
+  {
+    "id": "t2-0001/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t2-0001",
+    "paragraph": 0,
+    "source": "My school is not big. There is a bookstore in front of the school and a supermarket behind it. After class, I often go inside the bookstore to read.",
+    "reference": "我的学校不大。学校前面有一个书店，后面有一个超市。下课后我经常去书店里面看书。",
+    "translation": "我们学校不算大。校门前有一家书店，学校后面有一家超市。放学以后，我常常到书店里看书。",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t2-0002/0/injected",
+    "direction": "en-zh",
+    "passageId": "t2-0002",
+    "paragraph": 0,
+    "source": "In my room, the bed is on the left and the desk is on the right. My computer is on the desk, and my phone is on the bed. In the evening, I like to sit on the chair next to the desk and read.",
+    "reference": "我的房间里，床在左边，桌子在右边。电脑在桌子上，手机在床上。晚上我喜欢坐在桌子旁边的椅子上看书。",
+    "translation": "我的房间里，床在左边，桌子在右边。电脑在桌子上，手机在床上。我喜欢坐在桌子旁边的椅子上看书晚上。我没喜欢坐着看书。",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong word order",
+        "translationSpan": "看书晚上",
+        "sourceSpan": "In the evening, I like to sit on the chair next to the desk and read.",
+        "description": "The time phrase 晚上 is placed after the verb phrase 看书 instead of before the verb at the start of the clause; Chinese requires time words before the verb."
+      },
+      {
+        "type": "wrong aspect or negation",
+        "translationSpan": "我没喜欢坐着看书。",
+        "sourceSpan": "I like to sit on the chair next to the desk and read.",
+        "description": "A sentence was added using 没 to negate the stative verb 喜欢, which should take 不; this also contradicts the source, which says the speaker likes to sit and read."
+      }
+    ]
+  },
+  {
+    "id": "t2-0002/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t2-0002",
+    "paragraph": 0,
+    "source": "In my room, the bed is on the left and the desk is on the right. My computer is on the desk, and my phone is on the bed. In the evening, I like to sit on the chair next to the desk and read.",
+    "reference": "我的房间里，床在左边，桌子在右边。电脑在桌子上，手机在床上。晚上我喜欢坐在桌子旁边的椅子上看书。",
+    "translation": "在我的房间里，左边是床，右边是书桌。电脑放在书桌上，手机放在床上。每到晚上，我都爱坐在书桌旁的椅子上读书。",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t2-0003/0/injected",
+    "direction": "en-zh",
+    "passageId": "t2-0003",
+    "paragraph": 0,
+    "source": "I'm very tired today. After work, I want to go home and rest for a while, then watch a bit of TV and listen to some songs.",
+    "reference": "今天我很累。下班后我想回家休息休息,再看看电视,听听歌。",
+    "translation": "今天我很累。下班后我想回家休息休息,再看了电视,听听唱。",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong aspect or negation",
+        "translationSpan": "看了电视",
+        "sourceSpan": "watch a bit of TV",
+        "description": "The speaker is describing a future wish (\"want to ... then watch\"), so the completed-action particle 了 is wrongly used after 看; it should be 看看电视 without 了."
+      },
+      {
+        "type": "wrong word",
+        "translationSpan": "唱",
+        "sourceSpan": "listen to some songs",
+        "description": "歌 (songs) was replaced by 唱 (to sing), a verb that does not fit as the object of 听; the sentence now means something like 'listen to sing', which is wrong."
+      }
+    ]
+  },
+  {
+    "id": "t2-0003/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t2-0003",
+    "paragraph": 0,
+    "source": "I'm very tired today. After work, I want to go home and rest for a while, then watch a bit of TV and listen to some songs.",
+    "reference": "今天我很累。下班后我想回家休息休息,再看看电视,听听歌。",
+    "translation": "我今天特别疲倦。下班以后,我打算先回家歇一会儿,然后看一会儿电视,再听几首歌。",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t2-0004/0/injected",
+    "direction": "en-zh",
+    "passageId": "t2-0004",
+    "paragraph": 0,
+    "source": "The weather isn't good today. It may snow tomorrow, so my older brother probably won't come. We can go to the movie theater on Sunday.",
+    "reference": "今天天气不好。明天可能下雪，所以哥哥可能不来。我们星期天可以去电影院看电影。",
+    "translation": "今天天气不好。明天可能下雨，所以哥哥可能不来。我们可以去电影院看电影。",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong word",
+        "translationSpan": "下雨",
+        "sourceSpan": "snow",
+        "description": "“snow”应译为“下雪”，误译成“下雨”(rain)，改变了原意。"
+      },
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "on Sunday",
+        "description": "漏译了时间状语“on Sunday”（星期天），译文没有说明去电影院的时间。"
+      }
+    ]
+  },
+  {
+    "id": "t2-0004/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t2-0004",
+    "paragraph": 0,
+    "source": "The weather isn't good today. It may snow tomorrow, so my older brother probably won't come. We can go to the movie theater on Sunday.",
+    "reference": "今天天气不好。明天可能下雪，所以哥哥可能不来。我们星期天可以去电影院看电影。",
+    "translation": "今天天气很差。明天也许会下雪，因此我哥哥多半不会来了。星期天我们能去影院看电影。",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t2-0005/0/injected",
+    "direction": "en-zh",
+    "passageId": "t2-0005",
+    "paragraph": 0,
+    "source": "My older brother is very busy today, so I am going to help him. Tomorrow afternoon I want to go swimming with a friend. Do you want to go with us?",
+    "reference": "我哥哥今天很忙，我去帮他的忙。明天下午我想和朋友去游泳，你想和我们一起去吗？",
+    "translation": "我哥哥今天很忙。明天下午我想和一本朋友去游泳，你想和我们一起去吗？",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "so I am going to help him",
+        "description": "The clause 'so I am going to help him' (我去帮他的忙) is left untranslated, so the sentence stops after saying the brother is busy."
+      },
+      {
+        "type": "wrong measure word",
+        "translationSpan": "一本朋友",
+        "sourceSpan": "a friend",
+        "description": "The measure word 本 is used for books, not people. For 'a friend' it should be 个 or 位, as in 一个朋友 or 一位朋友."
+      }
+    ]
+  },
+  {
+    "id": "t2-0005/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t2-0005",
+    "paragraph": 0,
+    "source": "My older brother is very busy today, so I am going to help him. Tomorrow afternoon I want to go swimming with a friend. Do you want to go with us?",
+    "reference": "我哥哥今天很忙，我去帮他的忙。明天下午我想和朋友去游泳，你想和我们一起去吗？",
+    "translation": "今天我哥哥特别忙，所以我打算去帮他。明天下午我想跟一位朋友去游泳，你要不要跟我们一起去？",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t2-0006/0/injected",
+    "direction": "en-zh",
+    "passageId": "t2-0006",
+    "paragraph": 0,
+    "source": "A classmate did not come to class today. I called him and asked why he did not come to school. He said he was sick and went to see a doctor in the morning.",
+    "reference": "我的同学今天没有来上课。我给他打电话,问他为什么没有来学校。他说他生病了,上午去看病了。",
+    "translation": "一本同学今天没有来上课。我给他打电话,问他为什么没有来学校。他说他生病了,去看病了上午。",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong measure word",
+        "translationSpan": "一本同学",
+        "sourceSpan": "A classmate",
+        "description": "“本”是书本的量词,不能用于人。应使用“位”或“个”,如“一位同学”。"
+      },
+      {
+        "type": "wrong word order",
+        "translationSpan": "去看病了上午",
+        "sourceSpan": "went to see a doctor in the morning",
+        "description": "时间词“上午”应放在动词“去看病”之前,而不是放在句末。正确的说法是“上午去看病了”。"
+      }
+    ]
+  },
+  {
+    "id": "t2-0006/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t2-0006",
+    "paragraph": 0,
+    "source": "A classmate did not come to class today. I called him and asked why he did not come to school. He said he was sick and went to see a doctor in the morning.",
+    "reference": "我的同学今天没有来上课。我给他打电话,问他为什么没有来学校。他说他生病了,上午去看病了。",
+    "translation": "今天有一位同学没来上课。我打电话问他为什么没来学校,他说自己生病了,上午去看医生了。",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t2-0007/0/injected",
+    "direction": "en-zh",
+    "passageId": "t2-0007",
+    "paragraph": 0,
+    "source": "My mom is at work today, so I made lunch by myself. I made rice and eggs. I thought it was very tasty, and my younger brother liked it too.",
+    "reference": "今天妈妈上班,所以我自己做了午饭。我做了米饭和鸡蛋,我觉得很好吃,弟弟也很喜欢。",
+    "translation": "妈妈上班今天,所以我自己做午饭。我做了米饭和鸡蛋,我觉得很好吃,弟弟也很喜欢。",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong word order",
+        "translationSpan": "妈妈上班今天",
+        "sourceSpan": "My mom is at work today",
+        "description": "The time word 今天 is placed after the verb 上班. In Chinese, a time phrase should come before the verb (今天妈妈上班 or 妈妈今天上班)."
+      },
+      {
+        "type": "wrong aspect or negation",
+        "translationSpan": "我自己做午饭",
+        "sourceSpan": "I made lunch by myself",
+        "description": "The aspect particle 了 is missing after 做. The lunch was already made, so the completed action needs 了 (做了午饭)."
+      }
+    ]
+  },
+  {
+    "id": "t2-0007/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t2-0007",
+    "paragraph": 0,
+    "source": "My mom is at work today, so I made lunch by myself. I made rice and eggs. I thought it was very tasty, and my younger brother liked it too.",
+    "reference": "今天妈妈上班,所以我自己做了午饭。我做了米饭和鸡蛋,我觉得很好吃,弟弟也很喜欢。",
+    "translation": "妈妈今天要上班,我就自己煮了午餐。我做的是米饭和炒鸡蛋,我觉得味道特别好,弟弟也挺爱吃的。",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t2-0009/0/injected",
+    "direction": "en-zh",
+    "passageId": "t2-0009",
+    "paragraph": 0,
+    "source": "Tomorrow is my daughter's birthday, and I bought her a new red schoolbag. I hope she gets up early and has a proper breakfast.",
+    "reference": "明天是我女儿的生日,我给她买了一个新的红色书包。我希望她早早起床,好好吃早饭。",
+    "translation": "明天是我女儿的生日,我给她卖了一个新的红色书包。我希望她好好吃早饭。",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong word",
+        "translationSpan": "卖",
+        "sourceSpan": "bought",
+        "description": "“买”(bought)被误写成“卖”(sell),意思相反,与原文不符。"
+      },
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "gets up early",
+        "description": "原文中的“早早起床”(gets up early)没有翻译,漏译了这一部分。"
+      }
+    ]
+  },
+  {
+    "id": "t2-0009/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t2-0009",
+    "paragraph": 0,
+    "source": "Tomorrow is my daughter's birthday, and I bought her a new red schoolbag. I hope she gets up early and has a proper breakfast.",
+    "reference": "明天是我女儿的生日,我给她买了一个新的红色书包。我希望她早早起床,好好吃早饭。",
+    "translation": "明天是女儿的生日,我给她买了一只崭新的红书包。我希望她明天能早点起床,并且认真吃一顿早餐。",
+    "kind": "paraphrase",
+    "injected": []
+  },
+  {
+    "id": "t2-0010/0/injected",
+    "direction": "en-zh",
+    "passageId": "t2-0010",
+    "paragraph": 0,
+    "source": "I want to buy a new phone. This phone costs more than ten thousand yuan, which is too expensive. There are many phones in the store, but I only like this one.",
+    "reference": "我想买一个新手机。这个手机一万多块,太贵了。店里有好多手机,但是我只喜欢这个。",
+    "translation": "我想买一本新手机。这个手机一万多块。店里有好多手机,但是我只喜欢这个。",
+    "kind": "injected",
+    "injected": [
+      {
+        "type": "wrong measure word",
+        "translationSpan": "一本",
+        "sourceSpan": "a new phone",
+        "description": "手机的量词应该用“部”或“个”,不能用“本”(“本”用于书本等)。"
+      },
+      {
+        "type": "dropped clause",
+        "translationSpan": "",
+        "sourceSpan": "which is too expensive",
+        "description": "漏译了“太贵了”这一从句,原文中说价格太贵的信息丢失。"
+      }
+    ]
+  },
+  {
+    "id": "t2-0010/0/paraphrase",
+    "direction": "en-zh",
+    "passageId": "t2-0010",
+    "paragraph": 0,
+    "source": "I want to buy a new phone. This phone costs more than ten thousand yuan, which is too expensive. There are many phones in the store, but I only like this one.",
+    "reference": "我想买一个新手机。这个手机一万多块,太贵了。店里有好多手机,但是我只喜欢这个。",
+    "translation": "我打算买部新手机。这部手机要一万多元,实在太贵了。商店里有很多手机,可我只看中了这一部。",
+    "kind": "paraphrase",
+    "injected": []
+  }
+]

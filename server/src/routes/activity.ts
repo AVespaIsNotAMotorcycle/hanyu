@@ -12,7 +12,8 @@ import {
   TranslationGradingModel,
 } from '../models/index.js';
 
-// The learner's history that only the server has. The client adds its review
+// The learner's history that only the server has. Gradings include Translate
+// exercises (t1-0001), which need no counts: any grading finishes one. The client adds its review
 // logs and works out days and streaks in its own time zone (buildActivity).
 export const activityRouter = Router();
 

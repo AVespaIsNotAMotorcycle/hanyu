@@ -1,0 +1,73 @@
+{
+  "_id": "t1-0005",
+  "level": 1,
+  "english": "Tomorrow is Sunday. I want to go to the bookstore with my younger sister. I want to buy a Chinese book, and she wants to buy a cup.",
+  "reference": "明天是星期天。我想和妹妹去书店。我想买一本汉语书,她要买一个杯子。",
+  "topic": "Weekend shopping at the bookstore",
+  "tokens": [
+    "明天",
+    "是",
+    "星期天",
+    "。",
+    "我",
+    "想",
+    "和",
+    "妹妹",
+    "去",
+    "书店",
+    "。",
+    "我",
+    "想",
+    "买",
+    "一",
+    "本",
+    "汉语",
+    "书",
+    ",",
+    "她",
+    "要",
+    "买",
+    "一",
+    "个",
+    "杯子",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g1-005",
+      "example": "我想买一本汉语书,她要买一个杯子"
+    }
+  ],
+  "verification": {
+    "tokens": 20,
+    "atOrBelowLevel": 20,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:13:34.484Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The reference renders \"want to\" as 想 in the first part and 要 in the second. Learners who write 她想买一个杯子 are equally correct, so the automatic grader should accept both 想 and 要."
+      },
+      {
+        "severity": "minor",
+        "description": "书店 (bookstore) and 星期天 may be slightly beyond a strict HSK 1 vocabulary list. They are very common and easy to infer from 书 and 星期, so this is only a small level concern."
+      }
+    ],
+    "costUsd": 0.0073
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:13:29.221Z",
+    "attempts": 1,
+    "costUsd": 0.0139
+  }
+}

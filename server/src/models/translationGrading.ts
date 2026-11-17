@@ -11,8 +11,15 @@ const translationGradingSchema = new Schema(
       required: true,
       immutable: true,
     },
+    /** A passage (zh-en) or Translate exercise (en-zh). */
     passageId: { type: String, required: true, immutable: true },
     paragraph: { type: Number, required: true, immutable: true },
+    direction: {
+      type: String,
+      enum: ['zh-en', 'en-zh'],
+      default: 'zh-en',
+      immutable: true,
+    },
     source: { type: String, required: true, immutable: true },
     reference: { type: String, required: true, immutable: true },
     translation: { type: String, required: true, immutable: true },

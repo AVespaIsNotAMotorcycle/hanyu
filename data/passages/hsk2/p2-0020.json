@@ -1,0 +1,258 @@
+{
+  "_id": "p2-0020",
+  "level": 2,
+  "title": "星期天去商场",
+  "titleEnglish": "Going to the Mall on Sunday",
+  "text": "今天是星期天，天气很好。我和朋友小明去商场买东西。商场里人很多，东西也很便宜。我们都喜欢这个商场。小明想买一件红色的衣服，我想买一本新书。\n\n中午我们在饭馆吃饭。饭馆不大，但是菜非常好吃。小明喝红茶，我喝牛奶。吃完饭，我们走路回家。路上我有点儿累，但是很高兴。",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-039",
+      "example": "去商场买东西"
+    },
+    {
+      "grammarId": "g2-040",
+      "example": "非常好吃"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "今天是星期几？",
+      "promptEnglish": "What day of the week is it today?",
+      "options": [
+        "星期一",
+        "星期三",
+        "星期五",
+        "星期天"
+      ],
+      "answer": 3,
+      "explanation": "The passage begins with '今天是星期天', so today is Sunday."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "小明想买什么？",
+      "promptEnglish": "What does Xiaoming want to buy?",
+      "options": [
+        "一件红色的衣服",
+        "一本新书",
+        "红茶",
+        "牛奶"
+      ],
+      "answer": 0,
+      "explanation": "The passage says '小明想买一件红色的衣服'. The narrator wants the new book, and the tea and milk are drinks at lunch."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "饭馆怎么样？",
+      "promptEnglish": "What is the restaurant like?",
+      "options": [
+        "很大，菜很贵",
+        "不大，但是菜很好吃",
+        "很大，人很少",
+        "不大，菜不好吃"
+      ],
+      "answer": 1,
+      "explanation": "The passage says '饭馆不大，但是菜非常好吃', so it is small but the food is very tasty."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "商场里人很多，东西也很＿＿。",
+      "answer": "便宜",
+      "alsoAccepted": [],
+      "hint": "cheap"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "中午我们在＿＿吃饭。",
+      "answer": "饭馆",
+      "alsoAccepted": [
+        "饭店"
+      ],
+      "hint": "restaurant"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "吃完饭，我们＿＿回家。",
+      "answer": "走路",
+      "alsoAccepted": [],
+      "hint": "to walk"
+    }
+  ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期天",
+      "，",
+      "天气",
+      "很",
+      "好",
+      "。",
+      "我",
+      "和",
+      "朋友",
+      "小明",
+      "去",
+      "商场",
+      "买",
+      "东西",
+      "。",
+      "商场",
+      "里",
+      "人",
+      "很",
+      "多",
+      "，",
+      "东西",
+      "也",
+      "很",
+      "便宜",
+      "。",
+      "我们",
+      "都",
+      "喜欢",
+      "这个",
+      "商场",
+      "。",
+      "小明",
+      "想",
+      "买",
+      "一",
+      "件",
+      "红色",
+      "的",
+      "衣服",
+      "，",
+      "我",
+      "想",
+      "买",
+      "一",
+      "本",
+      "新",
+      "书",
+      "。"
+    ],
+    [
+      "中午",
+      "我们",
+      "在",
+      "饭馆",
+      "吃",
+      "饭",
+      "。",
+      "饭馆",
+      "不",
+      "大",
+      "，",
+      "但是",
+      "菜",
+      "非常",
+      "好吃",
+      "。",
+      "小明",
+      "喝",
+      "红茶",
+      "，",
+      "我",
+      "喝",
+      "牛奶",
+      "。",
+      "吃",
+      "完",
+      "饭",
+      "，",
+      "我们",
+      "走路",
+      "回",
+      "家",
+      "。",
+      "路上",
+      "我",
+      "有点儿",
+      "累",
+      "，",
+      "但是",
+      "很",
+      "高兴",
+      "。"
+    ]
+  ],
+  "translation": [
+    "Today is Sunday, and the weather is very nice. My friend Xiaoming and I went to the shopping mall to buy things. There were a lot of people in the mall, and things were cheap too. We both like this mall. Xiaoming wanted to buy a red piece of clothing, and I wanted to buy a new book.",
+    "At noon we ate at a restaurant. The restaurant was not big, but the food was very delicious. Xiaoming drank black tea, and I drank milk. After we finished eating, we walked home. On the way I was a little tired, but I was very happy."
+  ],
+  "verification": {
+    "tokens": 107,
+    "atOrBelowLevel": 107,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:17:15.505Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "星期天",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "一件红色的衣服",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "不大，但是菜很好吃",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "便宜",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "饭馆",
+        "agrees": true,
+        "alternatives": [
+          "餐厅",
+          "餐馆"
+        ]
+      },
+      {
+        "questionId": "z3",
+        "given": "走路",
+        "agrees": true,
+        "alternatives": [
+          "走"
+        ]
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.005
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:17:13.221Z",
+    "attempts": 2,
+    "costUsd": 0.0492
+  }
+}

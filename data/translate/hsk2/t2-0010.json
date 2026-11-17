@@ -1,0 +1,78 @@
+{
+  "_id": "t2-0010",
+  "level": 2,
+  "english": "I want to buy a new phone. This phone costs more than ten thousand yuan, which is too expensive. There are many phones in the store, but I only like this one.",
+  "reference": "我想买一个新手机。这个手机一万多块,太贵了。店里有好多手机,但是我只喜欢这个。",
+  "topic": "Buying a new phone",
+  "tokens": [
+    "我",
+    "想",
+    "买",
+    "一",
+    "个",
+    "新",
+    "手机",
+    "。",
+    "这个",
+    "手机",
+    "一",
+    "万",
+    "多",
+    "块",
+    ",",
+    "太",
+    "贵",
+    "了",
+    "。",
+    "店",
+    "里",
+    "有",
+    "好多",
+    "手机",
+    ",",
+    "但是",
+    "我",
+    "只",
+    "喜欢",
+    "这个",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-010",
+      "example": "一万多块"
+    }
+  ],
+  "verification": {
+    "tokens": 19,
+    "atOrBelowLevel": 19,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:17:39.238Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The reference is accurate and natural, but 万 (一万多) and 只 (\"only\") are generally HSK 3 vocabulary, so they may be slightly above HSK 2. 好多 for \"many\" is also a bit beyond HSK 2. Learners might reasonably write 很多 or 就, so the grader should accept these alternatives."
+      },
+      {
+        "severity": "minor",
+        "description": "\"Yuan\" can be written 元 or 块, and \"store\" can be 店 or 商店. The grader should accept these variants. Likewise, the measure word for the phone (个/部) and 一万多块 vs 超过一万块 should be accepted."
+      }
+    ],
+    "costUsd": 0.0085
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:17:31.913Z",
+    "attempts": 1,
+    "costUsd": 0.0156
+  }
+}

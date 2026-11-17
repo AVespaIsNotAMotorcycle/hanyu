@@ -1,0 +1,83 @@
+{
+  "_id": "t2-0002",
+  "level": 2,
+  "english": "In my room, the bed is on the left and the desk is on the right. My computer is on the desk, and my phone is on the bed. In the evening, I like to sit on the chair next to the desk and read.",
+  "reference": "我的房间里，床在左边，桌子在右边。电脑在桌子上，手机在床上。晚上我喜欢坐在桌子旁边的椅子上看书。",
+  "topic": "Describing my room",
+  "tokens": [
+    "我",
+    "的",
+    "房间",
+    "里",
+    "，",
+    "床",
+    "在",
+    "左边",
+    "，",
+    "桌子",
+    "在",
+    "右边",
+    "。",
+    "电脑",
+    "在",
+    "桌子",
+    "上",
+    "，",
+    "手机",
+    "在",
+    "床",
+    "上",
+    "。",
+    "晚上",
+    "我",
+    "喜欢",
+    "坐",
+    "在",
+    "桌子",
+    "旁边",
+    "的",
+    "椅子",
+    "上",
+    "看",
+    "书",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-002",
+      "example": "床在左边，桌子在右边"
+    }
+  ],
+  "verification": {
+    "tokens": 27,
+    "atOrBelowLevel": 27,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:15:49.009Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The English says \"My computer\" and \"my phone\", but the reference writes 电脑 and 手机 without 我的. This is natural in Chinese because the possessor is clear from context. It is still a small omission, and the grader may mark a learner who writes 我的电脑 / 我的手机 as wrong."
+      },
+      {
+        "severity": "minor",
+        "description": "手机 is arguably slightly above HSK 2 in some word lists (HSK 3 in the older standard). It is very common, so it is unlikely to cause real difficulty."
+      }
+    ],
+    "costUsd": 0.0079
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:15:42.341Z",
+    "attempts": 1,
+    "costUsd": 0.0163
+  }
+}

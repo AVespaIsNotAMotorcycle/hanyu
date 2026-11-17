@@ -7,8 +7,11 @@
 //   npm run grader:consistency [-- --max-cost 0.5]
 //       re-grade a fixed sample and compare with the eval run
 //
-// Run grader:eval whenever GRADER_MODEL or GRADER_PROMPT_VERSION changes
-// (data/test/grader.test.ts fails until results exist for the version).
+// --direction en-zh does the same for the English → Chinese grader, with
+// learner-en-zh.json built from data/translate (no MQM calibration set).
+//
+// Run grader:eval whenever GRADER_MODEL or a GRADER_PROMPT_VERSIONS entry
+// changes (data/test/grader.test.ts fails until results exist for it).
 
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
@@ -17,19 +20,24 @@ import Anthropic from '@anthropic-ai/sdk';
 import {
   gradeTranslation,
   GRADER_MODEL,
-  GRADER_PROMPT_VERSION,
+  GRADER_PROMPT_VERSIONS,
   GraderError,
   HSK_LEVELS,
   paragraphs,
+  TRANSLATION_DIRECTIONS,
   type JsonLlm,
+  type TranslationDirection,
 } from '@hanyu/shared';
 import { readPassages } from '../passages/library.js';
+import { readExercises } from '../translate/library.js';
 import type { Llm } from '../passages/llm.js';
 import { rawDir } from '../paths.js';
 import { sourceById } from '../sources.js';
 import {
   buildParagraphItems,
-  INJECTION_TYPES,
+  buildTranslateItems,
+  INJECTION_TYPES_BY_DIRECTION,
+  type BuildResult,
   type LearnerItem,
 } from './learnerSet.js';
 import {
@@ -47,6 +55,7 @@ import {
   type CalibrationItem,
 } from './mqm.js';
 import {
+  learnerSetPath,
   readLearnerSet,
   readResults,
   writeConsistency,
@@ -63,9 +72,17 @@ const { positionals, values } = parseArgs({
   options: {
     'max-cost': { type: 'string' },
     force: { type: 'boolean', default: false },
+    direction: { type: 'string', default: 'zh-en' },
   },
 });
 const command = positionals[0];
+const direction = values.direction as TranslationDirection;
+if (!TRANSLATION_DIRECTIONS.includes(direction)) {
+  console.error(`--direction must be ${TRANSLATION_DIRECTIONS.join(' or ')}`);
+  process.exit(1);
+}
+const promptVersion = GRADER_PROMPT_VERSIONS[direction];
+const learnerFile = learnerSetPath(direction);
 
 function costCap(fallback: number): number {
   const cap = Number(values['max-cost'] ?? fallback);
@@ -84,7 +101,9 @@ function client(): Anthropic {
   return new Anthropic();
 }
 
+/** MQM calibration: Chinese → English only. */
 function calibrationSet(): CalibrationItem[] {
+  if (direction !== 'zh-en') return [];
   const file = path.join(rawDir, sourceById('mqm-ted-zhen').file);
   let tsv: string;
   try {
@@ -120,7 +139,7 @@ async function grade(
     process.exit(1);
   }
   try {
-    const out = await gradeTranslation(item, llm);
+    const out = await gradeTranslation(item, llm, direction);
     budget.add(out.costUsd);
     return out.result;
   } catch (err) {
@@ -134,11 +153,25 @@ if (command === 'learner-set') {
   const budget = new Budget(costCap(1));
   const anthropic = client();
   const llm: Llm = { create: (params) => anthropic.messages.create(params) };
-  const existing = values.force ? [] : readLearnerSet();
+  const existing = values.force ? [] : readLearnerSet(learnerFile);
   const done = new Set(existing.map((i) => `${i.passageId}/${i.paragraph}`));
   const items: LearnerItem[] = [...existing];
-  let n = 0;
-  run: for (const level of HSK_LEVELS) {
+  const types = INJECTION_TYPES_BY_DIRECTION[direction];
+  // Every text to build items for; error types go round-robin, two each.
+  const texts: {
+    key: string;
+    build: (types: readonly string[]) => Promise<BuildResult>;
+  }[] = [];
+  for (const level of HSK_LEVELS) {
+    if (direction === 'en-zh') {
+      for (const exercise of readExercises(level)) {
+        texts.push({
+          key: `${exercise._id}/0`,
+          build: (t) => buildTranslateItems({ exercise, types: t }, llm),
+        });
+      }
+      continue;
+    }
     for (const passage of readPassages(level)) {
       if (!passage.translation) continue;
       for (
@@ -146,34 +179,34 @@ if (command === 'learner-set') {
         paragraph < paragraphs(passage.text).length;
         paragraph++
       ) {
-        // Round-robin over the error types, two per paragraph.
-        const types = [INJECTION_TYPES[n % 4]!, INJECTION_TYPES[(n + 1) % 4]!];
-        n++;
-        if (done.has(`${passage._id}/${paragraph}`)) continue;
-        if (!budget.canSpend()) {
-          console.log(
-            `Stopped: the next call could pass the $${budget.cap} cap.`,
-          );
-          break run;
-        }
-        const result = await buildParagraphItems(
-          { passage, paragraph, types },
-          llm,
-        );
-        budget.add(result.costUsd);
-        if (result.items.length) {
-          items.push(...result.items);
-          console.log(`${passage._id}/${paragraph}: ✓`);
-        } else {
-          console.log(
-            `${passage._id}/${paragraph}: ✗ ${result.problems.join(' ')}`,
-          );
-        }
+        texts.push({
+          key: `${passage._id}/${paragraph}`,
+          build: (t) =>
+            buildParagraphItems({ passage, paragraph, types: t }, llm),
+        });
       }
     }
   }
+  for (const [n, text] of texts.entries()) {
+    if (done.has(text.key)) continue;
+    if (!budget.canSpend()) {
+      console.log(`Stopped: the next call could pass the $${budget.cap} cap.`);
+      break;
+    }
+    const result = await text.build([
+      types[n % types.length]!,
+      types[(n + 1) % types.length]!,
+    ]);
+    budget.add(result.costUsd);
+    if (result.items.length) {
+      items.push(...result.items);
+      console.log(`${text.key}: ✓`);
+    } else {
+      console.log(`${text.key}: ✗ ${result.problems.join(' ')}`);
+    }
+  }
   console.log(
-    `${writeLearnerSet(items)}: ${items.length} items; spent about $${budget.spent.toFixed(3)}.`,
+    `${writeLearnerSet(items, learnerFile)}: ${items.length} items; spent about $${budget.spent.toFixed(3)}.`,
   );
 } else if (command === 'eval') {
   const budget = new Budget(costCap(2));
@@ -182,13 +215,15 @@ if (command === 'learner-set') {
     create: (params) => anthropic.messages.create(params),
   };
   const calibration = calibrationSet();
-  const learner = readLearnerSet();
+  const learner = readLearnerSet(learnerFile);
   if (!learner.length) {
-    console.error('No learner set yet; run npm run grader:learner-set first.');
+    console.error(
+      `No learner set yet; run npm run grader:learner-set -- --direction ${direction} first.`,
+    );
     process.exit(1);
   }
   console.log(
-    `Grading ${calibration.length} calibration and ${learner.length} learner items with ${GRADER_MODEL} (prompt v${GRADER_PROMPT_VERSION})`,
+    `Grading ${calibration.length} calibration and ${learner.length} learner items with ${GRADER_MODEL} (${direction} prompt v${promptVersion})`,
   );
   const calibrationItems: CalibrationOutcome[] = [];
   for (const item of calibration) {
@@ -202,10 +237,13 @@ if (command === 'learner-set') {
   }
   const results = {
     model: GRADER_MODEL,
-    promptVersion: GRADER_PROMPT_VERSION,
+    ...(direction === 'zh-en' ? {} : { direction }),
+    promptVersion,
     ranAt: new Date().toISOString(),
     costUsd: Math.round(budget.spent * 10000) / 10000,
-    calibration: calibrationMetrics(calibrationItems),
+    calibration: calibration.length
+      ? calibrationMetrics(calibrationItems)
+      : null,
     learner: learnerMetrics(learnerItems),
     calibrationItems,
     learnerItems,
@@ -217,10 +255,10 @@ if (command === 'learner-set') {
   );
 } else if (command === 'consistency') {
   const budget = new Budget(costCap(0.5));
-  const before = readResults(GRADER_MODEL, GRADER_PROMPT_VERSION);
+  const before = readResults(GRADER_MODEL, promptVersion, undefined, direction);
   if (!before) {
     console.error(
-      `No eval results for ${GRADER_MODEL} v${GRADER_PROMPT_VERSION}; run npm run grader:eval first.`,
+      `No eval results for ${GRADER_MODEL} ${direction} v${promptVersion}; run npm run grader:eval -- --direction ${direction} first.`,
     );
     process.exit(1);
   }
@@ -230,7 +268,7 @@ if (command === 'learner-set') {
   };
   // A fixed sample: the first items (by ID) of each set that the eval graded.
   const calibration = new Map(calibrationSet().map((i) => [i.id, i]));
-  const learner = new Map(readLearnerSet().map((i) => [i.id, i]));
+  const learner = new Map(readLearnerSet(learnerFile).map((i) => [i.id, i]));
   const sample = [
     ...before.calibrationItems
       .flatMap((o) => calibration.get(o.id) ?? [])
@@ -267,7 +305,8 @@ if (command === 'learner-set') {
   }
   const run: ConsistencyRun = {
     model: GRADER_MODEL,
-    promptVersion: GRADER_PROMPT_VERSION,
+    ...(direction === 'zh-en' ? {} : { direction }),
+    promptVersion,
     ranAt: new Date().toISOString(),
     costUsd: Math.round(budget.spent * 10000) / 10000,
     meanOverallChange: items.length

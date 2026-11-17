@@ -103,6 +103,21 @@ Each exercise targets the level's least-covered grammar point (`--grammar` picks
 
 Clips are `listening:<id>` (the text) and `listening:<id>:q:<question>` (each prompt). `audio:generate` records them with everything else; `--no-listening` skips them.
 
+## Translate Exercises (English → Chinese)
+
+`src/translate/` generates exercises for the Translate page with Claude (`claude-sonnet-5-5`), offline: a short English paragraph that learners write in Chinese, and a reference Chinese translation that the grader compares their answer with.
+
+```sh
+npm run translate:coverage [-- --level 1]       # exercises, checks, reviews, and grammar coverage
+npm run translate:generate -- --level 1 --count 10 --max-cost 2
+npm run translate:generate -- --level 1 --dry-run   # print the prompts; no API call
+npm run translate:check                         # missing reference checks (--force, --max-cost 1)
+npm run translate:review -- --sample 3          # spot-check by hand
+npm run db:seed                                 # load data/translate into MongoDB
+```
+
+Each exercise targets the level's least-covered grammar point (`--grammar` picks one), which the reference must use and quote, and a situation unlike the level's last 40. The English is 2–4 sentences with no personal names, so the learner never has to guess how to write one. The reference must be one paragraph in the level's length range and pass the same 95% level check as passages, with no names allowed. A separate call (`src/translate/check.ts`) then reads the English and the reference and reports mistranslations, unnatural Chinese, and English the level can't express; a major issue sends the draft back (at most 3 attempts). The result is stored as `answerKeyCheck`, with no per-question answers, so `db:seed`, `pickSample`, and `libraryStatus` treat it like a passage's check. The reference is segmented into HSK words (`tokens`), so words the grader names as missed can be added to the SRS. Files go to `data/translate/hsk<level>/t<level>-<n>.json`. Each exercise costs about $0.02. Bump `PROMPT_VERSION` in `src/translate/generate.ts` when its prompt or schema changes, and `CHECK_PROMPT_VERSION` in `src/translate/check.ts` when the check's does.
+
 ## Translation Grader Evals
 
 The web app grades learners' Chinese → English translations with `gradeTranslation` (`shared/src/grading.ts`, Sonnet 5.5): per-criterion scores (accuracy, completeness, grammar handling, naturalness), errors with quoted spans, and the source words the learner misunderstood. `src/grader/` checks that grader against two sets:
@@ -116,9 +131,11 @@ npm run grader:consistency        # re-grade a fixed sample; writes grader-evals
 - **Calibration** ([`src/grader/mqm.ts`](src/grader/mqm.ts)): 40 machine translations of TED talk sentences from Google's [WMT MQM release](https://github.com/google/wmt-mqm-human-evaluation) (`mqm-ted-zhen`, pinned in `sources.ts`), rated by professional translators with error spans and severities. The sample is fixed: 10 per MQM penalty band (none, minor, one major, several), learner-length sentences, one per source segment. The annotations are Apache-2.0, but TED talk text is CC BY-NC-ND, so it stays in `data/raw`: results record only item IDs and numbers. Metrics: Spearman correlation of the grader's penalty (major 5, minor 1) and overall score with the MQM penalty, the share of MQM major errors the grader's spans cover, and the share of error-free translations given no major error.
 - **Learner-style** ([`src/grader/learnerSet.ts`](src/grader/learnerSet.ts)): for each passage paragraph, the reference translation with two injected errors (wrong tense, dropped clause, mistranslated word, wrong number/time/person, round-robin), whose quoted spans are the answer key, and a faithful paraphrase that should get no major errors (the reference isn't the only right answer). Built once with Sonnet 5.5 and reviewed in git. Metrics: the share of injected errors the grader's spans cover (by translation or source span), the share of paraphrases with no major error, and mean overall scores for each kind.
 
+**English → Chinese** has its own prompt (`EN_ZH_GRADER_PROMPT_VERSION`) and learner set, built from the Translate exercises: each reference with two injected learner errors (wrong measure word, wrong word order, wrong aspect or negation, wrong word, dropped clause, round-robin), plus a faithful paraphrase. There's no MQM calibration set in that direction. Pass `--direction en-zh` to each command: `grader:learner-set` writes `grader-evals/learner-en-zh.json`, `grader:eval` writes `results/<model>-en-zh-v<version>.json`, and `grader:consistency` does the same for its runs.
+
 **When the grading prompt or model changes**, bump `GRADER_PROMPT_VERSION` and run `grader:eval`: `test/grader.test.ts` fails until results exist for the current model and version, and comparing results files shows what the change did. **Every so often** (say monthly, or when the API model behind the name might have changed), run `grader:consistency`: it re-grades the first 5 items of each set and reports how far overall scores moved from the eval run.
 
-Results for `claude-sonnet-5-5`, prompt v1 (October 2026, $0.74): calibration penalty Spearman 0.34 (score 0.22), MQM major-error span recall 61%, every error-free translation free of major errors; learner-style injected-error recall 90%, 95% of paraphrases free of major errors, mean overall 3.97 (injected) vs 4.85 (paraphrase). The grader is more lenient than MQM raters, who mark many awkward-style issues as major. A consistency run moved overall scores by 0.06 on average.
+Results for `claude-sonnet-5-5`, prompt v1 (October 2026, $0.74): calibration penalty Spearman 0.34 (score 0.22), MQM major-error span recall 61%, every error-free translation free of major errors; learner-style injected-error recall 90%, 95% of paraphrases free of major errors, mean overall 3.97 (injected) vs 4.85 (paraphrase). The grader is more lenient than MQM raters, who mark many awkward-style issues as major. A consistency run moved overall scores by 0.06 on average. English → Chinese, en-zh prompt v1 (November 2026, $0.37, 38 items from 20 exercises; one t2 exercise's injection failed its quote check and was left out): injected-error recall 97%, 95% of paraphrases free of major errors, mean overall 3.58 (injected) vs 4.71 (paraphrase).
 
 ## Recorded Audio
 

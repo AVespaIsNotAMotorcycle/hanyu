@@ -1,0 +1,78 @@
+{
+  "_id": "t2-0006",
+  "level": 2,
+  "english": "A classmate did not come to class today. I called him and asked why he did not come to school. He said he was sick and went to see a doctor in the morning.",
+  "reference": "我的同学今天没有来上课。我给他打电话,问他为什么没有来学校。他说他生病了,上午去看病了。",
+  "topic": "Asking why a classmate was absent",
+  "tokens": [
+    "我",
+    "的",
+    "同学",
+    "今天",
+    "没有",
+    "来",
+    "上课",
+    "。",
+    "我",
+    "给",
+    "他",
+    "打电话",
+    ",",
+    "问",
+    "他",
+    "为什么",
+    "没有",
+    "来",
+    "学校",
+    "。",
+    "他",
+    "说",
+    "他",
+    "生病",
+    "了",
+    ",",
+    "上午",
+    "去",
+    "看病",
+    "了",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-006",
+      "example": "为什么没有来学校"
+    }
+  ],
+  "verification": {
+    "tokens": 26,
+    "atOrBelowLevel": 26,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:16:38.148Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The English says \"A classmate\", but the reference has \"我的同学\", which adds \"my\". A more literal version would be \"一个同学\" or \"有个同学\". Learners who write that could be marked down unfairly."
+      },
+      {
+        "severity": "minor",
+        "description": "\"看病\" for \"see a doctor\" is slightly above HSK 2, and \"看医生\" is a common alternative. A strict automatic grader might reject that valid answer."
+      }
+    ],
+    "costUsd": 0.0063
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:16:33.234Z",
+    "attempts": 1,
+    "costUsd": 0.0129
+  }
+}

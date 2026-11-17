@@ -17,6 +17,7 @@ import { StudySession } from './StudySession';
 import { SyncIndicator } from './SyncIndicator';
 import { useTheme } from './theme';
 import { Today } from './Today';
+import { Translate } from './Translate';
 
 // The last signed-in user, so the app can start without the server (offline).
 const USER_KEY = 'hanyu.user';
@@ -48,6 +49,7 @@ const TABS: readonly {
   { id: 'today', label: 'Today', glyph: '今' },
   { id: 'read', label: 'Read', glyph: '读' },
   { id: 'listen', label: 'Listen', glyph: '听' },
+  { id: 'translate', label: 'Translate', glyph: '译' },
   { id: 'grammar', label: 'Grammar', glyph: '语' },
   { id: 'progress', label: 'Progress', glyph: '进' },
 ];
@@ -228,6 +230,12 @@ function Home({
           />
         ) : route.name === 'listen' ? (
           <Listening user={user} exercise={route.exercise ?? null} />
+        ) : route.name === 'translate' ? (
+          <Translate
+            user={user}
+            exercise={route.exercise ?? null}
+            onUserChange={onUserChange}
+          />
         ) : route.name === 'grammar' ? (
           <Grammar
             user={user}

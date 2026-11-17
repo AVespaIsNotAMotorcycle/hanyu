@@ -1,0 +1,282 @@
+{
+  "_id": "p2-0019",
+  "level": 2,
+  "title": "我的生日",
+  "titleEnglish": "My Birthday",
+  "text": "今天是我的生日。早上，妈妈叫我去超市买水果。超市里买东西的人很多。我买了苹果和牛奶，还买了一个白色的杯子。\n\n下午，朋友们来我家。小明说：“我请你们去饭馆吃饭吧。”妈妈说：“不要去，我来做饭。”晚上，我们吃了妈妈做的饺子，大家都觉得非常好吃。小明送我一本汉语书。我很高兴。",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-037",
+      "example": "妈妈叫我去超市买水果"
+    },
+    {
+      "grammarId": "g2-037",
+      "example": "我请你们去饭馆吃饭吧"
+    },
+    {
+      "grammarId": "g2-038",
+      "example": "买东西的人"
+    },
+    {
+      "grammarId": "g2-038",
+      "example": "妈妈做的饺子"
+    },
+    {
+      "grammarId": "g2-038",
+      "example": "白色的杯子"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "谁叫“我”去超市？",
+      "promptEnglish": "Who asked \"me\" to go to the supermarket?",
+      "options": [
+        "小明",
+        "妈妈",
+        "朋友",
+        "老师"
+      ],
+      "answer": 1,
+      "explanation": "The passage says 妈妈叫我去超市买水果, so Mom asked the narrator to go."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "“我”在超市没有买什么？",
+      "promptEnglish": "What did \"I\" not buy at the supermarket?",
+      "options": [
+        "苹果",
+        "牛奶",
+        "杯子",
+        "饺子"
+      ],
+      "answer": 3,
+      "explanation": "The narrator bought apples, milk and a cup. The dumplings were made by Mom at home (妈妈做的饺子)."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "晚上大家吃了什么？",
+      "promptEnglish": "What did everyone eat in the evening?",
+      "options": [
+        "饭馆的菜",
+        "面条儿",
+        "妈妈做的饺子",
+        "面包"
+      ],
+      "answer": 2,
+      "explanation": "The passage says 我们吃了妈妈做的饺子, and everyone thought it was very tasty."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "早上，妈妈叫我去＿＿买水果。",
+      "answer": "超市",
+      "alsoAccepted": [
+        "商店"
+      ],
+      "hint": "supermarket"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "超市里买东西的人很＿＿。",
+      "answer": "多",
+      "alsoAccepted": [],
+      "hint": "many"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "小明＿＿我一本汉语书。",
+      "answer": "送",
+      "alsoAccepted": [],
+      "hint": "to give (as a gift)"
+    }
+  ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "我",
+      "的",
+      "生日",
+      "。",
+      "早上",
+      "，",
+      "妈妈",
+      "叫",
+      "我",
+      "去",
+      "超市",
+      "买",
+      "水果",
+      "。",
+      "超市",
+      "里",
+      "买",
+      "东西",
+      "的",
+      "人",
+      "很",
+      "多",
+      "。",
+      "我",
+      "买",
+      "了",
+      "苹果",
+      "和",
+      "牛奶",
+      "，",
+      "还",
+      "买",
+      "了",
+      "一",
+      "个",
+      "白色",
+      "的",
+      "杯子",
+      "。"
+    ],
+    [
+      "下午",
+      "，",
+      "朋友",
+      "们",
+      "来",
+      "我",
+      "家",
+      "。",
+      "小明",
+      "说",
+      "：",
+      "“",
+      "我",
+      "请",
+      "你们",
+      "去",
+      "饭馆",
+      "吃",
+      "饭",
+      "吧",
+      "。",
+      "”",
+      "妈妈",
+      "说",
+      "：",
+      "“",
+      "不要",
+      "去",
+      "，",
+      "我",
+      "来",
+      "做饭",
+      "。",
+      "”",
+      "晚上",
+      "，",
+      "我们",
+      "吃",
+      "了",
+      "妈妈",
+      "做",
+      "的",
+      "饺子",
+      "，",
+      "大家",
+      "都",
+      "觉得",
+      "非常",
+      "好吃",
+      "。",
+      "小明",
+      "送",
+      "我",
+      "一",
+      "本",
+      "汉语",
+      "书",
+      "。",
+      "我",
+      "很",
+      "高兴",
+      "。"
+    ]
+  ],
+  "translation": [
+    "Today is my birthday. In the morning, Mom asked me to go to the supermarket to buy some fruit. There were a lot of people shopping in the supermarket. I bought apples and milk, and I also bought a white cup.",
+    "In the afternoon, my friends came to my house. Xiaoming said, \"Let me treat you all to a meal at a restaurant.\" Mom said, \"Don't go. I'll cook.\" In the evening, we ate the dumplings Mom made, and everyone thought they were delicious. Xiaoming gave me a Chinese book. I was very happy."
+  ],
+  "verification": {
+    "tokens": 108,
+    "atOrBelowLevel": 107,
+    "share": 0.9907407407407407,
+    "offLevel": [
+      "明"
+    ]
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:16:45.522Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "妈妈",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "饺子",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "妈妈做的饺子",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "超市",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "多",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "送",
+        "agrees": true,
+        "alternatives": []
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "Passage says 妈妈叫我去超市买水果, but the narrator lists buying apples, milk, and a cup; no problem for the questions, though the cup was not requested. Also 'dumplings' (饺子) are mentioned only as eaten, not bought, which is consistent with c2."
+      }
+    ],
+    "costUsd": 0.0058
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:16:42.179Z",
+    "attempts": 1,
+    "costUsd": 0.0355
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "_id": "p2-0011",
+  "level": 2,
+  "title": "去机场",
+  "titleEnglish": "Going to the Airport",
+  "text": "小明今天要去机场找朋友。他不知道怎么走，就问车站的一位女士。\n\n“请问，去机场怎么走？”\n\n女士说：“你从这儿往前走，到那个门口，再往右走。那儿有地铁。”\n\n小明问：“坐地铁要多少分钟？”\n\n女士说：“从这里到机场要六十分钟。”\n\n小明说：“谢谢您！”\n\n他往前走，找到了地铁。从下午一点到两点，他都在地铁上。两点，朋友在机场门口等他。朋友很高兴，说：“你来得真快！”",
+  "names": [
+    "小明"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-021",
+      "example": "从下午一点到两点"
+    },
+    {
+      "grammarId": "g2-022",
+      "example": "往前走"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "小明今天为什么要去机场？",
+      "promptEnglish": "Why does Xiaoming go to the airport today?",
+      "options": [
+        "找朋友",
+        "买东西",
+        "看病",
+        "上课"
+      ],
+      "answer": 0,
+      "explanation": "The first sentence says 小明今天要去机场找朋友 (Xiaoming is going to the airport to find his friend)."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "从这里到机场要多少分钟？",
+      "promptEnglish": "How many minutes does it take to get to the airport from here?",
+      "options": [
+        "十分钟",
+        "四十分钟",
+        "六十分钟",
+        "一百分钟"
+      ],
+      "answer": 2,
+      "explanation": "The woman says 从这里到机场要六十分钟 (it takes sixty minutes)."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "小明在哪儿看见朋友？",
+      "promptEnglish": "Where does Xiaoming meet his friend?",
+      "options": [
+        "地铁上",
+        "机场门口",
+        "车站",
+        "学校"
+      ],
+      "answer": 1,
+      "explanation": "The passage says 朋友在机场门口等他 (the friend is waiting for him at the airport entrance)."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "他不知道怎么走，就问＿＿的一位女士。",
+      "answer": "车站",
+      "alsoAccepted": [],
+      "hint": "station"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "你从这儿往前走，到那个＿＿，再往右走。",
+      "answer": "门口",
+      "alsoAccepted": [],
+      "hint": "doorway / entrance"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "朋友很＿＿，说：“你来得真快！”",
+      "answer": "高兴",
+      "alsoAccepted": [],
+      "hint": "happy"
+    }
+  ],
+  "tokens": [
+    [
+      "小明",
+      "今天",
+      "要",
+      "去",
+      "机场",
+      "找",
+      "朋友",
+      "。",
+      "他",
+      "不",
+      "知道",
+      "怎么",
+      "走",
+      "，",
+      "就",
+      "问",
+      "车站",
+      "的",
+      "一",
+      "位",
+      "女士",
+      "。"
+    ],
+    [
+      "“",
+      "请问",
+      "，",
+      "去",
+      "机场",
+      "怎么",
+      "走",
+      "？",
+      "”"
+    ],
+    [
+      "女士",
+      "说",
+      "：",
+      "“",
+      "你",
+      "从",
+      "这儿",
+      "往",
+      "前",
+      "走",
+      "，",
+      "到",
+      "那个",
+      "门口",
+      "，",
+      "再",
+      "往",
+      "右",
+      "走",
+      "。",
+      "那儿",
+      "有",
+      "地铁",
+      "。",
+      "”"
+    ],
+    [
+      "小明",
+      "问",
+      "：",
+      "“",
+      "坐",
+      "地铁",
+      "要",
+      "多少",
+      "分钟",
+      "？",
+      "”"
+    ],
+    [
+      "女士",
+      "说",
+      "：",
+      "“",
+      "从",
+      "这里",
+      "到",
+      "机场",
+      "要",
+      "六",
+      "十",
+      "分钟",
+      "。",
+      "”"
+    ],
+    [
+      "小明",
+      "说",
+      "：",
+      "“",
+      "谢谢",
+      "您",
+      "！",
+      "”"
+    ],
+    [
+      "他",
+      "往",
+      "前",
+      "走",
+      "，",
+      "找",
+      "到",
+      "了",
+      "地铁",
+      "。",
+      "从",
+      "下午",
+      "一",
+      "点",
+      "到",
+      "两",
+      "点",
+      "，",
+      "他",
+      "都",
+      "在",
+      "地铁",
+      "上",
+      "。",
+      "两",
+      "点",
+      "，",
+      "朋友",
+      "在",
+      "机场",
+      "门口",
+      "等",
+      "他",
+      "。",
+      "朋友",
+      "很",
+      "高兴",
+      "，",
+      "说",
+      "：",
+      "“",
+      "你",
+      "来",
+      "得",
+      "真",
+      "快",
+      "！",
+      "”"
+    ]
+  ],
+  "translation": [
+    "Xiaoming is going to the airport today to meet a friend. He doesn't know how to get there, so he asks a woman at the station.",
+    "\"Excuse me, how do I get to the airport?\"",
+    "The woman says, \"Walk straight ahead from here to that gate, and then turn right. The subway is there.\"",
+    "Xiaoming asks, \"How many minutes does it take by subway?\"",
+    "The woman says, \"It takes sixty minutes from here to the airport.\"",
+    "Xiaoming says, \"Thank you!\"",
+    "He walks straight ahead and finds the subway. From one o'clock to two o'clock in the afternoon, he is on the subway. At two o'clock, his friend is waiting for him at the airport entrance. The friend is very happy and says, \"You got here so fast!\""
+  ],
+  "verification": {
+    "tokens": 122,
+    "atOrBelowLevel": 121,
+    "share": 0.9918032786885246,
+    "offLevel": [
+      "明"
+    ]
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:13:00.856Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "找朋友",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "六十分钟",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "机场门口",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "车站",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "门口",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z3",
+        "given": "高兴",
+        "agrees": true,
+        "alternatives": [
+          "开心"
+        ]
+      }
+    ],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The friend says 你来得真快 (you came so fast), but the trip took 60 minutes and the passage does not say when Xiaoming left, so the praise is slightly odd. Also, the passage says 从下午一点到两点 he was on the subway, which is consistent with 60 minutes, but the time spent walking and asking is not accounted for."
+      },
+      {
+        "severity": "minor",
+        "description": "The directions are somewhat unnatural: 到那个门口 uses 那个 without any prior referent, and 那儿有地铁 is vague about which place has the subway."
+      },
+      {
+        "severity": "minor",
+        "description": "The phrasing 他往前走，找到了地铁 skips the 往右走 step the woman described, so it is a slight simplification of the directions."
+      }
+    ],
+    "costUsd": 0.0074
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:12:56.282Z",
+    "attempts": 2,
+    "costUsd": 0.0669
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "_id": "t1-0007",
+  "level": 1,
+  "english": "My mother is a doctor. She goes to work at eight in the morning and finishes work at six. At night she goes to bed very early.",
+  "reference": "我妈妈是医生。她早上八点上班,六点下班。晚上她很早睡觉。",
+  "topic": "A doctor's work day",
+  "tokens": [
+    "我",
+    "妈妈",
+    "是",
+    "医生",
+    "。",
+    "她",
+    "早上",
+    "八",
+    "点",
+    "上班",
+    ",",
+    "六",
+    "点",
+    "下班",
+    "。",
+    "晚上",
+    "她",
+    "很",
+    "早",
+    "睡觉",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g1-007",
+      "example": "她早上八点上班"
+    }
+  ],
+  "verification": {
+    "tokens": 14,
+    "atOrBelowLevel": 14,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:14:23.775Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The reference uses 上班 and 下班, which are above HSK 1 (HSK 1 learners would more likely write 去工作 / 工作). 早 in 很早 may also be slightly beyond HSK 1. The grader may reject simpler, correct answers such as 她早上八点去工作 or 六点工作完, so it should accept alternatives."
+      }
+    ],
+    "costUsd": 0.0067
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:14:18.419Z",
+    "attempts": 3,
+    "costUsd": 0.0473
+  }
+}

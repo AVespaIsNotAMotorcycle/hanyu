@@ -1,0 +1,76 @@
+{
+  "_id": "t2-0001",
+  "level": 2,
+  "english": "My school is not big. There is a bookstore in front of the school and a supermarket behind it. After class, I often go inside the bookstore to read.",
+  "reference": "我的学校不大。学校前面有一个书店，后面有一个超市。下课后我经常去书店里面看书。",
+  "topic": "Places around my school",
+  "tokens": [
+    "我",
+    "的",
+    "学校",
+    "不",
+    "大",
+    "。",
+    "学校",
+    "前面",
+    "有",
+    "一",
+    "个",
+    "书店",
+    "，",
+    "后面",
+    "有",
+    "一",
+    "个",
+    "超市",
+    "。",
+    "下课",
+    "后",
+    "我",
+    "经常",
+    "去",
+    "书店",
+    "里面",
+    "看",
+    "书",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-001",
+      "example": "学校前面有一个书店"
+    }
+  ],
+  "verification": {
+    "tokens": 21,
+    "atOrBelowLevel": 21,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:15:35.495Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "超市 (supermarket) and 书店 (bookstore) may be slightly above HSK 2 vocabulary. They are common, transparent compounds, so this is unlikely to be a problem."
+      },
+      {
+        "severity": "minor",
+        "description": "\"behind it\" could in theory refer to the bookstore rather than the school. The reference reads it as the school, which is the likely meaning, but \"behind the school\" would be clearer."
+      }
+    ],
+    "costUsd": 0.0079
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:15:29.655Z",
+    "attempts": 1,
+    "costUsd": 0.0207
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "_id": "t1-0006",
+  "level": 1,
+  "english": "Teacher, may I ask you a question? I don't know this character. Can you write it for me?",
+  "reference": "老师,我可以问您一个问题吗?我不认识这个字,您可以给我写一下吗?",
+  "topic": "Asking the teacher a question after class",
+  "tokens": [
+    "老师",
+    ",",
+    "我",
+    "可以",
+    "问",
+    "您",
+    "一",
+    "个",
+    "问题",
+    "吗",
+    "?",
+    "我",
+    "不",
+    "认识",
+    "这个",
+    "字",
+    ",",
+    "您",
+    "可以",
+    "给",
+    "我",
+    "写",
+    "一下",
+    "吗",
+    "?"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g1-006",
+      "example": "我可以问您一个问题吗"
+    }
+  ],
+  "verification": {
+    "tokens": 20,
+    "atOrBelowLevel": 20,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:13:47.940Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The English \"you\" is rendered as 您 (polite). Learners at HSK 1 will likely write 你, and the grader may mark it wrong even though it is equally correct. Accept 你 as well, or tell learners to use the polite form."
+      },
+      {
+        "severity": "minor",
+        "description": "Several words in the reference are slightly above strict HSK 1 level: 问题, 可以, 给, 问, 一下 (depending on the HSK standard). The sentence pair is therefore somewhat demanding for HSK 1 learners."
+      },
+      {
+        "severity": "minor",
+        "description": "The reference adds 一下 and omits \"it\", which is natural in Chinese. A learner's literal answer such as 你可以给我写这个字吗 would be correct but differ from the reference, so the grader should allow variants."
+      }
+    ],
+    "costUsd": 0.0088
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:13:41.019Z",
+    "attempts": 1,
+    "costUsd": 0.0164
+  }
+}

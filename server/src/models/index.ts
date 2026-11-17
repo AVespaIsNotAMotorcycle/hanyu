@@ -11,6 +11,7 @@ export { TranslationGradingModel } from './translationGrading.js';
 export { AudioClipModel } from './audioClip.js';
 export { QuestionAnswerModel } from './questionAnswer.js';
 export { ListeningExerciseModel } from './listeningExercise.js';
+export { TranslateExerciseModel } from './translateExercise.js';
 export {
   PushSubscriptionModel,
   type StoredPushSubscription,

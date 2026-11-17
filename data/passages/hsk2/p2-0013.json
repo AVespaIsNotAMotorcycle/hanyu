@@ -1,0 +1,297 @@
+{
+  "_id": "p2-0013",
+  "level": 2,
+  "title": "跟哥哥去商场",
+  "titleEnglish": "Going to the Mall with My Older Brother",
+  "text": "今天是星期天，我跟哥哥一起去商场。哥哥比我大三岁，也比我高。他想买一件新衣服。\n\n商场里的人很多。红色的衣服比黑色的贵，但是哥哥觉得红色的比黑色的好看。他问我：“你觉得怎么样？”我说：“很好看！”\n\n他买了红色的衣服。我们去饭馆吃饭。饭馆里的面条儿比家里的好吃，米饭也很不错。我跟哥哥说：“今天真高兴！”哥哥说：“明天我还想跟你一起去书店。”",
+  "names": [],
+  "grammar": [
+    {
+      "grammarId": "g2-025",
+      "example": "哥哥比我大三岁"
+    },
+    {
+      "grammarId": "g2-026",
+      "example": "我跟哥哥一起去商场"
+    }
+  ],
+  "questions": [
+    {
+      "id": "c1",
+      "type": "choice",
+      "prompt": "今天我跟谁一起去商场？",
+      "promptEnglish": "Who did I go to the mall with today?",
+      "options": [
+        "哥哥",
+        "爸爸",
+        "朋友",
+        "老师"
+      ],
+      "answer": 0,
+      "explanation": "The first paragraph says \"我跟哥哥一起去商场\", so the narrator went with his or her older brother."
+    },
+    {
+      "id": "c2",
+      "type": "choice",
+      "prompt": "哥哥觉得哪个颜色好看？",
+      "promptEnglish": "Which color does my older brother think looks good?",
+      "options": [
+        "黑色",
+        "红色",
+        "白色",
+        "绿色"
+      ],
+      "answer": 1,
+      "explanation": "The passage says \"哥哥觉得红色的比黑色的好看\", so he thinks red looks better than black, and he buys the red clothes."
+    },
+    {
+      "id": "c3",
+      "type": "choice",
+      "prompt": "饭馆里的什么比家里的好吃？",
+      "promptEnglish": "What at the restaurant is tastier than at home?",
+      "options": [
+        "面条儿",
+        "米饭",
+        "包子",
+        "饺子"
+      ],
+      "answer": 0,
+      "explanation": "The passage says \"饭馆里的面条儿比家里的好吃\", so the noodles at the restaurant are tastier than those at home."
+    },
+    {
+      "id": "z1",
+      "type": "cloze",
+      "sentence": "他想买一件新＿＿。",
+      "answer": "衣服",
+      "alsoAccepted": [],
+      "hint": "clothes"
+    },
+    {
+      "id": "z2",
+      "type": "cloze",
+      "sentence": "我们去＿＿吃饭。",
+      "answer": "饭馆",
+      "alsoAccepted": [
+        "饭店"
+      ],
+      "hint": "restaurant"
+    },
+    {
+      "id": "z3",
+      "type": "cloze",
+      "sentence": "饭馆里的＿＿比家里的好吃，米饭也很不错。",
+      "answer": "面条儿",
+      "alsoAccepted": [
+        "菜",
+        "饺子",
+        "包子"
+      ],
+      "hint": "noodles"
+    }
+  ],
+  "tokens": [
+    [
+      "今天",
+      "是",
+      "星期天",
+      "，",
+      "我",
+      "跟",
+      "哥哥",
+      "一起",
+      "去",
+      "商场",
+      "。",
+      "哥哥",
+      "比",
+      "我",
+      "大",
+      "三",
+      "岁",
+      "，",
+      "也",
+      "比",
+      "我",
+      "高",
+      "。",
+      "他",
+      "想",
+      "买",
+      "一",
+      "件",
+      "新",
+      "衣服",
+      "。"
+    ],
+    [
+      "商场",
+      "里",
+      "的",
+      "人",
+      "很",
+      "多",
+      "。",
+      "红色",
+      "的",
+      "衣服",
+      "比",
+      "黑色",
+      "的",
+      "贵",
+      "，",
+      "但是",
+      "哥哥",
+      "觉得",
+      "红色",
+      "的",
+      "比",
+      "黑色",
+      "的",
+      "好看",
+      "。",
+      "他",
+      "问",
+      "我",
+      "：",
+      "“",
+      "你",
+      "觉得",
+      "怎么样",
+      "？",
+      "”",
+      "我",
+      "说",
+      "：",
+      "“",
+      "很",
+      "好看",
+      "！",
+      "”"
+    ],
+    [
+      "他",
+      "买",
+      "了",
+      "红色",
+      "的",
+      "衣服",
+      "。",
+      "我们",
+      "去",
+      "饭馆",
+      "吃",
+      "饭",
+      "。",
+      "饭馆",
+      "里",
+      "的",
+      "面条儿",
+      "比",
+      "家",
+      "里",
+      "的",
+      "好吃",
+      "，",
+      "米饭",
+      "也",
+      "很",
+      "不错",
+      "。",
+      "我",
+      "跟",
+      "哥哥",
+      "说",
+      "：",
+      "“",
+      "今天",
+      "真",
+      "高兴",
+      "！",
+      "”",
+      "哥哥",
+      "说",
+      "：",
+      "“",
+      "明天",
+      "我",
+      "还",
+      "想",
+      "跟",
+      "你",
+      "一起",
+      "去",
+      "书店",
+      "。",
+      "”"
+    ]
+  ],
+  "translation": [
+    "Today is Sunday, and I went to the shopping mall with my older brother. My brother is three years older than me, and he is also taller than me. He wanted to buy a new piece of clothing.",
+    "There were a lot of people in the mall. The red clothes were more expensive than the black ones, but my brother thought the red ones looked better than the black ones. He asked me, \"What do you think?\" I said, \"It looks great!\"",
+    "He bought the red piece of clothing. We went to a restaurant to eat. The noodles at the restaurant were more delicious than the ones at home, and the rice was also very good. I said to my brother, \"I'm really happy today!\" My brother said, \"Tomorrow I'd like to go to the bookstore with you again.\""
+  ],
+  "verification": {
+    "tokens": 127,
+    "atOrBelowLevel": 127,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:13:52.670Z",
+    "passed": true,
+    "answers": [
+      {
+        "questionId": "c1",
+        "given": "哥哥",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c2",
+        "given": "红色",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "c3",
+        "given": "面条儿",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z1",
+        "given": "衣服",
+        "agrees": true,
+        "alternatives": []
+      },
+      {
+        "questionId": "z2",
+        "given": "饭馆",
+        "agrees": true,
+        "alternatives": [
+          "饭馆儿"
+        ]
+      },
+      {
+        "questionId": "z3",
+        "given": "面条儿",
+        "agrees": true,
+        "alternatives": [
+          "面条"
+        ]
+      }
+    ],
+    "issues": [],
+    "costUsd": 0.005
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:13:50.725Z",
+    "attempts": 1,
+    "costUsd": 0.0335
+  }
+}

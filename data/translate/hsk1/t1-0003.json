@@ -1,0 +1,73 @@
+{
+  "_id": "t1-0003",
+  "level": 1,
+  "english": "I am looking for my phone. It is not on the table, and it is not in my room. My younger sister says it is on the chair outside.",
+  "reference": "我正在找手机。手机不在桌子上，也不在房间里。妹妹说它在外边的椅子上。",
+  "topic": "Looking for my phone at home",
+  "tokens": [
+    "我",
+    "正在",
+    "找",
+    "手机",
+    "。",
+    "手机",
+    "不",
+    "在",
+    "桌子",
+    "上",
+    "，",
+    "也",
+    "不",
+    "在",
+    "房间",
+    "里",
+    "。",
+    "妹妹",
+    "说",
+    "它",
+    "在",
+    "外边",
+    "的",
+    "椅子",
+    "上",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g1-003",
+      "example": "桌子上"
+    }
+  ],
+  "verification": {
+    "tokens": 22,
+    "atOrBelowLevel": 22,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:13:11.871Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The reference leaves out the possessives. \"my phone\" becomes 手机 and \"my room\" becomes 房间, not 我的手机 and 我的房间. This is natural Chinese, but a learner who writes 我的 may be marked down by the automatic grader. Consider adding 我的 or accepting both versions."
+      },
+      {
+        "severity": "minor",
+        "description": "Several words are above HSK 1: 正在, 手机, 房间, 妹妹, 外边, 椅子. The passage is closer to HSK 2-3. Consider simpler content for level 1, or treat the level as approximate."
+      }
+    ],
+    "costUsd": 0.0105
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:13:03.738Z",
+    "attempts": 1,
+    "costUsd": 0.0199
+  }
+}

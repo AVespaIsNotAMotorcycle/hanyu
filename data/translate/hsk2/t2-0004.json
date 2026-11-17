@@ -1,0 +1,75 @@
+{
+  "_id": "t2-0004",
+  "level": 2,
+  "english": "The weather isn't good today. It may snow tomorrow, so my older brother probably won't come. We can go to the movie theater on Sunday.",
+  "reference": "今天天气不好。明天可能下雪，所以哥哥可能不来。我们星期天可以去电影院看电影。",
+  "topic": "Changing weekend plans because of the weather",
+  "tokens": [
+    "今天",
+    "天气",
+    "不",
+    "好",
+    "。",
+    "明天",
+    "可能",
+    "下",
+    "雪",
+    "，",
+    "所以",
+    "哥哥",
+    "可能",
+    "不",
+    "来",
+    "。",
+    "我们",
+    "星期天",
+    "可以",
+    "去",
+    "电影院",
+    "看",
+    "电影",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g2-004",
+      "example": "明天可能下雪"
+    }
+  ],
+  "verification": {
+    "tokens": 17,
+    "atOrBelowLevel": 17,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:16:14.203Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "The reference adds 看电影 (\"to watch a movie\"), which is not in the English. The English only says \"go to the movie theater\". It is natural Chinese, but it is an addition, and a learner who writes 我们星期天可以去电影院 would be marked down unfairly."
+      },
+      {
+        "severity": "minor",
+        "description": "The English uses \"may\" and \"probably\", but the reference renders both as 可能. A learner might use 应该 or 大概 for \"probably\", and the grader may mark that wrong."
+      },
+      {
+        "severity": "minor",
+        "description": "下雪 (雪) and 电影院 are slightly above the HSK 2 vocabulary list, so some learners may not know them."
+      }
+    ],
+    "costUsd": 0.008
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:16:04.774Z",
+    "attempts": 1,
+    "costUsd": 0.0157
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "_id": "t1-0008",
+  "level": 1,
+  "english": "Today I went to a store with my mother. I asked how much these apples were. They were five yuan each. I bought two.",
+  "reference": "今天我和妈妈去商店。我问这些苹果多少钱。五块钱一个。我买了两个。",
+  "topic": "Buying apples at a store",
+  "tokens": [
+    "今天",
+    "我",
+    "和",
+    "妈妈",
+    "去",
+    "商店",
+    "。",
+    "我",
+    "问",
+    "这些",
+    "苹果",
+    "多少",
+    "钱",
+    "。",
+    "五",
+    "块",
+    "钱",
+    "一",
+    "个",
+    "。",
+    "我",
+    "买",
+    "了",
+    "两",
+    "个",
+    "。"
+  ],
+  "grammar": [
+    {
+      "grammarId": "g1-008",
+      "example": "这些苹果多少钱"
+    }
+  ],
+  "verification": {
+    "tokens": 19,
+    "atOrBelowLevel": 19,
+    "share": 1,
+    "offLevel": []
+  },
+  "answerKeyCheck": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "checkedAt": "2026-11-17T19:14:54.294Z",
+    "passed": true,
+    "answers": [],
+    "issues": [
+      {
+        "severity": "minor",
+        "description": "“went” is past tense, but the reference 今天我和妈妈去商店 has no aspect marker. 今天我和妈妈去了商店 is more natural and matches the English. Learners who write 去了商店 may be marked down by the automatic grader."
+      },
+      {
+        "severity": "minor",
+        "description": "商店 (“store”) may be slightly above strict HSK 1 vocabulary, depending on the standard used. 问 (“asked”) may also be borderline. The exercise is otherwise within HSK 1 level."
+      }
+    ],
+    "costUsd": 0.0085
+  },
+  "review": null,
+  "generation": {
+    "model": "claude-sonnet-5-5",
+    "promptVersion": "1",
+    "generatedAt": "2026-11-17T19:14:47.660Z",
+    "attempts": 2,
+    "costUsd": 0.0404
+  }
+}

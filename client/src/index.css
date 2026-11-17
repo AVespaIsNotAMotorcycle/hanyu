@@ -316,8 +316,9 @@ progress::-moz-progress-bar {
   color: var(--accent);
 }
 
-/* Phones: the sections move to a bar at the thumb. */
-@media (max-width: 40rem) {
+/* Phones and narrow tablets (six tabs don't fit a narrower top bar): the
+ * sections move to a bar at the thumb. */
+@media (max-width: 52rem) {
   /*
    * Only main scrolls. Scrolling the document would collapse the browser's
    * toolbar, and the fixed tabs would shift with it.
